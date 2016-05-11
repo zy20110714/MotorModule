@@ -397,10 +397,16 @@ namespace ICDIBasic
                     Configuration.m_CmdMap[index] = value;
                 }
             }
-            //if (pCanMsg.DATA[CAN_CMD] == 5)
-            //{
-            //    int aa = 1;
-            //}
+            if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_SCP)
+            {
+                int Index = pCanMsg.DATA[CAN_INDEX];
+                if (Index == Configuration.SCP_MEAPOS_L)
+                {
+                    int aa = 1;
+                }
+                Configuration.m_CmdMap[Index] = (Int16)(pCanMsg.DATA[CAN_DATA] + (pCanMsg.DATA[CAN_DATA + 1] << 8));
+                Configuration.m_CmdMap[Index + 1] = (Int16)(pCanMsg.DATA[CAN_DATA + 2] + (pCanMsg.DATA[CAN_DATA + 3] << 8));
+            }
             PCan.m_iFramesCount++;
 
             //if(m_hParentWnd != NULL && m_message != 0)
