@@ -166,10 +166,10 @@ namespace ICDIBasic
         }
 
 
-        public void add(int a, int b)
-        {
-            int c = a + b;
-        }
+        //public void add(int a, int b)
+        //{
+        //    int c = a + b;
+        //}
 
     }
 }
