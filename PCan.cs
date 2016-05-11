@@ -155,7 +155,7 @@ namespace ICDIBasic
         }
 
         //void InitRXNodifyMessage(HWND hWnd, UINT Msg)
-        //{
+        //{ 
         //    m_message = Msg;
         //    m_hParentWnd = hWnd;
         //}
@@ -166,10 +166,10 @@ namespace ICDIBasic
         }
 
 
-        //public void add(int a, int b)
-        //{
+        public void add(int a, int b)
+        {
         //    int c = a + b;
-        //}
+        }
 
     }
 }
