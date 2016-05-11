@@ -397,10 +397,11 @@ namespace ICDIBasic
                     Configuration.m_CmdMap[index] = value;
                 }
             }
-            //if (pCanMsg.DATA[CAN_CMD] == 5)
-            //{
-            //    int aa = 1;
-            //}
+            if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_SCP)
+            {
+                int Index = pCanMsg.DATA[CAN_INDEX];
+                Configuration.m_CmdMap[Index] = pCanMsg.DATA[CAN_DATA];
+            }
             PCan.m_iFramesCount++;
 
             //if(m_hParentWnd != NULL && m_message != 0)

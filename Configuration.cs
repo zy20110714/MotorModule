@@ -143,18 +143,20 @@ namespace ICDIBasic
                                                           
         //示波器模块子索引地址定义                        
         public const byte SCP_MASK					= 0x90;	//记录对象标志MASK
-        public const byte SCP_TRI_SOC				= 0x91;	//触发源    0-开环触发，1-电流触发，2-速度触发，3-位置触发
-        public const byte SCP_TRI_MOD				= 0x92;	//触发方式  0-上升沿，  1-下降沿，  2-连续采样，3-用户触发
-        public const byte SCP_TRI_FLG				= 0x93;	//用户触发标志
-        public const byte SCP_REC_TIM				= 0x94;	//记录时间间隔（对10kHZ的分频值）
-        public const byte SCP_REC_OFS				= 0x95;	//记录时间偏置（默认以信号过零点时刻±60次数据）
-        public const byte SCP_TAGCUR				= 0x96;	//目标电流数据集
-        public const byte SCP_MEACUR				= 0x97;	//实际电流数据集
-        public const byte SCP_TAGSPD				= 0x98;	//目标速度数据集
-        public const byte SCP_MEASPD				= 0x99;	//实际速度数据集
-        public const byte SCP_TAGPOS				= 0x9A;	//目标位置数据集
-        public const byte SCP_MEAPOS				= 0x9B;	//实际位置数据集
-
+        public const byte SCP_REC_TIM				= 0x91;	//记录时间间隔（对10kHZ的分频值）
+        public const byte SCP_TAGCUR_L		    	= 0x92;	//目标电流数据集
+        public const byte SCP_TAGCUR_H		    	= 0x93;	//目标电流数据集
+        public const byte SCP_MEACUR_L		    	= 0x94;	//实际电流数据集
+        public const byte SCP_MEACUR_H		    	= 0x95;	//实际电流数据集
+        public const byte SCP_TAGSPD_L		    	= 0x96;	//目标速度数据集
+        public const byte SCP_TAGSPD_H		    	= 0x97;	//目标速度数据集
+        public const byte SCP_MEASPD_L		    	= 0x98;	//实际速度数据集
+        public const byte SCP_MEASPD_H		    	= 0x99;	//实际速度数据集
+        public const byte SCP_TAGPOS_L		    	= 0x9A;	//目标位置数据集
+        public const byte SCP_TAGPOS_H		    	= 0x9B;	//目标位置数据集
+        public const byte SCP_MEAPOS_L              = 0x9C;	//实际位置数据集
+        public const byte SCP_MEAPOS_H              = 0x9D;	//实际位置数据集
+        
         public Configuration()
         {
             InitialMemoryControlTable();
@@ -163,22 +165,22 @@ namespace ICDIBasic
        
         private void InitialMemoryControlTable()
         {
-            MemoryControlTable.Add(Convert.ToByte("00", 16), m_CmdMap[0]);
-            MemoryControlTable.Add(Convert.ToByte("01", 16), m_CmdMap[SYS_ID]);
-            MemoryControlTable.Add(Convert.ToByte("02", 16), m_CmdMap[SYS_MODEL_TYPE]);
-            MemoryControlTable.Add(Convert.ToByte("03", 16), m_CmdMap[SYS_FW_VERSION]);
-            MemoryControlTable.Add(Convert.ToByte("04", 16), m_CmdMap[SYS_ERROR]);
-            MemoryControlTable.Add(Convert.ToByte("05", 16), m_CmdMap[SYS_VOLTAGE]);
-            MemoryControlTable.Add(Convert.ToByte("06", 16), m_CmdMap[SYS_TEMP]);
-            MemoryControlTable.Add(Convert.ToByte("07", 16), m_CmdMap[SYS_REDU_RATIO]);
-            MemoryControlTable.Add(Convert.ToByte("08", 16), m_CmdMap[0x08]);
-            MemoryControlTable.Add(Convert.ToByte("09", 16), m_CmdMap[SYS_BAUDRATE_CAN]);
-            MemoryControlTable.Add(Convert.ToByte("0a", 16), m_CmdMap[SYS_ENABLE_DRIVER]);
-            MemoryControlTable.Add(Convert.ToByte("0b", 16), m_CmdMap[SYS_ENABLE_ON_POWER]);
-            MemoryControlTable.Add(Convert.ToByte("0c", 16), m_CmdMap[SYS_SAVE_TO_FLASH]);
-            MemoryControlTable.Add(Convert.ToByte("0d", 16), m_CmdMap[0x0d]);
-            MemoryControlTable.Add(Convert.ToByte("0e", 16), m_CmdMap[SYS_SET_ZERO_POS]);
-            MemoryControlTable.Add(Convert.ToByte("0f", 16), m_CmdMap[SYS_CLEAR_ERROR]);
+            //MemoryControlTable.Add(Convert.ToByte("00", 16), m_CmdMap[0]);
+            //MemoryControlTable.Add(Convert.ToByte("01", 16), m_CmdMap[SYS_ID]);
+            //MemoryControlTable.Add(Convert.ToByte("02", 16), m_CmdMap[SYS_MODEL_TYPE]);
+            //MemoryControlTable.Add(Convert.ToByte("03", 16), m_CmdMap[SYS_FW_VERSION]);
+            //MemoryControlTable.Add(Convert.ToByte("04", 16), m_CmdMap[SYS_ERROR]);
+            //MemoryControlTable.Add(Convert.ToByte("05", 16), m_CmdMap[SYS_VOLTAGE]);
+            //MemoryControlTable.Add(Convert.ToByte("06", 16), m_CmdMap[SYS_TEMP]);
+            //MemoryControlTable.Add(Convert.ToByte("07", 16), m_CmdMap[SYS_REDU_RATIO]);
+            //MemoryControlTable.Add(Convert.ToByte("08", 16), m_CmdMap[0x08]);
+            //MemoryControlTable.Add(Convert.ToByte("09", 16), m_CmdMap[SYS_BAUDRATE_CAN]);
+            //MemoryControlTable.Add(Convert.ToByte("0a", 16), m_CmdMap[SYS_ENABLE_DRIVER]);
+            //MemoryControlTable.Add(Convert.ToByte("0b", 16), m_CmdMap[SYS_ENABLE_ON_POWER]);
+            //MemoryControlTable.Add(Convert.ToByte("0c", 16), m_CmdMap[SYS_SAVE_TO_FLASH]);
+            //MemoryControlTable.Add(Convert.ToByte("0d", 16), m_CmdMap[0x0d]);
+            //MemoryControlTable.Add(Convert.ToByte("0e", 16), m_CmdMap[SYS_SET_ZERO_POS]);
+            //MemoryControlTable.Add(Convert.ToByte("0f", 16), m_CmdMap[SYS_CLEAR_ERROR]);
         }
 
         public short GetCmdMapValue(byte Index)
