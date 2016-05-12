@@ -383,7 +383,7 @@ namespace ICDIBasic
 
             // Display messages in grid
             //
-            tmrDisplay.Enabled = bConnected;
+           
         }
 
         /// <summary>
@@ -461,7 +461,7 @@ namespace ICDIBasic
             this.mthread.StartSend("MessageProcess"); //  
 
             //搜索CAN总线上的模块
-            pc.SearchModule();
+            pc.SearchModuleID();
             //等待返回ID号
             Thread.Sleep(150);
             try
@@ -472,7 +472,10 @@ namespace ICDIBasic
                     {
                         cBID.Items.Add(MessageProccessing.allID[i]);
                     }
-
+                }
+                if (MessageProccessing.allID.Count > 0)
+                {
+                     tMCheck.Enabled = true;
                 }
             }
             catch (System.Exception ex)
@@ -530,10 +533,17 @@ namespace ICDIBasic
             //this.IsMdiContainer = true;    Done with the property of MainForm
             btnHwRefresh_Click(this, new EventArgs());
             Thread.Sleep(1);
-            btnInit_Click(this, new EventArgs());
-            Thread.Sleep(20);
-
-          
+            bool IsInitialSucessed = InitPcan();
+            Thread.Sleep(10);
+            if (IsInitialSucessed)
+            {
+               
+            }
+            else
+            {
+                MessageBox.Show("CAN总线初始化失败！");
+            }
+            
             //Int32 speed = 337892;
             //byte[] tt = BitConverter.GetBytes(speed);
             //short a = (short)speed;
@@ -578,21 +588,6 @@ namespace ICDIBasic
         }
         #endregion
 
-       
-
-        #region Timer event-handler
-        private void tmrRead_Tick(object sender, EventArgs e)
-        { 
-            // Checks if in the receive-queue are currently messages for read
-            // 
-            //ReadMessages();
-        }
-
-        private void tmrDisplay_Tick(object sender, EventArgs e)
-        {
-            //DisplayMessages();
-        }
-        #endregion
 
         #region Message List-View event-handler
         private void lstMessages_DoubleClick(object sender, EventArgs e)
@@ -850,6 +845,7 @@ namespace ICDIBasic
         }
         #endregion        
 
+   
        
 
         

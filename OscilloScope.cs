@@ -30,7 +30,8 @@ namespace ICDIBasic
         double currentRatio = 1.0;
 
       
-        int tracePos = 0;
+        int tracePos1 = 0;
+        int tracePos2 = 0;
         public static bool EnableScope = false;
 
 
@@ -98,7 +99,8 @@ namespace ICDIBasic
 
         private void InitialControls()
         {
-            tracePos = pLPaint.Width / 2;
+            tracePos1 = 0;
+            tracePos2 = pLPaint.Width;
             itemRelection.Clear();
             itemRelection.Add(Configuration.TAG_CURRENT_L, "指令电流");
             itemRelection.Add(Configuration.TAG_SPEED_L, "指令速度");
@@ -116,7 +118,7 @@ namespace ICDIBasic
 
             Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS | Configuration.MASK_TAGCUR | Configuration.MASK_MEACUR;
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
-            setTimeInterval(100);
+            setTimeInterval(10);
         }
 
         void setTimeInterval(short interval)
@@ -157,11 +159,18 @@ namespace ICDIBasic
             {
                 g.DrawLines(pen, new Point[] { new Point(0, i * 30), new Point(740, i * 30) });
             }
-            pen.DashStyle = DashStyle.Solid;
+            pen.DashStyle = DashStyle.Custom;
             pen.Width = 1.8f;
             g.DrawLines(pen, new Point[] { new Point(0, 6 * 30), new Point(740, 6 * 30) });
 
-            g.DrawLines(pen, new Point[] { new Point(tracePos, 0), new Point(tracePos, 360) });
+            if (cBPointer.Checked)
+            {
+                pen.Color = Color.Cyan;
+                g.DrawLines(pen, new Point[] { new Point(tracePos1, 0), new Point(tracePos1, 360) });
+                pen.Color = Color.DarkCyan;
+                g.DrawLines(pen, new Point[] { new Point(tracePos2, 0), new Point(tracePos2, 360) });
+            }
+          
 
             for (int i = 0; i < showItems.Count;i++ )
             {
@@ -250,9 +259,26 @@ namespace ICDIBasic
             pLPaint.Refresh();
         }
 
+        //指针响应处理函数
         private void tBtrace_Scroll(object sender, EventArgs e)
         {
-            tracePos = (ushort)tBtrace.Value;
+            if (rBPointer1.Checked)
+            {
+                tracePos1 = (ushort)tBtrace.Value;
+                if (tracePos1 >= tracePos2)
+                {
+                    tracePos1 = tracePos2;
+                }
+            }
+            if (rBPointer2.Checked)
+            {
+                tracePos2 = (ushort)tBtrace.Value - 1;
+                if (tracePos1 >= tracePos2)
+                {
+                    tracePos2 = tracePos1;
+                }
+            }
+          
         }
 
         private void tCMonitor_SelectedIndexChanged(object sender, EventArgs e)
@@ -448,6 +474,38 @@ namespace ICDIBasic
             {
                 MessageBox.Show("请输入合法的字符串！");
                 return;
+            }
+        }
+
+        private void cBPointer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cBPointer.Checked)
+            {
+                tBtrace.Enabled = true;
+                if (rBPointer1.Checked)
+                {
+                    tBtrace.Value = tracePos1;
+                }
+                else
+                {
+                    tBtrace.Value = tracePos2;
+                }
+            }
+            else
+            {
+                tBtrace.Enabled = false;
+            }
+        }
+
+        private void rBPointer1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rBPointer1.Checked)
+            {
+                tBtrace.Value = tracePos1;
+            }
+            else
+            {
+                tBtrace.Value = tracePos2;
             }
         }
         

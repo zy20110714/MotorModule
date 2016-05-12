@@ -50,6 +50,7 @@ namespace ICDIBasic
         public const byte CAN_REMOTE_FRAME = 1;    //远程帧
 
         public static List<short> allID = new List<short>();
+        public static List<short> allID2 = new List<short>(); //供检测连接用
 
         /// <summary>
         /// Stores the status of received messages for its display
@@ -370,9 +371,13 @@ namespace ICDIBasic
                 {
                     index++;
                     Int16 value = (Int16)(pCanMsg.DATA[CAN_DATA + i * 2] + (pCanMsg.DATA[CAN_DATA + i * 2 + 1] << 8));
-                    if (index == 1 && (!allID.Contains(value)))
+                    if (index == 1)
                     {
-                        allID.Add(value);
+                        if (!allID.Contains(value))
+                        {
+                            allID.Add(value);
+                        }
+                        allID2.Add(value);
                     }
                     Configuration.m_CmdMap[index] = value;
                 }

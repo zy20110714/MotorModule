@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PCAN-Basic Sample")]
-[assembly: AssemblyDescription("PCAN-Basic Application")]
+[assembly: AssemblyTitle("ORProject")]
+[assembly: AssemblyDescription("MotorModule Application")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("PEAK-System Technik GmbH")]
-[assembly: AssemblyProduct("PCAN-Basic")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("OUR robotics")]
+[assembly: AssemblyProduct("Motor Debug")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("PCAN")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +33,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.1.0")]
-[assembly: AssemblyFileVersion("4.0.1.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
+[assembly: NeutralResourcesLanguageAttribute("zh-Hans")]

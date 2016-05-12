@@ -166,7 +166,7 @@
             this.txtData0 = new System.Windows.Forms.TextBox();
             this.nudLength = new System.Windows.Forms.NumericUpDown();
             this.tmrRead = new System.Windows.Forms.Timer(this.components);
-            this.tmrDisplay = new System.Windows.Forms.Timer(this.components);
+            this.tMCheck = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
@@ -451,7 +451,7 @@
             this.btnInit.Size = new System.Drawing.Size(65, 21);
             this.btnInit.TabIndex = 34;
             this.btnInit.Text = "Initialize";
-            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
+            //this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
             // 
             // btnRelease
             // 
@@ -2072,9 +2072,10 @@
             this.tmrRead.Interval = 50;
             this.tmrRead.Tick += new System.EventHandler(this.tmrRead_Tick);
             // 
-            // tmrDisplay
+            // tMCheck
             // 
-            this.tmrDisplay.Tick += new System.EventHandler(this.tmrDisplay_Tick);
+            this.tMCheck.Interval = 2000;
+            this.tMCheck.Tick += new System.EventHandler(this.tMCheck_Tick);
             // 
             // panel1
             // 
@@ -2341,7 +2342,7 @@
         private System.Windows.Forms.Button btnHwRefresh;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnStatus;
-        private System.Windows.Forms.Timer tmrDisplay;
+        private System.Windows.Forms.Timer tMCheck;
         private System.Windows.Forms.Label laBitrate;
         private System.Windows.Forms.TextBox txtBitrate;
         private System.Windows.Forms.CheckBox chbFD;

@@ -19,6 +19,7 @@ namespace ICDIBasic
 {
     public partial class MainForm
     {
+        bool IsCheckConnection = false;
 
         #region ComboBox event-handlers
         private void cbbChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -180,7 +181,7 @@ namespace ICDIBasic
             }
         }
 
-        private void btnInit_Click(object sender, EventArgs e)
+        private bool InitPcan()
         {
             TPCANStatus stsResult;
 
@@ -217,6 +218,14 @@ namespace ICDIBasic
             // Sets the connection status of the main-form
             //
             SetConnectionStatus(stsResult == TPCANStatus.PCAN_ERROR_OK);
+            if (stsResult == TPCANStatus.PCAN_ERROR_OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void btnRelease_Click(object sender, EventArgs e)
@@ -792,7 +801,55 @@ namespace ICDIBasic
         }
         #endregion
 
+        #region Timer event-handler
+        private void tmrRead_Tick(object sender, EventArgs e)
+        {
+          
+        }
 
+        private void tMCheck_Tick(object sender, EventArgs e)
+        {
+            //检测总线上的模块是否存在 以优先级高的方式传送
+            string message = "";
+            string caption = "";
+       
+            if (!IsCheckConnection)
+            {
+                IsCheckConnection = true;
+                MessageProccessing.allID2.Clear();
+                pc.SearchModuleID();
+            }
+            else
+            {
+                IsCheckConnection = false;
+                if (MessageProccessing.allID2.Count == 0)
+                {
+                    tMCheck.Enabled = false;
+                    message = "您确定要关闭吗？";
+                    caption = "总线上未检测到连接模块！";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result = MessageBox.Show(this, message, caption, buttons);
+                    if (result == DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+
+                        return;
+                    }
+                }
+                if (cBID.Text != "" && !MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)))  //此处判断如果前面为False,则不进行下一步判断
+                {
+                    tMCheck.Enabled = false;
+                    MessageBox.Show("模块" + cBID.Text + "已断开连接！");
+                }
+            }
+        
+
+        }
+
+        #endregion
 
         private void btnParameters_Click(object sender, EventArgs e)
         {
@@ -828,7 +885,7 @@ namespace ICDIBasic
         private void cBID_DropDown(object sender, EventArgs e)
         {
             MessageProccessing.allID.Clear();
-            pc.SearchModule();
+            pc.SearchModuleID();
             //等待返回ID号
             Thread.Sleep(150);
             try
@@ -839,7 +896,11 @@ namespace ICDIBasic
                     {
                         cBID.Items.Add(MessageProccessing.allID[i]);
                     }
+                }
 
+                if (MessageProccessing.allID.Count > 0)
+                {
+                    tMCheck.Enabled = true;
                 }
             }
             catch (System.Exception ex)

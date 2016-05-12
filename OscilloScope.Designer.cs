@@ -73,6 +73,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.nUSmoothData = new System.Windows.Forms.NumericUpDown();
+            this.rBPointer2 = new System.Windows.Forms.RadioButton();
+            this.rBPointer1 = new System.Windows.Forms.RadioButton();
+            this.cBPointer = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.lVFormat = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -88,6 +93,8 @@
             this.groupBox3.SuspendLayout();
             this.gBSpeed.SuspendLayout();
             this.gBCurrent.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -582,12 +589,79 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.nUSmoothData);
+            this.tabPage3.Controls.Add(this.rBPointer2);
+            this.tabPage3.Controls.Add(this.rBPointer1);
+            this.tabPage3.Controls.Add(this.cBPointer);
             this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(868, 115);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "指针";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Location = new System.Drawing.Point(57, 92);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(85, 19);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "数据平滑";
+            // 
+            // nUSmoothData
+            // 
+            this.nUSmoothData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nUSmoothData.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nUSmoothData.Location = new System.Drawing.Point(3, 83);
+            this.nUSmoothData.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nUSmoothData.Name = "nUSmoothData";
+            this.nUSmoothData.Size = new System.Drawing.Size(48, 29);
+            this.nUSmoothData.TabIndex = 3;
+            this.nUSmoothData.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // rBPointer2
+            // 
+            this.rBPointer2.AutoSize = true;
+            this.rBPointer2.Checked = true;
+            this.rBPointer2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rBPointer2.Location = new System.Drawing.Point(26, 57);
+            this.rBPointer2.Name = "rBPointer2";
+            this.rBPointer2.Size = new System.Drawing.Size(66, 20);
+            this.rBPointer2.TabIndex = 2;
+            this.rBPointer2.TabStop = true;
+            this.rBPointer2.Text = "指针2";
+            this.rBPointer2.UseVisualStyleBackColor = true;
+            // 
+            // rBPointer1
+            // 
+            this.rBPointer1.AutoSize = true;
+            this.rBPointer1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rBPointer1.Location = new System.Drawing.Point(26, 25);
+            this.rBPointer1.Name = "rBPointer1";
+            this.rBPointer1.Size = new System.Drawing.Size(66, 20);
+            this.rBPointer1.TabIndex = 1;
+            this.rBPointer1.Text = "指针1";
+            this.rBPointer1.UseVisualStyleBackColor = true;
+            this.rBPointer1.CheckedChanged += new System.EventHandler(this.rBPointer1_CheckedChanged);
+            // 
+            // cBPointer
+            // 
+            this.cBPointer.AutoSize = true;
+            this.cBPointer.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBPointer.Location = new System.Drawing.Point(3, 3);
+            this.cBPointer.Name = "cBPointer";
+            this.cBPointer.Size = new System.Drawing.Size(104, 23);
+            this.cBPointer.TabIndex = 0;
+            this.cBPointer.Text = "显示指针";
+            this.cBPointer.UseVisualStyleBackColor = true;
+            this.cBPointer.CheckedChanged += new System.EventHandler(this.cBPointer_CheckedChanged);
             // 
             // tabPage4
             // 
@@ -676,6 +750,9 @@
             this.gBSpeed.PerformLayout();
             this.gBCurrent.ResumeLayout(false);
             this.gBCurrent.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -734,5 +811,10 @@
         private System.Windows.Forms.TextBox tBCurrentP;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown nUSmoothData;
+        private System.Windows.Forms.RadioButton rBPointer2;
+        private System.Windows.Forms.RadioButton rBPointer1;
+        private System.Windows.Forms.CheckBox cBPointer;
     }
 }

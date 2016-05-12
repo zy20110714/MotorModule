@@ -27,7 +27,7 @@ namespace ICDIBasic
        
         public static byte currentID = 0;                                                         //当前选中的模块ID号
 
-        public void SearchModule()
+        public void SearchModuleID()
         {
             for (byte i = 1; i < byte.MaxValue; i++)          //ID number from 1 to 254
             {
@@ -36,6 +36,17 @@ namespace ICDIBasic
             }
             return;
         }
+
+        //public void CheckConnection()
+        //{
+        //    for (byte i = 1; i < byte.MaxValue; i++)          //ID number from 1 to 254
+        //    {
+        //        ReadWords(Configuration.SYS_ID, 1, i);
+        //        //Thread.Sleep(1);
+        //    }
+        //    return;
+        //}
+
 
         public void PushFrame(byte Datelen, uint ID, byte Cmd, byte Index, byte[] pdata)
         {
