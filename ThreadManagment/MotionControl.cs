@@ -212,11 +212,11 @@ namespace ICDIBasic
                             int value = 0;
                             if (OscilloScope.showItems[i].Item == Configuration.SCP_TAGPOS_L || OscilloScope.showItems[i].Item == Configuration.SCP_MEAPOS_L)
                             {
-                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], 0x00, 0x00 }, 0);
                             }
                             else
                             {
-                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], 0, 0 }, 0);
+                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
                             }
 
                             OscilloScope.showItems[i].sq.EnQ(value);

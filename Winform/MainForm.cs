@@ -524,6 +524,8 @@ namespace ICDIBasic
             //释放运动控制线程
             mc.Stop();
             mc = null;
+
+            UnInitialModule();
         }
 
         private void InitialMainForm()
@@ -585,6 +587,12 @@ namespace ICDIBasic
             //
 
           
+        }
+
+
+        void UnInitialModule()
+        {
+            pc.WriteOneWord(Configuration.SCP_MASK, 0x00, PCan.currentID);       //向下位机
         }
         #endregion
 
