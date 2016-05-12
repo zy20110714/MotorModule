@@ -58,7 +58,7 @@ namespace ICDIBasic
             thread.Name = "HighAccuracyTimer";
             //thread.Start();
             timerPaint.Start();
-            EnableScope = true;
+           
         }
 
         ~OscilloScope()
@@ -109,14 +109,14 @@ namespace ICDIBasic
             itemRelection.Add(Configuration.SCP_MEASPD_L, "实际速度");
             itemRelection.Add(Configuration.SCP_MEAPOS_L, "实际位置");
             showItems.Clear();
-            showItems.Add(new ShowItem(true, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGCUR));
+            showItems.Add(new ShowItem(false, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGCUR));
             showItems.Add(new ShowItem(true, Configuration.SCP_TAGSPD_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
             showItems.Add(new ShowItem(true, Configuration.SCP_TAGPOS_L, "观测", Color.Blue, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGPOS));
-            showItems.Add(new ShowItem(true, Configuration.SCP_MEACUR_L, "观测", Color.Cyan, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEACUR));
+            showItems.Add(new ShowItem(false, Configuration.SCP_MEACUR_L, "观测", Color.Cyan, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEACUR));
             showItems.Add(new ShowItem(true, Configuration.SCP_MEASPD_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEASPD));
             showItems.Add(new ShowItem(true, Configuration.SCP_MEAPOS_L, "观测", Color.Red, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEAPOS));
 
-            Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS | Configuration.MASK_TAGCUR | Configuration.MASK_MEACUR;
+            Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS;
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
             setTimeInterval(1);
 
@@ -514,6 +514,22 @@ namespace ICDIBasic
             else
             {
                 tBtrace.Value = tracePos2;
+            }
+        }
+
+        private void btnMeasure_Click(object sender, EventArgs e)
+        {
+            if (btnMeasure.Text == "测定")
+            {
+                btnMeasure.Text = "停止";
+                btnMeasure.BackColor = Color.Red;
+                EnableScope = true;
+            }
+            else
+            {
+                btnMeasure.Text = "测定";
+                btnMeasure.BackColor = Color.Green;
+                EnableScope = false;
             }
         }
         

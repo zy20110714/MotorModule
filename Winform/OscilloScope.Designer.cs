@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pLBoard = new System.Windows.Forms.Panel();
+            this.btnMeasure = new System.Windows.Forms.Button();
             this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
             this.cBPositionRatio = new System.Windows.Forms.ComboBox();
             this.cBCurrentRatio = new System.Windows.Forms.ComboBox();
@@ -100,6 +101,7 @@
             // 
             // pLBoard
             // 
+            this.pLBoard.Controls.Add(this.btnMeasure);
             this.pLBoard.Controls.Add(this.cBSpeedRatio);
             this.pLBoard.Controls.Add(this.cBPositionRatio);
             this.pLBoard.Controls.Add(this.cBCurrentRatio);
@@ -109,6 +111,19 @@
             this.pLBoard.Name = "pLBoard";
             this.pLBoard.Size = new System.Drawing.Size(886, 397);
             this.pLBoard.TabIndex = 0;
+            // 
+            // btnMeasure
+            // 
+            this.btnMeasure.BackColor = System.Drawing.Color.Green;
+            this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMeasure.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnMeasure.Location = new System.Drawing.Point(804, 176);
+            this.btnMeasure.Name = "btnMeasure";
+            this.btnMeasure.Size = new System.Drawing.Size(71, 36);
+            this.btnMeasure.TabIndex = 2;
+            this.btnMeasure.Text = "测定";
+            this.btnMeasure.UseVisualStyleBackColor = false;
+            this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
             // 
             // cBSpeedRatio
             // 
@@ -816,5 +831,6 @@
         private System.Windows.Forms.RadioButton rBPointer2;
         private System.Windows.Forms.RadioButton rBPointer1;
         private System.Windows.Forms.CheckBox cBPointer;
+        private System.Windows.Forms.Button btnMeasure;
     }
 }

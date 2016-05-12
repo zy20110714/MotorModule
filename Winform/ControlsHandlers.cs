@@ -21,6 +21,7 @@ namespace ICDIBasic
     {
         bool IsCheckConnection = false;
         public static bool IsDataRecieved = false;
+        public static short IDName = 0;
 
         #region ComboBox event-handlers
         private void cbbChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -819,6 +820,7 @@ namespace ICDIBasic
                 IsCheckConnection = true;
                 IsDataRecieved = false;
                 MessageProccessing.allID2.Clear();
+                IDName = 0;
                 pc.SearchModuleID();
             }
             else
@@ -841,7 +843,7 @@ namespace ICDIBasic
                         return;
                     }
                 }
-                if (cBID.Text != "" && !MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)))  //此处判断如果前面为False,则不进行下一步判断
+                if (cBID.Text != "" && !MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)) && IDName != Convert.ToInt16(cBID.Text))  //此处判断如果前面为False,则不进行下一步判断
                 {
                     tMCheck.Enabled = false;
                     MessageBox.Show("模块" + cBID.Text + "已断开连接！");

@@ -381,6 +381,7 @@ namespace ICDIBasic
             }
             if (pCanMsg.DATA[CAN_CMD] != 0)
             {
+                 MainForm.IDName = (short)(pCanMsg.ID - 256);
                  MainForm.IsDataRecieved = true;
             }
             PCan.m_iFramesCount++;
