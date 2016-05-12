@@ -368,34 +368,19 @@ namespace ICDIBasic
                 int index = pCanMsg.DATA[CAN_INDEX] - 1;
                 for (int i = 0; i < (pCanMsg.LEN - 2) / 2; i++)
                 {
-                    //if (index == 0x14)
-                    //{
-                    //    realPos = BitConverter.ToInt32(new byte[] { pCanMsg.DATA[CAN_DATA + i * 2], pCanMsg.DATA[CAN_DATA + i * 2 + 1], pCanMsg.DATA[CAN_DATA + i * 2 + 2], pCanMsg.DATA[CAN_DATA + i * 2 + 3] }, 0);
-                    //    continue;
-                    //}
-                    //else if (index == 0x10)
-                    //{
-                    //    realCurrent = BitConverter.ToInt32(new byte[] { pCanMsg.DATA[CAN_DATA + i * 2], pCanMsg.DATA[CAN_DATA + i * 2 + 1], pCanMsg.DATA[CAN_DATA + i * 2 + 2], pCanMsg.DATA[CAN_DATA + i * 2 + 3] }, 0);
-                    //    continue;
-                    //}
-                    //else if (index == 0x12)
-                    //{
-                    //    realSpeed = BitConverter.ToInt32(new byte[] { pCanMsg.DATA[CAN_DATA + i * 2], pCanMsg.DATA[CAN_DATA + i * 2 + 1], pCanMsg.DATA[CAN_DATA + i * 2 + 2], pCanMsg.DATA[CAN_DATA + i * 2 + 3] }, 0);
-                    //    continue;
-                    //}
-
                     index++;
                     Int16 value = (Int16)(pCanMsg.DATA[CAN_DATA + i * 2] + (pCanMsg.DATA[CAN_DATA + i * 2 + 1] << 8));
                     if (index == 1 && (!allID.Contains(value)))
                     {
                         allID.Add(value);
                     }
-                    if (index == Configuration.SYS_SPEED_L)
-                    {
-                        int aa = 1;
-                    }
                     Configuration.m_CmdMap[index] = value;
                 }
+            }
+
+            else if (pCanMsg.DATA[CAN_CMD] == 5)
+            {
+                int aa = 1;
             }
             if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_SCP)
             {
@@ -406,11 +391,9 @@ namespace ICDIBasic
                 }
                 Configuration.m_CmdMap[Index] = (Int16)(pCanMsg.DATA[CAN_DATA] + (pCanMsg.DATA[CAN_DATA + 1] << 8));
                 Configuration.m_CmdMap[Index + 1] = (Int16)(pCanMsg.DATA[CAN_DATA + 2] + (pCanMsg.DATA[CAN_DATA + 3] << 8));
+
             }
             PCan.m_iFramesCount++;
-
-            //if(m_hParentWnd != NULL && m_message != 0)
-            //    ::SendMessage(m_hParentWnd,m_message,(WPARAM)(pCanMsg),CAN_FRAME);//向Wnd发送WM_PARSE_MESSAGE消息，Wnd调用相应消息处理函数
         }
 
 

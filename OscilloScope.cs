@@ -138,7 +138,7 @@ namespace ICDIBasic
 
             for (int i = 0; i < showItems.Count;i++ )
             {
-                if (showItems[i].sq != null)
+                if (showItems[i].sq != null && showItems[i].IsCheck)
                 {
                     int[] pointY = new int[showItems[i].sq.Count()];
                     showItems[i].sq.Print(ref pointY);
