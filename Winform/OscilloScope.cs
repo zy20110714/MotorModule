@@ -28,7 +28,7 @@ namespace ICDIBasic
         double speedRatio = 60.0 / 65536;
         double positionRatio = 360.0 / 65535;
         double currentRatio = 1.0;
-
+        float[] pointA;
       
         int tracePos1 = 0;
         int tracePos2 = 0;
@@ -119,6 +119,13 @@ namespace ICDIBasic
             Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS | Configuration.MASK_TAGCUR | Configuration.MASK_MEACUR;
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
             setTimeInterval(1);
+
+            pointA = new float[pLPaint.Width];
+            for (int i = 0; i < pLPaint.Width; i++)
+            {
+                pointA[i] = i;
+            }
+
         }
 
         void setTimeInterval(short interval)
@@ -185,7 +192,7 @@ namespace ICDIBasic
                     int m = pointY.Length;
                     if (m > 1)
                     {
-                        float[] pointA = new float[m];
+                     
                         PointF[] points = new PointF[m];
                       
                         if (showItems[i].Item ==   Configuration.SCP_TAGCUR_L || showItems[i].Item == Configuration.SCP_MEACUR_L)
@@ -193,7 +200,6 @@ namespace ICDIBasic
                             double cr = Convert.ToDouble(cBCurrentRatio.Text.Substring(0, cBCurrentRatio.Text.Length - 2));
                             for (int j = 0; j < m; j++)
                             {
-                                pointA[j] = j;
                                 points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * currentRatio / cr * 30));
                             }
                         }
@@ -202,9 +208,7 @@ namespace ICDIBasic
                             double sr = Convert.ToDouble(cBSpeedRatio.Text.Substring(0, cBSpeedRatio.Text.Length - 3));
                             for (int j = 0; j < m; j++)
                             {
-                                pointA[j] = j;
-                                float pointYY = (float)(pLPaint.Height / 2 - pointY[j] * speedRatio / sr * 30);
-                                points[j] = new PointF(1.0f * pointA[j], pointYY);
+                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * speedRatio / sr * 30));
                             }
                         }
                         else if (showItems[i].Item == Configuration.SCP_TAGPOS_L || showItems[i].Item == Configuration.SCP_MEAPOS_L)
@@ -212,7 +216,6 @@ namespace ICDIBasic
                             double pr = Convert.ToDouble(cBPositionRatio.Text.Substring(0, cBPositionRatio.Text.Length - 1));
                             for (int j = 0; j < m; j++)
                             {
-                                pointA[j] = j;
                                 points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * positionRatio / pr * 30));
                             }
                         }
@@ -607,7 +610,17 @@ namespace ICDIBasic
                 {
                     if (Count() == QCount)
                     {
-                        DeQ();
+                        //DeQ();
+                        Node p = front;
+                        //链头指向后移一位
+                        front = front.Next;
+
+                        //如果此时链表为空，则同步修正rear
+                        if (front == null)
+                        {
+                            rear = null;
+                        }
+                        num--;//个数-1
                     }
                     //把新元素挂到链尾
                     rear.Next = q;
@@ -680,15 +693,14 @@ namespace ICDIBasic
                 //int[] eachValue = new int[Count()];
                 Node current = front;
                 int j = 0;
-                while (current != null)
+                //while (current != null)
+                while (j != eachValue.Length)
                 {
                     eachValue[j] = current.Value;
                     current = current.Next;
                     j++;
                 }
-                return ;
             }
-        
         }
     }
 }
