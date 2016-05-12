@@ -103,53 +103,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
-    <Compile Include="ControlsHandlers.cs">
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Winform\ControlsHandlers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Winform\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Winform\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageProccessing.cs" />
-    <Compile Include="MessageStatus.cs" />
-    <Compile Include="Module.cs" />
-    <Compile Include="MotionControl.cs" />
-    <Compile Include="NewPanel.cs">
+    <Compile Include="ThreadManagment\MessageProccessing.cs" />
+    <Compile Include="Accessory\MessageStatus.cs" />
+    <Compile Include="Accessory\Module.cs" />
+    <Compile Include="ThreadManagment\MotionControl.cs" />
+    <Compile Include="Accessory\NewPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="OscilloScope.cs">
+    <Compile Include="Winform\OscilloScope.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OscilloScope.Designer.cs">
+    <Compile Include="Winform\OscilloScope.Designer.cs">
       <DependentUpon>OscilloScope.cs</DependentUpon>
     </Compile>
-    <Compile Include="ParametersForm.cs">
+    <Compile Include="Winform\ParametersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ParametersForm.Designer.cs">
+    <Compile Include="Winform\ParametersForm.Designer.cs">
       <DependentUpon>ParametersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PCan.cs" />
-    <Compile Include="PCANBasic.cs" />
+    <Compile Include="ThreadManagment\PCan.cs" />
+    <Compile Include="Accessory\PCANBasic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestRun.cs">
+    <Compile Include="Winform\TestRun.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestRun.Designer.cs">
+    <Compile Include="Winform\TestRun.Designer.cs">
       <DependentUpon>TestRun.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Winform\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="OscilloScope.resx">
+    <EmbeddedResource Include="Winform\OscilloScope.resx">
       <DependentUpon>OscilloScope.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ParametersForm.resx">
+    <EmbeddedResource Include="Winform\ParametersForm.resx">
       <DependentUpon>ParametersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -162,10 +162,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TestRun.resx">
+    <EmbeddedResource Include="Winform\TestRun.resx">
       <DependentUpon>TestRun.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="Configuration\app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -193,6 +193,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
