@@ -20,6 +20,7 @@ Thumbs.db
 [Bb]in
 [Dd]ebug*/*
 ![Dd]ebug*/PCANBasic.dll
+![Dd]ebug*/resource/
 *.lib
 *.sbr
 obj/
