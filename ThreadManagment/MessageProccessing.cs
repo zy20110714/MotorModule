@@ -343,20 +343,6 @@ namespace ICDIBasic
         /// <returns>True if the message must be created, false if it must be modified</returns>
         private void ProcessMessage(TPCANMsg theMsg, TPCANTimestamp itsTimeStamp)
         {
-            //TPCANMsgFD newMsg;
-            //TPCANTimestampFD newTimestamp;
-
-            //newMsg = new TPCANMsgFD();
-            //newMsg.DATA = new byte[64];
-            //newMsg.ID = theMsg.ID;
-            //newMsg.DLC = theMsg.LEN;
-            //for (int i = 0; i < ((theMsg.LEN > 8) ? 8 : theMsg.LEN); i++)
-            //    newMsg.DATA[i] = theMsg.DATA[i];
-            //newMsg.MSGTYPE = theMsg.MSGTYPE;
-
-            //newTimestamp = Convert.ToUInt64(itsTimeStamp.micros + 1000 * itsTimeStamp.millis + 0x100000000 * 1000 * itsTimeStamp.millis_overflow);
-            //ProcessMessage(newMsg, newTimestamp);
-
             CAN_ParseFrame(theMsg);
         }
 
@@ -382,12 +368,7 @@ namespace ICDIBasic
                     Configuration.m_CmdMap[index] = value;
                 }
             }
-
-            else if (pCanMsg.DATA[CAN_CMD] == 5)
-            {
-                int aa = 1;
-            }
-            if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_SCP)
+            else if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_SCP)
             {
                 int Index = pCanMsg.DATA[CAN_INDEX];
                 if (Index == Configuration.SCP_MEAPOS_L)
@@ -397,6 +378,10 @@ namespace ICDIBasic
                 Configuration.m_CmdMap[Index] = (Int16)(pCanMsg.DATA[CAN_DATA] + (pCanMsg.DATA[CAN_DATA + 1] << 8));
                 Configuration.m_CmdMap[Index + 1] = (Int16)(pCanMsg.DATA[CAN_DATA + 2] + (pCanMsg.DATA[CAN_DATA + 3] << 8));
 
+            }
+            if (pCanMsg.DATA[CAN_CMD] != 0)
+            {
+                 MainForm.IsDataRecieved = true;
             }
             PCan.m_iFramesCount++;
         }

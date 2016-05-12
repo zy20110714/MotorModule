@@ -200,7 +200,7 @@ namespace ICDIBasic
                 {
                     AllocConsole();
                     gatherCount = 0;
-                    // System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
+                    System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
                     for (int i = 0; i < OscilloScope.showItems.Count; i++)
                     {
                         if (OscilloScope.showItems[i].sq != null)

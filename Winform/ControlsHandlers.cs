@@ -20,6 +20,7 @@ namespace ICDIBasic
     public partial class MainForm
     {
         bool IsCheckConnection = false;
+        public static bool IsDataRecieved = false;
 
         #region ComboBox event-handlers
         private void cbbChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -816,13 +817,14 @@ namespace ICDIBasic
             if (!IsCheckConnection)
             {
                 IsCheckConnection = true;
+                IsDataRecieved = false;
                 MessageProccessing.allID2.Clear();
                 pc.SearchModuleID();
             }
             else
             {
                 IsCheckConnection = false;
-                if (MessageProccessing.allID2.Count == 0)
+                if (MessageProccessing.allID2.Count == 0 && !IsDataRecieved)
                 {
                     tMCheck.Enabled = false;
                     message = "您确定要关闭吗？";

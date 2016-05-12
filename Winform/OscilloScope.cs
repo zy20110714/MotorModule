@@ -118,14 +118,16 @@ namespace ICDIBasic
 
             Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS | Configuration.MASK_TAGCUR | Configuration.MASK_MEACUR;
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
-            setTimeInterval(10);
+            setTimeInterval(1);
         }
 
         void setTimeInterval(short interval)
         {
             Interval = interval;
-            pc.WriteOneWord(Configuration.SCP_REC_TIM, interval, PCan.currentID);
+            short value = (short)(interval * 10);
+            pc.WriteOneWord(Configuration.SCP_REC_TIM, value, PCan.currentID);
         }
+
         private void ThreadProc()
         {
             //while (running)
@@ -186,11 +188,6 @@ namespace ICDIBasic
                         float[] pointA = new float[m];
                         PointF[] points = new PointF[m];
                       
-                      
-                        
-                        
-                       
-                        
                         if (showItems[i].Item ==   Configuration.SCP_TAGCUR_L || showItems[i].Item == Configuration.SCP_MEACUR_L)
                         {
                             double cr = Convert.ToDouble(cBCurrentRatio.Text.Substring(0, cBCurrentRatio.Text.Length - 2));
@@ -284,7 +281,6 @@ namespace ICDIBasic
                     tracePos2 = tracePos1;
                 }
             }
-          
         }
 
         private void tCMonitor_SelectedIndexChanged(object sender, EventArgs e)
