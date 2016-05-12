@@ -185,7 +185,13 @@ namespace ICDIBasic
                     {
                         float[] pointA = new float[m];
                         PointF[] points = new PointF[m];
-                        if (showItems[i].Item == Configuration.SYS_CURRENT_L || showItems[i].Item == Configuration.TAG_CURRENT_L)
+                      
+                      
+                        
+                        
+                       
+                        
+                        if (showItems[i].Item ==   Configuration.SCP_TAGCUR_L || showItems[i].Item == Configuration.SCP_MEACUR_L)
                         {
                             double cr = Convert.ToDouble(cBCurrentRatio.Text.Substring(0, cBCurrentRatio.Text.Length - 2));
                             for (int j = 0; j < m; j++)
@@ -194,7 +200,7 @@ namespace ICDIBasic
                                 points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * currentRatio / cr * 30));
                             }
                         }
-                        else if (showItems[i].Item == Configuration.TAG_SPEED_L || showItems[i].Item == Configuration.SYS_SPEED_L)
+                        else if (showItems[i].Item ==   Configuration.SCP_TAGSPD_L || showItems[i].Item ==  Configuration.SCP_MEASPD_L)
                         {
                             double sr = Convert.ToDouble(cBSpeedRatio.Text.Substring(0, cBSpeedRatio.Text.Length - 3));
                             for (int j = 0; j < m; j++)
@@ -204,7 +210,7 @@ namespace ICDIBasic
                                 points[j] = new PointF(1.0f * pointA[j], pointYY);
                             }
                         }
-                        else if (showItems[i].Item == Configuration.TAG_POSITION_L || showItems[i].Item == Configuration.SYS_POSITION_L)
+                        else if (showItems[i].Item == Configuration.SCP_TAGPOS_L || showItems[i].Item == Configuration.SCP_MEAPOS_L)
                         {
                             double pr = Convert.ToDouble(cBPositionRatio.Text.Substring(0, cBPositionRatio.Text.Length - 1));
                             for (int j = 0; j < m; j++)

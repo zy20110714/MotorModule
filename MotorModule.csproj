@@ -179,7 +179,6 @@
       <DependentUpon>TestRun.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Configuration\app.config" />
-    <None Include="MotorModule_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
