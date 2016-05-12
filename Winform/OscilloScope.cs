@@ -92,7 +92,7 @@ namespace ICDIBasic
             if (thread != null)
             {
                 thread.Abort();
-                thread.Join();
+                //thread.Join();
                 thread = null;
             }
         }
@@ -274,6 +274,7 @@ namespace ICDIBasic
                 if (tracePos1 >= tracePos2)
                 {
                     tracePos1 = tracePos2;
+                    tBtrace.Value = tracePos1;
                 }
             }
             if (rBPointer2.Checked)
@@ -282,6 +283,7 @@ namespace ICDIBasic
                 if (tracePos1 >= tracePos2)
                 {
                     tracePos2 = tracePos1;
+                    tBtrace.Value = tracePos2;
                 }
             }
         }
@@ -291,7 +293,7 @@ namespace ICDIBasic
             switch (tCMonitor.SelectedIndex)
             {
                 case 3: loadLVFormat(); break;
-                case 1: loadPID();break;
+                case 1: loadPID(); cBAdjustGroup.Text = Configuration.m_CmdMap[Configuration.SEV_PARAME_LOCKED].ToString(); break;
             }
         }
 
@@ -311,7 +313,7 @@ namespace ICDIBasic
             tBMaxSpeed.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_SPEED].ToString();
             tBMaxAcc.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_ACC].ToString();
 
-            cBAdjustGroup.Text = Configuration.m_CmdMap[Configuration.SEV_PARAME_LOCKED].ToString();
+           
         }
 
         void loadLVFormat()
@@ -466,6 +468,7 @@ namespace ICDIBasic
                 gBSpeed.Enabled = true;
                 gBPos.Enabled = true;
             }
+            loadPID();
         }
 
         private void tBCurrentP_TextChanged(object sender, EventArgs e)

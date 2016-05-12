@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("分类0（基本）");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("分类1（增益）");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("分类2（振动抑制）");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("分类3（速度/转矩/全闭环）");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("分类4（监视器）");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("分类5（扩展设定）");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("分类6（特殊设定）");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("分类7");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("节点8");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("节点9");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("分类0（系统信息）");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("分类1（系统状态）");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("分类2（电机相关）");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("分类3（控制目标值）");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("分类4（控制限制值）");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("分类5（三闭环参数S）");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("分类6（三闭环参数M）");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("分类7（三闭环参数L）");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("节点8（刹车相关）");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("节点9（示波器相关）");
             this.panel1 = new System.Windows.Forms.Panel();
             this.tVParam = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
@@ -83,31 +83,31 @@
             treeNode1.Checked = true;
             treeNode1.Name = "节点0";
             treeNode1.Tag = "tt";
-            treeNode1.Text = "分类0（基本）";
+            treeNode1.Text = "分类0（系统信息）";
             treeNode2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             treeNode2.Name = "节点1";
-            treeNode2.Text = "分类1（增益）";
+            treeNode2.Text = "分类1（系统状态）";
             treeNode3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             treeNode3.Name = "节点2";
-            treeNode3.Text = "分类2（振动抑制）";
+            treeNode3.Text = "分类2（电机相关）";
             treeNode4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             treeNode4.Name = "节点3";
-            treeNode4.Text = "分类3（速度/转矩/全闭环）";
+            treeNode4.Text = "分类3（控制目标值）";
             treeNode5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             treeNode5.Name = "节点4";
-            treeNode5.Text = "分类4（监视器）";
+            treeNode5.Text = "分类4（控制限制值）";
             treeNode6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             treeNode6.Name = "节点5";
-            treeNode6.Text = "分类5（扩展设定）";
+            treeNode6.Text = "分类5（三闭环参数S）";
             treeNode7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             treeNode7.Name = "节点6";
-            treeNode7.Text = "分类6（特殊设定）";
+            treeNode7.Text = "分类6（三闭环参数M）";
             treeNode8.Name = "节点0";
-            treeNode8.Text = "分类7";
+            treeNode8.Text = "分类7（三闭环参数L）";
             treeNode9.Name = "节点8";
-            treeNode9.Text = "节点8";
+            treeNode9.Text = "节点8（刹车相关）";
             treeNode10.Name = "节点9";
-            treeNode10.Text = "节点9";
+            treeNode10.Text = "节点9（示波器相关）";
             this.tVParam.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
