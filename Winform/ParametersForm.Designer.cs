@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("分类0（系统信息）");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("分类1（系统状态）");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("分类2（电机相关）");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("分类3（控制目标值）");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("分类4（控制限制值）");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("分类5（三闭环参数S）");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("分类6（三闭环参数M）");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("分类7（三闭环参数L）");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("节点8（刹车相关）");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("节点9（示波器相关）");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("分类0（系统信息）");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("分类1（系统状态）");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("分类2（电机相关）");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("分类3（控制目标值）");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("分类4（控制限制值）");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("分类5（三闭环参数S）");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("分类6（三闭环参数M）");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("分类7（三闭环参数L）");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("节点8（刹车相关）");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("节点9（示波器相关）");
             this.panel1 = new System.Windows.Forms.Panel();
             this.tVParam = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,7 +57,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tBSystem = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tBUnused = new System.Windows.Forms.TextBox();
             this.tBReadOnly = new System.Windows.Forms.TextBox();
             this.tBExplain = new System.Windows.Forms.TextBox();
             this.pLExplain2 = new System.Windows.Forms.Panel();
@@ -79,46 +79,59 @@
             this.tVParam.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tVParam.Location = new System.Drawing.Point(0, 65);
             this.tVParam.Name = "tVParam";
-            treeNode1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            treeNode1.Checked = true;
-            treeNode1.Name = "节点0";
-            treeNode1.Tag = "tt";
-            treeNode1.Text = "分类0（系统信息）";
-            treeNode2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            treeNode2.Name = "节点1";
-            treeNode2.Text = "分类1（系统状态）";
-            treeNode3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            treeNode3.Name = "节点2";
-            treeNode3.Text = "分类2（电机相关）";
-            treeNode4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            treeNode4.Name = "节点3";
-            treeNode4.Text = "分类3（控制目标值）";
-            treeNode5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            treeNode5.Name = "节点4";
-            treeNode5.Text = "分类4（控制限制值）";
-            treeNode6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            treeNode6.Name = "节点5";
-            treeNode6.Text = "分类5（三闭环参数S）";
-            treeNode7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            treeNode7.Name = "节点6";
-            treeNode7.Text = "分类6（三闭环参数M）";
-            treeNode8.Name = "节点0";
-            treeNode8.Text = "分类7（三闭环参数L）";
-            treeNode9.Name = "节点8";
-            treeNode9.Text = "节点8（刹车相关）";
-            treeNode10.Name = "节点9";
-            treeNode10.Text = "节点9（示波器相关）";
+            treeNode11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode11.Checked = true;
+            treeNode11.ForeColor = System.Drawing.Color.Black;
+            treeNode11.Name = "节点0";
+            treeNode11.Tag = "tt";
+            treeNode11.Text = "分类0（系统信息）";
+            treeNode12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode12.ForeColor = System.Drawing.Color.Black;
+            treeNode12.Name = "节点1";
+            treeNode12.Text = "分类1（系统状态）";
+            treeNode13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode13.ForeColor = System.Drawing.Color.Black;
+            treeNode13.Name = "节点2";
+            treeNode13.Text = "分类2（电机相关）";
+            treeNode14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode14.ForeColor = System.Drawing.Color.Black;
+            treeNode14.Name = "节点3";
+            treeNode14.Text = "分类3（控制目标值）";
+            treeNode15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode15.ForeColor = System.Drawing.Color.Black;
+            treeNode15.Name = "节点4";
+            treeNode15.Text = "分类4（控制限制值）";
+            treeNode16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode16.ForeColor = System.Drawing.Color.Black;
+            treeNode16.Name = "节点5";
+            treeNode16.Text = "分类5（三闭环参数S）";
+            treeNode17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode17.ForeColor = System.Drawing.Color.Black;
+            treeNode17.Name = "节点6";
+            treeNode17.Text = "分类6（三闭环参数M）";
+            treeNode18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode18.ForeColor = System.Drawing.Color.Black;
+            treeNode18.Name = "节点0";
+            treeNode18.Text = "分类7（三闭环参数L）";
+            treeNode19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode19.ForeColor = System.Drawing.Color.Black;
+            treeNode19.Name = "节点8";
+            treeNode19.Text = "节点8（刹车相关）";
+            treeNode20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            treeNode20.ForeColor = System.Drawing.Color.Black;
+            treeNode20.Name = "节点9";
+            treeNode20.Text = "节点9（示波器相关）";
             this.tVParam.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode10});
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20});
             this.tVParam.Size = new System.Drawing.Size(200, 516);
             this.tVParam.TabIndex = 1;
             this.tVParam.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tVParam_AfterSelect);
@@ -135,6 +148,7 @@
             // 
             // lVParam
             // 
+            this.lVParam.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
             this.lVParam.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -144,6 +158,7 @@
             this.columnHeader6});
             this.lVParam.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lVParam.FullRowSelect = true;
+            this.lVParam.GridLines = true;
             this.lVParam.Location = new System.Drawing.Point(205, 131);
             this.lVParam.MultiSelect = false;
             this.lVParam.Name = "lVParam";
@@ -158,18 +173,19 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "分类";
+            this.columnHeader1.Width = 55;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "编号";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 75;
+            this.columnHeader2.Width = 55;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "参数名称";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 170;
+            this.columnHeader3.Width = 200;
             // 
             // columnHeader4
             // 
@@ -181,7 +197,7 @@
             // 
             this.columnHeader5.Text = "设定值";
             this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 140;
+            this.columnHeader5.Width = 120;
             // 
             // columnHeader6
             // 
@@ -204,7 +220,7 @@
             this.pLExplain.Controls.Add(this.textBox2);
             this.pLExplain.Controls.Add(this.tBSystem);
             this.pLExplain.Controls.Add(this.textBox3);
-            this.pLExplain.Controls.Add(this.textBox1);
+            this.pLExplain.Controls.Add(this.tBUnused);
             this.pLExplain.Controls.Add(this.tBReadOnly);
             this.pLExplain.Location = new System.Drawing.Point(3, 79);
             this.pLExplain.Name = "pLExplain";
@@ -278,16 +294,16 @@
             this.textBox3.TabIndex = 0;
             this.textBox3.Text = "复位后有效";
             // 
-            // textBox1
+            // tBUnused
             // 
-            this.textBox1.BackColor = System.Drawing.Color.Silver;
-            this.textBox1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(133, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(127, 30);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "未使用";
+            this.tBUnused.BackColor = System.Drawing.Color.Silver;
+            this.tBUnused.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBUnused.Location = new System.Drawing.Point(133, 0);
+            this.tBUnused.Name = "tBUnused";
+            this.tBUnused.ReadOnly = true;
+            this.tBUnused.Size = new System.Drawing.Size(127, 30);
+            this.tBUnused.TabIndex = 0;
+            this.tBUnused.Text = "未使用";
             // 
             // tBReadOnly
             // 
@@ -304,6 +320,7 @@
             // 
             this.tBExplain.BackColor = System.Drawing.Color.White;
             this.tBExplain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tBExplain.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tBExplain.Location = new System.Drawing.Point(3, 3);
             this.tBExplain.Multiline = true;
             this.tBExplain.Name = "tBExplain";
@@ -374,7 +391,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox tBSystem;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tBUnused;
         private System.Windows.Forms.TextBox tBReadOnly;
         public System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Panel pLExplain2;

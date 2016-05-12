@@ -839,7 +839,6 @@ namespace ICDIBasic
                     }
                     else
                     {
-
                         return;
                     }
                 }
