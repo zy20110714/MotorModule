@@ -31,6 +31,20 @@ namespace ICDIBasic
         int tracePos = 0;
         public static bool EnableScope = false;
 
+
+
+        public static byte CURRENT_P = 0x61;	  //电流环P参数
+        public static byte CURRENT_I = 0x62;	  //电流环I参数
+        public static byte CURRENT_D = 0x63;	  //电流环D参数
+        public static byte SPEED_P = 0x64;	  //速度环P参数
+        public static byte SPEED_I = 0x65;	  //速度环I参数
+        public static byte SPEED_D = 0x66;	  //速度环D参数
+        public static byte SPEED_DS = 0x67;	  //速度P死区
+        public static byte POSITION_P = 0x68;	  //位置环P参数
+        public static byte POSITION_I = 0x69;	  //位置环I参数
+        public static byte POSITION_D = 0x6A;	  //位置环D参数
+        public static byte POSITION_DS = 0x6B;	  //位置P死区
+
         public OscilloScope()
         {
             InitializeComponent();
@@ -301,10 +315,101 @@ namespace ICDIBasic
            
         }
 
+        private void tBCurrentP_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (e.KeyCode == Keys.Enter)
+            {
+                short value = 0;
+                try
+                {
+                     value = Convert.ToInt16(tb.Text);
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("请输入合法的字符串！");
+                    return;
+                }
+                switch(tb.Name)
+                {
+                    case "tBCurrentP":pc.WriteOneWord(CURRENT_P,value,PCan.currentID); break;
+                    case "tBCurrentI":pc.WriteOneWord(CURRENT_I,value,PCan.currentID);  break;
+                    case "tBSpeedP":pc.WriteOneWord(SPEED_P,value,PCan.currentID);  break;
+                    case "tBSpeedI":pc.WriteOneWord(SPEED_I,value,PCan.currentID);  break;
+                    case "tBSpeedD":pc.WriteOneWord(SPEED_D,value,PCan.currentID);  break;
+                    case "tBSpeedDeadZone": pc.WriteOneWord(SPEED_DS,value,PCan.currentID); break;
+                    case "tBPosP":pc.WriteOneWord(POSITION_P,value,PCan.currentID);  break;
+                    case "tBPosI": pc.WriteOneWord(POSITION_I,value,PCan.currentID); break;
+                    case "tBPosD": pc.WriteOneWord(POSITION_D,value,PCan.currentID); break;
+                    case "tBPosDeadZone": pc.WriteOneWord(POSITION_DS,value,PCan.currentID); break; 
 
+                    case "tBMaxCurrent": pc.WriteOneWord(Configuration.LIT_MAX_CURRENT,value,PCan.currentID); break; 
+                    case "tBMaxSpeed": pc.WriteOneWord(Configuration.LIT_MAX_SPEED,value,PCan.currentID); break; 
+                    case "tBMaxAcc": pc.WriteOneWord(Configuration.LIT_MAX_ACC,value,PCan.currentID); break; 
+                }
+            }
+    
 
-     
+        }
 
+        private void cBAdjustGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string tpye = cBAdjustGroup.Text;
+            switch (tpye)
+            {
+                case "S": CURRENT_P = Configuration.S_CURRENT_P;
+                    CURRENT_I = Configuration.S_CURRENT_I;
+                    CURRENT_D = Configuration.S_CURRENT_D;
+                    SPEED_P = Configuration.S_SPEED_P;
+                    SPEED_I = Configuration.S_SPEED_I;
+                    SPEED_D = Configuration.S_SPEED_D;
+                    SPEED_DS = Configuration.S_SPEED_DS;
+                    POSITION_P = Configuration.S_POSITION_P;
+                    POSITION_I = Configuration.S_POSITION_I;
+                    POSITION_D = Configuration.S_POSITION_D;
+                    POSITION_DS = Configuration.S_POSITION_DS;
+                    break;
+                case "M": CURRENT_P = Configuration.M_CURRENT_P;
+                    CURRENT_I = Configuration.M_CURRENT_I;
+                    CURRENT_D = Configuration.M_CURRENT_D;
+                    SPEED_P = Configuration.M_SPEED_P;
+                    SPEED_I = Configuration.M_SPEED_I;
+                    SPEED_D = Configuration.M_SPEED_D;
+                    SPEED_DS = Configuration.M_SPEED_DS;
+                    POSITION_P = Configuration.M_POSITION_P;
+                    POSITION_I = Configuration.M_POSITION_I;
+                    POSITION_D = Configuration.M_POSITION_D;
+                    POSITION_DS = Configuration.M_POSITION_DS;
+                    break;
+                case "L": CURRENT_P = Configuration.L_CURRENT_P;
+                    CURRENT_I = Configuration.L_CURRENT_I;
+                    CURRENT_D = Configuration.L_CURRENT_D;
+                    SPEED_P = Configuration.L_SPEED_P;
+                    SPEED_I = Configuration.L_SPEED_I;
+                    SPEED_D = Configuration.L_SPEED_D;
+                    SPEED_DS = Configuration.L_SPEED_DS;
+                    POSITION_P = Configuration.L_POSITION_P;
+                    POSITION_I = Configuration.L_POSITION_I;
+                    POSITION_D = Configuration.L_POSITION_D;
+                    POSITION_DS = Configuration.L_POSITION_DS;
+                    break;
+            }
+        }
+
+        private void tBCurrentP_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            try
+            {
+                short value = Convert.ToInt16(tb.Text);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("请输入合法的字符串！");
+                return;
+            }
+        }
+        
     }
 
     public class ShowItem
