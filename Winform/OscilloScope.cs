@@ -102,19 +102,19 @@ namespace ICDIBasic
             tracePos1 = 0;
             tracePos2 = pLPaint.Width;
             itemRelection.Clear();
-            itemRelection.Add(Configuration.TAG_CURRENT_L, "指令电流");
-            itemRelection.Add(Configuration.TAG_SPEED_L, "指令速度");
-            itemRelection.Add(Configuration.TAG_POSITION_L, "指令位置");
-            itemRelection.Add(Configuration.SYS_CURRENT_L, "实际电流");
-            itemRelection.Add(Configuration.SYS_SPEED_L, "实际速度");
-            itemRelection.Add(Configuration.SYS_POSITION_L, "实际位置");
+            itemRelection.Add(Configuration.SCP_TAGCUR_L, "指令电流");
+            itemRelection.Add(Configuration.SCP_TAGSPD_L, "指令速度");
+            itemRelection.Add(Configuration.SCP_TAGPOS_L, "指令位置");
+            itemRelection.Add(Configuration.SCP_MEACUR_L, "实际电流");
+            itemRelection.Add(Configuration.SCP_MEASPD_L, "实际速度");
+            itemRelection.Add(Configuration.SCP_MEAPOS_L, "实际位置");
             showItems.Clear();
-            showItems.Add(new ShowItem(true, Configuration.TAG_SPEED_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
-            showItems.Add(new ShowItem(true, Configuration.SYS_SPEED_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEASPD));
-            showItems.Add(new ShowItem(true, Configuration.TAG_POSITION_L, "观测", Color.Blue, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGPOS));
-            showItems.Add(new ShowItem(true, Configuration.SYS_POSITION_L, "观测", Color.Red, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEAPOS));
-            showItems.Add(new ShowItem(true, Configuration.TAG_CURRENT_L, "观测", Color.Yellow, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGCUR));
-            showItems.Add(new ShowItem(true, Configuration.SYS_CURRENT_L, "观测", Color.Cyan, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEACUR));
+            showItems.Add(new ShowItem(true, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGCUR));
+            showItems.Add(new ShowItem(true, Configuration.SCP_TAGSPD_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
+            showItems.Add(new ShowItem(true, Configuration.SCP_TAGPOS_L, "观测", Color.Blue, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGPOS));
+            showItems.Add(new ShowItem(true, Configuration.SCP_MEACUR_L, "观测", Color.Cyan, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEACUR));
+            showItems.Add(new ShowItem(true, Configuration.SCP_MEASPD_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEASPD));
+            showItems.Add(new ShowItem(true, Configuration.SCP_MEAPOS_L, "观测", Color.Red, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEAPOS));
 
             Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS | Configuration.MASK_TAGCUR | Configuration.MASK_MEACUR;
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件

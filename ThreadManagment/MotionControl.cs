@@ -198,7 +198,7 @@ namespace ICDIBasic
                 gatherCount++;
                 if (gatherCount == OscilloScope.Interval)
                 {
-                   // AllocConsole();
+                    AllocConsole();
                     gatherCount = 0;
                     // System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
                     for (int i = 0; i < OscilloScope.showItems.Count; i++)
@@ -216,6 +216,9 @@ namespace ICDIBasic
                             //    System.Console.WriteLine(value.ToString());
                             //}
                         }
+                        //if (OscilloScope.showItems[i].Item == Configuration.SYS_POSITION_L)
+                        //{
+                        //}
                     }
                 }
                 
