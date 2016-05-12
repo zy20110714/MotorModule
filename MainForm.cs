@@ -484,7 +484,7 @@ namespace ICDIBasic
 
            // btnParameters_Click(this, new EventArgs());
 
-            pc.WriteOneWord(Configuration.SCP_TRI_FLG, 1, PCan.currentID);   //用户触发
+            //pc.WriteOneWord(Configuration.SCP_TRI_FLG, 1, PCan.currentID);   //用户触发
         }
 
         //子线程代理
