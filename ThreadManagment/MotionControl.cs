@@ -209,7 +209,16 @@ namespace ICDIBasic
 
                             byte[] value1 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item]);
                             byte[] value2 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item + 1]);
-                            int value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+                            int value = 0;
+                            if (OscilloScope.showItems[i].Item == Configuration.SCP_TAGPOS_L || OscilloScope.showItems[i].Item == Configuration.SCP_MEAPOS_L)
+                            {
+                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+                            }
+                            else
+                            {
+                                value = BitConverter.ToInt32(value1, 0);
+                            }
+
                             OscilloScope.showItems[i].sq.EnQ(value);
                             //if (OscilloScope.showItems[i].Item == Configuration.SYS_SPEED_L)
                             //{
