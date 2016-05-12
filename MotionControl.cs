@@ -39,11 +39,11 @@ namespace ICDIBasic
 
         PCan pc;
        
-
-
         static bool s_bHigh = false;
         static int s_iCount = 0;
         static int s_iCountforwave = 0;
+
+        static int gatherCount = 0;
 
         public delegate void timerEvent();
         public event timerEvent tickEvent;
@@ -105,7 +105,6 @@ namespace ICDIBasic
 
         void tick()
         {
-          
             if (TestRun.Enablewave)
             {
                 double tempf = 0;
@@ -194,52 +193,36 @@ namespace ICDIBasic
                         break;
                 }
             }
-            else if (OscilloScope.EnableScope)
+            if (OscilloScope.EnableScope)
             {
-                Interval = 20;
-                AllocConsole();
-               // System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
-                for (int i = 0; i < OscilloScope.showItems.Count; i++)
+                gatherCount++;
+                if (gatherCount == OscilloScope.Interval)
                 {
-                    if (OscilloScope.showItems[i].sq != null)
+                    AllocConsole();
+                    gatherCount = 0;
+                    // System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
+                    for (int i = 0; i < OscilloScope.showItems.Count; i++)
                     {
-                        pc.ReadWords(OscilloScope.showItems[i].Item, 2, PCan.currentID);
+                        if (OscilloScope.showItems[i].sq != null)
+                        {
+                            // pc.ReadWords(OscilloScope.showItems[i].Item, 2, PCan.currentID);
+
+                            byte[] value1 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item]);
+                            byte[] value2 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item + 1]);
+                            int value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+                            OscilloScope.showItems[i].sq.EnQ(value);
+                            //if (OscilloScope.showItems[i].Item == Configuration.SYS_SPEED_L)
+                            //{
+                            //    System.Console.WriteLine(value.ToString());
+                            //}
+                        }
                         //if (OscilloScope.showItems[i].Item == Configuration.SYS_POSITION_L)
                         //{
-                        //    OscilloScope.showItems[i].sq.EnQ(MessageProccessing.realPos);
                         //}
-                        //else if (OscilloScope.showItems[i].Item == Configuration.SYS_CURRENT_L)
-                        //{
-                        //   // OscilloScope.showItems[i].sq.EnQ(MessageProccessing.realCurrent);
-                        //}
-                        //else if (OscilloScope.showItems[i].Item == Configuration.SYS_SPEED_L)
-                        //{
-                        //    //OscilloScope.showItems[i].sq.EnQ(MessageProccessing.realSpeed);
-                        //}
-                        //else
-                        //{
-
-                        byte[] value1 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item]);
-                        byte[] value2 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item + 1]);
-                        int value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
-                        OscilloScope.showItems[i].sq.EnQ(value);
-                        if (OscilloScope.showItems[i].Item == Configuration.SYS_SPEED_L)
-                        {
-                            System.Console.WriteLine(value.ToString());
-                        }
-                        //  + Configuration.m_CmdMap[OscilloScope.showItems[i].Item + 1] << 16)));
-                        //}
-                       
-                    }
-                    if (OscilloScope.showItems[i].Item == Configuration.SYS_POSITION_L)
-                    {
-                        //System.Console.WriteLine(((ushort)Configuration.m_CmdMap[OscilloScope.showItems[i].Item]).ToString() + "  " + ((ushort)(Configuration.m_CmdMap[OscilloScope.showItems[i].Item + 1])).ToString());
-                        //System.Console.WriteLine((((UInt32)Configuration.m_CmdMap[OscilloScope.showItems[i].Item + 1] << 16)).ToString());
-                        //System.Console.WriteLine(MessageProccessing.realPos.ToString());
                     }
                 }
+                
             }
-           
         }
 
         void SetValue(short Value)

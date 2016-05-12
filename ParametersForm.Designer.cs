@@ -323,7 +323,7 @@
             // 
             // timerUpdate
             // 
-            this.timerUpdate.Interval = 300;
+            this.timerUpdate.Interval = 1000;
             this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
             // 
             // ParametersForm

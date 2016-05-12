@@ -21,7 +21,7 @@ namespace ICDIBasic
             InitializeComponent();
             InitialControls();
             pc = new PCan();
-            //timerUpdate.Start();
+            timerUpdate.Start();
         }
 
         public static ParametersForm GetInstance()

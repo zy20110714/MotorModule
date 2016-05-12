@@ -17,6 +17,8 @@ namespace ICDIBasic
     {
         public static OscilloScope pCurrentWin = null;//句柄
         public static List<ShowItem> showItems = new List<ShowItem>();
+        public static byte Mask = 0; 
+        public static int Interval = 0;
         Dictionary<byte, string> itemRelection = new Dictionary<byte, string>();
         ComboBox cb;
         Thread thread;
@@ -48,8 +50,9 @@ namespace ICDIBasic
         public OscilloScope()
         {
             InitializeComponent();
-            InitialControls();
             pc = new PCan();
+
+            InitialControls();
             thread = new Thread(new ThreadStart(ThreadProc));
             thread.Name = "HighAccuracyTimer";
             //thread.Start();
@@ -104,12 +107,22 @@ namespace ICDIBasic
             itemRelection.Add(Configuration.SYS_SPEED_L, "实际速度");
             itemRelection.Add(Configuration.SYS_POSITION_L, "实际位置");
             showItems.Clear();
-            showItems.Add(new ShowItem(true, Configuration.TAG_SPEED_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width));
-            showItems.Add(new ShowItem(true, Configuration.SYS_SPEED_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width));
-            showItems.Add(new ShowItem(true, Configuration.TAG_POSITION_L, "观测", Color.Blue, DashStyle.Solid, pLPaint.Width));
-            showItems.Add(new ShowItem(true, Configuration.SYS_POSITION_L, "观测", Color.Red, DashStyle.Solid, pLPaint.Width));
-            showItems.Add(new ShowItem(true, Configuration.TAG_CURRENT_L, "观测", Color.Yellow, DashStyle.Solid, pLPaint.Width));
-            showItems.Add(new ShowItem(true, Configuration.SYS_CURRENT_L, "观测", Color.Cyan, DashStyle.Solid, pLPaint.Width));
+            showItems.Add(new ShowItem(true, Configuration.TAG_SPEED_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
+            showItems.Add(new ShowItem(true, Configuration.SYS_SPEED_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEASPD));
+            showItems.Add(new ShowItem(true, Configuration.TAG_POSITION_L, "观测", Color.Blue, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGPOS));
+            showItems.Add(new ShowItem(true, Configuration.SYS_POSITION_L, "观测", Color.Red, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEAPOS));
+            showItems.Add(new ShowItem(true, Configuration.TAG_CURRENT_L, "观测", Color.Yellow, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGCUR));
+            showItems.Add(new ShowItem(true, Configuration.SYS_CURRENT_L, "观测", Color.Cyan, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEACUR));
+
+            Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS | Configuration.MASK_TAGCUR | Configuration.MASK_MEACUR;
+            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
+            setTimeInterval(100);
+        }
+
+        void setTimeInterval(short interval)
+        {
+            Interval = interval;
+            pc.WriteOneWord(Configuration.SCP_REC_TIM, interval, PCan.currentID);
         }
         private void ThreadProc()
         {
@@ -235,9 +248,6 @@ namespace ICDIBasic
         private void timerPaint_Tick(object sender, EventArgs e)
         {
             pLPaint.Refresh();
-            //Graphics g = e.Graphics;
-            //pLPaint_Paint(sender, new PaintEventArgs());
-
         }
 
         private void tBtrace_Scroll(object sender, EventArgs e)
@@ -269,6 +279,8 @@ namespace ICDIBasic
             tBMaxCurrent.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_CURRENT].ToString();
             tBMaxSpeed.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_SPEED].ToString();
             tBMaxAcc.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_ACC].ToString();
+
+            cBAdjustGroup.Text = Configuration.m_CmdMap[Configuration.SEV_PARAME_LOCKED].ToString();
         }
 
         void loadLVFormat()
@@ -318,19 +330,20 @@ namespace ICDIBasic
         {
             if (lVFormat.FocusedItem != null)
             {
-                int index = lVFormat.FocusedItem.Index;
-                showItems[index].IsCheck = lVFormat.FocusedItem.Checked;
-                if (showItems[index].IsCheck && showItems[index].sq == null)
+                int index = e.Item.Index;
+                e.Item.Selected = e.Item.Checked;
+                showItems[index].IsCheck = e.Item.Checked;
+                if (showItems[index].IsCheck)
                 {
-                    showItems[index].sq = new ShowQueue(pLPaint.Width);
+                    Mask |= showItems[index].Mask;
                 }
                 else
                 {
-                    showItems[index].sq = null;
+                    Mask &= (byte) ~(int)showItems[index].Mask;
                 }
-                
+
+                pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);       //向下位机请求数据
             }
-           
         }
 
         private void tBCurrentP_KeyDown(object sender, KeyEventArgs e)
@@ -366,8 +379,6 @@ namespace ICDIBasic
                     case "tBMaxAcc": pc.WriteOneWord(Configuration.LIT_MAX_ACC,value,PCan.currentID); break; 
                 }
             }
-    
-
         }
 
         private void cBAdjustGroup_SelectedIndexChanged(object sender, EventArgs e)
@@ -375,7 +386,7 @@ namespace ICDIBasic
             string tpye = cBAdjustGroup.Text;
             switch (tpye)
             {
-                case "S": CURRENT_P = Configuration.S_CURRENT_P;
+                case "1": CURRENT_P = Configuration.S_CURRENT_P;
                     CURRENT_I = Configuration.S_CURRENT_I;
                     CURRENT_D = Configuration.S_CURRENT_D;
                     SPEED_P = Configuration.S_SPEED_P;
@@ -387,7 +398,7 @@ namespace ICDIBasic
                     POSITION_D = Configuration.S_POSITION_D;
                     POSITION_DS = Configuration.S_POSITION_DS;
                     break;
-                case "M": CURRENT_P = Configuration.M_CURRENT_P;
+                case "2": CURRENT_P = Configuration.M_CURRENT_P;
                     CURRENT_I = Configuration.M_CURRENT_I;
                     CURRENT_D = Configuration.M_CURRENT_D;
                     SPEED_P = Configuration.M_SPEED_P;
@@ -399,7 +410,7 @@ namespace ICDIBasic
                     POSITION_D = Configuration.M_POSITION_D;
                     POSITION_DS = Configuration.M_POSITION_DS;
                     break;
-                case "L": CURRENT_P = Configuration.L_CURRENT_P;
+                case "3": CURRENT_P = Configuration.L_CURRENT_P;
                     CURRENT_I = Configuration.L_CURRENT_I;
                     CURRENT_D = Configuration.L_CURRENT_D;
                     SPEED_P = Configuration.L_SPEED_P;
@@ -411,7 +422,6 @@ namespace ICDIBasic
                     POSITION_D = Configuration.L_POSITION_D;
                     POSITION_DS = Configuration.L_POSITION_DS;
                     break;
-
             }
             if (tpye == "0")
             {
@@ -451,7 +461,8 @@ namespace ICDIBasic
         public string Monitor;
         public byte Item;
         public ShowQueue sq;
-        public ShowItem(bool isCheck, byte item, string monitor, Color cl, DashStyle ds, int queueSize)
+        public byte Mask;
+        public ShowItem(bool isCheck, byte item, string monitor, Color cl, DashStyle ds, int queueSize, byte mask)
         {
             IsCheck = isCheck;
             Item = item;
@@ -459,6 +470,7 @@ namespace ICDIBasic
             Cl = cl;
             Ds = ds;
             sq = new ShowQueue(queueSize);
+            Mask = mask;
         }
     }
 

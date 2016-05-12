@@ -347,14 +347,15 @@
             this.cBAdjustGroup.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cBAdjustGroup.FormattingEnabled = true;
             this.cBAdjustGroup.Items.AddRange(new object[] {
-            "S",
-            "M",
-            "L"});
+            "0",
+            "1",
+            "2",
+            "3"});
             this.cBAdjustGroup.Location = new System.Drawing.Point(64, 31);
             this.cBAdjustGroup.Name = "cBAdjustGroup";
             this.cBAdjustGroup.Size = new System.Drawing.Size(47, 27);
             this.cBAdjustGroup.TabIndex = 2;
-            this.cBAdjustGroup.Text = "M";
+            this.cBAdjustGroup.Text = "2";
             this.cBAdjustGroup.SelectedIndexChanged += new System.EventHandler(this.cBAdjustGroup_SelectedIndexChanged);
             // 
             // label14
@@ -614,7 +615,7 @@
             this.lVFormat.Location = new System.Drawing.Point(0, 0);
             this.lVFormat.MultiSelect = false;
             this.lVFormat.Name = "lVFormat";
-            this.lVFormat.Size = new System.Drawing.Size(825, 115);
+            this.lVFormat.Size = new System.Drawing.Size(865, 115);
             this.lVFormat.TabIndex = 0;
             this.lVFormat.UseCompatibleStateImageBehavior = false;
             this.lVFormat.View = System.Windows.Forms.View.Details;

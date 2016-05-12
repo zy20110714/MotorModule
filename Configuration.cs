@@ -156,6 +156,26 @@ namespace ICDIBasic
         public const byte SCP_TAGPOS_H		    	= 0x9B;	//目标位置数据集
         public const byte SCP_MEAPOS_L              = 0x9C;	//实际位置数据集
         public const byte SCP_MEAPOS_H              = 0x9D;	//实际位置数据集
+
+        public const byte MASK_TAGCUR				=	0x01;		//记录目标电流MASK
+        public const byte MASK_MEACUR				=	0x02;		//记录实际电流MASK
+        public const byte MASK_TAGSPD				=	0x04;		//记录目标速度MASK
+        public const byte MASK_MEASPD				=	0x08;		//记录实际速度MASK
+        public const byte MASK_TAGPOS				=	0x10;		//记录目标位置MASK
+        public const byte MASK_MEAPOS				=	0x20;		//记录实际位置MASK
+
+        //错误字节MASK定义                           
+        public const ushort ERROR_MASK_OVER_CURRENT = 0x0001;//过流
+        public const ushort ERROR_MASK_OVER_VOLTAGE = 0x0002;//过压
+        public const ushort ERROR_MASK_UNDER_VOLTAGE = 0x0004;	//欠压
+        public const ushort ERROR_MASK_OVER_TEMP = 0x0008;//过温
+        public const ushort ERROR_MASK_HALL = 0x0010;//霍尔错误
+        public const ushort ERROR_MASK_ENCODER = 0x0020;	//码盘错误
+        public const ushort ERROR_MASK_POTEN = 0x0040;	//电位器错误
+        public const ushort ERROR_MASK_CURRENT_INIT = 0x0080;//电流检测错误
+        public const ushort ERROR_MASK_FUSE = 0x0100;//保险丝断开错误
+
+
         
         public Configuration()
         {
