@@ -250,7 +250,25 @@ namespace ICDIBasic
             switch (tCMonitor.SelectedIndex)
             {
                 case 3: loadLVFormat(); break;
+                case 1: loadPID();break;
             }
+        }
+
+        void loadPID()
+        {
+            tBCurrentP.Text = Configuration.m_CmdMap[CURRENT_P].ToString();
+            tBCurrentI.Text = Configuration.m_CmdMap[CURRENT_I].ToString();
+            tBSpeedP.Text = Configuration.m_CmdMap[SPEED_P].ToString();
+            tBSpeedI.Text = Configuration.m_CmdMap[SPEED_I].ToString();
+            tBSpeedD.Text = Configuration.m_CmdMap[SPEED_D].ToString();
+            tBSpeedDeadZone.Text = Configuration.m_CmdMap[SPEED_DS].ToString();
+            tBPosP.Text = Configuration.m_CmdMap[POSITION_P].ToString();
+            tBPosI.Text = Configuration.m_CmdMap[POSITION_I].ToString();
+            tBPosD.Text = Configuration.m_CmdMap[POSITION_D].ToString();
+            tBPosDeadZone.Text = Configuration.m_CmdMap[POSITION_DS].ToString();
+            tBMaxCurrent.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_CURRENT].ToString();
+            tBMaxSpeed.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_SPEED].ToString();
+            tBMaxAcc.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_ACC].ToString();
         }
 
         void loadLVFormat()
@@ -393,6 +411,19 @@ namespace ICDIBasic
                     POSITION_D = Configuration.L_POSITION_D;
                     POSITION_DS = Configuration.L_POSITION_DS;
                     break;
+
+            }
+            if (tpye == "0")
+            {
+                gBCurrent.Enabled = false;
+                gBSpeed.Enabled = false;
+                gBPos.Enabled = false;
+            }
+            else
+            {
+                gBCurrent.Enabled = true;
+                gBSpeed.Enabled = true;
+                gBPos.Enabled = true;
             }
         }
 

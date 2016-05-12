@@ -40,7 +40,7 @@
             this.tCMonitor = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gBPos = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@
             this.tBMaxCurrent = new System.Windows.Forms.TextBox();
             this.tBMaxAcc = new System.Windows.Forms.TextBox();
             this.tBMaxSpeed = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gBSpeed = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -84,9 +84,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).BeginInit();
             this.tCMonitor.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gBPos.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.gBSpeed.SuspendLayout();
             this.gBCurrent.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.SuspendLayout();
@@ -214,9 +214,9 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.gBPos);
             this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.gBSpeed);
             this.tabPage2.Controls.Add(this.gBCurrent);
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
@@ -226,23 +226,23 @@
             this.tabPage2.Text = "PID调节";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // gBPos
             // 
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.tBPosDeadZone);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.tBPosD);
-            this.groupBox2.Controls.Add(this.tBPosI);
-            this.groupBox2.Controls.Add(this.tBPosP);
-            this.groupBox2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox2.Location = new System.Drawing.Point(626, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(230, 106);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "位置环";
+            this.gBPos.Controls.Add(this.label10);
+            this.gBPos.Controls.Add(this.label4);
+            this.gBPos.Controls.Add(this.label9);
+            this.gBPos.Controls.Add(this.tBPosDeadZone);
+            this.gBPos.Controls.Add(this.label3);
+            this.gBPos.Controls.Add(this.tBPosD);
+            this.gBPos.Controls.Add(this.tBPosI);
+            this.gBPos.Controls.Add(this.tBPosP);
+            this.gBPos.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gBPos.Location = new System.Drawing.Point(626, 6);
+            this.gBPos.Name = "gBPos";
+            this.gBPos.Size = new System.Drawing.Size(230, 106);
+            this.gBPos.TabIndex = 0;
+            this.gBPos.TabStop = false;
+            this.gBPos.Text = "位置环";
             // 
             // label10
             // 
@@ -427,23 +427,23 @@
             this.tBMaxSpeed.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBMaxSpeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
             // 
-            // groupBox1
+            // gBSpeed
             // 
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.tBSpeedD);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.tBSpeedDeadZone);
-            this.groupBox1.Controls.Add(this.tBSpeedP);
-            this.groupBox1.Controls.Add(this.tBSpeedI);
-            this.groupBox1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(390, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(230, 106);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "速度环";
+            this.gBSpeed.Controls.Add(this.label8);
+            this.gBSpeed.Controls.Add(this.label6);
+            this.gBSpeed.Controls.Add(this.label7);
+            this.gBSpeed.Controls.Add(this.tBSpeedD);
+            this.gBSpeed.Controls.Add(this.label5);
+            this.gBSpeed.Controls.Add(this.tBSpeedDeadZone);
+            this.gBSpeed.Controls.Add(this.tBSpeedP);
+            this.gBSpeed.Controls.Add(this.tBSpeedI);
+            this.gBSpeed.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gBSpeed.Location = new System.Drawing.Point(390, 6);
+            this.gBSpeed.Name = "gBSpeed";
+            this.gBSpeed.Size = new System.Drawing.Size(230, 106);
+            this.gBSpeed.TabIndex = 0;
+            this.gBSpeed.TabStop = false;
+            this.gBSpeed.Text = "速度环";
             // 
             // label8
             // 
@@ -667,12 +667,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).EndInit();
             this.tCMonitor.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gBPos.ResumeLayout(false);
+            this.gBPos.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gBSpeed.ResumeLayout(false);
+            this.gBSpeed.PerformLayout();
             this.gBCurrent.ResumeLayout(false);
             this.gBCurrent.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -701,7 +701,7 @@
         private System.Windows.Forms.ComboBox cBSpeedRatio;
         private System.Windows.Forms.ComboBox cBPositionRatio;
         private System.Windows.Forms.ComboBox cBCurrentRatio;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gBPos;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label9;
@@ -719,7 +719,7 @@
         private System.Windows.Forms.TextBox tBMaxCurrent;
         private System.Windows.Forms.TextBox tBMaxAcc;
         private System.Windows.Forms.TextBox tBMaxSpeed;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gBSpeed;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
