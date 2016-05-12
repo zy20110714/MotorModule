@@ -216,7 +216,7 @@ namespace ICDIBasic
                             }
                             else
                             {
-                                value = BitConverter.ToInt32(value1, 0);
+                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], 0, 0 }, 0);
                             }
 
                             OscilloScope.showItems[i].sq.EnQ(value);
