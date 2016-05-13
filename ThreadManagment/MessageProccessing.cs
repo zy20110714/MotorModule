@@ -372,6 +372,15 @@ namespace ICDIBasic
                         //备份内存控制表
                         backUpMemoryControlTable();
                     }
+                    else if (index == Configuration.SYS_SAVE_TO_FLASH)
+                    {
+                        //参数更新完成
+                        if (pCanMsg.DATA[2] == 0)
+                        {
+                            WriteParameters.ProgramFinished = true;
+                        }
+                        Configuration.MemoryControlTable[index] = value;
+                    }
                     else
                     {
                         //ID信号有干扰，应单独分开
@@ -394,12 +403,7 @@ namespace ICDIBasic
             }
             else if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_WR)
             {
-                int index = pCanMsg.DATA[CAN_INDEX];
-                if (index == Configuration.SYS_SAVE_TO_FLASH)
-                {
-                    //参数更新完成
-                    WriteParameters.ProgramFinished = true;
-                }
+
             }
             if (pCanMsg.DATA[CAN_CMD] != 0)
             {

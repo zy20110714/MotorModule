@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace ICDIBasic
 {
@@ -19,7 +20,6 @@ namespace ICDIBasic
         {
             InitializeComponent();
             pc = new PCan();
-            InitialControls();
         }
 
         public static WriteParameters GetInstance()
@@ -32,6 +32,12 @@ namespace ICDIBasic
             return pCurrentWin;
         }
 
+        private void WriteParameters_Load(object sender, EventArgs e)
+        {
+            InitialControls();
+        }
+
+
         private void InitialControls()
         {
             lVFlash.Items.Clear();
@@ -41,19 +47,38 @@ namespace ICDIBasic
             {
                 if (Configuration.MemoryControlTableBak[i] != Configuration.MemoryControlTable[i])
                 {
-                    lVFlash.Items.Add("");
-                    string strName = i.ToString("x2");
-                    string type = strName.Substring(0, 1);
-                    lVFlash.Items[j].SubItems.AddRange(new string[] { type, strName, ParametersForm.paraRelection[(byte)i].Description, Configuration.MemoryControlTableBak[i].ToString(),Configuration.MemoryControlTable[i].ToString()});
-                    lVFlash.Items[j].Checked = true;
-                    j++;
+                    try
+                    {
+                        lVFlash.Items.Add("");
+                        string strName = i.ToString("x2");
+                        string type = strName.Substring(0, 1);
+                        lVFlash.Items[j].SubItems.AddRange(new string[] { type, strName, ParametersForm.paraRelection[(byte)i].Description, Configuration.MemoryControlTableBak[i].ToString(), Configuration.MemoryControlTable[i].ToString() });
+                        lVFlash.Items[j].Checked = true;
+                        j++;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        lVFlash.Items[j].Remove();   //删除添加不成功的行
+                        continue;
+                    }
+                  
                 }
+            }
+            if (j == 0)
+            {
+                lLName.Text = "无参数更改！";
+                lLName.BackColor = Color.Red;
+                lLName.Location = new Point(230, 160);
+                lLName.BringToFront();
             }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            writeParametersToFlash();
+            if (lLName.Text != "无参数更改！")
+            {
+                writeParametersToFlash();
+            }
             this.Close();
         }
 
@@ -61,10 +86,16 @@ namespace ICDIBasic
         {
             for (int i = 0; i < lVFlash.Items.Count;i++ )
             {
+                byte index = Convert.ToByte(lVFlash.Items[i].SubItems[2].Text, 16);
                 if (!lVFlash.Items[i].Checked)
                 {
-                    byte index = Convert.ToByte(lVFlash.Items[i].SubItems[2].Text,16);
+                  
                     pc.WriteOneWord(index, Configuration.MemoryControlTableBak[index], PCan.currentID);
+                }
+                else
+                {
+                    //更新备份的内存控制表
+                    Configuration.MemoryControlTableBak[index] = Configuration.MemoryControlTable[index];
                 }
             }
             //保存数据到Flash标志
@@ -73,6 +104,8 @@ namespace ICDIBasic
             while(!ProgramFinished)
             {
                 //等待Flash烧写完成
+                pc.ReadOneWord(Configuration.SYS_SAVE_TO_FLASH, PCan.currentID);
+                Thread.Sleep(3);
             }
             MessageBox.Show("Done!");
         }
@@ -86,5 +119,7 @@ namespace ICDIBasic
         {
             pCurrentWin = null;
         }
+
+    
     }
 }

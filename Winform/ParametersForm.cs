@@ -394,6 +394,7 @@ namespace ICDIBasic
             wp.Location = new Point(205,125);
             wp.BringToFront();
             wp.Show();
+            
         }
 
       
