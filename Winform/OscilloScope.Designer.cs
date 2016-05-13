@@ -74,6 +74,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lVPointer = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label15 = new System.Windows.Forms.Label();
             this.nUSmoothData = new System.Windows.Forms.NumericUpDown();
             this.rBPointer2 = new System.Windows.Forms.RadioButton();
@@ -86,6 +96,8 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tMPointer = new System.Windows.Forms.Timer(this.components);
             this.pLBoard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).BeginInit();
             this.tCMonitor.SuspendLayout();
@@ -231,7 +243,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(868, 115);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "实测项目";
+            this.tabPage1.Text = "测量条件";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -245,7 +257,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(868, 115);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "PID调节";
+            this.tabPage2.Text = "PID手动调节";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // gBPos
@@ -604,6 +616,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage3.Controls.Add(this.lVPointer);
             this.tabPage3.Controls.Add(this.label15);
             this.tabPage3.Controls.Add(this.nUSmoothData);
             this.tabPage3.Controls.Add(this.rBPointer2);
@@ -614,7 +628,79 @@
             this.tabPage3.Size = new System.Drawing.Size(868, 115);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "指针";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lVPointer
+            // 
+            this.lVPointer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13,
+            this.columnHeader14,
+            this.columnHeader15});
+            this.lVPointer.GridLines = true;
+            this.lVPointer.Location = new System.Drawing.Point(137, 0);
+            this.lVPointer.Name = "lVPointer";
+            this.lVPointer.Size = new System.Drawing.Size(731, 115);
+            this.lVPointer.TabIndex = 5;
+            this.lVPointer.UseCompatibleStateImageBehavior = false;
+            this.lVPointer.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "   项目";
+            this.columnHeader7.Width = 125;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "单位";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader8.Width = 70;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "指针1";
+            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader9.Width = 75;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "指针2";
+            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader10.Width = 75;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "差值";
+            this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader11.Width = 75;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "均值";
+            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader12.Width = 75;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "最大值";
+            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader13.Width = 75;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "最小值";
+            this.columnHeader14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader14.Width = 75;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "标准差";
+            this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader15.Width = 80;
             // 
             // label15
             // 
@@ -685,7 +771,7 @@
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(868, 115);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "格式";
+            this.tabPage4.Text = "测量项目";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // lVFormat
@@ -698,7 +784,8 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader6});
             this.lVFormat.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lVFormat.FullRowSelect = true;
             this.lVFormat.Location = new System.Drawing.Point(0, 0);
@@ -709,6 +796,7 @@
             this.lVFormat.UseCompatibleStateImageBehavior = false;
             this.lVFormat.View = System.Windows.Forms.View.Details;
             this.lVFormat.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
+            this.lVFormat.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
             this.lVFormat.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseDoubleClick);
             // 
             // columnHeader1
@@ -738,7 +826,18 @@
             // 
             this.columnHeader5.Text = "线型";
             this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 200;
+            this.columnHeader5.Width = 140;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "线宽";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader6.Width = 140;
+            // 
+            // tMPointer
+            // 
+            this.tMPointer.Interval = 1500;
+            this.tMPointer.Tick += new System.EventHandler(this.tMPointer_Tick);
             // 
             // OscilloScope
             // 
@@ -832,5 +931,17 @@
         private System.Windows.Forms.RadioButton rBPointer1;
         private System.Windows.Forms.CheckBox cBPointer;
         private System.Windows.Forms.Button btnMeasure;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ListView lVPointer;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.Timer tMPointer;
     }
 }

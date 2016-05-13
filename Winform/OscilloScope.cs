@@ -84,7 +84,6 @@ namespace ICDIBasic
             timerPaint.Stop();
         }
 
-
         private void OscilloScope_FormClosing(object sender, FormClosingEventArgs e)
         {
             running = false;
@@ -109,12 +108,12 @@ namespace ICDIBasic
             itemRelection.Add(Configuration.SCP_MEASPD_L, "实际速度");
             itemRelection.Add(Configuration.SCP_MEAPOS_L, "实际位置");
             showItems.Clear();
-            showItems.Add(new ShowItem(false, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGCUR));
+            showItems.Add(new ShowItem(false, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Dot, pLPaint.Width, Configuration.MASK_TAGCUR));
             showItems.Add(new ShowItem(true, Configuration.SCP_TAGSPD_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
-            showItems.Add(new ShowItem(true, Configuration.SCP_TAGPOS_L, "观测", Color.Blue, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGPOS));
-            showItems.Add(new ShowItem(false, Configuration.SCP_MEACUR_L, "观测", Color.Cyan, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEACUR));
+            showItems.Add(new ShowItem(true, Configuration.SCP_TAGPOS_L, "观测", Color.Blue, DashStyle.Dash, pLPaint.Width, Configuration.MASK_TAGPOS));
+            showItems.Add(new ShowItem(false, Configuration.SCP_MEACUR_L, "观测", Color.Cyan, DashStyle.Dot, pLPaint.Width, Configuration.MASK_MEACUR));
             showItems.Add(new ShowItem(true, Configuration.SCP_MEASPD_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEASPD));
-            showItems.Add(new ShowItem(true, Configuration.SCP_MEAPOS_L, "观测", Color.Red, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEAPOS));
+            showItems.Add(new ShowItem(true, Configuration.SCP_MEAPOS_L, "观测", Color.Red, DashStyle.Dash, pLPaint.Width, Configuration.MASK_MEAPOS));
 
             Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS;
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
@@ -221,6 +220,7 @@ namespace ICDIBasic
                         }
                       
                         pen.Color = showItems[i].Cl;
+                        pen.DashStyle = showItems[i].Ds;
                         g.DrawLines(pen, points);
                     }
                 }
@@ -248,7 +248,6 @@ namespace ICDIBasic
            
         }
 
-
         private static int GetMax(int[] array)
         {
             int max = 0;
@@ -263,6 +262,7 @@ namespace ICDIBasic
         private void timerPaint_Tick(object sender, EventArgs e)
         {
             pLPaint.Refresh();
+
         }
 
         //指针响应处理函数
@@ -294,6 +294,7 @@ namespace ICDIBasic
             {
                 case 3: loadLVFormat(); break;
                 case 1: loadPID(); cBAdjustGroup.Text = Configuration.m_CmdMap[Configuration.SEV_PARAME_LOCKED].ToString(); break;
+                case 2: loadlVPointer(); break;
             }
         }
 
@@ -323,18 +324,31 @@ namespace ICDIBasic
             for (int i = 0; i < showItems.Count;i++ )
             {
                 lVFormat.Items.Add((i+1).ToString());
-                lVFormat.Items[i].SubItems.AddRange(new string[] { itemRelection[showItems[i].Item], showItems[i].Monitor, "", "—" });
+                lVFormat.Items[i].SubItems.AddRange(new string[] { itemRelection[showItems[i].Item], showItems[i].Monitor, "", GetDashStyle(showItems[i].Ds) });
                 lVFormat.Items[i].UseItemStyleForSubItems = false;
                 lVFormat.Items[i].SubItems[3].BackColor = showItems[i].Cl;
                 //lVFormat.Items[i].Focused = true;
                 lVFormat.Items[i].Checked = showItems[i].IsCheck;
             }
+        }
 
+        private string GetDashStyle(DashStyle ds)
+        {
+            string str = "";
+            switch (ds)
+            {
+                case DashStyle.Solid: str = "实线"; break;
+                case DashStyle.Dash: str ="虚线" ; break;
+                case DashStyle.Dot: str = "点线"; break;
+                case DashStyle.DashDot: str = "点划线"; break;
+                case DashStyle.DashDotDot : str = "双点划线"; break;
+            }
+            return str;
         }
 
         private void lVFormat_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (e.X > 425 && e.X < 570)
+            if (e.X > 420 && e.X < 570)
             {
                 int index = lVFormat.FocusedItem.Index;
                 if (cDcolor.ShowDialog() == DialogResult.OK)
@@ -343,19 +357,26 @@ namespace ICDIBasic
                     loadLVFormat();
                 }
             }
-            else if (e.X > 570 && e.X < 800)
+            else if (e.X > 570 && e.X < 740)
             {
-                Rectangle tt = lVFormat.SelectedItems[0].SubItems[4].Bounds;
+                Rectangle tt = lVFormat.Items[lVFormat.FocusedItem.Index].SubItems[4].Bounds;
                 cb = new ComboBox();
                 cb.Font = new Font("宋体", 13, FontStyle.Bold);
-                //cb.TextAlign = HorizontalAlignment.Center;
                 cb.Size = new Size(tt.Width, 18);
                 cb.Location = tt.Location;
                 cb.BackColor = Color.White;
-                cb.Text = lVFormat.SelectedItems[0].SubItems[4].Text;
+                cb.Text = "实线";
+                cb.Tag = lVFormat.FocusedItem.Index;
+                cb.Items.Add("实线");
+                cb.Items.Add("虚线");
+                cb.Items.Add("点线");
+                cb.Items.Add("点划线");
+                cb.Items.Add("双点划线");
+
                 cb.Focus();
                 lVFormat.Controls.Add(cb);
             }
+
             
         }
 
@@ -498,10 +519,73 @@ namespace ICDIBasic
                 {
                     tBtrace.Value = tracePos2;
                 }
+                tMPointer.Start();
+                loadlVPointer();
             }
             else
             {
+                tMPointer.Stop();
                 tBtrace.Enabled = false;
+                lVPointer.Items.Clear();
+            }
+        }
+
+        private void refreshlVPointer()
+        {
+            int j = 0;
+            for (int i = 0; i < showItems.Count; i++)
+            {
+                if (showItems[i].IsCheck && showItems[i].sq != null)
+                {
+
+                    int pV1 = GetPointerValue(showItems[i].sq, tracePos1);
+                    int pV2 = GetPointerValue(showItems[i].sq, tracePos2);
+                    float pAverage = showItems[i].sq.GetAverageValue(tracePos1, tracePos2);
+                    float maxValue = showItems[i].sq.GetMaxValue(tracePos1, tracePos2);
+                    float minValue = showItems[i].sq.GetMinValue(tracePos1, tracePos2);
+                    lVPointer.Items[j].SubItems[1].Text = "";
+                    lVPointer.Items[j].SubItems[2].Text = pV1.ToString();
+                    lVPointer.Items[j].SubItems[3].Text = pV2.ToString();
+                    lVPointer.Items[j].SubItems[4].Text = (pV2 - pV1).ToString();
+                    lVPointer.Items[j].SubItems[5].Text = pAverage.ToString();
+                    lVPointer.Items[j].SubItems[6].Text = maxValue.ToString();
+                    lVPointer.Items[j].SubItems[7].Text = minValue.ToString();
+                    j++;
+                }
+            }
+        }
+
+        private void loadlVPointer()
+        {
+            lVPointer.Items.Clear();
+            int j = 0;
+            for (int i = 0; i < showItems.Count; i++)
+            {
+                if (showItems[i].IsCheck && showItems[i].sq != null)
+                {
+
+                    lVPointer.Items.Add(itemRelection[showItems[i].Item]);
+                    int pV1 = GetPointerValue(showItems[i].sq, tracePos1);
+                    int pV2 = GetPointerValue(showItems[i].sq, tracePos2);
+                    float pAverage = showItems[i].sq.GetAverageValue(tracePos1, tracePos2);
+                    float maxValue = showItems[i].sq.GetMaxValue(tracePos1, tracePos2);
+                    float minValue = showItems[i].sq.GetMinValue(tracePos1, tracePos2);
+                    lVPointer.Items[j].SubItems.AddRange(new string[] { "", pV1.ToString(), pV2.ToString(), (pV2 - pV1).ToString(), pAverage.ToString(), maxValue.ToString(), minValue.ToString() });
+                    j++;
+                }
+
+            }
+        }
+
+        private int GetPointerValue(ShowQueue sq, int index)
+        {
+            if (index >= sq.Count())
+            {
+                return 0;
+            }
+            else
+            {
+                return sq.GetValue(index);
             }
         }
 
@@ -531,6 +615,49 @@ namespace ICDIBasic
                 btnMeasure.BackColor = Color.Green;
                 EnableScope = false;
             }
+        }
+
+        private void lVFormat_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int index = lVFormat.SelectedItems[0].Index;
+                if (cb != null && ((object)index != cb.Tag || e.X < 570 || e.X > 740))  //注意判定条件
+                {
+                    showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
+                    loadLVFormat();
+                    lVFormat.Controls.Remove(cb);
+                    cb = null;
+                }
+            }
+            catch (System.Exception ex)
+            {
+            	
+            }
+           
+        }
+
+        private DashStyle GetDashStyle(string strStyle)
+        {
+            DashStyle ds = new DashStyle();
+            switch (strStyle)
+            {
+                case "实线": ds = DashStyle.Solid;break;
+                case "虚线": ds = DashStyle.Dash; break;
+                case "点线": ds = DashStyle.Dot; break;
+                case "点划线": ds = DashStyle.DashDot; break;
+                case "双点划线": ds = DashStyle.DashDotDot; break;
+            }
+            return ds;
+        }
+
+        private void tMPointer_Tick(object sender, EventArgs e)
+        {
+            if (cBPointer.Checked)
+            {
+                refreshlVPointer();
+            }
+           
         }
         
     }
@@ -704,6 +831,149 @@ namespace ICDIBasic
             //    return null;
             //}
         //}
+
+        public int GetValue(int index)
+        {
+            lock(ob)
+            {
+                Node current = front;
+                int j = 0;
+                while (j != index)
+                {
+                    current = current.Next;
+                    j++;
+                }
+                return current.Value;
+            }
+        }
+
+        public float GetAverageValue(int m, int n)
+        {
+            if (m > Count())
+            {
+                return 0.0f;
+            }
+            float sum = 0;
+            lock (ob)
+            {
+                Node current = front;
+                int j = 0;
+                while (j != m)
+                {
+                    current = current.Next;
+                    j++;
+                }
+                while (j != n + 1)
+                {
+                    try
+                    {
+                        sum += current.Value;
+                        current = current.Next;
+                        j++;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        n = j + 1;
+                        break;
+                    }
+                   
+                }
+                return sum / (n - m);
+            }
+        }
+
+        public float GetMaxValue(int m, int n)
+        {
+            if (m > Count())
+            {
+                return 0.0f;
+            }
+            lock (ob)
+            {
+                Node current = front;
+                int j = 0;
+                while (j != m)
+                {
+                    current = current.Next;
+                    j++;
+                }
+                float max = 0;
+                try
+                {
+                     max = current.Value;
+                }
+                catch (System.Exception ex)
+                {
+                    return max;
+                }
+              
+                while (j != n + 1)
+                {
+                    try
+                    {
+                        if (current.Value > max)
+                        {
+                            max = current.Value;
+                        }
+                        current = current.Next;
+                        j++;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        n = j;
+                        break;
+                    }
+
+                }
+                return max;
+            }
+        }
+
+        public float GetMinValue(int m, int n)
+        {
+            if (m > Count())
+            {
+                return 0.0f;
+            }
+            lock (ob)
+            {
+                Node current = front;
+                int j = 0;
+                while (j != m)
+                {
+                    current = current.Next;
+                    j++;
+                }
+                float min = 0;
+                try
+                {
+                     min = current.Value;
+                }
+                catch (System.Exception ex)
+                {
+                    return 0;
+                }
+                while (j != n + 1)
+                {
+                    try
+                    {
+                        if (current.Value < min)
+                        {
+                            min = current.Value;
+                        }
+                        current = current.Next;
+                        j++;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        n = j;
+                        break;
+                    }
+
+                }
+                return min;
+            }
+        }
 
         public void Print(ref int[] eachValue)
         {
