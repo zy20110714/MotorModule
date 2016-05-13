@@ -548,20 +548,27 @@ namespace ICDIBasic
             {
                 if (showItems[i].IsCheck && showItems[i].sq != null)
                 {
+                    try
+                    {
+                        int pV1 = GetPointerValue(showItems[i].sq, tracePos1);
+                        int pV2 = GetPointerValue(showItems[i].sq, tracePos2);
+                        float pAverage = showItems[i].sq.GetAverageValue(tracePos1, tracePos2);
+                        float maxValue = showItems[i].sq.GetMaxValue(tracePos1, tracePos2);
+                        float minValue = showItems[i].sq.GetMinValue(tracePos1, tracePos2);
+                        lVPointer.Items[j].SubItems[1].Text = "";
+                        lVPointer.Items[j].SubItems[2].Text = pV1.ToString();
+                        lVPointer.Items[j].SubItems[3].Text = pV2.ToString();
+                        lVPointer.Items[j].SubItems[4].Text = (pV2 - pV1).ToString();
+                        lVPointer.Items[j].SubItems[5].Text = pAverage.ToString();
+                        lVPointer.Items[j].SubItems[6].Text = maxValue.ToString();
+                        lVPointer.Items[j].SubItems[7].Text = minValue.ToString();
+                        j++;
+                    }
+                    catch (System.Exception ex)
+                    {
+                    	
+                    }
 
-                    int pV1 = GetPointerValue(showItems[i].sq, tracePos1);
-                    int pV2 = GetPointerValue(showItems[i].sq, tracePos2);
-                    float pAverage = showItems[i].sq.GetAverageValue(tracePos1, tracePos2);
-                    float maxValue = showItems[i].sq.GetMaxValue(tracePos1, tracePos2);
-                    float minValue = showItems[i].sq.GetMinValue(tracePos1, tracePos2);
-                    lVPointer.Items[j].SubItems[1].Text = "";
-                    lVPointer.Items[j].SubItems[2].Text = pV1.ToString();
-                    lVPointer.Items[j].SubItems[3].Text = pV2.ToString();
-                    lVPointer.Items[j].SubItems[4].Text = (pV2 - pV1).ToString();
-                    lVPointer.Items[j].SubItems[5].Text = pAverage.ToString();
-                    lVPointer.Items[j].SubItems[6].Text = maxValue.ToString();
-                    lVPointer.Items[j].SubItems[7].Text = minValue.ToString();
-                    j++;
                 }
             }
         }
