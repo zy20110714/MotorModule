@@ -50,6 +50,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tBScanFrequency = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -331,6 +332,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.tBScanFrequency);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 31);
@@ -340,6 +342,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "测量条件";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tBScanFrequency
+            // 
+            this.tBScanFrequency.Location = new System.Drawing.Point(492, 57);
+            this.tBScanFrequency.Name = "tBScanFrequency";
+            this.tBScanFrequency.Size = new System.Drawing.Size(57, 31);
+            this.tBScanFrequency.TabIndex = 1;
+            this.tBScanFrequency.Text = "100";
+            this.tBScanFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBScanFrequency.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
             // 
             // groupBox2
             // 
@@ -926,6 +938,7 @@
             this.tCMonitor.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).EndInit();
@@ -1017,5 +1030,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pBRecordImage;
         private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TextBox tBScanFrequency;
     }
 }

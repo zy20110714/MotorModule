@@ -117,7 +117,11 @@ namespace ICDIBasic
 
             Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS;
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
-            setTimeInterval(1);
+
+            //设置扫描频率
+            tBScanFrequency.Text = Configuration.MemoryControlTable[Configuration.SCP_REC_TIM].ToString();
+            setTimeInterval(Configuration.MemoryControlTable[Configuration.SCP_REC_TIM]);
+
 
             pointA = new float[pLPaint.Width];
             for (int i = 0; i < pLPaint.Width; i++)
@@ -131,10 +135,13 @@ namespace ICDIBasic
 
         void setTimeInterval(short interval)
         {
-            Interval = interval;
-            short value = (short)(interval * 10);
-            pc.WriteOneWord(Configuration.SCP_REC_TIM, value, PCan.currentID);
+            Interval = interval / 10;
+            //short value = (short)(interval * 10);
+            pc.WriteOneWord(Configuration.SCP_REC_TIM, interval, PCan.currentID);
         }
+
+
+
 
         private void ThreadProc()
         {
@@ -432,7 +439,9 @@ namespace ICDIBasic
 
                     case "tBMaxCurrent": pc.WriteOneWord(Configuration.LIT_MAX_CURRENT,value,PCan.currentID); break; 
                     case "tBMaxSpeed": pc.WriteOneWord(Configuration.LIT_MAX_SPEED,value,PCan.currentID); break; 
-                    case "tBMaxAcc": pc.WriteOneWord(Configuration.LIT_MAX_ACC,value,PCan.currentID); break; 
+                    case "tBMaxAcc": pc.WriteOneWord(Configuration.LIT_MAX_ACC,value,PCan.currentID); break;
+
+                    case "tBScanFrequency": setTimeInterval(value);break;
                 }
             }
         }
