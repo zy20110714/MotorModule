@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 
 using Peak.Can.Basic;
@@ -32,6 +33,9 @@ namespace ICDIBasic
 
     public class MessageProccessing
     {
+        [DllImport("kernel32.dll")]
+        public static extern bool AllocConsole();
+
         public const byte CAN_FRAME = 1;
 
         public const byte CAN_CMD = 0;
@@ -98,12 +102,12 @@ namespace ICDIBasic
                 PCan.m_Terminated = true;
                 return;
             }
-
+            AllocConsole();
             // While this mode is selected
             while (!PCan.m_Terminated)
             {
                 // Waiting for Receive-Event
-                if (!MainForm.m_ReceiveEvent.WaitOne(1))
+                if (!MainForm.m_ReceiveEvent.WaitOne(0))
                     // Process Receive-Event using .NET Invoke function
                     // in order to interact with Winforms UI (calling the 
                     // function ReadMessages)
@@ -111,6 +115,7 @@ namespace ICDIBasic
                     //{
 
                     //}
+                    System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
                     ReadMessages();
                     //this.Invoke(m_ReadDelegate);
 
