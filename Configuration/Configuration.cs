@@ -6,7 +6,6 @@ namespace ICDIBasic
 {
     public class Configuration
     {
-        public static Dictionary<byte, Int16> MemoryControlTable = new Dictionary<byte, Int16>();
         public static int[] paramTypeNumber = { Convert.ToInt32("0f", 16) };            //specifie the length of different type of  parameters
 
         //指令类型宏定义

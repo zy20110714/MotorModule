@@ -29,17 +29,44 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OscilloScope));
             this.pLBoard = new System.Windows.Forms.Panel();
+            this.pBRecordImage = new System.Windows.Forms.PictureBox();
             this.btnMeasure = new System.Windows.Forms.Button();
             this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
             this.cBPositionRatio = new System.Windows.Forms.ComboBox();
             this.cBCurrentRatio = new System.Windows.Forms.ComboBox();
-            this.pLPaint = new ICDIBasic.NewPanel();
             this.tBtrace = new System.Windows.Forms.TrackBar();
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.cDcolor = new System.Windows.Forms.ColorDialog();
             this.tCMonitor = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.lVFormat = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lVPointer = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label15 = new System.Windows.Forms.Label();
+            this.nUSmoothData = new System.Windows.Forms.NumericUpDown();
+            this.rBPointer2 = new System.Windows.Forms.RadioButton();
+            this.rBPointer1 = new System.Windows.Forms.RadioButton();
+            this.cBPointer = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gBPos = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -73,65 +100,59 @@
             this.tBCurrentP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.lVPointer = new System.Windows.Forms.ListView();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label15 = new System.Windows.Forms.Label();
-            this.nUSmoothData = new System.Windows.Forms.NumericUpDown();
-            this.rBPointer2 = new System.Windows.Forms.RadioButton();
-            this.rBPointer1 = new System.Windows.Forms.RadioButton();
-            this.cBPointer = new System.Windows.Forms.CheckBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lVFormat = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tMPointer = new System.Windows.Forms.Timer(this.components);
+            this.pLPaint = new ICDIBasic.NewPanel();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.pLBoard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).BeginInit();
             this.tCMonitor.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.gBPos.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.gBSpeed.SuspendLayout();
             this.gBCurrent.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).BeginInit();
-            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // pLBoard
             // 
+            this.pLBoard.Controls.Add(this.pBRecordImage);
             this.pLBoard.Controls.Add(this.btnMeasure);
             this.pLBoard.Controls.Add(this.cBSpeedRatio);
             this.pLBoard.Controls.Add(this.cBPositionRatio);
             this.pLBoard.Controls.Add(this.cBCurrentRatio);
             this.pLBoard.Controls.Add(this.pLPaint);
             this.pLBoard.Controls.Add(this.tBtrace);
-            this.pLBoard.Location = new System.Drawing.Point(-3, 17);
+            this.pLBoard.Location = new System.Drawing.Point(0, 31);
             this.pLBoard.Name = "pLBoard";
-            this.pLBoard.Size = new System.Drawing.Size(886, 397);
+            this.pLBoard.Size = new System.Drawing.Size(840, 397);
             this.pLBoard.TabIndex = 0;
+            // 
+            // pBRecordImage
+            // 
+            this.pBRecordImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBRecordImage.BackgroundImage")));
+            this.pBRecordImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBRecordImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pBRecordImage.Enabled = false;
+            this.pBRecordImage.Location = new System.Drawing.Point(755, 236);
+            this.pBRecordImage.Name = "pBRecordImage";
+            this.pBRecordImage.Size = new System.Drawing.Size(71, 62);
+            this.pBRecordImage.TabIndex = 3;
+            this.pBRecordImage.TabStop = false;
+            this.pBRecordImage.Click += new System.EventHandler(this.pBRecordImage_Click);
             // 
             // btnMeasure
             // 
             this.btnMeasure.BackColor = System.Drawing.Color.Green;
             this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMeasure.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnMeasure.Location = new System.Drawing.Point(804, 176);
+            this.btnMeasure.Location = new System.Drawing.Point(755, 168);
             this.btnMeasure.Name = "btnMeasure";
-            this.btnMeasure.Size = new System.Drawing.Size(71, 36);
+            this.btnMeasure.Size = new System.Drawing.Size(71, 62);
             this.btnMeasure.TabIndex = 2;
             this.btnMeasure.Text = "测定";
             this.btnMeasure.UseVisualStyleBackColor = false;
@@ -149,7 +170,7 @@
             "100rpm",
             "300rpm",
             "1000rpm"});
-            this.cBSpeedRatio.Location = new System.Drawing.Point(806, 79);
+            this.cBSpeedRatio.Location = new System.Drawing.Point(755, 79);
             this.cBSpeedRatio.Name = "cBSpeedRatio";
             this.cBSpeedRatio.Size = new System.Drawing.Size(73, 24);
             this.cBSpeedRatio.TabIndex = 1;
@@ -169,7 +190,7 @@
             "50°",
             "100°",
             "500°"});
-            this.cBPositionRatio.Location = new System.Drawing.Point(806, 126);
+            this.cBPositionRatio.Location = new System.Drawing.Point(755, 126);
             this.cBPositionRatio.Name = "cBPositionRatio";
             this.cBPositionRatio.Size = new System.Drawing.Size(73, 27);
             this.cBPositionRatio.TabIndex = 1;
@@ -186,27 +207,17 @@
             "20mA",
             "100mA",
             "500mA"});
-            this.cBCurrentRatio.Location = new System.Drawing.Point(806, 33);
+            this.cBCurrentRatio.Location = new System.Drawing.Point(755, 33);
             this.cBCurrentRatio.Name = "cBCurrentRatio";
             this.cBCurrentRatio.Size = new System.Drawing.Size(73, 24);
             this.cBCurrentRatio.TabIndex = 1;
             this.cBCurrentRatio.Text = "5mA";
             // 
-            // pLPaint
-            // 
-            this.pLPaint.BackColor = System.Drawing.Color.White;
-            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pLPaint.Location = new System.Drawing.Point(60, 11);
-            this.pLPaint.Name = "pLPaint";
-            this.pLPaint.Size = new System.Drawing.Size(740, 360);
-            this.pLPaint.TabIndex = 0;
-            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
-            // 
             // tBtrace
             // 
             this.tBtrace.AutoSize = false;
             this.tBtrace.Cursor = System.Windows.Forms.Cursors.SizeWE;
-            this.tBtrace.Location = new System.Drawing.Point(47, 371);
+            this.tBtrace.Location = new System.Drawing.Point(-7, 361);
             this.tBtrace.Margin = new System.Windows.Forms.Padding(0);
             this.tBtrace.Maximum = 740;
             this.tBtrace.Name = "tBtrace";
@@ -224,395 +235,119 @@
             // 
             // tCMonitor
             // 
-            this.tCMonitor.Controls.Add(this.tabPage1);
-            this.tCMonitor.Controls.Add(this.tabPage2);
-            this.tCMonitor.Controls.Add(this.tabPage3);
             this.tCMonitor.Controls.Add(this.tabPage4);
+            this.tCMonitor.Controls.Add(this.tabPage1);
+            this.tCMonitor.Controls.Add(this.tabPage3);
+            this.tCMonitor.Controls.Add(this.tabPage2);
+            this.tCMonitor.Controls.Add(this.tabPage5);
             this.tCMonitor.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tCMonitor.Location = new System.Drawing.Point(0, 420);
             this.tCMonitor.Name = "tCMonitor";
             this.tCMonitor.SelectedIndex = 0;
-            this.tCMonitor.Size = new System.Drawing.Size(876, 150);
+            this.tCMonitor.Size = new System.Drawing.Size(839, 150);
             this.tCMonitor.TabIndex = 1;
             this.tCMonitor.SelectedIndexChanged += new System.EventHandler(this.tCMonitor_SelectedIndexChanged);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.lVFormat);
+            this.tabPage4.Location = new System.Drawing.Point(4, 31);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(831, 115);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "测量项目";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // lVFormat
+            // 
+            this.lVFormat.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lVFormat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lVFormat.CheckBoxes = true;
+            this.lVFormat.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lVFormat.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lVFormat.FullRowSelect = true;
+            this.lVFormat.GridLines = true;
+            this.lVFormat.Location = new System.Drawing.Point(0, 0);
+            this.lVFormat.MultiSelect = false;
+            this.lVFormat.Name = "lVFormat";
+            this.lVFormat.Size = new System.Drawing.Size(828, 115);
+            this.lVFormat.TabIndex = 0;
+            this.lVFormat.UseCompatibleStateImageBehavior = false;
+            this.lVFormat.View = System.Windows.Forms.View.Details;
+            this.lVFormat.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
+            this.lVFormat.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
+            this.lVFormat.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseDoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = " 显示";
+            this.columnHeader1.Width = 80;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "测定项目";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 200;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "观测/参考";
+            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader3.Width = 140;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "颜色";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader4.Width = 150;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "线型";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader5.Width = 140;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "线宽";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader6.Width = 115;
+            // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 31);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(868, 115);
+            this.tabPage1.Size = new System.Drawing.Size(831, 115);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "测量条件";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.gBPos);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.gBSpeed);
-            this.tabPage2.Controls.Add(this.gBCurrent);
-            this.tabPage2.Location = new System.Drawing.Point(4, 31);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(868, 115);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "PID手动调节";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // gBPos
-            // 
-            this.gBPos.Controls.Add(this.label10);
-            this.gBPos.Controls.Add(this.label4);
-            this.gBPos.Controls.Add(this.label9);
-            this.gBPos.Controls.Add(this.tBPosDeadZone);
-            this.gBPos.Controls.Add(this.label3);
-            this.gBPos.Controls.Add(this.tBPosD);
-            this.gBPos.Controls.Add(this.tBPosI);
-            this.gBPos.Controls.Add(this.tBPosP);
-            this.gBPos.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBPos.Location = new System.Drawing.Point(626, 6);
-            this.gBPos.Name = "gBPos";
-            this.gBPos.Size = new System.Drawing.Size(230, 106);
-            this.gBPos.TabIndex = 0;
-            this.gBPos.TabStop = false;
-            this.gBPos.Text = "位置环";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(120, 80);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 14);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "死区";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(120, 36);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 14);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "I参数";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(6, 80);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(42, 14);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "D参数";
-            // 
-            // tBPosDeadZone
-            // 
-            this.tBPosDeadZone.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBPosDeadZone.Location = new System.Drawing.Point(174, 74);
-            this.tBPosDeadZone.Name = "tBPosDeadZone";
-            this.tBPosDeadZone.Size = new System.Drawing.Size(54, 26);
-            this.tBPosDeadZone.TabIndex = 1;
-            this.tBPosDeadZone.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBPosDeadZone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(6, 36);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 14);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "P参数";
-            // 
-            // tBPosD
-            // 
-            this.tBPosD.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBPosD.Location = new System.Drawing.Point(60, 74);
-            this.tBPosD.Name = "tBPosD";
-            this.tBPosD.Size = new System.Drawing.Size(54, 26);
-            this.tBPosD.TabIndex = 1;
-            this.tBPosD.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBPosD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // tBPosI
-            // 
-            this.tBPosI.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBPosI.Location = new System.Drawing.Point(174, 31);
-            this.tBPosI.Name = "tBPosI";
-            this.tBPosI.Size = new System.Drawing.Size(54, 26);
-            this.tBPosI.TabIndex = 1;
-            this.tBPosI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBPosI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // tBPosP
-            // 
-            this.tBPosP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBPosP.Location = new System.Drawing.Point(60, 31);
-            this.tBPosP.Name = "tBPosP";
-            this.tBPosP.Size = new System.Drawing.Size(54, 26);
-            this.tBPosP.TabIndex = 1;
-            this.tBPosP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBPosP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.cBAdjustGroup);
-            this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.tBMaxCurrent);
-            this.groupBox3.Controls.Add(this.tBMaxAcc);
-            this.groupBox3.Controls.Add(this.tBMaxSpeed);
-            this.groupBox3.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox3.Location = new System.Drawing.Point(3, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(250, 106);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "参数设置";
-            // 
-            // cBAdjustGroup
-            // 
-            this.cBAdjustGroup.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cBAdjustGroup.FormattingEnabled = true;
-            this.cBAdjustGroup.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3"});
-            this.cBAdjustGroup.Location = new System.Drawing.Point(64, 31);
-            this.cBAdjustGroup.Name = "cBAdjustGroup";
-            this.cBAdjustGroup.Size = new System.Drawing.Size(47, 27);
-            this.cBAdjustGroup.TabIndex = 2;
-            this.cBAdjustGroup.Text = "2";
-            this.cBAdjustGroup.SelectedIndexChanged += new System.EventHandler(this.cBAdjustGroup_SelectedIndexChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label14.Location = new System.Drawing.Point(117, 80);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(77, 14);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "最大加速度";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(0, 36);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(49, 14);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "调整组";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label13.Location = new System.Drawing.Point(117, 36);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(63, 14);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "最大电流";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label12.Location = new System.Drawing.Point(0, 80);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(63, 14);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "最大速度";
-            // 
-            // tBMaxCurrent
-            // 
-            this.tBMaxCurrent.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBMaxCurrent.Location = new System.Drawing.Point(194, 31);
-            this.tBMaxCurrent.Name = "tBMaxCurrent";
-            this.tBMaxCurrent.Size = new System.Drawing.Size(47, 26);
-            this.tBMaxCurrent.TabIndex = 1;
-            this.tBMaxCurrent.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBMaxCurrent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // tBMaxAcc
-            // 
-            this.tBMaxAcc.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBMaxAcc.Location = new System.Drawing.Point(194, 74);
-            this.tBMaxAcc.Name = "tBMaxAcc";
-            this.tBMaxAcc.Size = new System.Drawing.Size(47, 26);
-            this.tBMaxAcc.TabIndex = 1;
-            this.tBMaxAcc.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBMaxAcc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // tBMaxSpeed
-            // 
-            this.tBMaxSpeed.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBMaxSpeed.Location = new System.Drawing.Point(64, 74);
-            this.tBMaxSpeed.Name = "tBMaxSpeed";
-            this.tBMaxSpeed.Size = new System.Drawing.Size(47, 26);
-            this.tBMaxSpeed.TabIndex = 1;
-            this.tBMaxSpeed.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBMaxSpeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // gBSpeed
-            // 
-            this.gBSpeed.Controls.Add(this.label8);
-            this.gBSpeed.Controls.Add(this.label6);
-            this.gBSpeed.Controls.Add(this.label7);
-            this.gBSpeed.Controls.Add(this.tBSpeedD);
-            this.gBSpeed.Controls.Add(this.label5);
-            this.gBSpeed.Controls.Add(this.tBSpeedDeadZone);
-            this.gBSpeed.Controls.Add(this.tBSpeedP);
-            this.gBSpeed.Controls.Add(this.tBSpeedI);
-            this.gBSpeed.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBSpeed.Location = new System.Drawing.Point(390, 6);
-            this.gBSpeed.Name = "gBSpeed";
-            this.gBSpeed.Size = new System.Drawing.Size(230, 106);
-            this.gBSpeed.TabIndex = 0;
-            this.gBSpeed.TabStop = false;
-            this.gBSpeed.Text = "速度环";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(120, 80);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 14);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "死区";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(120, 36);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 14);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "I参数";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(6, 80);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(42, 14);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "D参数";
-            // 
-            // tBSpeedD
-            // 
-            this.tBSpeedD.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBSpeedD.Location = new System.Drawing.Point(60, 74);
-            this.tBSpeedD.Name = "tBSpeedD";
-            this.tBSpeedD.Size = new System.Drawing.Size(54, 26);
-            this.tBSpeedD.TabIndex = 1;
-            this.tBSpeedD.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBSpeedD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(6, 36);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 14);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "P参数";
-            // 
-            // tBSpeedDeadZone
-            // 
-            this.tBSpeedDeadZone.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBSpeedDeadZone.Location = new System.Drawing.Point(174, 74);
-            this.tBSpeedDeadZone.Name = "tBSpeedDeadZone";
-            this.tBSpeedDeadZone.Size = new System.Drawing.Size(54, 26);
-            this.tBSpeedDeadZone.TabIndex = 1;
-            this.tBSpeedDeadZone.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBSpeedDeadZone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // tBSpeedP
-            // 
-            this.tBSpeedP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBSpeedP.Location = new System.Drawing.Point(60, 31);
-            this.tBSpeedP.Name = "tBSpeedP";
-            this.tBSpeedP.Size = new System.Drawing.Size(54, 26);
-            this.tBSpeedP.TabIndex = 1;
-            this.tBSpeedP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBSpeedP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // tBSpeedI
-            // 
-            this.tBSpeedI.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBSpeedI.Location = new System.Drawing.Point(174, 31);
-            this.tBSpeedI.Name = "tBSpeedI";
-            this.tBSpeedI.Size = new System.Drawing.Size(54, 26);
-            this.tBSpeedI.TabIndex = 1;
-            this.tBSpeedI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBSpeedI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // gBCurrent
-            // 
-            this.gBCurrent.Controls.Add(this.tBCurrentI);
-            this.gBCurrent.Controls.Add(this.tBCurrentP);
-            this.gBCurrent.Controls.Add(this.label2);
-            this.gBCurrent.Controls.Add(this.label1);
-            this.gBCurrent.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBCurrent.Location = new System.Drawing.Point(259, 6);
-            this.gBCurrent.Name = "gBCurrent";
-            this.gBCurrent.Size = new System.Drawing.Size(125, 106);
-            this.gBCurrent.TabIndex = 0;
-            this.gBCurrent.TabStop = false;
-            this.gBCurrent.Text = "电流环";
-            // 
-            // tBCurrentI
-            // 
-            this.tBCurrentI.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBCurrentI.Location = new System.Drawing.Point(60, 74);
-            this.tBCurrentI.Name = "tBCurrentI";
-            this.tBCurrentI.Size = new System.Drawing.Size(54, 26);
-            this.tBCurrentI.TabIndex = 1;
-            this.tBCurrentI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBCurrentI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // tBCurrentP
-            // 
-            this.tBCurrentP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tBCurrentP.Location = new System.Drawing.Point(60, 31);
-            this.tBCurrentP.Name = "tBCurrentP";
-            this.tBCurrentP.Size = new System.Drawing.Size(54, 26);
-            this.tBCurrentP.TabIndex = 1;
-            this.tBCurrentP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
-            this.tBCurrentP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(6, 80);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 14);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "I参数";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(6, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 14);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "P参数";
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(219, 9);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "触发条件";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(3, 8);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "采样时间";
             // 
             // tabPage3
             // 
@@ -625,12 +360,13 @@
             this.tabPage3.Controls.Add(this.cBPointer);
             this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(868, 115);
+            this.tabPage3.Size = new System.Drawing.Size(831, 115);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "指针";
             // 
             // lVPointer
             // 
+            this.lVPointer.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lVPointer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader7,
             this.columnHeader8,
@@ -644,7 +380,7 @@
             this.lVPointer.GridLines = true;
             this.lVPointer.Location = new System.Drawing.Point(137, 0);
             this.lVPointer.Name = "lVPointer";
-            this.lVPointer.Size = new System.Drawing.Size(731, 115);
+            this.lVPointer.Size = new System.Drawing.Size(694, 115);
             this.lVPointer.TabIndex = 5;
             this.lVPointer.UseCompatibleStateImageBehavior = false;
             this.lVPointer.View = System.Windows.Forms.View.Details;
@@ -658,31 +394,31 @@
             // 
             this.columnHeader8.Text = "单位";
             this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader8.Width = 70;
+            this.columnHeader8.Width = 65;
             // 
             // columnHeader9
             // 
             this.columnHeader9.Text = "指针1";
             this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader9.Width = 75;
+            this.columnHeader9.Width = 65;
             // 
             // columnHeader10
             // 
             this.columnHeader10.Text = "指针2";
             this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader10.Width = 75;
+            this.columnHeader10.Width = 65;
             // 
             // columnHeader11
             // 
             this.columnHeader11.Text = "差值";
             this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader11.Width = 75;
+            this.columnHeader11.Width = 70;
             // 
             // columnHeader12
             // 
             this.columnHeader12.Text = "均值";
             this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader12.Width = 75;
+            this.columnHeader12.Width = 70;
             // 
             // columnHeader13
             // 
@@ -764,88 +500,420 @@
             this.cBPointer.UseVisualStyleBackColor = true;
             this.cBPointer.CheckedChanged += new System.EventHandler(this.cBPointer_CheckedChanged);
             // 
-            // tabPage4
+            // tabPage2
             // 
-            this.tabPage4.Controls.Add(this.lVFormat);
-            this.tabPage4.Location = new System.Drawing.Point(4, 31);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(868, 115);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "测量项目";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage2.Controls.Add(this.gBPos);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.gBSpeed);
+            this.tabPage2.Controls.Add(this.gBCurrent);
+            this.tabPage2.Location = new System.Drawing.Point(4, 31);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(831, 115);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "PID手动调整";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // lVFormat
+            // gBPos
             // 
-            this.lVFormat.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lVFormat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lVFormat.CheckBoxes = true;
-            this.lVFormat.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lVFormat.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lVFormat.FullRowSelect = true;
-            this.lVFormat.Location = new System.Drawing.Point(0, 0);
-            this.lVFormat.MultiSelect = false;
-            this.lVFormat.Name = "lVFormat";
-            this.lVFormat.Size = new System.Drawing.Size(865, 115);
-            this.lVFormat.TabIndex = 0;
-            this.lVFormat.UseCompatibleStateImageBehavior = false;
-            this.lVFormat.View = System.Windows.Forms.View.Details;
-            this.lVFormat.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
-            this.lVFormat.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
-            this.lVFormat.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseDoubleClick);
+            this.gBPos.Controls.Add(this.label10);
+            this.gBPos.Controls.Add(this.label4);
+            this.gBPos.Controls.Add(this.label9);
+            this.gBPos.Controls.Add(this.tBPosDeadZone);
+            this.gBPos.Controls.Add(this.label3);
+            this.gBPos.Controls.Add(this.tBPosD);
+            this.gBPos.Controls.Add(this.tBPosI);
+            this.gBPos.Controls.Add(this.tBPosP);
+            this.gBPos.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gBPos.Location = new System.Drawing.Point(605, 6);
+            this.gBPos.Name = "gBPos";
+            this.gBPos.Size = new System.Drawing.Size(223, 106);
+            this.gBPos.TabIndex = 0;
+            this.gBPos.TabStop = false;
+            this.gBPos.Text = "位置环";
             // 
-            // columnHeader1
+            // label10
             // 
-            this.columnHeader1.Text = " 显示";
-            this.columnHeader1.Width = 80;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Location = new System.Drawing.Point(118, 80);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 14);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "死区";
             // 
-            // columnHeader2
+            // label4
             // 
-            this.columnHeader2.Text = "测定项目";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 200;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(118, 36);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(42, 14);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "I参数";
             // 
-            // columnHeader3
+            // label9
             // 
-            this.columnHeader3.Text = "观测/参考";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 140;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.Location = new System.Drawing.Point(6, 80);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(42, 14);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "D参数";
             // 
-            // columnHeader4
+            // tBPosDeadZone
             // 
-            this.columnHeader4.Text = "颜色";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 150;
+            this.tBPosDeadZone.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBPosDeadZone.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBPosDeadZone.Location = new System.Drawing.Point(162, 74);
+            this.tBPosDeadZone.Name = "tBPosDeadZone";
+            this.tBPosDeadZone.Size = new System.Drawing.Size(54, 26);
+            this.tBPosDeadZone.TabIndex = 1;
+            this.tBPosDeadZone.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBPosDeadZone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
             // 
-            // columnHeader5
+            // label3
             // 
-            this.columnHeader5.Text = "线型";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 140;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(6, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 14);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "P参数";
             // 
-            // columnHeader6
+            // tBPosD
             // 
-            this.columnHeader6.Text = "线宽";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader6.Width = 140;
+            this.tBPosD.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBPosD.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBPosD.Location = new System.Drawing.Point(50, 74);
+            this.tBPosD.Name = "tBPosD";
+            this.tBPosD.Size = new System.Drawing.Size(54, 26);
+            this.tBPosD.TabIndex = 1;
+            this.tBPosD.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBPosD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // tBPosI
+            // 
+            this.tBPosI.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBPosI.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBPosI.Location = new System.Drawing.Point(162, 31);
+            this.tBPosI.Name = "tBPosI";
+            this.tBPosI.Size = new System.Drawing.Size(54, 26);
+            this.tBPosI.TabIndex = 1;
+            this.tBPosI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBPosI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // tBPosP
+            // 
+            this.tBPosP.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBPosP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBPosP.Location = new System.Drawing.Point(50, 31);
+            this.tBPosP.Name = "tBPosP";
+            this.tBPosP.Size = new System.Drawing.Size(54, 26);
+            this.tBPosP.TabIndex = 1;
+            this.tBPosP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBPosP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.cBAdjustGroup);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.tBMaxCurrent);
+            this.groupBox3.Controls.Add(this.tBMaxAcc);
+            this.groupBox3.Controls.Add(this.tBMaxSpeed);
+            this.groupBox3.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox3.Location = new System.Drawing.Point(3, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(250, 106);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "参数设置";
+            // 
+            // cBAdjustGroup
+            // 
+            this.cBAdjustGroup.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.cBAdjustGroup.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cBAdjustGroup.FormattingEnabled = true;
+            this.cBAdjustGroup.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3"});
+            this.cBAdjustGroup.Location = new System.Drawing.Point(64, 31);
+            this.cBAdjustGroup.Name = "cBAdjustGroup";
+            this.cBAdjustGroup.Size = new System.Drawing.Size(47, 27);
+            this.cBAdjustGroup.TabIndex = 2;
+            this.cBAdjustGroup.Text = "2";
+            this.cBAdjustGroup.SelectedIndexChanged += new System.EventHandler(this.cBAdjustGroup_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.Location = new System.Drawing.Point(117, 80);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(77, 14);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "最大加速度";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Location = new System.Drawing.Point(0, 36);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(49, 14);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "调整组";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.Location = new System.Drawing.Point(117, 36);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(63, 14);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "最大电流";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.Location = new System.Drawing.Point(0, 80);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(63, 14);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "最大速度";
+            // 
+            // tBMaxCurrent
+            // 
+            this.tBMaxCurrent.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBMaxCurrent.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBMaxCurrent.Location = new System.Drawing.Point(194, 31);
+            this.tBMaxCurrent.Name = "tBMaxCurrent";
+            this.tBMaxCurrent.Size = new System.Drawing.Size(47, 26);
+            this.tBMaxCurrent.TabIndex = 1;
+            this.tBMaxCurrent.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBMaxCurrent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // tBMaxAcc
+            // 
+            this.tBMaxAcc.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBMaxAcc.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBMaxAcc.Location = new System.Drawing.Point(194, 74);
+            this.tBMaxAcc.Name = "tBMaxAcc";
+            this.tBMaxAcc.Size = new System.Drawing.Size(47, 26);
+            this.tBMaxAcc.TabIndex = 1;
+            this.tBMaxAcc.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBMaxAcc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // tBMaxSpeed
+            // 
+            this.tBMaxSpeed.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBMaxSpeed.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBMaxSpeed.Location = new System.Drawing.Point(64, 74);
+            this.tBMaxSpeed.Name = "tBMaxSpeed";
+            this.tBMaxSpeed.Size = new System.Drawing.Size(47, 26);
+            this.tBMaxSpeed.TabIndex = 1;
+            this.tBMaxSpeed.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBMaxSpeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // gBSpeed
+            // 
+            this.gBSpeed.Controls.Add(this.label8);
+            this.gBSpeed.Controls.Add(this.label6);
+            this.gBSpeed.Controls.Add(this.label7);
+            this.gBSpeed.Controls.Add(this.tBSpeedD);
+            this.gBSpeed.Controls.Add(this.label5);
+            this.gBSpeed.Controls.Add(this.tBSpeedDeadZone);
+            this.gBSpeed.Controls.Add(this.tBSpeedP);
+            this.gBSpeed.Controls.Add(this.tBSpeedI);
+            this.gBSpeed.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gBSpeed.Location = new System.Drawing.Point(385, 6);
+            this.gBSpeed.Name = "gBSpeed";
+            this.gBSpeed.Size = new System.Drawing.Size(214, 106);
+            this.gBSpeed.TabIndex = 0;
+            this.gBSpeed.TabStop = false;
+            this.gBSpeed.Text = "速度环";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Location = new System.Drawing.Point(112, 80);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 14);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "死区";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(112, 36);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 14);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "I参数";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(6, 80);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 14);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "D参数";
+            // 
+            // tBSpeedD
+            // 
+            this.tBSpeedD.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBSpeedD.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBSpeedD.Location = new System.Drawing.Point(52, 74);
+            this.tBSpeedD.Name = "tBSpeedD";
+            this.tBSpeedD.Size = new System.Drawing.Size(54, 26);
+            this.tBSpeedD.TabIndex = 1;
+            this.tBSpeedD.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBSpeedD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(6, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(42, 14);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "P参数";
+            // 
+            // tBSpeedDeadZone
+            // 
+            this.tBSpeedDeadZone.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBSpeedDeadZone.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBSpeedDeadZone.Location = new System.Drawing.Point(155, 74);
+            this.tBSpeedDeadZone.Name = "tBSpeedDeadZone";
+            this.tBSpeedDeadZone.Size = new System.Drawing.Size(54, 26);
+            this.tBSpeedDeadZone.TabIndex = 1;
+            this.tBSpeedDeadZone.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBSpeedDeadZone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // tBSpeedP
+            // 
+            this.tBSpeedP.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBSpeedP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBSpeedP.Location = new System.Drawing.Point(52, 31);
+            this.tBSpeedP.Name = "tBSpeedP";
+            this.tBSpeedP.Size = new System.Drawing.Size(54, 26);
+            this.tBSpeedP.TabIndex = 1;
+            this.tBSpeedP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBSpeedP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // tBSpeedI
+            // 
+            this.tBSpeedI.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBSpeedI.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBSpeedI.Location = new System.Drawing.Point(155, 31);
+            this.tBSpeedI.Name = "tBSpeedI";
+            this.tBSpeedI.Size = new System.Drawing.Size(54, 26);
+            this.tBSpeedI.TabIndex = 1;
+            this.tBSpeedI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBSpeedI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // gBCurrent
+            // 
+            this.gBCurrent.Controls.Add(this.tBCurrentI);
+            this.gBCurrent.Controls.Add(this.tBCurrentP);
+            this.gBCurrent.Controls.Add(this.label2);
+            this.gBCurrent.Controls.Add(this.label1);
+            this.gBCurrent.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gBCurrent.Location = new System.Drawing.Point(259, 6);
+            this.gBCurrent.Name = "gBCurrent";
+            this.gBCurrent.Size = new System.Drawing.Size(120, 106);
+            this.gBCurrent.TabIndex = 0;
+            this.gBCurrent.TabStop = false;
+            this.gBCurrent.Text = "电流环";
+            // 
+            // tBCurrentI
+            // 
+            this.tBCurrentI.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBCurrentI.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBCurrentI.Location = new System.Drawing.Point(55, 74);
+            this.tBCurrentI.Name = "tBCurrentI";
+            this.tBCurrentI.Size = new System.Drawing.Size(54, 26);
+            this.tBCurrentI.TabIndex = 1;
+            this.tBCurrentI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBCurrentI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // tBCurrentP
+            // 
+            this.tBCurrentP.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tBCurrentP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBCurrentP.Location = new System.Drawing.Point(55, 31);
+            this.tBCurrentP.Name = "tBCurrentP";
+            this.tBCurrentP.Size = new System.Drawing.Size(54, 26);
+            this.tBCurrentP.TabIndex = 1;
+            this.tBCurrentP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
+            this.tBCurrentP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(6, 80);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 14);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "I参数";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(6, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 14);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "P参数";
             // 
             // tMPointer
             // 
             this.tMPointer.Interval = 1500;
             this.tMPointer.Tick += new System.EventHandler(this.tMPointer_Tick);
             // 
+            // pLPaint
+            // 
+            this.pLPaint.BackColor = System.Drawing.Color.White;
+            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pLPaint.Location = new System.Drawing.Point(6, 1);
+            this.pLPaint.Name = "pLPaint";
+            this.pLPaint.Size = new System.Drawing.Size(740, 360);
+            this.pLPaint.TabIndex = 0;
+            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 31);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(831, 115);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "自动增益调整";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(874, 571);
+            this.ClientSize = new System.Drawing.Size(834, 571);
             this.Controls.Add(this.tCMonitor);
             this.Controls.Add(this.pLBoard);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OscilloScope";
@@ -853,8 +921,14 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OscilloScope_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OscilloScope_FormClosed);
             this.pLBoard.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).EndInit();
             this.tCMonitor.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.gBPos.ResumeLayout(false);
             this.gBPos.PerformLayout();
@@ -864,10 +938,6 @@
             this.gBSpeed.PerformLayout();
             this.gBCurrent.ResumeLayout(false);
             this.gBCurrent.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).EndInit();
-            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -943,5 +1013,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader15;
         private System.Windows.Forms.Timer tMPointer;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox pBRecordImage;
+        private System.Windows.Forms.TabPage tabPage5;
     }
 }

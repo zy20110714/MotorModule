@@ -14,6 +14,7 @@ namespace ICDIBasic
         public static ParametersForm pCurrentWin = null;//句柄
         TextBox tb;
         PCan pc;
+        WriteParameters wp;
         int selectedItemIndex = -1;
         Dictionary<byte, ParameterStruct> paraRelection = new Dictionary<byte, ParameterStruct>();
 
@@ -220,7 +221,6 @@ namespace ICDIBasic
             if (lVParam.SelectedItems.Count > 0)
             {
                 selectedItemIndex = lVParam.SelectedItems[0].Index; // 记录上一次选择的索引位置
-
                 try
                 {
                     if (paraRelection[Convert.ToByte(lVParam.SelectedItems[0].SubItems[1].Text, 16)].Competence != "R/W")
@@ -232,8 +232,6 @@ namespace ICDIBasic
                 {
                     return;
                 }
-                
-
 
                 Rectangle tt = lVParam.SelectedItems[0].SubItems[4].Bounds;
                 tb = new TextBox();
@@ -307,6 +305,7 @@ namespace ICDIBasic
            
           
         }
+
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -384,6 +383,17 @@ namespace ICDIBasic
                 string str = lVParam.Items[i].SubItems[1].Text;
                 lVParam.Items[i].SubItems[4].Text = cBHexDisplay.Checked ? Configuration.m_CmdMap[Convert.ToByte(str, 16)].ToString("x4") : Configuration.m_CmdMap[Convert.ToByte(str, 16)].ToString();
             }
+        }
+
+        private void btnFlash_Click(object sender, EventArgs e)
+        {
+            //lVParam.Visible = false;
+            wp = WriteParameters.GetInstance();
+            //wp.MdiParent = this;
+            wp.Parent = ParametersForm.GetInstance();
+            wp.Location = new Point(205,125);
+            wp.BringToFront();
+            wp.Show();
         }
 
       

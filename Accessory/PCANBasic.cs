@@ -460,7 +460,7 @@ namespace Peak.Can.Basic
         PCAN_TYPE_DNG_SJA_EPP   = 0x06,
     }
     #endregion
-
+     
     #region Structures
     /// <summary>
     /// Represents a PCAN message

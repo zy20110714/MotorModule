@@ -125,6 +125,8 @@ namespace ICDIBasic
                 pointA[i] = i;
             }
 
+            loadLVFormat();
+
         }
 
         void setTimeInterval(short interval)
@@ -292,9 +294,9 @@ namespace ICDIBasic
         {
             switch (tCMonitor.SelectedIndex)
             {
-                case 3: loadLVFormat(); break;
-                case 1: loadPID(); cBAdjustGroup.Text = Configuration.m_CmdMap[Configuration.SEV_PARAME_LOCKED].ToString(); break;
-                case 2: loadlVPointer(); break;
+                case 0: loadLVFormat(); break;
+                case 3: loadPID(); cBAdjustGroup.Text = Configuration.m_CmdMap[Configuration.SEV_PARAME_LOCKED].ToString(); break;
+                case 2: if (cBPointer.Checked) loadlVPointer(); break;
             }
         }
 
@@ -608,12 +610,14 @@ namespace ICDIBasic
                 btnMeasure.Text = "停止";
                 btnMeasure.BackColor = Color.Red;
                 EnableScope = true;
+                pBRecordImage.Enabled = true;
             }
             else
             {
                 btnMeasure.Text = "测定";
                 btnMeasure.BackColor = Color.Green;
                 EnableScope = false;
+                pBRecordImage.Enabled = false;
             }
         }
 
@@ -658,6 +662,12 @@ namespace ICDIBasic
                 refreshlVPointer();
             }
            
+        }
+
+        private void pBRecordImage_Click(object sender, EventArgs e)
+        {
+            //记录当前波形
+
         }
         
     }

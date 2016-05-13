@@ -451,7 +451,6 @@
             this.btnInit.Size = new System.Drawing.Size(65, 21);
             this.btnInit.TabIndex = 34;
             this.btnInit.Text = "Initialize";
-            //this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
             // 
             // btnRelease
             // 
@@ -2246,6 +2245,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OR模块调试";
