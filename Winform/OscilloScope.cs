@@ -125,7 +125,7 @@ namespace ICDIBasic
                 pointA[i] = i;
             }
 
-            loadLVFormat();
+            loadLVMeasureItems();
 
         }
 
@@ -147,7 +147,7 @@ namespace ICDIBasic
             //    {
             //        if (showItems[i].sq != null)
             //        {
-            //            showItems[i].sq.EnQ(Configuration.m_CmdMap[showItems[i].Item] + (int)(Configuration.m_CmdMap[showItems[i].Item + 1] << 16));
+            //            showItems[i].sq.EnQ(Configuration.MemoryControlTable[showItems[i].Item] + (int)(Configuration.MemoryControlTable[showItems[i].Item + 1] << 16));
             //        }
                   
             //    }
@@ -294,43 +294,43 @@ namespace ICDIBasic
         {
             switch (tCMonitor.SelectedIndex)
             {
-                case 0: loadLVFormat(); break;
-                case 3: loadPID(); cBAdjustGroup.Text = Configuration.m_CmdMap[Configuration.SEV_PARAME_LOCKED].ToString(); break;
+                case 0: loadLVMeasureItems(); break;
+                case 3: loadPID(); cBAdjustGroup.Text = Configuration.MemoryControlTable[Configuration.SEV_PARAME_LOCKED].ToString(); break;
                 case 2: if (cBPointer.Checked) loadlVPointer(); break;
             }
         }
 
         void loadPID()
         {
-            tBCurrentP.Text = Configuration.m_CmdMap[CURRENT_P].ToString();
-            tBCurrentI.Text = Configuration.m_CmdMap[CURRENT_I].ToString();
-            tBSpeedP.Text = Configuration.m_CmdMap[SPEED_P].ToString();
-            tBSpeedI.Text = Configuration.m_CmdMap[SPEED_I].ToString();
-            tBSpeedD.Text = Configuration.m_CmdMap[SPEED_D].ToString();
-            tBSpeedDeadZone.Text = Configuration.m_CmdMap[SPEED_DS].ToString();
-            tBPosP.Text = Configuration.m_CmdMap[POSITION_P].ToString();
-            tBPosI.Text = Configuration.m_CmdMap[POSITION_I].ToString();
-            tBPosD.Text = Configuration.m_CmdMap[POSITION_D].ToString();
-            tBPosDeadZone.Text = Configuration.m_CmdMap[POSITION_DS].ToString();
-            tBMaxCurrent.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_CURRENT].ToString();
-            tBMaxSpeed.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_SPEED].ToString();
-            tBMaxAcc.Text = Configuration.m_CmdMap[Configuration.LIT_MAX_ACC].ToString();
+            tBCurrentP.Text = Configuration.MemoryControlTable[CURRENT_P].ToString();
+            tBCurrentI.Text = Configuration.MemoryControlTable[CURRENT_I].ToString();
+            tBSpeedP.Text = Configuration.MemoryControlTable[SPEED_P].ToString();
+            tBSpeedI.Text = Configuration.MemoryControlTable[SPEED_I].ToString();
+            tBSpeedD.Text = Configuration.MemoryControlTable[SPEED_D].ToString();
+            tBSpeedDeadZone.Text = Configuration.MemoryControlTable[SPEED_DS].ToString();
+            tBPosP.Text = Configuration.MemoryControlTable[POSITION_P].ToString();
+            tBPosI.Text = Configuration.MemoryControlTable[POSITION_I].ToString();
+            tBPosD.Text = Configuration.MemoryControlTable[POSITION_D].ToString();
+            tBPosDeadZone.Text = Configuration.MemoryControlTable[POSITION_DS].ToString();
+            tBMaxCurrent.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_CURRENT].ToString();
+            tBMaxSpeed.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED].ToString();
+            tBMaxAcc.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_ACC].ToString();
 
            
         }
 
-        void loadLVFormat()
+        void loadLVMeasureItems()
         {
-            lVFormat.Items.Clear();
-            lVFormat.Visible = true;
+            lVMeasureItems.Items.Clear();
+            lVMeasureItems.Visible = true;
             for (int i = 0; i < showItems.Count;i++ )
             {
-                lVFormat.Items.Add((i+1).ToString());
-                lVFormat.Items[i].SubItems.AddRange(new string[] { itemRelection[showItems[i].Item], showItems[i].Monitor, "", GetDashStyle(showItems[i].Ds) });
-                lVFormat.Items[i].UseItemStyleForSubItems = false;
-                lVFormat.Items[i].SubItems[3].BackColor = showItems[i].Cl;
+                lVMeasureItems.Items.Add((i+1).ToString());
+                lVMeasureItems.Items[i].SubItems.AddRange(new string[] { itemRelection[showItems[i].Item], showItems[i].Monitor, "", GetDashStyle(showItems[i].Ds) });
+                lVMeasureItems.Items[i].UseItemStyleForSubItems = false;
+                lVMeasureItems.Items[i].SubItems[3].BackColor = showItems[i].Cl;
                 //lVFormat.Items[i].Focused = true;
-                lVFormat.Items[i].Checked = showItems[i].IsCheck;
+                lVMeasureItems.Items[i].Checked = showItems[i].IsCheck;
             }
         }
 
@@ -352,23 +352,23 @@ namespace ICDIBasic
         {
             if (e.X > 420 && e.X < 570)
             {
-                int index = lVFormat.FocusedItem.Index;
+                int index = lVMeasureItems.FocusedItem.Index;
                 if (cDcolor.ShowDialog() == DialogResult.OK)
                 {
                     showItems[index].Cl = cDcolor.Color;
-                    loadLVFormat();
+                    loadLVMeasureItems();
                 }
             }
             else if (e.X > 570 && e.X < 740)
             {
-                Rectangle tt = lVFormat.Items[lVFormat.FocusedItem.Index].SubItems[4].Bounds;
+                Rectangle tt = lVMeasureItems.Items[lVMeasureItems.FocusedItem.Index].SubItems[4].Bounds;
                 cb = new ComboBox();
                 cb.Font = new Font("宋体", 13, FontStyle.Bold);
                 cb.Size = new Size(tt.Width, 18);
                 cb.Location = tt.Location;
                 cb.BackColor = Color.White;
                 cb.Text = "实线";
-                cb.Tag = lVFormat.FocusedItem.Index;
+                cb.Tag = lVMeasureItems.FocusedItem.Index;
                 cb.Items.Add("实线");
                 cb.Items.Add("虚线");
                 cb.Items.Add("点线");
@@ -376,7 +376,7 @@ namespace ICDIBasic
                 cb.Items.Add("双点划线");
 
                 cb.Focus();
-                lVFormat.Controls.Add(cb);
+                lVMeasureItems.Controls.Add(cb);
             }
 
             
@@ -384,7 +384,7 @@ namespace ICDIBasic
 
         private void lVFormat_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (lVFormat.FocusedItem != null)
+            if (lVMeasureItems.FocusedItem != null)
             {
                 int index = e.Item.Index;
                 e.Item.Selected = e.Item.Checked;
@@ -625,12 +625,12 @@ namespace ICDIBasic
         {
             try
             {
-                int index = lVFormat.SelectedItems[0].Index;
+                int index = lVMeasureItems.SelectedItems[0].Index;
                 if (cb != null && ((object)index != cb.Tag || e.X < 570 || e.X > 740))  //注意判定条件
                 {
                     showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
-                    loadLVFormat();
-                    lVFormat.Controls.Remove(cb);
+                    loadLVMeasureItems();
+                    lVMeasureItems.Controls.Remove(cb);
                     cb = null;
                 }
             }

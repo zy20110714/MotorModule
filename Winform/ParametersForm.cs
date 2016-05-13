@@ -16,7 +16,7 @@ namespace ICDIBasic
         PCan pc;
         WriteParameters wp;
         int selectedItemIndex = -1;
-        Dictionary<byte, ParameterStruct> paraRelection = new Dictionary<byte, ParameterStruct>();
+        public static Dictionary<byte, ParameterStruct> paraRelection = new Dictionary<byte, ParameterStruct>();
 
 
         public ParametersForm()
@@ -172,7 +172,7 @@ namespace ICDIBasic
                 byte addr = Convert.ToByte(str, 16);
                 try
                 {
-                    lVParam.Items[i].SubItems.AddRange(new string[] { str, paraRelection[addr].Name, paraRelection[addr].Range, cBHexDisplay.Checked ? Configuration.m_CmdMap[Convert.ToByte(str, 16)].ToString("x4") : Configuration.m_CmdMap[Convert.ToByte(str, 16)].ToString(), paraRelection[addr].Unit });
+                    lVParam.Items[i].SubItems.AddRange(new string[] { str, paraRelection[addr].Name, paraRelection[addr].Range, cBHexDisplay.Checked ? Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString("x4") : Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString(), paraRelection[addr].Unit });
                     if (paraRelection[addr].Competence == "R")
                     {
                         lVParam.Items[i].BackColor = tBReadOnly.BackColor;
@@ -381,7 +381,7 @@ namespace ICDIBasic
             for (int i = 0; i < 16; i++)
             {
                 string str = lVParam.Items[i].SubItems[1].Text;
-                lVParam.Items[i].SubItems[4].Text = cBHexDisplay.Checked ? Configuration.m_CmdMap[Convert.ToByte(str, 16)].ToString("x4") : Configuration.m_CmdMap[Convert.ToByte(str, 16)].ToString();
+                lVParam.Items[i].SubItems[4].Text = cBHexDisplay.Checked ? Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString("x4") : Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString();
             }
         }
 

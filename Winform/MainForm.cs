@@ -71,6 +71,8 @@ namespace ICDIBasic
 
         public MessageProccessing mthread = new MessageProccessing();
 
+        public static bool FirstQRequest = false;
+
         ParametersForm pf;
 
         OscilloScope os;
@@ -561,6 +563,7 @@ namespace ICDIBasic
             } 
             else
             {
+                FirstQRequest = true;
                 PCan.currentID = Convert.ToByte(cBID.Text);
                 pc.ReadWords(0x00, 16, PCan.currentID);
                 Thread.Sleep(1);
@@ -582,13 +585,13 @@ namespace ICDIBasic
                 Thread.Sleep(1);
                 pc.ReadWords(0x90, 16, PCan.currentID);
                 Thread.Sleep(1);
+                //最后一个数据用于确认信息
+                pc.ReadWords(Configuration.SCP_MEAPOS_H, 1, PCan.currentID);
+                Thread.Sleep(1);
             }
             //
             //
-
-          
         }
-
 
         void UnInitialModule()
         {

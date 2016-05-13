@@ -31,7 +31,8 @@ namespace ICDIBasic
 
         //内存控制表宏定义
         public const byte CMDMAP_LEN = 160;
-        public static short[] m_CmdMap = new short[CMDMAP_LEN];     //内存控制表
+        public static short[] MemoryControlTable = new short[CMDMAP_LEN];     //内存控制表
+        public static short[] MemoryControlTableBak = new short[CMDMAP_LEN];     //内存控制表
         public const byte CMDMAP_INDLEN = 10;
         public const byte CMDMAP_SUBLEN = 16;
 
@@ -184,27 +185,27 @@ namespace ICDIBasic
        
         private void InitialMemoryControlTable()
         {
-            //MemoryControlTable.Add(Convert.ToByte("00", 16), m_CmdMap[0]);
-            //MemoryControlTable.Add(Convert.ToByte("01", 16), m_CmdMap[SYS_ID]);
-            //MemoryControlTable.Add(Convert.ToByte("02", 16), m_CmdMap[SYS_MODEL_TYPE]);
-            //MemoryControlTable.Add(Convert.ToByte("03", 16), m_CmdMap[SYS_FW_VERSION]);
-            //MemoryControlTable.Add(Convert.ToByte("04", 16), m_CmdMap[SYS_ERROR]);
-            //MemoryControlTable.Add(Convert.ToByte("05", 16), m_CmdMap[SYS_VOLTAGE]);
-            //MemoryControlTable.Add(Convert.ToByte("06", 16), m_CmdMap[SYS_TEMP]);
-            //MemoryControlTable.Add(Convert.ToByte("07", 16), m_CmdMap[SYS_REDU_RATIO]);
-            //MemoryControlTable.Add(Convert.ToByte("08", 16), m_CmdMap[0x08]);
-            //MemoryControlTable.Add(Convert.ToByte("09", 16), m_CmdMap[SYS_BAUDRATE_CAN]);
-            //MemoryControlTable.Add(Convert.ToByte("0a", 16), m_CmdMap[SYS_ENABLE_DRIVER]);
-            //MemoryControlTable.Add(Convert.ToByte("0b", 16), m_CmdMap[SYS_ENABLE_ON_POWER]);
-            //MemoryControlTable.Add(Convert.ToByte("0c", 16), m_CmdMap[SYS_SAVE_TO_FLASH]);
-            //MemoryControlTable.Add(Convert.ToByte("0d", 16), m_CmdMap[0x0d]);
-            //MemoryControlTable.Add(Convert.ToByte("0e", 16), m_CmdMap[SYS_SET_ZERO_POS]);
-            //MemoryControlTable.Add(Convert.ToByte("0f", 16), m_CmdMap[SYS_CLEAR_ERROR]);
+            //MemoryControlTable.Add(Convert.ToByte("00", 16), MemoryControlTable[0]);
+            //MemoryControlTable.Add(Convert.ToByte("01", 16), MemoryControlTable[SYS_ID]);
+            //MemoryControlTable.Add(Convert.ToByte("02", 16), MemoryControlTable[SYS_MODEL_TYPE]);
+            //MemoryControlTable.Add(Convert.ToByte("03", 16), MemoryControlTable[SYS_FW_VERSION]);
+            //MemoryControlTable.Add(Convert.ToByte("04", 16), MemoryControlTable[SYS_ERROR]);
+            //MemoryControlTable.Add(Convert.ToByte("05", 16), MemoryControlTable[SYS_VOLTAGE]);
+            //MemoryControlTable.Add(Convert.ToByte("06", 16), MemoryControlTable[SYS_TEMP]);
+            //MemoryControlTable.Add(Convert.ToByte("07", 16), MemoryControlTable[SYS_REDU_RATIO]);
+            //MemoryControlTable.Add(Convert.ToByte("08", 16), MemoryControlTable[0x08]);
+            //MemoryControlTable.Add(Convert.ToByte("09", 16), MemoryControlTable[SYS_BAUDRATE_CAN]);
+            //MemoryControlTable.Add(Convert.ToByte("0a", 16), MemoryControlTable[SYS_ENABLE_DRIVER]);
+            //MemoryControlTable.Add(Convert.ToByte("0b", 16), MemoryControlTable[SYS_ENABLE_ON_POWER]);
+            //MemoryControlTable.Add(Convert.ToByte("0c", 16), MemoryControlTable[SYS_SAVE_TO_FLASH]);
+            //MemoryControlTable.Add(Convert.ToByte("0d", 16), MemoryControlTable[0x0d]);
+            //MemoryControlTable.Add(Convert.ToByte("0e", 16), MemoryControlTable[SYS_SET_ZERO_POS]);
+            //MemoryControlTable.Add(Convert.ToByte("0f", 16), MemoryControlTable[SYS_CLEAR_ERROR]);
         }
 
         public short GetCmdMapValue(byte Index)
         {
-            return (Index < CMDMAP_LEN) ? m_CmdMap[Index] : (short)0;
+            return (Index < CMDMAP_LEN) ? MemoryControlTable[Index] : (short)0;
         }
 
 

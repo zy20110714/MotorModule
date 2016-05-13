@@ -84,7 +84,7 @@ namespace ICDIBasic
                 PushFrame(2, currentID, Configuration.CMDTYPE_WR, Index, BitConverter.GetBytes(value));
             else
                 PushFrame(2, (uint)ID, Configuration.CMDTYPE_WR, Index, BitConverter.GetBytes(value));
-            Configuration.m_CmdMap[Index] = value;
+            Configuration.MemoryControlTable[Index] = value;
         }
 
         public void ReadWords(byte Index, int Wordsnum, int ID = -1)
@@ -105,8 +105,8 @@ namespace ICDIBasic
             else
                 PushFrame((byte)4, (uint)ID, Configuration.CMDTYPE_WR, Index, BitConverter.GetBytes(value));
 
-            Configuration.m_CmdMap[Index] = (short)value;
-            Configuration.m_CmdMap[Index + 1] = (short)(value >> 16);
+            Configuration.MemoryControlTable[Index] = (short)value;
+            Configuration.MemoryControlTable[Index + 1] = (short)(value >> 16);
         }
 
 
@@ -141,8 +141,8 @@ namespace ICDIBasic
             else
                 PushFrameHP((byte)4, (uint)ID, Configuration.CMDTYPE_WR, Index, BitConverter.GetBytes(value));
 
-            Configuration.m_CmdMap[Index] = (short)value;
-            Configuration.m_CmdMap[Index + 1] = (short)(value >> 16);
+            Configuration.MemoryControlTable[Index] = (short)value;
+            Configuration.MemoryControlTable[Index + 1] = (short)(value >> 16);
         }
 
         public void WriteOneWordHP(byte Index, short value, int ID = -1)
@@ -151,7 +151,7 @@ namespace ICDIBasic
                 PushFrameHP((byte)2, currentID, Configuration.CMDTYPE_WR, Index, BitConverter.GetBytes(value));
             else
                 PushFrameHP((byte)2, (uint)ID, Configuration.CMDTYPE_WR, Index, BitConverter.GetBytes(value));
-            Configuration.m_CmdMap[Index] = value;
+            Configuration.MemoryControlTable[Index] = value;
         }
 
 

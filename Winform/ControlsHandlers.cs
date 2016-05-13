@@ -828,6 +828,7 @@ namespace ICDIBasic
                 IsCheckConnection = false;
                 if (MessageProccessing.allID2.Count == 0 && !IsDataRecieved)
                 {
+                    //如果没收到节点ID信号，总线上也没收到任何数据
                     tMCheck.Enabled = false;
                     message = "您确定要关闭吗？";
                     caption = "总线上未检测到连接模块！";
@@ -910,7 +911,7 @@ namespace ICDIBasic
             {
 
             }
-           // short aa = Configuration.m_CmdMap[5];
+           // short aa = Configuration.MemoryControlTable[5];
         }
 
         private void cBID_SelectedIndexChanged(object sender, EventArgs e)
@@ -920,6 +921,8 @@ namespace ICDIBasic
                 btnParameters.Enabled = true;
                 btnRun.Enabled = true;
                 btnWave.Enabled = true;
+                PCan.currentID = Convert.ToByte(cBID.Text);
+                pc.WriteOneWord(Configuration.SYS_ID, PCan.currentID, PCan.currentID);
                 InitialMemoryControlTable();
                 if (pf != null)
                 {

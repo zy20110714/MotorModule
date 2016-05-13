@@ -36,12 +36,13 @@
             this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
             this.cBPositionRatio = new System.Windows.Forms.ComboBox();
             this.cBCurrentRatio = new System.Windows.Forms.ComboBox();
+            this.pLPaint = new ICDIBasic.NewPanel();
             this.tBtrace = new System.Windows.Forms.TrackBar();
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.cDcolor = new System.Windows.Forms.ColorDialog();
             this.tCMonitor = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lVFormat = new System.Windows.Forms.ListView();
+            this.lVMeasureItems = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -100,9 +101,8 @@
             this.tBCurrentP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tMPointer = new System.Windows.Forms.Timer(this.components);
-            this.pLPaint = new ICDIBasic.NewPanel();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tMPointer = new System.Windows.Forms.Timer(this.components);
             this.pLBoard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).BeginInit();
@@ -213,6 +213,16 @@
             this.cBCurrentRatio.TabIndex = 1;
             this.cBCurrentRatio.Text = "5mA";
             // 
+            // pLPaint
+            // 
+            this.pLPaint.BackColor = System.Drawing.Color.White;
+            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pLPaint.Location = new System.Drawing.Point(6, 1);
+            this.pLPaint.Name = "pLPaint";
+            this.pLPaint.Size = new System.Drawing.Size(740, 360);
+            this.pLPaint.TabIndex = 0;
+            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
+            // 
             // tBtrace
             // 
             this.tBtrace.AutoSize = false;
@@ -250,7 +260,7 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.lVFormat);
+            this.tabPage4.Controls.Add(this.lVMeasureItems);
             this.tabPage4.Location = new System.Drawing.Point(4, 31);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(831, 115);
@@ -258,31 +268,31 @@
             this.tabPage4.Text = "测量项目";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // lVFormat
+            // lVMeasureItems
             // 
-            this.lVFormat.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lVFormat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lVFormat.CheckBoxes = true;
-            this.lVFormat.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lVMeasureItems.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lVMeasureItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lVMeasureItems.CheckBoxes = true;
+            this.lVMeasureItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
-            this.lVFormat.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lVFormat.FullRowSelect = true;
-            this.lVFormat.GridLines = true;
-            this.lVFormat.Location = new System.Drawing.Point(0, 0);
-            this.lVFormat.MultiSelect = false;
-            this.lVFormat.Name = "lVFormat";
-            this.lVFormat.Size = new System.Drawing.Size(828, 115);
-            this.lVFormat.TabIndex = 0;
-            this.lVFormat.UseCompatibleStateImageBehavior = false;
-            this.lVFormat.View = System.Windows.Forms.View.Details;
-            this.lVFormat.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
-            this.lVFormat.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
-            this.lVFormat.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseDoubleClick);
+            this.lVMeasureItems.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lVMeasureItems.FullRowSelect = true;
+            this.lVMeasureItems.GridLines = true;
+            this.lVMeasureItems.Location = new System.Drawing.Point(0, 0);
+            this.lVMeasureItems.MultiSelect = false;
+            this.lVMeasureItems.Name = "lVMeasureItems";
+            this.lVMeasureItems.Size = new System.Drawing.Size(828, 115);
+            this.lVMeasureItems.TabIndex = 0;
+            this.lVMeasureItems.UseCompatibleStateImageBehavior = false;
+            this.lVMeasureItems.View = System.Windows.Forms.View.Details;
+            this.lVMeasureItems.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
+            this.lVMeasureItems.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
+            this.lVMeasureItems.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseDoubleClick);
             // 
             // columnHeader1
             // 
@@ -882,21 +892,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "P参数";
             // 
-            // tMPointer
-            // 
-            this.tMPointer.Interval = 1500;
-            this.tMPointer.Tick += new System.EventHandler(this.tMPointer_Tick);
-            // 
-            // pLPaint
-            // 
-            this.pLPaint.BackColor = System.Drawing.Color.White;
-            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pLPaint.Location = new System.Drawing.Point(6, 1);
-            this.pLPaint.Name = "pLPaint";
-            this.pLPaint.Size = new System.Drawing.Size(740, 360);
-            this.pLPaint.TabIndex = 0;
-            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
-            // 
             // tabPage5
             // 
             this.tabPage5.Location = new System.Drawing.Point(4, 31);
@@ -905,6 +900,11 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "自动增益调整";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tMPointer
+            // 
+            this.tMPointer.Interval = 1500;
+            this.tMPointer.Tick += new System.EventHandler(this.tMPointer_Tick);
             // 
             // OscilloScope
             // 
@@ -954,7 +954,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private NewPanel pLPaint;
         private System.Windows.Forms.TrackBar tBtrace;
-        private System.Windows.Forms.ListView lVFormat;
+        private System.Windows.Forms.ListView lVMeasureItems;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

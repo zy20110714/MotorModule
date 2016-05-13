@@ -78,6 +78,7 @@
             // lVFlash
             // 
             this.lVFlash.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lVFlash.CheckBoxes = true;
             this.lVFlash.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,

@@ -357,7 +357,7 @@ namespace ICDIBasic
                 {
                     index++;
                     Int16 value = (Int16)(pCanMsg.DATA[CAN_DATA + i * 2] + (pCanMsg.DATA[CAN_DATA + i * 2 + 1] << 8));
-                    if (index == 1)
+                    if (index == Configuration.SYS_ID)
                     {
                         if (!allID.Contains(value))
                         {
@@ -365,19 +365,41 @@ namespace ICDIBasic
                         }
                         allID2.Add(value);
                     }
-                    Configuration.m_CmdMap[index] = value;
+                    else if (index == Configuration.SCP_MEAPOS_H && MainForm.FirstQRequest)
+                    {
+                        Configuration.MemoryControlTable[index] = value;
+                        MainForm.FirstQRequest = false;
+                        //备份内存控制表
+                        backUpMemoryControlTable();
+                    }
+                    else
+                    {
+                        //ID信号有干扰，应单独分开
+                        Configuration.MemoryControlTable[index] = value;
+                    }
+
+                   
                 }
             }
             else if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_SCP)
             {
-                int Index = pCanMsg.DATA[CAN_INDEX];
-                if (Index == Configuration.SCP_MEAPOS_L)
-                {
-                    int aa = 1;
-                }
-                Configuration.m_CmdMap[Index] = (Int16)(pCanMsg.DATA[CAN_DATA] + (pCanMsg.DATA[CAN_DATA + 1] << 8));
-                Configuration.m_CmdMap[Index + 1] = (Int16)(pCanMsg.DATA[CAN_DATA + 2] + (pCanMsg.DATA[CAN_DATA + 3] << 8));
+                int index = pCanMsg.DATA[CAN_INDEX];
+                //if (index == Configuration.SCP_MEAPOS_L)
+                //{
+                //    int aa = 1;
+                //}
+                Configuration.MemoryControlTable[index] = (Int16)(pCanMsg.DATA[CAN_DATA] + (pCanMsg.DATA[CAN_DATA + 1] << 8));
+                Configuration.MemoryControlTable[index + 1] = (Int16)(pCanMsg.DATA[CAN_DATA + 2] + (pCanMsg.DATA[CAN_DATA + 3] << 8));
 
+            }
+            else if (pCanMsg.DATA[CAN_CMD] == Configuration.CMDTYPE_WR)
+            {
+                int index = pCanMsg.DATA[CAN_INDEX];
+                if (index == Configuration.SYS_SAVE_TO_FLASH)
+                {
+                    //参数更新完成
+                    WriteParameters.ProgramFinished = true;
+                }
             }
             if (pCanMsg.DATA[CAN_CMD] != 0)
             {
@@ -386,6 +408,18 @@ namespace ICDIBasic
             }
             PCan.m_iFramesCount++;
         }
+
+        /// <summary>
+        /// back up  MemoryControlTable
+        /// </summary>
+        private void backUpMemoryControlTable()
+        {
+            for (int i = 0; i < Configuration.CMDMAP_LEN;i++ )
+            {
+                Configuration.MemoryControlTableBak[i] = Configuration.MemoryControlTable[i];
+            }
+        }
+
 
 
         /// <summary>

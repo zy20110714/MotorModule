@@ -207,8 +207,8 @@ namespace ICDIBasic
                         {
                             // pc.ReadWords(OscilloScope.showItems[i].Item, 2, PCan.currentID);
 
-                            byte[] value1 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item]);
-                            byte[] value2 = BitConverter.GetBytes(Configuration.m_CmdMap[OscilloScope.showItems[i].Item + 1]);
+                            byte[] value1 = BitConverter.GetBytes(Configuration.MemoryControlTable[OscilloScope.showItems[i].Item]);
+                            byte[] value2 = BitConverter.GetBytes(Configuration.MemoryControlTable[OscilloScope.showItems[i].Item + 1]);
                             int value = 0;
                             if (OscilloScope.showItems[i].Item == Configuration.SCP_TAGPOS_L || OscilloScope.showItems[i].Item == Configuration.SCP_MEAPOS_L)
                             {

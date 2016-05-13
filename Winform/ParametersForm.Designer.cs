@@ -51,6 +51,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pLDescribe = new System.Windows.Forms.Panel();
+            this.btnFlash = new System.Windows.Forms.Button();
             this.pLExplain = new System.Windows.Forms.Panel();
             this.cBHexDisplay = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -63,7 +64,6 @@
             this.tBExplain = new System.Windows.Forms.TextBox();
             this.pLExplain2 = new System.Windows.Forms.Panel();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
-            this.btnFlash = new System.Windows.Forms.Button();
             this.pLDescribe.SuspendLayout();
             this.pLExplain.SuspendLayout();
             this.pLExplain2.SuspendLayout();
@@ -216,6 +216,18 @@
             this.pLDescribe.TabIndex = 4;
             this.pLDescribe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
             // 
+            // btnFlash
+            // 
+            this.btnFlash.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFlash.BackgroundImage")));
+            this.btnFlash.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnFlash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFlash.Location = new System.Drawing.Point(567, 35);
+            this.btnFlash.Name = "btnFlash";
+            this.btnFlash.Size = new System.Drawing.Size(71, 49);
+            this.btnFlash.TabIndex = 0;
+            this.btnFlash.UseVisualStyleBackColor = true;
+            this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
+            // 
             // pLExplain
             // 
             this.pLExplain.Controls.Add(this.cBHexDisplay);
@@ -347,18 +359,6 @@
             this.timerUpdate.Interval = 1000;
             this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
             // 
-            // btnFlash
-            // 
-            this.btnFlash.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFlash.BackgroundImage")));
-            this.btnFlash.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnFlash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFlash.Location = new System.Drawing.Point(567, 35);
-            this.btnFlash.Name = "btnFlash";
-            this.btnFlash.Size = new System.Drawing.Size(71, 49);
-            this.btnFlash.TabIndex = 0;
-            this.btnFlash.UseVisualStyleBackColor = true;
-            this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
-            // 
             // ParametersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -371,6 +371,8 @@
             this.Controls.Add(this.tVParam);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ParametersForm";
