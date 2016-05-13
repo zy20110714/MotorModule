@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParametersForm));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("分类0（系统信息）");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("分类1（系统状态）");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("分类2（电机相关）");
@@ -39,8 +40,10 @@
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("分类7（三闭环参数L）");
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("节点8（刹车相关）");
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("节点9（示波器相关）");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParametersForm));
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pLName = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pBExit = new System.Windows.Forms.PictureBox();
+            this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.tVParam = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.lVParam = new System.Windows.Forms.ListView();
@@ -51,6 +54,10 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pLDescribe = new System.Windows.Forms.Panel();
+            this.btnCalculator = new System.Windows.Forms.Button();
+            this.btnCompare = new System.Windows.Forms.Button();
+            this.btnInitialize = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.btnFlash = new System.Windows.Forms.Button();
             this.pLExplain = new System.Windows.Forms.Panel();
             this.cBHexDisplay = new System.Windows.Forms.CheckBox();
@@ -64,23 +71,64 @@
             this.tBExplain = new System.Windows.Forms.TextBox();
             this.pLExplain2 = new System.Windows.Forms.Panel();
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
+            this.cBParametersSource = new System.Windows.Forms.ComboBox();
+            this.oFParaPath = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogParaPath = new System.Windows.Forms.SaveFileDialog();
+            this.pLName.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
             this.pLDescribe.SuspendLayout();
             this.pLExplain.SuspendLayout();
             this.pLExplain2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // pLName
             // 
-            this.panel1.BackColor = System.Drawing.Color.Tan;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(844, 35);
-            this.panel1.TabIndex = 0;
+            this.pLName.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pLName.Controls.Add(this.label2);
+            this.pLName.Controls.Add(this.pBExit);
+            this.pLName.Controls.Add(this.pBSetUp);
+            this.pLName.Location = new System.Drawing.Point(0, 0);
+            this.pLName.Name = "pLName";
+            this.pLName.Size = new System.Drawing.Size(844, 52);
+            this.pLName.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("隶书", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(362, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(133, 29);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "参数设置";
+            // 
+            // pBExit
+            // 
+            this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
+            this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pBExit.Location = new System.Drawing.Point(792, 0);
+            this.pBExit.Name = "pBExit";
+            this.pBExit.Size = new System.Drawing.Size(52, 52);
+            this.pBExit.TabIndex = 0;
+            this.pBExit.TabStop = false;
+            this.pBExit.Click += new System.EventHandler(this.pBExit_Click);
+            // 
+            // pBSetUp
+            // 
+            this.pBSetUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBSetUp.BackgroundImage")));
+            this.pBSetUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBSetUp.Location = new System.Drawing.Point(0, 0);
+            this.pBSetUp.Name = "pBSetUp";
+            this.pBSetUp.Size = new System.Drawing.Size(52, 52);
+            this.pBSetUp.TabIndex = 0;
+            this.pBSetUp.TabStop = false;
             // 
             // tVParam
             // 
             this.tVParam.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tVParam.Location = new System.Drawing.Point(0, 65);
+            this.tVParam.Location = new System.Drawing.Point(0, 90);
             this.tVParam.Name = "tVParam";
             treeNode1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             treeNode1.Checked = true;
@@ -142,10 +190,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(44, 38);
+            this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label1.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(41, 382);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 24);
+            this.label1.Size = new System.Drawing.Size(129, 29);
             this.label1.TabIndex = 2;
             this.label1.Text = "参数一览";
             // 
@@ -162,10 +211,10 @@
             this.lVParam.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lVParam.FullRowSelect = true;
             this.lVParam.GridLines = true;
-            this.lVParam.Location = new System.Drawing.Point(205, 131);
+            this.lVParam.Location = new System.Drawing.Point(205, 115);
             this.lVParam.MultiSelect = false;
             this.lVParam.Name = "lVParam";
-            this.lVParam.Size = new System.Drawing.Size(639, 304);
+            this.lVParam.Size = new System.Drawing.Size(639, 339);
             this.lVParam.TabIndex = 3;
             this.lVParam.UseCompatibleStateImageBehavior = false;
             this.lVParam.View = System.Windows.Forms.View.Details;
@@ -206,24 +255,80 @@
             // 
             this.columnHeader6.Text = "单位";
             this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader6.Width = 69;
             // 
             // pLDescribe
             // 
+            this.pLDescribe.Controls.Add(this.btnCalculator);
+            this.pLDescribe.Controls.Add(this.btnCompare);
+            this.pLDescribe.Controls.Add(this.btnInitialize);
+            this.pLDescribe.Controls.Add(this.btnSave);
             this.pLDescribe.Controls.Add(this.btnFlash);
-            this.pLDescribe.Location = new System.Drawing.Point(206, 38);
+            this.pLDescribe.Location = new System.Drawing.Point(206, 55);
             this.pLDescribe.Name = "pLDescribe";
-            this.pLDescribe.Size = new System.Drawing.Size(638, 87);
+            this.pLDescribe.Size = new System.Drawing.Size(638, 55);
             this.pLDescribe.TabIndex = 4;
             this.pLDescribe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
+            // 
+            // btnCalculator
+            // 
+            this.btnCalculator.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCalculator.BackgroundImage")));
+            this.btnCalculator.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCalculator.FlatAppearance.BorderSize = 0;
+            this.btnCalculator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCalculator.Location = new System.Drawing.Point(422, 2);
+            this.btnCalculator.Name = "btnCalculator";
+            this.btnCalculator.Size = new System.Drawing.Size(67, 50);
+            this.btnCalculator.TabIndex = 0;
+            this.btnCalculator.UseVisualStyleBackColor = true;
+            this.btnCalculator.Click += new System.EventHandler(this.btnCalculator_Click);
+            // 
+            // btnCompare
+            // 
+            this.btnCompare.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompare.BackgroundImage")));
+            this.btnCompare.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCompare.FlatAppearance.BorderSize = 0;
+            this.btnCompare.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCompare.Location = new System.Drawing.Point(360, 2);
+            this.btnCompare.Name = "btnCompare";
+            this.btnCompare.Size = new System.Drawing.Size(65, 50);
+            this.btnCompare.TabIndex = 0;
+            this.btnCompare.UseVisualStyleBackColor = true;
+            // 
+            // btnInitialize
+            // 
+            this.btnInitialize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnInitialize.BackgroundImage")));
+            this.btnInitialize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnInitialize.FlatAppearance.BorderSize = 0;
+            this.btnInitialize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInitialize.Location = new System.Drawing.Point(289, 2);
+            this.btnInitialize.Name = "btnInitialize";
+            this.btnInitialize.Size = new System.Drawing.Size(65, 50);
+            this.btnInitialize.TabIndex = 0;
+            this.btnInitialize.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSave.BackgroundImage")));
+            this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Location = new System.Drawing.Point(495, 2);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(65, 50);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnFlash
             // 
             this.btnFlash.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFlash.BackgroundImage")));
             this.btnFlash.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnFlash.FlatAppearance.BorderSize = 0;
             this.btnFlash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFlash.Location = new System.Drawing.Point(567, 35);
+            this.btnFlash.Location = new System.Drawing.Point(564, 3);
             this.btnFlash.Name = "btnFlash";
-            this.btnFlash.Size = new System.Drawing.Size(71, 49);
+            this.btnFlash.Size = new System.Drawing.Size(70, 50);
             this.btnFlash.TabIndex = 0;
             this.btnFlash.UseVisualStyleBackColor = true;
             this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
@@ -323,7 +428,7 @@
             // 
             // tBReadOnly
             // 
-            this.tBReadOnly.BackColor = System.Drawing.Color.Orange;
+            this.tBReadOnly.BackColor = System.Drawing.Color.SteelBlue;
             this.tBReadOnly.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tBReadOnly.Location = new System.Drawing.Point(0, 0);
             this.tBReadOnly.Name = "tBReadOnly";
@@ -348,7 +453,7 @@
             // 
             this.pLExplain2.Controls.Add(this.tBExplain);
             this.pLExplain2.Controls.Add(this.pLExplain);
-            this.pLExplain2.Location = new System.Drawing.Point(205, 431);
+            this.pLExplain2.Location = new System.Drawing.Point(205, 458);
             this.pLExplain2.Name = "pLExplain2";
             this.pLExplain2.Size = new System.Drawing.Size(639, 150);
             this.pLExplain2.TabIndex = 6;
@@ -359,18 +464,38 @@
             this.timerUpdate.Interval = 1000;
             this.timerUpdate.Tick += new System.EventHandler(this.timerUpdate_Tick);
             // 
+            // cBParametersSource
+            // 
+            this.cBParametersSource.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBParametersSource.FormattingEnabled = true;
+            this.cBParametersSource.Items.AddRange(new object[] {
+            "从驱动器读取",
+            "从文件读取",
+            "读取标准出厂设置"});
+            this.cBParametersSource.Location = new System.Drawing.Point(0, 55);
+            this.cBParametersSource.Name = "cBParametersSource";
+            this.cBParametersSource.Size = new System.Drawing.Size(200, 29);
+            this.cBParametersSource.TabIndex = 7;
+            this.cBParametersSource.Text = "从驱动器读取";
+            this.cBParametersSource.SelectedIndexChanged += new System.EventHandler(this.cBParametersSource_SelectedIndexChanged);
+            // 
+            // oFParaPath
+            // 
+            this.oFParaPath.FileName = "openFileDialog1";
+            // 
             // ParametersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 581);
+            this.ClientSize = new System.Drawing.Size(845, 610);
+            this.Controls.Add(this.cBParametersSource);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pLExplain2);
             this.Controls.Add(this.pLDescribe);
             this.Controls.Add(this.lVParam);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.tVParam);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Controls.Add(this.pLName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.MaximizeBox = false;
@@ -380,6 +505,10 @@
             this.Text = "Parameters";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParametersForm_FormClosed);
+            this.pLName.ResumeLayout(false);
+            this.pLName.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             this.pLDescribe.ResumeLayout(false);
             this.pLExplain.ResumeLayout(false);
             this.pLExplain.PerformLayout();
@@ -392,7 +521,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pLName;
         private System.Windows.Forms.TreeView tVParam;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView lVParam;
@@ -416,5 +545,15 @@
         private System.Windows.Forms.Panel pLExplain2;
         private System.Windows.Forms.Timer timerUpdate;
         private System.Windows.Forms.Button btnFlash;
+        private System.Windows.Forms.PictureBox pBExit;
+        private System.Windows.Forms.PictureBox pBSetUp;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cBParametersSource;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCalculator;
+        private System.Windows.Forms.Button btnCompare;
+        private System.Windows.Forms.Button btnInitialize;
+        private System.Windows.Forms.OpenFileDialog oFParaPath;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogParaPath;
     }
 }

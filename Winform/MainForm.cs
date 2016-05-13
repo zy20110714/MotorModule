@@ -512,6 +512,7 @@ namespace ICDIBasic
         /// </summary>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            tMMainFormRefresh.Stop();
             // Releases the used PCAN-Basic channel
             //
             if (btnRelease.Enabled)
@@ -532,6 +533,7 @@ namespace ICDIBasic
 
         private void InitialMainForm()
         {
+            tMMainFormRefresh.Start();
             Configuration cf = new Configuration();
        
             //this.IsMdiContainer = true;    Done with the property of MainForm
@@ -541,7 +543,8 @@ namespace ICDIBasic
             Thread.Sleep(10);
             if (IsInitialSucessed)
             {
-               
+                sBFeedbackShow("PCAN USB", 0);
+                sBFeedbackShow("CAN总线初始化成功！", 1);
             }
             else
             {
@@ -555,7 +558,7 @@ namespace ICDIBasic
         }
 
 
-        void InitialMemoryControlTable()
+        public void InitialMemoryControlTable()
         {
             if (cBID.Text == "")
             {
@@ -788,13 +791,13 @@ namespace ICDIBasic
 
                 // Enable Timer
                 //
-                tmrRead.Enabled = btnRelease.Enabled;
+                //tMMainFormRefresh.Enabled = btnRelease.Enabled;
             }
             if (rdbEvent.Checked)
             {
                 // Disable Timer
                 //
-                tmrRead.Enabled = false;
+                //tMMainFormRefresh.Enabled = false;
                 // Create and start the tread to read CAN Message using SetRcvEvent()
                 //
               
@@ -811,7 +814,7 @@ namespace ICDIBasic
                 //}
                 // Disable Timer
                 //
-                tmrRead.Enabled = false;
+                //tMMainFormRefresh.Enabled = false;
             }
             btnRead.Enabled = btnRelease.Enabled && rdbManual.Checked;
         }
@@ -855,6 +858,7 @@ namespace ICDIBasic
             }
         }
         #endregion        
+
 
    
        

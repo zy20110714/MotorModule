@@ -235,7 +235,7 @@ namespace ICDIBasic
             // Releases a current connected PCAN-Basic channel
             //
             PCANBasic.Uninitialize(m_PcanHandle);
-            tmrRead.Enabled = false;
+            //tMMainFormRefresh.Enabled = false;
             //if (m_ProcessThread != null)
             //{
             //    m_ProcessThread.Abort();
@@ -804,8 +804,10 @@ namespace ICDIBasic
         #endregion
 
         #region Timer event-handler
-        private void tmrRead_Tick(object sender, EventArgs e)
+
+        private void tMMainFormRefresh_Tick(object sender, EventArgs e)
         {
+            sBFeedbackShow(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToLongTimeString(), 3);
           
         }
 
@@ -938,7 +940,11 @@ namespace ICDIBasic
             }
         }
 
+        public void sBFeedbackShow(string message, int index)
+        {
+            sBFeedback.Panels[index].Text = message;
 
+        }
 
     }
 }

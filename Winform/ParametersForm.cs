@@ -397,9 +397,69 @@ namespace ICDIBasic
             
         }
 
-      
+        private void pBExit_Click(object sender, EventArgs e)
+        {
+            //关闭参数设置页面
+            this.Close();
+        }
 
+        private void btnCalculator_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.ProcessStartInfo Info = new System.Diagnostics.ProcessStartInfo();
+            Info.FileName = "calc.exe ";   //"calc.exe"为计算器，"notepad.exe"为记事本
+            System.Diagnostics.Process Proc = System.Diagnostics.Process.Start(Info);
+        }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            saveFileDialogParaPath.InitialDirectory = Application.StartupPath;
+            saveFileDialogParaPath.Filter = "参数文件(*.ouj)|*.ouj";
+            saveFileDialogParaPath.ShowDialog();
+            string path = saveFileDialogParaPath.FileName;
+            for (int i = 0; i < Configuration.CMDMAP_LEN; i++)
+            {
+                string strName = i.ToString("x2");
+                string type = "Para " + strName.Substring(0, 1);
+                //是写入flash中的数据？ OR 写入内存控制表中的数据
+                IniFile.WritePrivateProfileString(type, strName, Configuration.MemoryControlTable[i].ToString(), path);
+            }
+            MainForm.GetInstance().sBFeedbackShow("参数保存成功！",1);
+        }
+
+        /// <summary>
+        /// 选择参数读取来源
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cBParametersSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cBParametersSource.Text == "从驱动器读取")
+            {
+               if (PCan.currentID == 0)
+               {
+                   MessageBox.Show("请先连接模块！");
+                   return;
+               }
+               else
+               {
+                   pc.WriteOneWord(Configuration.SYS_ID, PCan.currentID, PCan.currentID);
+                   MainForm.GetInstance().InitialMemoryControlTable();
+                   if (pCurrentWin != null)
+                   {
+                       pCurrentWin.RefreshlVParam(0);
+                   }
+               }
+            }
+            else if (cBParametersSource.Text == "从文件读取")
+            {
+
+            }
+            else if (cBParametersSource.Text == "读取标准出厂设置")
+            {
+
+            }
+
+        }
 
     }
 

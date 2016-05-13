@@ -165,10 +165,10 @@
             this.txtData1 = new System.Windows.Forms.TextBox();
             this.txtData0 = new System.Windows.Forms.TextBox();
             this.nudLength = new System.Windows.Forms.NumericUpDown();
-            this.tmrRead = new System.Windows.Forms.Timer(this.components);
+            this.tMMainFormRefresh = new System.Windows.Forms.Timer(this.components);
             this.tMCheck = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.statusBar1 = new System.Windows.Forms.StatusBar();
+            this.sBFeedback = new System.Windows.Forms.StatusBar();
             this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel2 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel3 = new System.Windows.Forms.StatusBarPanel();
@@ -182,6 +182,7 @@
             this.btnMonitor = new System.Windows.Forms.Button();
             this.btnParameters = new System.Windows.Forms.Button();
             this.pLMain = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdTo)).BeginInit();
@@ -2066,10 +2067,10 @@
             0});
             this.nudLength.ValueChanged += new System.EventHandler(this.nudLength_ValueChanged);
             // 
-            // tmrRead
+            // tMMainFormRefresh
             // 
-            this.tmrRead.Interval = 50;
-            this.tmrRead.Tick += new System.EventHandler(this.tmrRead_Tick);
+            this.tMMainFormRefresh.Interval = 1000;
+            this.tMMainFormRefresh.Tick += new System.EventHandler(this.tMMainFormRefresh_Tick);
             // 
             // tMCheck
             // 
@@ -2088,49 +2089,55 @@
             this.panel1.Size = new System.Drawing.Size(29, 18);
             this.panel1.TabIndex = 52;
             // 
-            // statusBar1
+            // sBFeedback
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 649);
-            this.statusBar1.Name = "statusBar1";
-            this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
+            this.sBFeedback.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.sBFeedback.Location = new System.Drawing.Point(0, 649);
+            this.sBFeedback.Name = "sBFeedback";
+            this.sBFeedback.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.statusBarPanel1,
             this.statusBarPanel2,
             this.statusBarPanel3,
             this.statusBarPanel4});
-            this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(994, 22);
-            this.statusBar1.TabIndex = 53;
-            this.statusBar1.Text = "statusBar1";
+            this.sBFeedback.ShowPanels = true;
+            this.sBFeedback.Size = new System.Drawing.Size(994, 22);
+            this.sBFeedback.TabIndex = 53;
             // 
             // statusBarPanel1
             // 
-            this.statusBarPanel1.BorderStyle = System.Windows.Forms.StatusBarPanelBorderStyle.Raised;
+            this.statusBarPanel1.BorderStyle = System.Windows.Forms.StatusBarPanelBorderStyle.None;
+            this.statusBarPanel1.Icon = ((System.Drawing.Icon)(resources.GetObject("statusBarPanel1.Icon")));
             this.statusBarPanel1.Name = "statusBarPanel1";
-            this.statusBarPanel1.Text = "ttt";
-            this.statusBarPanel1.Width = 250;
+            this.statusBarPanel1.Text = "tt1";
+            this.statusBarPanel1.Width = 150;
             // 
             // statusBarPanel2
             // 
+            this.statusBarPanel2.Icon = ((System.Drawing.Icon)(resources.GetObject("statusBarPanel2.Icon")));
             this.statusBarPanel2.Name = "statusBarPanel2";
             this.statusBarPanel2.Text = "tt2";
-            this.statusBarPanel2.Width = 250;
+            this.statusBarPanel2.Width = 350;
             // 
             // statusBarPanel3
             // 
+            this.statusBarPanel3.Icon = ((System.Drawing.Icon)(resources.GetObject("statusBarPanel3.Icon")));
             this.statusBarPanel3.Name = "statusBarPanel3";
-            this.statusBarPanel3.Text = "statusBarPanel3";
-            this.statusBarPanel3.Width = 350;
+            this.statusBarPanel3.Text = "遨博（北京）智能科技有限公司";
+            this.statusBarPanel3.Width = 300;
             // 
             // statusBarPanel4
             // 
+            this.statusBarPanel4.BorderStyle = System.Windows.Forms.StatusBarPanelBorderStyle.Raised;
+            this.statusBarPanel4.Icon = ((System.Drawing.Icon)(resources.GetObject("statusBarPanel4.Icon")));
             this.statusBarPanel4.Name = "statusBarPanel4";
-            this.statusBarPanel4.Text = "statusBarPanel4";
-            this.statusBarPanel4.Width = 150;
+            this.statusBarPanel4.Text = "tt4";
+            this.statusBarPanel4.Width = 160;
             // 
             // pLContent
             // 
             this.pLContent.BackColor = System.Drawing.Color.Tan;
             this.pLContent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pLContent.Controls.Add(this.panel2);
             this.pLContent.Controls.Add(this.panel1);
             this.pLContent.Controls.Add(this.label2);
             this.pLContent.Controls.Add(this.cBID);
@@ -2233,6 +2240,15 @@
             this.pLMain.Size = new System.Drawing.Size(994, 612);
             this.pLMain.TabIndex = 55;
             // 
+            // panel2
+            // 
+            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel2.Location = new System.Drawing.Point(845, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(26, 28);
+            this.panel2.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2240,7 +2256,7 @@
             this.ClientSize = new System.Drawing.Size(994, 671);
             this.Controls.Add(this.pLMain);
             this.Controls.Add(this.pLContent);
-            this.Controls.Add(this.statusBar1);
+            this.Controls.Add(this.sBFeedback);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
@@ -2338,7 +2354,7 @@
         private System.Windows.Forms.Button btnParameterGet;
         private System.Windows.Forms.Button btnFilterQuery;
         private System.Windows.Forms.ListBox lbxInfo;
-        private System.Windows.Forms.Timer tmrRead;
+        private System.Windows.Forms.Timer tMMainFormRefresh;
         private System.Windows.Forms.Button btnHwRefresh;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnStatus;
@@ -2416,7 +2432,7 @@
         private System.Windows.Forms.Label laBaudrate;
         private System.Windows.Forms.CheckBox chbCanFD;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.StatusBar statusBar1;
+        private System.Windows.Forms.StatusBar sBFeedback;
         private System.Windows.Forms.StatusBarPanel statusBarPanel1;
         private System.Windows.Forms.StatusBarPanel statusBarPanel2;
         private System.Windows.Forms.StatusBarPanel statusBarPanel3;
@@ -2430,6 +2446,7 @@
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.Button btnWave;
         private System.Windows.Forms.Panel pLMain;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
