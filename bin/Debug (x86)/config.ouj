@@ -1,0 +1,6 @@
+[OscilloScope]
+PIDGroup=0
+[plRange]
+Current=5
+Speed=100
+Position=10
