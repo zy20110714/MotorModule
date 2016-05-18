@@ -174,6 +174,7 @@
             this.statusBarPanel3 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel4 = new System.Windows.Forms.StatusBarPanel();
             this.pLContent = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.cBID = new System.Windows.Forms.ComboBox();
             this.btnOther = new System.Windows.Forms.Button();
@@ -182,7 +183,6 @@
             this.btnMonitor = new System.Windows.Forms.Button();
             this.btnParameters = new System.Windows.Forms.Button();
             this.pLMain = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdTo)).BeginInit();
@@ -2151,6 +2151,15 @@
             this.pLContent.Size = new System.Drawing.Size(997, 35);
             this.pLContent.TabIndex = 54;
             // 
+            // panel2
+            // 
+            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel2.Location = new System.Drawing.Point(845, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(26, 28);
+            this.panel2.TabIndex = 0;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -2163,6 +2172,7 @@
             // 
             // cBID
             // 
+            this.cBID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBID.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cBID.FormattingEnabled = true;
             this.cBID.Location = new System.Drawing.Point(-2, -2);
@@ -2240,15 +2250,6 @@
             this.pLMain.Size = new System.Drawing.Size(994, 612);
             this.pLMain.TabIndex = 55;
             // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel2.Location = new System.Drawing.Point(845, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(26, 28);
-            this.panel2.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2260,7 +2261,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

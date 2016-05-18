@@ -377,12 +377,15 @@ namespace ICDIBasic
 
         private void timerUpdate_Tick(object sender, EventArgs e)
         {
-            //以300ms的间隔更新变量
+            //以1000ms的间隔更新变量
+            lVParam.BeginUpdate();
+            
             for (int i = 0; i < 16; i++)
             {
                 string str = lVParam.Items[i].SubItems[1].Text;
                 lVParam.Items[i].SubItems[4].Text = cBHexDisplay.Checked ? Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString("x4") : Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString();
             }
+            lVParam.EndUpdate();
         }
 
         private void btnFlash_Click(object sender, EventArgs e)
@@ -458,7 +461,14 @@ namespace ICDIBasic
             {
 
             }
+            btnFlash.Focus();
 
+        }
+
+        private void btnInitialize_Click(object sender, EventArgs e)
+        {
+            cBParametersSource.Text = "";
+            cBParametersSource.Text = "从驱动器读取";
         }
 
     }

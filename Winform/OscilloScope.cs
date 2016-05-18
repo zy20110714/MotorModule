@@ -29,7 +29,15 @@ namespace ICDIBasic
         double positionRatio = 360.0 / 65535;
         double currentRatio = 1.0;
         float[] pointA;
-      
+
+        double cr;
+        double sr;
+        double pr;
+
+        float currentOffset;
+        float speedOffset;
+        float positionOffset;
+
         int tracePos1 = 0;
         int tracePos2 = 0;
         public static bool EnableScope = false;
@@ -58,7 +66,6 @@ namespace ICDIBasic
             thread.Name = "HighAccuracyTimer";
             //thread.Start();
             timerPaint.Start();
-           
         }
 
         ~OscilloScope()
@@ -108,15 +115,16 @@ namespace ICDIBasic
             itemRelection.Add(Configuration.SCP_MEASPD_L, "实际速度");
             itemRelection.Add(Configuration.SCP_MEAPOS_L, "实际位置");
             showItems.Clear();
-            showItems.Add(new ShowItem(false, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Dot, pLPaint.Width, Configuration.MASK_TAGCUR));
-            showItems.Add(new ShowItem(true, Configuration.SCP_TAGSPD_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
-            showItems.Add(new ShowItem(true, Configuration.SCP_TAGPOS_L, "观测", Color.Blue, DashStyle.Dash, pLPaint.Width, Configuration.MASK_TAGPOS));
-            showItems.Add(new ShowItem(false, Configuration.SCP_MEACUR_L, "观测", Color.Cyan, DashStyle.Dot, pLPaint.Width, Configuration.MASK_MEACUR));
-            showItems.Add(new ShowItem(true, Configuration.SCP_MEASPD_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEASPD));
-            showItems.Add(new ShowItem(true, Configuration.SCP_MEAPOS_L, "观测", Color.Red, DashStyle.Dash, pLPaint.Width, Configuration.MASK_MEAPOS));
+            Mask = (byte)Configuration.MemoryControlTable[Configuration.SCP_MASK];
+            showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGCUR) != 0x00, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Dot, pLPaint.Width, Configuration.MASK_TAGCUR));
+            showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGSPD) != 0x00, Configuration.SCP_TAGSPD_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
+            showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGPOS) != 0x00, Configuration.SCP_TAGPOS_L, "观测", Color.Blue, DashStyle.Dash, pLPaint.Width, Configuration.MASK_TAGPOS));
+            showItems.Add(new ShowItem((Mask & Configuration.MASK_MEACUR) != 0x00, Configuration.SCP_MEACUR_L, "观测", Color.Cyan, DashStyle.Dot, pLPaint.Width, Configuration.MASK_MEACUR));
+            showItems.Add(new ShowItem((Mask & Configuration.MASK_MEASPD) != 0x00, Configuration.SCP_MEASPD_L, "观测", Color.HotPink, DashStyle.Solid, pLPaint.Width, Configuration.MASK_MEASPD));
+            showItems.Add(new ShowItem((Mask & Configuration.MASK_MEAPOS) != 0x00, Configuration.SCP_MEAPOS_L, "观测", Color.Red, DashStyle.Dash, pLPaint.Width, Configuration.MASK_MEAPOS));
 
-            Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS;
-            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
+            //Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS;
+            //pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
 
             //设置扫描频率
             tBScanFrequency.Text = Configuration.MemoryControlTable[Configuration.SCP_REC_TIM].ToString();
@@ -131,6 +139,16 @@ namespace ICDIBasic
 
             loadLVMeasureItems();
 
+            cBCurrentRatio.Text = IniFile.ContentValue("plRange", "Current", IniFile.strProPath);
+            cBSpeedRatio.Text = IniFile.ContentValue("plRange", "Speed", IniFile.strProPath);
+            cBPositionRatio.Text = IniFile.ContentValue("plRange", "Position", IniFile.strProPath);
+            cr = Convert.ToDouble(IniFile.ContentValue("plRange", "Current", IniFile.strProPath));
+            sr = Convert.ToDouble(IniFile.ContentValue("plRange", "Speed", IniFile.strProPath));
+            pr = Convert.ToDouble(IniFile.ContentValue("plRange", "Position", IniFile.strProPath));
+            currentOffset = 0.0f;
+            speedOffset = 0.0f; ;
+            positionOffset = 0.0f;
+            tMPointer.Start();
         }
 
         void setTimeInterval(short interval)
@@ -168,7 +186,7 @@ namespace ICDIBasic
             g.SmoothingMode = SmoothingMode.AntiAlias;
             Font font = new Font("微软雅黑", 16F);
             SolidBrush brush = new SolidBrush(Color.Red);
-            g.Clear(Color.White);
+           // g.Clear(Color.Black);
 
             Pen pen = new Pen(Color.DarkGray, 1);
             pen.DashStyle = DashStyle.Dash;
@@ -205,26 +223,23 @@ namespace ICDIBasic
                       
                         if (showItems[i].Item ==   Configuration.SCP_TAGCUR_L || showItems[i].Item == Configuration.SCP_MEACUR_L)
                         {
-                            double cr = Convert.ToDouble(cBCurrentRatio.Text.Substring(0, cBCurrentRatio.Text.Length - 2));
                             for (int j = 0; j < m; j++)
                             {
-                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * currentRatio / cr * 30));
+                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * currentRatio / cr * 30 - currentOffset));
                             }
                         }
                         else if (showItems[i].Item ==   Configuration.SCP_TAGSPD_L || showItems[i].Item ==  Configuration.SCP_MEASPD_L)
                         {
-                            double sr = Convert.ToDouble(cBSpeedRatio.Text.Substring(0, cBSpeedRatio.Text.Length - 3));
                             for (int j = 0; j < m; j++)
                             {
-                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * speedRatio / sr * 30));
+                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * speedRatio / sr * 30 - speedOffset));
                             }
                         }
                         else if (showItems[i].Item == Configuration.SCP_TAGPOS_L || showItems[i].Item == Configuration.SCP_MEAPOS_L)
                         {
-                            double pr = Convert.ToDouble(cBPositionRatio.Text.Substring(0, cBPositionRatio.Text.Length - 1));
                             for (int j = 0; j < m; j++)
                             {
-                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * positionRatio / pr * 30));
+                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * positionRatio / pr * 30 - positionOffset));
                             }
                         }
                       
@@ -302,13 +317,17 @@ namespace ICDIBasic
             switch (tCMonitor.SelectedIndex)
             {
                 case 0: loadLVMeasureItems(); break;
-                case 3: loadPID(); cBAdjustGroup.Text = Configuration.MemoryControlTable[Configuration.SEV_PARAME_LOCKED].ToString(); break;
+                case 3: cBAdjustGroup.Text = Configuration.MemoryControlTable[Configuration.SEV_PARAME_LOCKED].ToString(); loadPID(); break; 
                 case 2: if (cBPointer.Checked) loadlVPointer(); break;
             }
         }
 
         void loadPID()
         {
+            //string pidGroup = IniFile.ContentValue("OscilloScope", "PIDGroup", IniFile.strProPath);
+            //cBAdjustGroup.Text = pidGroup;
+            Thread.Sleep(5);
+
             tBCurrentP.Text = Configuration.MemoryControlTable[CURRENT_P].ToString();
             tBCurrentI.Text = Configuration.MemoryControlTable[CURRENT_I].ToString();
             tBSpeedP.Text = Configuration.MemoryControlTable[SPEED_P].ToString();
@@ -353,40 +372,6 @@ namespace ICDIBasic
                 case DashStyle.DashDotDot : str = "双点划线"; break;
             }
             return str;
-        }
-
-        private void lVFormat_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (e.X > 420 && e.X < 570)
-            {
-                int index = lVMeasureItems.FocusedItem.Index;
-                if (cDcolor.ShowDialog() == DialogResult.OK)
-                {
-                    showItems[index].Cl = cDcolor.Color;
-                    loadLVMeasureItems();
-                }
-            }
-            else if (e.X > 570 && e.X < 740)
-            {
-                Rectangle tt = lVMeasureItems.Items[lVMeasureItems.FocusedItem.Index].SubItems[4].Bounds;
-                cb = new ComboBox();
-                cb.Font = new Font("宋体", 13, FontStyle.Bold);
-                cb.Size = new Size(tt.Width, 18);
-                cb.Location = tt.Location;
-                cb.BackColor = Color.White;
-                cb.Text = "实线";
-                cb.Tag = lVMeasureItems.FocusedItem.Index;
-                cb.Items.Add("实线");
-                cb.Items.Add("虚线");
-                cb.Items.Add("点线");
-                cb.Items.Add("点划线");
-                cb.Items.Add("双点划线");
-
-                cb.Focus();
-                lVMeasureItems.Controls.Add(cb);
-            }
-
-            
         }
 
         private void lVFormat_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -448,8 +433,8 @@ namespace ICDIBasic
 
         private void cBAdjustGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string tpye = cBAdjustGroup.Text;
-            switch (tpye)
+            string type = cBAdjustGroup.Text;
+            switch (type)
             {
                 case "1": CURRENT_P = Configuration.S_CURRENT_P;
                     CURRENT_I = Configuration.S_CURRENT_I;
@@ -488,7 +473,7 @@ namespace ICDIBasic
                     POSITION_DS = Configuration.L_POSITION_DS;
                     break;
             }
-            if (tpye == "0")
+            if (type == "0")
             {
                 gBCurrent.Enabled = false;
                 gBSpeed.Enabled = false;
@@ -500,6 +485,8 @@ namespace ICDIBasic
                 gBSpeed.Enabled = true;
                 gBPos.Enabled = true;
             }
+            pc.WriteOneWord(Configuration.SEV_PARAME_LOCKED, Convert.ToInt16(type), PCan.currentID);    //应设置触发条件
+            IniFile.WritePrivateProfileString("OscilloScope", "PIDGroup", type, IniFile.strProPath);
             loadPID();
         }
 
@@ -530,12 +517,12 @@ namespace ICDIBasic
                 {
                     tBtrace.Value = tracePos2;
                 }
-                tMPointer.Start();
+            
                 loadlVPointer();
             }
             else
             {
-                tMPointer.Stop();
+                //tMPointer.Stop();
                 tBtrace.Enabled = false;
                 lVPointer.Items.Clear();
             }
@@ -639,21 +626,65 @@ namespace ICDIBasic
 
         private void lVFormat_MouseClick(object sender, MouseEventArgs e)
         {
-            try
+            if (e.Button == MouseButtons.Right)
             {
-                int index = lVMeasureItems.SelectedItems[0].Index;
-                if (cb != null && ((object)index != cb.Tag || e.X < 570 || e.X > 740))  //注意判定条件
+                if (e.X > 420 && e.X < 570)
                 {
-                    showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
-                    loadLVMeasureItems();
-                    lVMeasureItems.Controls.Remove(cb);
-                    cb = null;
+                    int index = lVMeasureItems.FocusedItem.Index;
+                    if (cDcolor.ShowDialog() == DialogResult.OK)
+                    {
+                        showItems[index].Cl = cDcolor.Color;
+                        loadLVMeasureItems();
+                    }
+                }
+                else if (e.X > 570 && e.X < 740)
+                {
+                    int index = lVMeasureItems.FocusedItem.Index;
+                    Rectangle tt = lVMeasureItems.Items[index].SubItems[4].Bounds;
+                    if (cb != null)
+                    {
+                        showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
+                        loadLVMeasureItems();
+                        lVMeasureItems.Controls.Remove(cb);
+                        cb = null;
+                    }
+                    cb = new ComboBox();
+                    cb.Tag = index;
+                    cb.Font = new Font("宋体", 13, FontStyle.Bold);
+                    cb.Size = new Size(tt.Width, 18);
+                    cb.Location = tt.Location;
+                    cb.BackColor = Color.White;
+                    cb.Text = "实线";
+                    cb.Items.Add("实线");
+                    cb.Items.Add("虚线");
+                    cb.Items.Add("点线");
+                    cb.Items.Add("点划线");
+                    cb.Items.Add("双点划线");
+                   
+                   // cb.Focus();
+                    lVMeasureItems.Controls.Add(cb);
+                }
+
+            }
+            else if (e.Button == MouseButtons.Left)
+            {
+                try
+                {
+                    int index = lVMeasureItems.SelectedItems[0].Index;
+                    if (cb != null && ((object)index != cb.Tag || e.X < 570 || e.X > 740))  //注意判定条件
+                    {
+                        showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
+                        loadLVMeasureItems();
+                        lVMeasureItems.Controls.Remove(cb);
+                        cb = null;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+
                 }
             }
-            catch (System.Exception ex)
-            {
-            	
-            }
+           
            
         }
 
@@ -677,6 +708,18 @@ namespace ICDIBasic
             {
                 refreshlVPointer();
             }
+            if (!cBCurrentRatio.Focused)
+            {
+                cBCurrentRatio.Text = cr.ToString() + "mA";
+            }
+            if (!cBSpeedRatio.Focused)
+            {
+                cBSpeedRatio.Text = sr.ToString() + "rpm";
+            }
+            if (!cBPositionRatio.Focused)
+            {
+                cBPositionRatio.Text = pr.ToString() + "°";
+            }
            
         }
 
@@ -685,6 +728,100 @@ namespace ICDIBasic
             //记录当前波形
 
         }
+
+        private void cBCurrentRatio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            if (cb.Name == "cBCurrentRatio")
+            {
+                cr = Convert.ToDouble(cBCurrentRatio.Text.Substring(0, cBCurrentRatio.Text.Length - 2));
+                IniFile.WritePrivateProfileString("plRange", "Current", cr.ToString(), IniFile.strProPath);
+            }
+            else if (cb.Name == "cBSpeedRatio")
+            {
+                sr = Convert.ToDouble(cBSpeedRatio.Text.Substring(0, cBSpeedRatio.Text.Length - 3));
+                IniFile.WritePrivateProfileString("plRange", "Speed", sr.ToString(), IniFile.strProPath);
+            }
+            else if (cb.Name == "cBPositionRatio")
+            {
+                pr = Convert.ToDouble(cBPositionRatio.Text.Substring(0, cBPositionRatio.Text.Length - 1));
+                IniFile.WritePrivateProfileString("plRange", "Position", pr.ToString(), IniFile.strProPath);
+            }
+            btnMeasure.Focus();
+        }
+
+
+        private void cBCurrentRatio_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                ComboBox cb = sender as ComboBox;
+                try
+                {
+                    if (cb.Name == "cBCurrentRatio")
+                    {
+                        cr = Convert.ToDouble(cb.Text.Substring(0, cb.Text.Length - 2));
+                        IniFile.WritePrivateProfileString("plRange", "Current", cr.ToString(), IniFile.strProPath);
+                    }
+                    else if (cb.Name == "cBSpeedRatio")
+                    {
+                        sr = Convert.ToDouble(cb.Text.Substring(0, cb.Text.Length - 3));
+                        IniFile.WritePrivateProfileString("plRange", "Speed", sr.ToString(), IniFile.strProPath);
+                    }
+                    else if (cb.Name == "cBPositionRatio")
+                    {
+                        pr = Convert.ToDouble(cb.Text.Substring(0, cb.Text.Length - 1));
+                        IniFile.WritePrivateProfileString("plRange", "Position", pr.ToString(), IniFile.strProPath);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("请输入合法的数据!");
+                }
+            }
+        }
+
+        private void cBCurrentRatio_MouseEnter(object sender, EventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            cb.Focus();
+            if (cb.Name == "cBCurrentRatio")
+            {
+                cb.Select(0, cb.Text.Length - 2);
+            }
+            else if (cb.Name == "cBSpeedRatio")
+            {
+                cb.Select(0, cb.Text.Length - 3);
+            }
+            else if (cb.Name == "cBPositionRatio")
+            {
+                cb.Select(0, cb.Text.Length - 1);
+            }
+        }
+
+        private void tBCurrentOffset_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                TextBox tb = sender as TextBox;
+                if (tb.Name == "tBCurrentOffset")
+                {
+                    currentOffset = Convert.ToSingle(tBCurrentOffset.Text);
+                }
+                else if (cb.Name == "tBSpeedOffset")
+                {
+                    speedOffset = Convert.ToSingle(tBSpeedOffset.Text);
+                }
+                else if (cb.Name == "tBPositionOffset")
+                {
+                    positionOffset = Convert.ToSingle(tBPositionOffset.Text);
+                }
+            }
+           
+        }
+
+
         
     }
 

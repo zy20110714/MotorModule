@@ -31,11 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OscilloScope));
             this.pLBoard = new System.Windows.Forms.Panel();
+            this.pLRange = new System.Windows.Forms.Panel();
+            this.cBPositionRatio = new System.Windows.Forms.ComboBox();
+            this.tBPositionOffset = new System.Windows.Forms.TextBox();
+            this.tBSpeedOffset = new System.Windows.Forms.TextBox();
+            this.tBCurrentOffset = new System.Windows.Forms.TextBox();
+            this.cBCurrentRatio = new System.Windows.Forms.ComboBox();
+            this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
             this.pBRecordImage = new System.Windows.Forms.PictureBox();
             this.btnMeasure = new System.Windows.Forms.Button();
-            this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
-            this.cBPositionRatio = new System.Windows.Forms.ComboBox();
-            this.cBCurrentRatio = new System.Windows.Forms.ComboBox();
             this.pLPaint = new ICDIBasic.NewPanel();
             this.tBtrace = new System.Windows.Forms.TrackBar();
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
@@ -105,6 +109,7 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tMPointer = new System.Windows.Forms.Timer(this.components);
             this.pLBoard.SuspendLayout();
+            this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).BeginInit();
             this.tCMonitor.SuspendLayout();
@@ -121,11 +126,9 @@
             // 
             // pLBoard
             // 
+            this.pLBoard.Controls.Add(this.pLRange);
             this.pLBoard.Controls.Add(this.pBRecordImage);
             this.pLBoard.Controls.Add(this.btnMeasure);
-            this.pLBoard.Controls.Add(this.cBSpeedRatio);
-            this.pLBoard.Controls.Add(this.cBPositionRatio);
-            this.pLBoard.Controls.Add(this.cBCurrentRatio);
             this.pLBoard.Controls.Add(this.pLPaint);
             this.pLBoard.Controls.Add(this.tBtrace);
             this.pLBoard.Location = new System.Drawing.Point(0, 31);
@@ -133,52 +136,22 @@
             this.pLBoard.Size = new System.Drawing.Size(840, 397);
             this.pLBoard.TabIndex = 0;
             // 
-            // pBRecordImage
+            // pLRange
             // 
-            this.pBRecordImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBRecordImage.BackgroundImage")));
-            this.pBRecordImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pBRecordImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pBRecordImage.Enabled = false;
-            this.pBRecordImage.Location = new System.Drawing.Point(755, 236);
-            this.pBRecordImage.Name = "pBRecordImage";
-            this.pBRecordImage.Size = new System.Drawing.Size(71, 62);
-            this.pBRecordImage.TabIndex = 3;
-            this.pBRecordImage.TabStop = false;
-            this.pBRecordImage.Click += new System.EventHandler(this.pBRecordImage_Click);
-            // 
-            // btnMeasure
-            // 
-            this.btnMeasure.BackColor = System.Drawing.Color.Green;
-            this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMeasure.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnMeasure.Location = new System.Drawing.Point(755, 168);
-            this.btnMeasure.Name = "btnMeasure";
-            this.btnMeasure.Size = new System.Drawing.Size(71, 62);
-            this.btnMeasure.TabIndex = 2;
-            this.btnMeasure.Text = "测定";
-            this.btnMeasure.UseVisualStyleBackColor = false;
-            this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
-            // 
-            // cBSpeedRatio
-            // 
-            this.cBSpeedRatio.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cBSpeedRatio.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cBSpeedRatio.FormattingEnabled = true;
-            this.cBSpeedRatio.Items.AddRange(new object[] {
-            "1rpm",
-            "5rpm",
-            "20rpm",
-            "100rpm",
-            "300rpm",
-            "1000rpm"});
-            this.cBSpeedRatio.Location = new System.Drawing.Point(755, 79);
-            this.cBSpeedRatio.Name = "cBSpeedRatio";
-            this.cBSpeedRatio.Size = new System.Drawing.Size(73, 24);
-            this.cBSpeedRatio.TabIndex = 1;
-            this.cBSpeedRatio.Text = "100rpm";
+            this.pLRange.Controls.Add(this.cBPositionRatio);
+            this.pLRange.Controls.Add(this.tBPositionOffset);
+            this.pLRange.Controls.Add(this.tBSpeedOffset);
+            this.pLRange.Controls.Add(this.tBCurrentOffset);
+            this.pLRange.Controls.Add(this.cBCurrentRatio);
+            this.pLRange.Controls.Add(this.cBSpeedRatio);
+            this.pLRange.Location = new System.Drawing.Point(750, 0);
+            this.pLRange.Name = "pLRange";
+            this.pLRange.Size = new System.Drawing.Size(80, 234);
+            this.pLRange.TabIndex = 4;
             // 
             // cBPositionRatio
             // 
+            this.cBPositionRatio.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.cBPositionRatio.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cBPositionRatio.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cBPositionRatio.FormattingEnabled = true;
@@ -191,14 +164,45 @@
             "50°",
             "100°",
             "500°"});
-            this.cBPositionRatio.Location = new System.Drawing.Point(755, 126);
+            this.cBPositionRatio.Location = new System.Drawing.Point(3, 163);
             this.cBPositionRatio.Name = "cBPositionRatio";
             this.cBPositionRatio.Size = new System.Drawing.Size(73, 27);
             this.cBPositionRatio.TabIndex = 1;
             this.cBPositionRatio.Text = "10°";
+            this.cBPositionRatio.SelectedIndexChanged += new System.EventHandler(this.cBCurrentRatio_SelectedIndexChanged);
+            this.cBPositionRatio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cBCurrentRatio_KeyDown);
+            this.cBPositionRatio.MouseEnter += new System.EventHandler(this.cBCurrentRatio_MouseEnter);
+            // 
+            // tBPositionOffset
+            // 
+            this.tBPositionOffset.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBPositionOffset.Location = new System.Drawing.Point(3, 205);
+            this.tBPositionOffset.Name = "tBPositionOffset";
+            this.tBPositionOffset.Size = new System.Drawing.Size(75, 26);
+            this.tBPositionOffset.TabIndex = 2;
+            this.tBPositionOffset.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentOffset_KeyDown);
+            // 
+            // tBSpeedOffset
+            // 
+            this.tBSpeedOffset.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBSpeedOffset.Location = new System.Drawing.Point(3, 122);
+            this.tBSpeedOffset.Name = "tBSpeedOffset";
+            this.tBSpeedOffset.Size = new System.Drawing.Size(75, 26);
+            this.tBSpeedOffset.TabIndex = 2;
+            this.tBSpeedOffset.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentOffset_KeyDown);
+            // 
+            // tBCurrentOffset
+            // 
+            this.tBCurrentOffset.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBCurrentOffset.Location = new System.Drawing.Point(3, 42);
+            this.tBCurrentOffset.Name = "tBCurrentOffset";
+            this.tBCurrentOffset.Size = new System.Drawing.Size(75, 26);
+            this.tBCurrentOffset.TabIndex = 2;
+            this.tBCurrentOffset.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentOffset_KeyDown);
             // 
             // cBCurrentRatio
             // 
+            this.cBCurrentRatio.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.cBCurrentRatio.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cBCurrentRatio.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cBCurrentRatio.FormattingEnabled = true;
@@ -208,15 +212,65 @@
             "20mA",
             "100mA",
             "500mA"});
-            this.cBCurrentRatio.Location = new System.Drawing.Point(755, 33);
+            this.cBCurrentRatio.Location = new System.Drawing.Point(3, 3);
             this.cBCurrentRatio.Name = "cBCurrentRatio";
             this.cBCurrentRatio.Size = new System.Drawing.Size(73, 24);
             this.cBCurrentRatio.TabIndex = 1;
-            this.cBCurrentRatio.Text = "5mA";
+            this.cBCurrentRatio.SelectedIndexChanged += new System.EventHandler(this.cBCurrentRatio_SelectedIndexChanged);
+            this.cBCurrentRatio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cBCurrentRatio_KeyDown);
+            this.cBCurrentRatio.MouseEnter += new System.EventHandler(this.cBCurrentRatio_MouseEnter);
+            // 
+            // cBSpeedRatio
+            // 
+            this.cBSpeedRatio.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cBSpeedRatio.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cBSpeedRatio.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBSpeedRatio.FormattingEnabled = true;
+            this.cBSpeedRatio.Items.AddRange(new object[] {
+            "1rpm",
+            "5rpm",
+            "20rpm",
+            "100rpm",
+            "300rpm",
+            "1000rpm"});
+            this.cBSpeedRatio.Location = new System.Drawing.Point(3, 83);
+            this.cBSpeedRatio.Name = "cBSpeedRatio";
+            this.cBSpeedRatio.Size = new System.Drawing.Size(73, 24);
+            this.cBSpeedRatio.TabIndex = 1;
+            this.cBSpeedRatio.Text = "100rpm";
+            this.cBSpeedRatio.SelectedIndexChanged += new System.EventHandler(this.cBCurrentRatio_SelectedIndexChanged);
+            this.cBSpeedRatio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cBCurrentRatio_KeyDown);
+            this.cBSpeedRatio.MouseEnter += new System.EventHandler(this.cBCurrentRatio_MouseEnter);
+            // 
+            // pBRecordImage
+            // 
+            this.pBRecordImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBRecordImage.BackgroundImage")));
+            this.pBRecordImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBRecordImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pBRecordImage.Enabled = false;
+            this.pBRecordImage.Location = new System.Drawing.Point(755, 308);
+            this.pBRecordImage.Name = "pBRecordImage";
+            this.pBRecordImage.Size = new System.Drawing.Size(71, 62);
+            this.pBRecordImage.TabIndex = 3;
+            this.pBRecordImage.TabStop = false;
+            this.pBRecordImage.Click += new System.EventHandler(this.pBRecordImage_Click);
+            // 
+            // btnMeasure
+            // 
+            this.btnMeasure.BackColor = System.Drawing.Color.Green;
+            this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMeasure.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnMeasure.Location = new System.Drawing.Point(754, 240);
+            this.btnMeasure.Name = "btnMeasure";
+            this.btnMeasure.Size = new System.Drawing.Size(71, 62);
+            this.btnMeasure.TabIndex = 2;
+            this.btnMeasure.Text = "测定";
+            this.btnMeasure.UseVisualStyleBackColor = false;
+            this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
             // 
             // pLPaint
             // 
-            this.pLPaint.BackColor = System.Drawing.Color.White;
+            this.pLPaint.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pLPaint.Location = new System.Drawing.Point(6, 1);
             this.pLPaint.Name = "pLPaint";
@@ -293,7 +347,6 @@
             this.lVMeasureItems.View = System.Windows.Forms.View.Details;
             this.lVMeasureItems.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
             this.lVMeasureItems.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
-            this.lVMeasureItems.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseDoubleClick);
             // 
             // columnHeader1
             // 
@@ -933,6 +986,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OscilloScope_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OscilloScope_FormClosed);
             this.pLBoard.ResumeLayout(false);
+            this.pLRange.ResumeLayout(false);
+            this.pLRange.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).EndInit();
             this.tCMonitor.ResumeLayout(false);
@@ -1031,5 +1086,9 @@
         private System.Windows.Forms.PictureBox pBRecordImage;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TextBox tBScanFrequency;
+        private System.Windows.Forms.Panel pLRange;
+        private System.Windows.Forms.TextBox tBCurrentOffset;
+        private System.Windows.Forms.TextBox tBPositionOffset;
+        private System.Windows.Forms.TextBox tBSpeedOffset;
     }
 }

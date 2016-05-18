@@ -102,7 +102,8 @@ namespace ICDIBasic
                 PCan.m_Terminated = true;
                 return;
             }
-            AllocConsole();
+            //AllocConsole();
+
             // While this mode is selected
             while (!PCan.m_Terminated)
             {
@@ -115,7 +116,8 @@ namespace ICDIBasic
                     //{
 
                     //}
-                    System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
+
+                    //System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
                     ReadMessages();
                     //this.Invoke(m_ReadDelegate);
 
