@@ -18,10 +18,12 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+
 [Bb]in
 [Dd]ebug*/*
 ![Dd]ebug*/PCANBasic.dll
 ![Dd]ebug*/resource/
+![Dd]ebug*/*.ouj
 *.lib
 *.sbr
 obj/

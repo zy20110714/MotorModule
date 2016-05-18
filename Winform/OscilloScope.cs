@@ -804,19 +804,27 @@ namespace ICDIBasic
         {
             if (e.KeyCode == Keys.Enter)
             {
-                TextBox tb = sender as TextBox;
-                if (tb.Name == "tBCurrentOffset")
+                try
                 {
-                    currentOffset = Convert.ToSingle(tBCurrentOffset.Text);
+                    TextBox tb = sender as TextBox;
+                    if (tb.Name == "tBCurrentOffset")
+                    {
+                        currentOffset = Convert.ToSingle(tBCurrentOffset.Text);
+                    }
+                    else if (cb.Name == "tBSpeedOffset")
+                    {
+                        speedOffset = Convert.ToSingle(tBSpeedOffset.Text);
+                    }
+                    else if (cb.Name == "tBPositionOffset")
+                    {
+                        positionOffset = Convert.ToSingle(tBPositionOffset.Text);
+                    }
                 }
-                else if (cb.Name == "tBSpeedOffset")
+                catch (System.Exception ex)
                 {
-                    speedOffset = Convert.ToSingle(tBSpeedOffset.Text);
+                    MessageBox.Show("请输入合法的数据!");
                 }
-                else if (cb.Name == "tBPositionOffset")
-                {
-                    positionOffset = Convert.ToSingle(tBPositionOffset.Text);
-                }
+                
             }
            
         }
