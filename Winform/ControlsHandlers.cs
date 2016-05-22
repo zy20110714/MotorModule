@@ -576,7 +576,7 @@ namespace ICDIBasic
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            TPCANStatus stsResult;
+            //TPCANStatus stsResult;
 
             // We execute the "Read" function of the PCANBasic                
             //
@@ -801,6 +801,23 @@ namespace ICDIBasic
             //
             IncludeTextMessage(String.Format("Status: {0} ({1:X}h)", errorName, stsResult));
         }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (MainForm.GetInstance().Size.Width == 1606)
+            {
+                pLMain.Size = new Size(MainForm.GetInstance().Size.Width, 780);
+                pLContent.Size = new Size(MainForm.GetInstance().Size.Width, 35);
+            }
+            else
+            {
+                pLMain.Size = new Size(991, 612);
+                pLContent.Size = new Size(993, 35);
+            }
+        }
+
+
+
         #endregion
 
         #region Timer event-handler
@@ -911,7 +928,7 @@ namespace ICDIBasic
             }
             catch (System.Exception ex)
             {
-
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
            // short aa = Configuration.MemoryControlTable[5];
         }

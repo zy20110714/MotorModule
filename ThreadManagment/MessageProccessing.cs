@@ -142,7 +142,7 @@ namespace ICDIBasic
             TPCANMsg CANMsg = new TPCANMsg();
             CANMsg.DATA = new byte[8];        //赋初值
 
-            TPCANTimestamp CANTimeStamp;
+           // TPCANTimestamp CANTimeStamp;
             TPCANStatus stsResult;
             //send data
             if (PCan.m_CANFrames_Head_HP != PCan.m_CANFrames_Tail_HP)
@@ -254,7 +254,7 @@ namespace ICDIBasic
         /// </summary>
         private void DisplayMessages()
         {
-            ListViewItem lviCurrentItem;
+            //ListViewItem lviCurrentItem;
 
             lock (m_LastMsgsList.SyncRoot)
             {
@@ -283,8 +283,8 @@ namespace ICDIBasic
         /// <param name="timeStamp">The Timesamp of the new message</param>
         private void InsertMsgEntry(TPCANMsgFD newMsg, TPCANTimestampFD timeStamp)
         {
-            MessageStatus msgStsCurrentMsg;
-            ListViewItem lviCurrentItem;
+            //MessageStatus msgStsCurrentMsg;
+            //ListViewItem lviCurrentItem;
 
             lock (m_LastMsgsList.SyncRoot)
             {

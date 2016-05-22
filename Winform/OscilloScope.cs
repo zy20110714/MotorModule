@@ -267,7 +267,7 @@ namespace ICDIBasic
             }
             catch (System.Exception ex)
             {
-            	
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
            
         }
@@ -407,6 +407,7 @@ namespace ICDIBasic
                 catch (System.Exception ex)
                 {
                     MessageBox.Show("请输入合法的字符串！");
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     return;
                 }
                 switch(tb.Name)
@@ -500,6 +501,7 @@ namespace ICDIBasic
             catch (System.Exception ex)
             {
                 MessageBox.Show("请输入合法的字符串！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 return;
             }
         }
@@ -553,7 +555,7 @@ namespace ICDIBasic
                     }
                     catch (System.Exception ex)
                     {
-                    	
+                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     }
 
                 }
@@ -681,7 +683,7 @@ namespace ICDIBasic
                 }
                 catch (System.Exception ex)
                 {
-
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 }
             }
            
@@ -778,6 +780,7 @@ namespace ICDIBasic
                 catch (System.Exception ex)
                 {
                     MessageBox.Show("请输入合法的数据!");
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 }
             }
         }
@@ -823,6 +826,7 @@ namespace ICDIBasic
                 catch (System.Exception ex)
                 {
                     MessageBox.Show("请输入合法的数据!");
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 }
                 
             }
@@ -1045,6 +1049,7 @@ namespace ICDIBasic
                     catch (System.Exception ex)
                     {
                         n = j + 1;
+                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                         break;
                     }
                    
@@ -1075,6 +1080,7 @@ namespace ICDIBasic
                 }
                 catch (System.Exception ex)
                 {
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     return max;
                 }
               
@@ -1092,6 +1098,7 @@ namespace ICDIBasic
                     catch (System.Exception ex)
                     {
                         n = j;
+                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                         break;
                     }
 
@@ -1122,6 +1129,7 @@ namespace ICDIBasic
                 }
                 catch (System.Exception ex)
                 {
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     return 0;
                 }
                 while (j != n + 1)
@@ -1138,6 +1146,7 @@ namespace ICDIBasic
                     catch (System.Exception ex)
                     {
                         n = j;
+                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                         break;
                     }
 

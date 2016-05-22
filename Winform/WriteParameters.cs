@@ -58,6 +58,7 @@ namespace ICDIBasic
                     }
                     catch (System.Exception ex)
                     {
+                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                         lVFlash.Items[j].Remove();   //删除添加不成功的行
                         continue;
                     }

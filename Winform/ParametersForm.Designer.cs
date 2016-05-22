@@ -46,7 +46,7 @@
             this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.tVParam = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
-            this.lVParam = new System.Windows.Forms.ListView();
+            this.lVParam = new NewListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -526,7 +526,7 @@
         private System.Windows.Forms.Panel pLName;
         private System.Windows.Forms.TreeView tVParam;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView lVParam;
+        private NewListView lVParam;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

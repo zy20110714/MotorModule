@@ -180,6 +180,7 @@ namespace ICDIBasic
                 }
                 catch (System.Exception ex)
                 {
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     lVParam.Items[i].SubItems.AddRange(new string[] { str, "reserved", "--",  "--", "--" });
                     lVParam.Items[i].BackColor = tBUnused.BackColor;
                 }
@@ -197,21 +198,20 @@ namespace ICDIBasic
         private void tVParam_AfterSelect(object sender, TreeViewEventArgs e)
         {
             int index = e.Node.Index;
+
             for (int i = 0; i < tVParam.Nodes.Count; i++)
             {
-                //if (i == index)
-                //{
-                //    tVParam.Nodes[index].BackColor = Color.Red;
-                //}
-                //else
-                //{
-                //    tVParam.Nodes[index].BackColor = Color.FromArgb(244, 244, 244);
-                //}
-
+                if (i == index)
+                {
+                    tVParam.Nodes[i].ForeColor = Color.BlueViolet;
+                }
+                else
+                {
+                    tVParam.Nodes[i].ForeColor = Color.FromArgb(244, 244, 244);
+                }
             }
-            
-            int strName = Convert.ToInt32(e.Node.Text.Substring(2, 1));
-            RefreshlVParam(strName);
+
+            RefreshlVParam(index);
         }
 
 
@@ -230,6 +230,7 @@ namespace ICDIBasic
                 }
                 catch (System.Exception ex)
                 {
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     return;
                 }
 
@@ -273,6 +274,7 @@ namespace ICDIBasic
                 catch (System.Exception ex)
                 {
                     tBExplain.Text = "保留字段";
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 }
              
 
@@ -329,6 +331,7 @@ namespace ICDIBasic
                             MessageBox.Show("请输入合法的字符串！");
                             lVParam.Controls.Remove(tb);
                             tb = null;
+                            MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                             return;
                         }
 

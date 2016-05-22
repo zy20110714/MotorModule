@@ -52,7 +52,7 @@ namespace ICDIBasic
         /// Read Delegate for calling the function "ReadMessages"
         /// </summary>
         //private ReadDelegateHandler m_ReadDelegate;
-        private changeID m_changeIDDelegate;
+       // private changeID m_changeIDDelegate;
         /// <summary>
         /// Receive-Event
         /// </summary>
@@ -482,7 +482,7 @@ namespace ICDIBasic
             }
             catch (System.Exception ex)
             {
-
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
 
             InitialMemoryControlTable();
@@ -859,6 +859,10 @@ namespace ICDIBasic
         }
         #endregion        
 
+
+     
+
+      
 
    
        

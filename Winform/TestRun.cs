@@ -15,7 +15,6 @@ namespace ICDIBasic
 
         public static bool Enablewave = false;
      
-        int iWaveChannel;
         public static float m_fFrequency = 0.5f;
         public static float m_fAmplitude = 0.0f;
         public static float m_fBias = 0.0f;        
@@ -93,6 +92,7 @@ namespace ICDIBasic
             }
             catch (System.Exception ex)
             {
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 tBFrequency.Text = "0.5";
                 MessageBox.Show("请输入合法的数值！");
             }
@@ -107,6 +107,7 @@ namespace ICDIBasic
             }
             catch (System.Exception ex)
             {
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 tBAmplitude.Text = "0";
                 MessageBox.Show("请输入合法的数值！");
             }
@@ -122,6 +123,7 @@ namespace ICDIBasic
             {
                 tBBias.Text = "0";
                 MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
         }
 
@@ -134,6 +136,7 @@ namespace ICDIBasic
             catch (System.Exception ex)
             {
                 MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
         }
 
