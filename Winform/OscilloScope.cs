@@ -42,6 +42,10 @@ namespace ICDIBasic
         int tracePos2 = 0;
         public static bool EnableScope = false;
 
+        public static bool EnableFrictionMeasure = false;
+        public static List<float> currentC = new List<float>();
+        public static List<float> currentS = new List<float>();
+        public static List<float> currentA = new List<float>();
 
 
         public static byte CURRENT_P = 0x61;	  //电流环P参数
@@ -831,6 +835,12 @@ namespace ICDIBasic
                 
             }
            
+        }
+
+        private void btnFriction_Click(object sender, EventArgs e)
+        {
+            EnableFrictionMeasure = true;
+            
         }
 
 

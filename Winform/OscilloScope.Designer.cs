@@ -107,6 +107,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnFriction = new System.Windows.Forms.Button();
             this.tMPointer = new System.Windows.Forms.Timer(this.components);
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
@@ -122,6 +123,7 @@
             this.groupBox3.SuspendLayout();
             this.gBSpeed.SuspendLayout();
             this.gBCurrent.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // pLBoard
@@ -959,12 +961,23 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.btnFriction);
             this.tabPage5.Location = new System.Drawing.Point(4, 31);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(831, 115);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "自动增益调整";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // btnFriction
+            // 
+            this.btnFriction.Location = new System.Drawing.Point(20, 16);
+            this.btnFriction.Name = "btnFriction";
+            this.btnFriction.Size = new System.Drawing.Size(75, 32);
+            this.btnFriction.TabIndex = 0;
+            this.btnFriction.Text = "摩擦";
+            this.btnFriction.UseVisualStyleBackColor = true;
+            this.btnFriction.Click += new System.EventHandler(this.btnFriction_Click);
             // 
             // tMPointer
             // 
@@ -1006,6 +1019,7 @@
             this.gBSpeed.PerformLayout();
             this.gBCurrent.ResumeLayout(false);
             this.gBCurrent.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1090,5 +1104,6 @@
         private System.Windows.Forms.TextBox tBCurrentOffset;
         private System.Windows.Forms.TextBox tBPositionOffset;
         private System.Windows.Forms.TextBox tBSpeedOffset;
+        private System.Windows.Forms.Button btnFriction;
     }
 }

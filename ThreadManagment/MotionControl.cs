@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
 
 using Peak.Can.Basic;
 using TPCANHandle = System.UInt16;
@@ -42,6 +43,7 @@ namespace ICDIBasic
         static bool s_bHigh = false;
         static int s_iCount = 0;
         static int s_iCountforwave = 0;
+        static int tCount = 0;
 
         static int gatherCount = 0;
 
@@ -105,37 +107,41 @@ namespace ICDIBasic
 
         void tick()
         {
+            //AllocConsole();
+            //System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
             if (TestRun.Enablewave)
             {
                 double tempf = 0;
                 double time = 0;
                 double T = 0;
 
-                if (TestRun.m_fFrequency < 0.1)   //m_CanBase == NULL)
-                    return;
                 s_iCount++;
-                if (TestRun.m_iWaveMode == WAVE_MODE_SQUARE)
+              
+                if (TestRun.m_iWaveMode == WAVE_MODE_TRIANGLE || TestRun.m_iWaveMode == WAVE_MODE_SINE)
                 {
-                    if (s_iCount >= 500.0 / TestRun.m_fFrequency)	//方波时根据选定频率发送
+                     if (s_iCount >= 10)		 //三角波或正弦波时10ms发送一次
                         s_iCount = 0;
-                    else
-                        return;
-                    s_bHigh = !s_bHigh;
+                     else return; 
                 }
-                else
-                {
-                    if (s_iCount >= 10)		//三角波或正弦波时10ms发送一次
-                        s_iCount = 0;
-                    else
-                        return;
-                }
+
                 switch (TestRun.m_iWaveMode)
                 {
                     case WAVE_MODE_DC:
-                        SetValue((short)TestRun.m_fBias);
+                        if (s_iCount >= 100)		 //衡值100ms发送一次
+                        {
+                            s_iCount = 0;
+                            SetValue((short)TestRun.m_fBias);
+                        }
+                        else return; 
                         break;
                     case WAVE_MODE_SQUARE:
-                        SetValue((short)(TestRun.m_fAmplitude * (s_bHigh ? 1 : -1) + TestRun.m_fBias));
+                        if (s_iCount >= 500.0 / TestRun.m_fFrequency)	//方波时根据选定频率发送
+                        {
+                            s_iCount = 0;
+                            s_bHigh = !s_bHigh;
+                            SetValue((short)(TestRun.m_fAmplitude * (s_bHigh ? 1 : -1) + TestRun.m_fBias));
+                        }
+                        else return;                      
                         break;
                     case WAVE_MODE_TRIANGLE:
                         s_iCountforwave++;
@@ -181,14 +187,6 @@ namespace ICDIBasic
                         }
                         SetValue((short)(tempf + TestRun.m_fBias));
                         break;
-                    case WAVE_MODE_USER:
-                        //if(m_iOldUserValue != m_iUserValue)
-                        //{
-                        //    m_iOldUserValue = m_iUserValue;
-                        //    tempf = m_fUserMinValue + m_iUserValue*(m_fUserMaxValue-m_fUserMinValue)/(float)m_iUserSldRang;
-                        //    SetValue(tempf);
-                        //}// */
-                        break;
                     default:
                         break;
                 }
@@ -232,13 +230,63 @@ namespace ICDIBasic
                 }
                 
             }
+            if (OscilloScope.EnableFrictionMeasure)
+            {
+                tCount++;
+                if (tCount % 2 == 0)
+                {
+                    pc.ReadWords(Configuration.SYS_CURRENT_L, 4, PCan.currentID);
+                    double tempf = Math.Sin(tCount * Math.PI / 5000) * 1000 / 60.0 * 65536;
+                    pc.WriteTwoWords(Configuration.TAG_SPEED_L, (int)(tempf), PCan.currentID);
+                }
+                if (tCount >= 3000 && tCount % 2 == 0 && tCount <= 7000)
+                {
+                    byte[] value1 = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_CURRENT_L]);
+                    byte[] value2 = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_CURRENT_L + 1]);
+                    float current = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+                    OscilloScope.currentC.Add(current);
+
+                    value1 = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_SPEED_L]);
+                    value2 = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_SPEED_L + 1]);
+                    float speed = (float)(BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0) * 60.0 / 65536.0);
+                    OscilloScope.currentS.Add(speed);
+                }
+                
+                if (tCount == 10000)
+                {
+                    tCount = 0;
+                    //OscilloScope.currentS[0] = (float)(OscilloScope.currentS[0] * Math.PI / 30);
+                    //for (int i = 1; i < OscilloScope.currentS.Count;i++ )
+                    //{
+                    //    OscilloScope.currentS[i] = (float)(OscilloScope.currentS[i] * Math.PI / 30);
+                    //    //OscilloScope.currentA.Add((float)((OscilloScope.currentS[i] - OscilloScope.currentS[i - 1]) / 0.002));
+                    //}
+                    FileStream fs1 = new FileStream("D:a.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+                    StreamWriter sw1 = new StreamWriter(fs1, Encoding.Default);
+                    //for (int i = 0; i < OscilloScope.currentA.Count; i++)
+                    //{
+                    //    if (OscilloScope.currentA[i] != 0)
+                    //    {
+                    //        sw1.WriteLine(OscilloScope.currentA[i].ToString() + " " + Math.Sign(OscilloScope.currentS[i]).ToString() + " " + OscilloScope.currentS[i].ToString() + " " + OscilloScope.currentC[i].ToString());
+                    //    }
+                    //}
+                    for (int i = 0; i < OscilloScope.currentS.Count; i++)
+                    {
+                        sw1.WriteLine(Math.Sign(OscilloScope.currentS[i]).ToString() + " " + OscilloScope.currentS[i].ToString() + " " + OscilloScope.currentC[i].ToString());
+                    }
+                    sw1.Flush();
+                    sw1.Close();
+                    fs1.Close();
+                }
+              
+            }
         }
 
         void SetValue(short Value)
         {
             switch (TestRun.m_iWaveChannel)
             {
-                case WAVE_CONNECT_NON:
+                case WAVE_CONNECT_NON: 
                     break;
                 case WAVE_CONNECT_PWM:
                     pc.WriteOneWord(Configuration.TAG_OPEN_PWM, Value, PCan.currentID);

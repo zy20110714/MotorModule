@@ -118,7 +118,7 @@
   <ItemGroup>
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Accessory\IniFile.cs" />
-    <Compile Include="NewListView.cs">
+    <Compile Include="Accessory\NewListView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Winform\ControlsHandlers.cs">

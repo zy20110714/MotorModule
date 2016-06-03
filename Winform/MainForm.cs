@@ -876,9 +876,6 @@ namespace ICDIBasic
 
    
         #endregion        
-
-      
-
-        
+          
     }
 }

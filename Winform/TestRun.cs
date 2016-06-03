@@ -33,6 +33,8 @@ namespace ICDIBasic
         {
             InitializeComponent();
             pc = new PCan();
+            InitialControls();
+
         }
 
         public static TestRun GetInstance()
@@ -49,6 +51,22 @@ namespace ICDIBasic
             pCurrentWin = null;
         }
 
+        private void InitialControls()
+        {
+            //初始化控制模式
+            switch (Configuration.MemoryControlTable[Configuration.TAG_WORK_MODE])
+            {
+                case 0: cBControlMode.SelectedIndex = 0; break;
+                case 1: cBControlMode.SelectedIndex = 1; break;
+                case 2: cBControlMode.SelectedIndex = 2; break;
+                case 3: cBControlMode.SelectedIndex = 3; break;
+            }
+
+            InitialAutomaticControl();
+
+            pLEnable.Enabled = false;
+        }
+
         private void cBWaveform_SelectedIndexChanged(object sender, EventArgs e)
         {
             setInitalValue();
@@ -61,27 +79,18 @@ namespace ICDIBasic
             }
         }
 
-        void setInitalValue()
-        {
-            m_fFrequency = 0.5f;
-            m_fAmplitude = 0.0f;
-            m_fBias = 0.0f;
-            tBFrequency.Text = "0.5";
-            tBAmplitude.Text = "0";
-            tBBias.Text = "0";
-        }
-
         private void cBControlMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             setInitalValue();
             switch (cBControlMode.Text)
             {
-                case "无": m_iWaveChannel = MotionControl.WAVE_CONNECT_NON; break;
                 case "开环占空比":m_iWaveChannel = MotionControl.WAVE_CONNECT_PWM; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_OPEN, PCan.currentID); break;
                 case "电流控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_CUR; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_CURRENT, PCan.currentID); break;
                 case "速度控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_SPD; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID); break;
                 case "位置控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_POS; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_POSITION,PCan.currentID); break;
             }
+            //取消cBControlMode的输入焦点
+            pBMode.Focus();
         }
 
         private void tBFrequency_TextChanged(object sender, EventArgs e)
@@ -93,7 +102,7 @@ namespace ICDIBasic
             catch (System.Exception ex)
             {
                 MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                tBFrequency.Text = "0.5";
+                tBFrequency.Text = "0.2";
                 MessageBox.Show("请输入合法的数值！");
             }
           
@@ -127,30 +136,22 @@ namespace ICDIBasic
             }
         }
 
-        private void tBSteps_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                m_fStepLength = Convert.ToSingle(tBSteps.Text);
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show("请输入合法的数值！");
-                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-            }
-        }
-
         private void btnEnable_Click(object sender, EventArgs e)
         {
             if (btnEnable.Text == "使能开启")
             {
                 Enablewave = true;
                 btnEnable.Text = "使能关闭";
-                btnEnable.BackColor = Color.Red;
+                btnEnable.BackColor = Color.IndianRed;
                 pLEnable.Enabled = true;
                 //默认选择项
-                cBWaveform.SelectedIndex = 0;
-                cBControlMode.SelectedIndex = 4;
+                switch (Configuration.MemoryControlTable[Configuration.TAG_WORK_MODE])
+                {
+                    case 0: cBControlMode.SelectedIndex = 0; break;
+                    case 1: cBControlMode.SelectedIndex = 1; break;
+                    case 2: cBControlMode.SelectedIndex = 2; break;
+                    case 3: cBControlMode.SelectedIndex = 3; break;
+                }
             }
             else
             {
@@ -164,8 +165,6 @@ namespace ICDIBasic
                 btnEnable.Text = "使能开启";
                 btnEnable.BackColor = Color.Green;
                 pLEnable.Enabled = false;
-                cBWaveform.SelectedIndex = -1;
-                cBControlMode.SelectedIndex = -1;
             }
         }
 
@@ -200,6 +199,67 @@ namespace ICDIBasic
             setInitalValue(); 
         }
 
+        private void pBMode_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(pBMode.Tag) == 1)
+            {
+                MamuallyControl();
+            } 
+            else
+            {
+                InitialAutomaticControl();
+            }
+        }
+
+        private void InitialAutomaticControl()
+        {
+            pBMode.Tag = 1;
+            pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\A.jpg");
+            gBManually.Enabled = false;
+            gBWaveFormProperty.Enabled = true;
+
+            cBWaveform.SelectedIndex = 0;
+            setInitalValue();
+        }
+
+        void setInitalValue()
+        {
+            m_fFrequency = 0.2f;
+            m_fAmplitude = 0.0f;
+            m_fBias = 0.0f;
+            tBFrequency.Text = "0.2";
+            tBAmplitude.Text = "0";
+            tBBias.Text = "0";
+        }
+
+        private void MamuallyControl()
+        {
+            pBMode.Tag = 2;
+            pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\M.jpg");
+            gBManually.Enabled = true;
+            gBWaveFormProperty.Enabled = false;
+        }
+
+        private void pBExit_Click(object sender, EventArgs e)
+        {
+            //将运动控制变量清零
+            Enablewave = false;
+            pc.WriteOneWord(Configuration.TAG_OPEN_PWM, 0, PCan.currentID);
+            pc.WriteTwoWords(Configuration.TAG_CURRENT_L, 0, PCan.currentID);
+            pc.WriteTwoWords(Configuration.TAG_SPEED_L, 0, PCan.currentID);
+            pc.WriteTwoWords(Configuration.TAG_POSITION_L, 0, PCan.currentID);
+
+            btnEnable.Text = "使能开启";
+            btnEnable.BackColor = Color.Green;
+            pLEnable.Enabled = false;
+
+            this.Close();
+        }
+
+        private void pLName_Click(object sender, EventArgs e)
+        {
+            this.BringToFront();
+        }
 
 
 

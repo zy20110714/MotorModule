@@ -207,7 +207,7 @@ namespace ICDIBasic
                 }
                 else
                 {
-                    tVParam.Nodes[i].ForeColor = Color.FromArgb(244, 244, 244);
+                    tVParam.Nodes[i].ForeColor = Color.Black;
                 }
             }
 
@@ -472,6 +472,11 @@ namespace ICDIBasic
         {
             cBParametersSource.Text = "";
             cBParametersSource.Text = "从驱动器读取";
+        }
+
+        private void pLName_Click(object sender, EventArgs e)
+        {
+            this.BringToFront();
         }
 
     }
