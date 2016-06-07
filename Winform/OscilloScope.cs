@@ -843,8 +843,45 @@ namespace ICDIBasic
             
         }
 
+        #region 用鼠标拖拽移动窗体
+        private Point mousePoint = Point.Empty;
+        private void pLName_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                //_mousePoint.X = e.X;
+                //_mousePoint.Y = e.Y;
+                mousePoint = MousePosition;
+            }
+        }
 
-        
+        private void pLName_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && mousePoint != Point.Empty)
+            {
+                this.Top += MousePosition.Y - mousePoint.Y;
+                this.Left += MousePosition.X - mousePoint.X;
+                mousePoint = MousePosition;
+            }
+            //this.PointToClient(MousePosition).Y
+        }
+
+        private void pLName_MouseUp(object sender, MouseEventArgs e)
+        {
+            mousePoint = Point.Empty;
+        }
+        #endregion
+
+        private void pBExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void pLName_Click(object sender, EventArgs e)
+        {
+            this.BringToFront();
+        }
+      
     }
 
     public class ShowItem

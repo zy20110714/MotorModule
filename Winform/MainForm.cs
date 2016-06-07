@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using log4net;
 
 /// <summary>
 /// Inclusion of PEAK PCAN-Basic namespace
@@ -30,6 +31,7 @@ namespace ICDIBasic
         #endregion
 
         #region Members
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ILog));
 
         /// <summary>
         /// Saves the desired connection mode

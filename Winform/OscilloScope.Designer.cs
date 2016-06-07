@@ -109,6 +109,10 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.btnFriction = new System.Windows.Forms.Button();
             this.tMPointer = new System.Windows.Forms.Timer(this.components);
+            this.pLName = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pBExit = new System.Windows.Forms.PictureBox();
+            this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
@@ -124,6 +128,9 @@
             this.gBSpeed.SuspendLayout();
             this.gBCurrent.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.pLName.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
             this.SuspendLayout();
             // 
             // pLBoard
@@ -133,9 +140,9 @@
             this.pLBoard.Controls.Add(this.btnMeasure);
             this.pLBoard.Controls.Add(this.pLPaint);
             this.pLBoard.Controls.Add(this.tBtrace);
-            this.pLBoard.Location = new System.Drawing.Point(0, 31);
+            this.pLBoard.Location = new System.Drawing.Point(0, 54);
             this.pLBoard.Name = "pLBoard";
-            this.pLBoard.Size = new System.Drawing.Size(840, 397);
+            this.pLBoard.Size = new System.Drawing.Size(832, 397);
             this.pLBoard.TabIndex = 0;
             // 
             // pLRange
@@ -308,7 +315,7 @@
             this.tCMonitor.Controls.Add(this.tabPage2);
             this.tCMonitor.Controls.Add(this.tabPage5);
             this.tCMonitor.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tCMonitor.Location = new System.Drawing.Point(0, 420);
+            this.tCMonitor.Location = new System.Drawing.Point(0, 454);
             this.tCMonitor.Name = "tCMonitor";
             this.tCMonitor.SelectedIndex = 0;
             this.tCMonitor.Size = new System.Drawing.Size(839, 150);
@@ -984,13 +991,62 @@
             this.tMPointer.Interval = 1500;
             this.tMPointer.Tick += new System.EventHandler(this.tMPointer_Tick);
             // 
+            // pLName
+            // 
+            this.pLName.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pLName.Controls.Add(this.label16);
+            this.pLName.Controls.Add(this.pBExit);
+            this.pLName.Controls.Add(this.pBSetUp);
+            this.pLName.Location = new System.Drawing.Point(0, 0);
+            this.pLName.Name = "pLName";
+            this.pLName.Size = new System.Drawing.Size(832, 52);
+            this.pLName.TabIndex = 6;
+            this.pLName.Click += new System.EventHandler(this.pLName_Click);
+            this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
+            this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
+            this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("隶书", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Location = new System.Drawing.Point(367, 9);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(103, 29);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "示波器";
+            // 
+            // pBExit
+            // 
+            this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
+            this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pBExit.Location = new System.Drawing.Point(780, 0);
+            this.pBExit.Name = "pBExit";
+            this.pBExit.Size = new System.Drawing.Size(52, 52);
+            this.pBExit.TabIndex = 0;
+            this.pBExit.TabStop = false;
+            this.pBExit.Click += new System.EventHandler(this.pBExit_Click);
+            // 
+            // pBSetUp
+            // 
+            this.pBSetUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBSetUp.BackgroundImage")));
+            this.pBSetUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBSetUp.Location = new System.Drawing.Point(0, 0);
+            this.pBSetUp.Name = "pBSetUp";
+            this.pBSetUp.Size = new System.Drawing.Size(52, 52);
+            this.pBSetUp.TabIndex = 0;
+            this.pBSetUp.TabStop = false;
+            // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 571);
+            this.ClientSize = new System.Drawing.Size(832, 600);
+            this.Controls.Add(this.pLName);
             this.Controls.Add(this.tCMonitor);
             this.Controls.Add(this.pLBoard);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -1020,6 +1076,10 @@
             this.gBCurrent.ResumeLayout(false);
             this.gBCurrent.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.pLName.ResumeLayout(false);
+            this.pLName.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1105,5 +1165,9 @@
         private System.Windows.Forms.TextBox tBPositionOffset;
         private System.Windows.Forms.TextBox tBSpeedOffset;
         private System.Windows.Forms.Button btnFriction;
+        private System.Windows.Forms.Panel pLName;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pBExit;
+        private System.Windows.Forms.PictureBox pBSetUp;
     }
 }

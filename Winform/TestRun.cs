@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace ICDIBasic
 {
@@ -17,15 +18,18 @@ namespace ICDIBasic
      
         public static float m_fFrequency = 0.5f;
         public static float m_fAmplitude = 0.0f;
-        public static float m_fBias = 0.0f;        
-        public static float m_fStepLength = 0.01f;
+        public static float m_fBias = 0.0f;
+        public static float StepLength = 0.1f;
 
        float m_fFrequency2 = 0.5f;
        float m_fAmplitude2 = 0.0f;
        float m_fBias2 = 0.0f;
+       
 
 
         PCan pc;
+        Thread threadDirectMove;
+        public bool NormalExit = false;
 
 
         public static TestRun pCurrentWin = null;//句柄
@@ -81,16 +85,24 @@ namespace ICDIBasic
 
         private void cBControlMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            setInitalValue();
             switch (cBControlMode.Text)
             {
-                case "开环占空比":m_iWaveChannel = MotionControl.WAVE_CONNECT_PWM; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_OPEN, PCan.currentID); break;
-                case "电流控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_CUR; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_CURRENT, PCan.currentID); break;
-                case "速度控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_SPD; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID); break;
-                case "位置控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_POS; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_POSITION,PCan.currentID); break;
+                case "开环占空比": m_iWaveChannel = MotionControl.WAVE_CONNECT_PWM; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_OPEN, PCan.currentID); lLUnit.Text = "Unit: %"; break;
+                case "电流控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_CUR; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_CURRENT, PCan.currentID); lLUnit.Text = "Unit: mA"; break;
+                case "速度控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_SPD; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID); lLUnit.Text = "Unit: rpm"; break;
+                case "位置控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_POS; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_POSITION, PCan.currentID); lLUnit.Text = "Unit: °"; break;
             }
             //取消cBControlMode的输入焦点
             pBMode.Focus();
+            //
+            if (Convert.ToInt32(pBMode.Tag) == 1)
+            {
+                //MamuallyControl();
+            }
+            else
+            {
+                setInitalValue();
+            }
         }
 
         private void tBFrequency_TextChanged(object sender, EventArgs e)
@@ -218,7 +230,11 @@ namespace ICDIBasic
             gBManually.Enabled = false;
             gBWaveFormProperty.Enabled = true;
 
+            gBManually.BackColor = Color.White;
+            gBWaveFormProperty.BackColor = Color.SlateGray;
+
             cBWaveform.SelectedIndex = 0;
+            lLUnit.Text = "Unit: %";
             setInitalValue();
         }
 
@@ -238,6 +254,10 @@ namespace ICDIBasic
             pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\M.jpg");
             gBManually.Enabled = true;
             gBWaveFormProperty.Enabled = false;
+            gBManually.BackColor = Color.SlateGray;
+            gBWaveFormProperty.BackColor = Color.White;
+
+            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);       //向下位机请求数据
         }
 
         private void pBExit_Click(object sender, EventArgs e)
@@ -259,6 +279,161 @@ namespace ICDIBasic
         private void pLName_Click(object sender, EventArgs e)
         {
             this.BringToFront();
+        }
+
+
+        #region 用鼠标拖拽移动窗体
+        private Point mousePoint = Point.Empty;
+        private void pLName_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                //_mousePoint.X = e.X;
+                //_mousePoint.Y = e.Y;
+                mousePoint = MousePosition;
+            }
+        }
+
+        private void pLName_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && mousePoint != Point.Empty)
+            {
+                this.Top += MousePosition.Y - mousePoint.Y;
+                this.Left += MousePosition.X - mousePoint.X;
+                mousePoint = MousePosition;
+            }
+            //this.PointToClient(MousePosition).Y
+        }
+
+        private void pLName_MouseUp(object sender, MouseEventArgs e)
+        {
+            mousePoint = Point.Empty;
+        }
+        #endregion
+
+        private void btnReverse_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (threadDirectMove != null)
+            {
+                if (threadDirectMove.IsAlive)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                Button btn = sender as Button;
+                string str = btn.Name;
+                NormalExit = false;
+                threadDirectMove = new Thread(new ParameterizedThreadStart(JogThread));
+                threadDirectMove.Priority = ThreadPriority.Highest;
+                threadDirectMove.Start(str);
+            }
+        }
+
+        private void btnReverse_MouseUp(object sender, MouseEventArgs e)
+        {
+            NormalExit = true;
+        }
+
+        private void JogThread(object str)
+        {
+            int AcTime = Convert.ToInt32(StepLength * 10);
+            int count = 0;
+            bool DecExit = false;
+            
+            while (!DecExit)
+            {
+                if (!NormalExit)
+                {
+                    count++;
+                    if (count > AcTime)
+                    {
+                        count = AcTime;
+                    }
+                }
+                else
+                {
+                    count--;
+                    if (count == 0)
+                    {
+                        DecExit = true;
+                        break;
+                    }
+                }
+                byte bt = Configuration.TAG_OPEN_PWM;
+                switch(m_iWaveChannel)
+                {
+                    case MotionControl.WAVE_CONNECT_PWM: pc.ReadWords(Configuration.TAG_OPEN_PWM, 1, PCan.currentID); break;
+                    case MotionControl.WAVE_CONNECT_CUR: bt = Configuration.SCP_MEACUR_L; break;
+                    case MotionControl.WAVE_CONNECT_SPD: bt = Configuration.SCP_MEASPD_L; break;
+                    case MotionControl.WAVE_CONNECT_POS: bt = Configuration.SCP_MEAPOS_L; break;
+                }
+
+                //以固定频率控制运动 10ms
+                threadDirectMove.Join(10);
+
+                int value = 0;
+                if (bt != Configuration.TAG_OPEN_PWM)
+                {
+                    byte[] value1 = BitConverter.GetBytes(Configuration.MemoryControlTable[bt]);
+                    byte[] value2 = BitConverter.GetBytes(Configuration.MemoryControlTable[bt + 1]);
+                    value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+                }
+                else
+                {
+                    value = Configuration.MemoryControlTable[Configuration.TAG_OPEN_PWM];
+                }
+
+                if (str.ToString() == "btnReverse")
+                {
+                    value -= Convert.ToInt32(count * StepLength / AcTime);
+                }
+                else
+                {
+                    value += Convert.ToInt32(count * StepLength / AcTime);
+                }
+
+                switch (m_iWaveChannel)
+                {
+                    case MotionControl.WAVE_CONNECT_PWM: pc.WriteTwoWords(Configuration.TAG_OPEN_PWM, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 1); })); break;
+                    case MotionControl.WAVE_CONNECT_CUR: pc.WriteTwoWords(Configuration.TAG_CURRENT_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 2); })); break;
+                    case MotionControl.WAVE_CONNECT_SPD: pc.WriteTwoWords(Configuration.TAG_SPEED_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 3); })); break;
+                    case MotionControl.WAVE_CONNECT_POS: pc.WriteTwoWords(Configuration.TAG_POSITION_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 4); })); break;
+                }
+              
+            }
+
+            this.Invoke((EventHandler)(delegate
+            { MainForm.GetInstance().sBFeedbackShow("手动线程退出！", 1); }));
+            threadDirectMove.Abort();
+        }
+
+        private void showManuallyDta(int value, int type)
+        {
+            double mData = 0.0f;
+            switch (type)
+            {
+                case 1: mData = value; break;
+                case 2: mData = value; break;
+                case 3: mData = value * 60.0 / 65536; break;
+                case 4: mData = value * 60.0 / 65536; break;
+            }
+            tBCur.Text = value.ToString(); tBManual.Value = Convert.ToInt32(mData);
+        }
+
+        private void tBStep_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                StepLength = Convert.ToSingle(tBStep.Text);
+            }
+            catch (System.Exception ex)
+            {
+                tBStep.Text = "0";
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
         }
 
 

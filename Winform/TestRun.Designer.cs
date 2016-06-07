@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestRun));
             this.cBWaveform = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.cBControlMode = new System.Windows.Forms.ComboBox();
             this.gBWaveFormProperty = new System.Windows.Forms.GroupBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pBWaveForm = new System.Windows.Forms.PictureBox();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.tBBias = new System.Windows.Forms.TextBox();
@@ -41,33 +43,33 @@
             this.tBFrequency = new System.Windows.Forms.TextBox();
             this.btnEnable = new System.Windows.Forms.Button();
             this.pLEnable = new System.Windows.Forms.Panel();
-            this.tBManual = new System.Windows.Forms.TrackBar();
-            this.tBMax = new System.Windows.Forms.TextBox();
-            this.tBCur = new System.Windows.Forms.TextBox();
-            this.tBMin = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.gBManually = new System.Windows.Forms.GroupBox();
             this.pBMode = new System.Windows.Forms.PictureBox();
-            this.pBWaveForm = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.gBManually = new System.Windows.Forms.GroupBox();
+            this.tBStep = new System.Windows.Forms.TextBox();
+            this.tBCur = new System.Windows.Forms.TextBox();
+            this.btnReverse = new System.Windows.Forms.Button();
+            this.btnForward = new System.Windows.Forms.Button();
+            this.tBManual = new System.Windows.Forms.TrackBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tBMax = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tBMin = new System.Windows.Forms.TextBox();
+            this.lLUnit = new System.Windows.Forms.Label();
             this.pLName = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.gBWaveFormProperty.SuspendLayout();
-            this.pLEnable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tBManual)).BeginInit();
-            this.gBManually.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBMode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).BeginInit();
+            this.pLEnable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBMode)).BeginInit();
+            this.gBManually.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tBManual)).BeginInit();
             this.pLName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
@@ -88,21 +90,11 @@
             this.cBWaveform.TabIndex = 1;
             this.cBWaveform.SelectedIndexChanged += new System.EventHandler(this.cBWaveform_SelectedIndexChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(12, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "控制模式";
-            // 
             // cBControlMode
             // 
             this.cBControlMode.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.cBControlMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cBControlMode.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBControlMode.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cBControlMode.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cBControlMode.FormattingEnabled = true;
             this.cBControlMode.Items.AddRange(new object[] {
@@ -110,14 +102,15 @@
             "电流控制",
             "速度控制",
             "位置控制"});
-            this.cBControlMode.Location = new System.Drawing.Point(124, 11);
+            this.cBControlMode.Location = new System.Drawing.Point(6, 13);
             this.cBControlMode.Name = "cBControlMode";
-            this.cBControlMode.Size = new System.Drawing.Size(125, 28);
+            this.cBControlMode.Size = new System.Drawing.Size(125, 29);
             this.cBControlMode.TabIndex = 1;
             this.cBControlMode.SelectedIndexChanged += new System.EventHandler(this.cBControlMode_SelectedIndexChanged);
             // 
             // gBWaveFormProperty
             // 
+            this.gBWaveFormProperty.BackColor = System.Drawing.Color.SlateGray;
             this.gBWaveFormProperty.Controls.Add(this.pictureBox3);
             this.gBWaveFormProperty.Controls.Add(this.pictureBox2);
             this.gBWaveFormProperty.Controls.Add(this.pictureBox1);
@@ -130,12 +123,52 @@
             this.gBWaveFormProperty.Controls.Add(this.cBWaveform);
             this.gBWaveFormProperty.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.gBWaveFormProperty.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBWaveFormProperty.Location = new System.Drawing.Point(6, 53);
+            this.gBWaveFormProperty.Location = new System.Drawing.Point(6, 59);
             this.gBWaveFormProperty.Name = "gBWaveFormProperty";
             this.gBWaveFormProperty.Size = new System.Drawing.Size(330, 225);
             this.gBWaveFormProperty.TabIndex = 2;
             this.gBWaveFormProperty.TabStop = false;
             this.gBWaveFormProperty.Text = "波形发生器";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(185, 30);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(185, 113);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(17, 113);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pBWaveForm
+            // 
+            this.pBWaveForm.Image = ((System.Drawing.Image)(resources.GetObject("pBWaveForm.Image")));
+            this.pBWaveForm.Location = new System.Drawing.Point(17, 30);
+            this.pBWaveForm.Name = "pBWaveForm";
+            this.pBWaveForm.Size = new System.Drawing.Size(35, 35);
+            this.pBWaveForm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pBWaveForm.TabIndex = 4;
+            this.pBWaveForm.TabStop = false;
             // 
             // btnClearAll
             // 
@@ -197,7 +230,7 @@
             this.btnEnable.BackColor = System.Drawing.Color.Green;
             this.btnEnable.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnable.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnEnable.Location = new System.Drawing.Point(238, 65);
+            this.btnEnable.Location = new System.Drawing.Point(238, 53);
             this.btnEnable.Name = "btnEnable";
             this.btnEnable.Size = new System.Drawing.Size(343, 43);
             this.btnEnable.TabIndex = 3;
@@ -207,109 +240,22 @@
             // 
             // pLEnable
             // 
+            this.pLEnable.BackColor = System.Drawing.Color.White;
             this.pLEnable.Controls.Add(this.pBMode);
             this.pLEnable.Controls.Add(this.gBManually);
-            this.pLEnable.Controls.Add(this.label1);
             this.pLEnable.Controls.Add(this.gBWaveFormProperty);
             this.pLEnable.Controls.Add(this.cBControlMode);
-            this.pLEnable.Location = new System.Drawing.Point(238, 126);
+            this.pLEnable.Controls.Add(this.lLUnit);
+            this.pLEnable.Location = new System.Drawing.Point(238, 98);
             this.pLEnable.Name = "pLEnable";
-            this.pLEnable.Size = new System.Drawing.Size(343, 508);
+            this.pLEnable.Size = new System.Drawing.Size(343, 510);
             this.pLEnable.TabIndex = 4;
-            // 
-            // tBManual
-            // 
-            this.tBManual.Location = new System.Drawing.Point(18, 73);
-            this.tBManual.Maximum = 100;
-            this.tBManual.Name = "tBManual";
-            this.tBManual.Size = new System.Drawing.Size(302, 45);
-            this.tBManual.TabIndex = 3;
-            this.tBManual.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.tBManual.Value = 50;
-            // 
-            // tBMax
-            // 
-            this.tBMax.Location = new System.Drawing.Point(280, 40);
-            this.tBMax.Name = "tBMax";
-            this.tBMax.Size = new System.Drawing.Size(47, 31);
-            this.tBMax.TabIndex = 2;
-            this.tBMax.Text = "0";
-            this.tBMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBMax.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
-            // 
-            // tBCur
-            // 
-            this.tBCur.Location = new System.Drawing.Point(174, 35);
-            this.tBCur.Name = "tBCur";
-            this.tBCur.Size = new System.Drawing.Size(47, 31);
-            this.tBCur.TabIndex = 2;
-            this.tBCur.Text = "0";
-            this.tBCur.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBCur.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
-            // 
-            // tBMin
-            // 
-            this.tBMin.Location = new System.Drawing.Point(53, 35);
-            this.tBMin.Name = "tBMin";
-            this.tBMin.Size = new System.Drawing.Size(47, 31);
-            this.tBMin.TabIndex = 2;
-            this.tBMin.Text = "0";
-            this.tBMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBMin.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(242, 47);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 16);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Max";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(106, 40);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 16);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Current";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(15, 42);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 16);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Min";
-            // 
-            // gBManually
-            // 
-            this.gBManually.Controls.Add(this.tBManual);
-            this.gBManually.Controls.Add(this.label5);
-            this.gBManually.Controls.Add(this.label6);
-            this.gBManually.Controls.Add(this.tBMax);
-            this.gBManually.Controls.Add(this.label7);
-            this.gBManually.Controls.Add(this.tBCur);
-            this.gBManually.Controls.Add(this.tBMin);
-            this.gBManually.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gBManually.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBManually.Location = new System.Drawing.Point(6, 284);
-            this.gBManually.Name = "gBManually";
-            this.gBManually.Size = new System.Drawing.Size(330, 214);
-            this.gBManually.TabIndex = 4;
-            this.gBManually.TabStop = false;
-            this.gBManually.Text = "手动控制";
             // 
             // pBMode
             // 
             this.pBMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBMode.Image = ((System.Drawing.Image)(resources.GetObject("pBMode.Image")));
-            this.pBMode.Location = new System.Drawing.Point(286, 11);
+            this.pBMode.Location = new System.Drawing.Point(286, 4);
             this.pBMode.Name = "pBMode";
             this.pBMode.Size = new System.Drawing.Size(50, 50);
             this.pBMode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -318,45 +264,156 @@
             this.pBMode.Tag = "1";
             this.pBMode.Click += new System.EventHandler(this.pBMode_Click);
             // 
-            // pBWaveForm
+            // gBManually
             // 
-            this.pBWaveForm.Image = ((System.Drawing.Image)(resources.GetObject("pBWaveForm.Image")));
-            this.pBWaveForm.Location = new System.Drawing.Point(17, 30);
-            this.pBWaveForm.Name = "pBWaveForm";
-            this.pBWaveForm.Size = new System.Drawing.Size(35, 35);
-            this.pBWaveForm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pBWaveForm.TabIndex = 4;
-            this.pBWaveForm.TabStop = false;
+            this.gBManually.BackColor = System.Drawing.Color.White;
+            this.gBManually.Controls.Add(this.tBStep);
+            this.gBManually.Controls.Add(this.tBCur);
+            this.gBManually.Controls.Add(this.btnReverse);
+            this.gBManually.Controls.Add(this.btnForward);
+            this.gBManually.Controls.Add(this.tBManual);
+            this.gBManually.Controls.Add(this.label5);
+            this.gBManually.Controls.Add(this.label3);
+            this.gBManually.Controls.Add(this.label6);
+            this.gBManually.Controls.Add(this.tBMax);
+            this.gBManually.Controls.Add(this.label7);
+            this.gBManually.Controls.Add(this.tBMin);
+            this.gBManually.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.gBManually.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gBManually.Location = new System.Drawing.Point(6, 293);
+            this.gBManually.Name = "gBManually";
+            this.gBManually.Size = new System.Drawing.Size(330, 210);
+            this.gBManually.TabIndex = 4;
+            this.gBManually.TabStop = false;
+            this.gBManually.Text = "手动控制";
             // 
-            // pictureBox1
+            // tBStep
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(17, 113);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.tBStep.Location = new System.Drawing.Point(143, 79);
+            this.tBStep.Name = "tBStep";
+            this.tBStep.Size = new System.Drawing.Size(55, 31);
+            this.tBStep.TabIndex = 5;
+            this.tBStep.Text = "0";
+            this.tBStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBStep.TextChanged += new System.EventHandler(this.tBStep_TextChanged);
             // 
-            // pictureBox2
+            // tBCur
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(185, 113);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
+            this.tBCur.Location = new System.Drawing.Point(143, 155);
+            this.tBCur.Name = "tBCur";
+            this.tBCur.Size = new System.Drawing.Size(55, 31);
+            this.tBCur.TabIndex = 2;
+            this.tBCur.Text = "0";
+            this.tBCur.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBCur.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
             // 
-            // pictureBox3
+            // btnReverse
             // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(185, 30);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 4;
-            this.pictureBox3.TabStop = false;
+            this.btnReverse.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReverse.BackgroundImage")));
+            this.btnReverse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReverse.Location = new System.Drawing.Point(25, 34);
+            this.btnReverse.Name = "btnReverse";
+            this.btnReverse.Size = new System.Drawing.Size(75, 75);
+            this.btnReverse.TabIndex = 4;
+            this.btnReverse.UseVisualStyleBackColor = true;
+            this.btnReverse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
+            this.btnReverse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
+            // 
+            // btnForward
+            // 
+            this.btnForward.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnForward.BackgroundImage")));
+            this.btnForward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnForward.Location = new System.Drawing.Point(244, 35);
+            this.btnForward.Name = "btnForward";
+            this.btnForward.Size = new System.Drawing.Size(75, 75);
+            this.btnForward.TabIndex = 4;
+            this.btnForward.UseVisualStyleBackColor = true;
+            this.btnForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
+            this.btnForward.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
+            // 
+            // tBManual
+            // 
+            this.tBManual.AutoSize = false;
+            this.tBManual.BackColor = System.Drawing.SystemColors.Control;
+            this.tBManual.Enabled = false;
+            this.tBManual.Location = new System.Drawing.Point(0, 192);
+            this.tBManual.Maximum = 100;
+            this.tBManual.Name = "tBManual";
+            this.tBManual.Size = new System.Drawing.Size(330, 20);
+            this.tBManual.TabIndex = 3;
+            this.tBManual.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.tBManual.Value = 50;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(36, 135);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(33, 19);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Min";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(152, 55);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 19);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Step";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(143, 136);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 19);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Current";
+            // 
+            // tBMax
+            // 
+            this.tBMax.Location = new System.Drawing.Point(264, 155);
+            this.tBMax.Name = "tBMax";
+            this.tBMax.Size = new System.Drawing.Size(55, 31);
+            this.tBMax.TabIndex = 2;
+            this.tBMax.Text = "0";
+            this.tBMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBMax.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(273, 136);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 19);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Max";
+            // 
+            // tBMin
+            // 
+            this.tBMin.Location = new System.Drawing.Point(25, 154);
+            this.tBMin.Name = "tBMin";
+            this.tBMin.Size = new System.Drawing.Size(55, 31);
+            this.tBMin.TabIndex = 2;
+            this.tBMin.Text = "0";
+            this.tBMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBMin.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
+            // 
+            // lLUnit
+            // 
+            this.lLUnit.AutoSize = true;
+            this.lLUnit.BackColor = System.Drawing.Color.White;
+            this.lLUnit.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lLUnit.Location = new System.Drawing.Point(177, 18);
+            this.lLUnit.Name = "lLUnit";
+            this.lLUnit.Size = new System.Drawing.Size(45, 21);
+            this.lLUnit.TabIndex = 0;
+            this.lLUnit.Text = "Unit:";
             // 
             // pLName
             // 
@@ -369,6 +426,9 @@
             this.pLName.Size = new System.Drawing.Size(590, 52);
             this.pLName.TabIndex = 5;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
+            this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
+            this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
+            this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
             // 
             // label2
             // 
@@ -406,7 +466,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 640);
+            this.ClientSize = new System.Drawing.Size(590, 610);
             this.Controls.Add(this.pLName);
             this.Controls.Add(this.pLEnable);
             this.Controls.Add(this.btnEnable);
@@ -421,16 +481,16 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TestRun_FormClosed);
             this.gBWaveFormProperty.ResumeLayout(false);
             this.gBWaveFormProperty.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).EndInit();
             this.pLEnable.ResumeLayout(false);
             this.pLEnable.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tBManual)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBMode)).EndInit();
             this.gBManually.ResumeLayout(false);
             this.gBManually.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBMode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tBManual)).EndInit();
             this.pLName.ResumeLayout(false);
             this.pLName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
@@ -442,7 +502,6 @@
         #endregion
 
         private System.Windows.Forms.ComboBox cBWaveform;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cBControlMode;
         private System.Windows.Forms.GroupBox gBWaveFormProperty;
         private System.Windows.Forms.Button btnClearAll;
@@ -455,7 +514,6 @@
         private System.Windows.Forms.TrackBar tBManual;
         private System.Windows.Forms.TextBox tBMin;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox tBMax;
         private System.Windows.Forms.TextBox tBCur;
         private System.Windows.Forms.Label label7;
@@ -470,5 +528,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pBExit;
         private System.Windows.Forms.PictureBox pBSetUp;
+        private System.Windows.Forms.Button btnForward;
+        private System.Windows.Forms.TextBox tBStep;
+        private System.Windows.Forms.Button btnReverse;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lLUnit;
     }
 }
