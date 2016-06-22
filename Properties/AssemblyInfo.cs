@@ -37,4 +37,3 @@ using System.Resources;
 [assembly: AssemblyFileVersion("1.0.1.0")]
 [assembly: NeutralResourcesLanguageAttribute("zh-Hans")]
 
-[assembly: log4net.Config.XmlConfigurator()]
