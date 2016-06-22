@@ -22,6 +22,7 @@ Thumbs.db
 [Bb]in
 [Dd]ebug*/*
 ![Dd]ebug*/PCANBasic.dll
+![Dd]ebug*/log4net.dll
 ![Dd]ebug*/resource/
 ![Dd]ebug*/*.ouj
 *.lib
