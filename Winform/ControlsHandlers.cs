@@ -804,16 +804,9 @@ namespace ICDIBasic
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            if (MainForm.GetInstance().Size.Width == 1606)
-            {
-                pLMain.Size = new Size(MainForm.GetInstance().Size.Width, 780);
-                pLContent.Size = new Size(MainForm.GetInstance().Size.Width, 35);
-            }
-            else
-            {
-                pLMain.Size = new Size(991, 612);
-                pLContent.Size = new Size(993, 35);
-            }
+            pLMain.Size = new Size(MainForm.GetInstance().Size.Width, MainForm.GetInstance().Size.Height - 85);
+            pLContent.Size = new Size(MainForm.GetInstance().Size.Width, 35);
+          
         }
 
 

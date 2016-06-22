@@ -121,7 +121,6 @@ namespace ICDIBasic
                 {
                      if (s_iCount >= 10)		 //三角波或正弦波时10ms发送一次
                         s_iCount = 0;
-                     else return; 
                 }
 
                 switch (TestRun.m_iWaveMode)
@@ -132,7 +131,6 @@ namespace ICDIBasic
                             s_iCount = 0;
                             SetValue((short)TestRun.m_fBias);
                         }
-                        else return; 
                         break;
                     case WAVE_MODE_SQUARE:
                         if (s_iCount >= 500.0 / TestRun.m_fFrequency)	//方波时根据选定频率发送
@@ -140,52 +138,58 @@ namespace ICDIBasic
                             s_iCount = 0;
                             s_bHigh = !s_bHigh;
                             SetValue((short)(TestRun.m_fAmplitude * (s_bHigh ? 1 : -1) + TestRun.m_fBias));
-                        }
-                        else return;                      
+                        }                   
                         break;
                     case WAVE_MODE_TRIANGLE:
-                        s_iCountforwave++;
-                        time = s_iCountforwave * 10.0f;
-                        T = 1000.0f / TestRun.m_fFrequency / 4.0f;
-                        if (time <= T)
+                        if (s_iCount == 0)
                         {
-                            tempf = time * TestRun.m_fAmplitude / T;
+                            s_iCountforwave++;
+                            time = s_iCountforwave * 10.0f;
+                            T = 1000.0f / TestRun.m_fFrequency / 4.0f;
+                            if (time <= T)
+                            {
+                                tempf = time * TestRun.m_fAmplitude / T;
+                            }
+                            else if (time > T && time <= T * 2)
+                            {
+                                time -= T;
+                                time = T - time;
+                                tempf = time * TestRun.m_fAmplitude / T;
+                            }
+                            else if (time > T * 2 && time <= T * 3)
+                            {
+                                time -= T * 2;
+                                tempf = -time * TestRun.m_fAmplitude / T;
+                            }
+                            else if (time > T * 3 && time < T * 4)
+                            {
+                                time -= T * 3;
+                                time = T - time;
+                                tempf = -time * TestRun.m_fAmplitude / T;
+                            }
+                            else
+                            {
+                                tempf = 0;
+                                s_iCountforwave = 0;
+                            }
+                            SetValue((short)(tempf + TestRun.m_fBias));
                         }
-                        else if (time > T && time <= T * 2)
-                        {
-                            time -= T;
-                            time = T - time;
-                            tempf = time * TestRun.m_fAmplitude / T;
-                        }
-                        else if (time > T * 2 && time <= T * 3)
-                        {
-                            time -= T * 2;
-                            tempf = -time * TestRun.m_fAmplitude / T;
-                        }
-                        else if (time > T * 3 && time < T * 4)
-                        {
-                            time -= T * 3;
-                            time = T - time;
-                            tempf = -time * TestRun.m_fAmplitude / T;
-                        }
-                        else
-                        {
-                            tempf = 0;
-                            s_iCountforwave = 0;
-                        }
-                        SetValue((short)(tempf + TestRun.m_fBias));
+                       
                         break;
                     case WAVE_MODE_SINE:
-                        s_iCountforwave++;
-                        time = s_iCountforwave * 10.0f;
-                        T = 1000.0f / TestRun.m_fFrequency;
-                        tempf = Math.Sin(time / T * 2 * Math.PI) * TestRun.m_fAmplitude;
-                        if (time >= T)
+                        if (s_iCount == 0)
                         {
-                            tempf = 0;
-                            s_iCountforwave = 0;
+                            s_iCountforwave++;
+                            time = s_iCountforwave * 10.0f;
+                            T = 1000.0f / TestRun.m_fFrequency;
+                            tempf = Math.Sin(time / T * 2 * Math.PI) * TestRun.m_fAmplitude;
+                            if (time >= T)
+                            {
+                                tempf = 0;
+                                s_iCountforwave = 0;
+                            }
+                            SetValue((short)(tempf + TestRun.m_fBias));
                         }
-                        SetValue((short)(tempf + TestRun.m_fBias));
                         break;
                     default:
                         break;
