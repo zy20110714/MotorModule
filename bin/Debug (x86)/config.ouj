@@ -1,6 +1,6 @@
 [OscilloScope]
-PIDGroup=0
+PIDGroup=1
 [plRange]
 Current=500
-Speed=300
-Position=50
+Speed=1000
+Position=100
