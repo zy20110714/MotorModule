@@ -114,9 +114,9 @@ namespace ICDIBasic
             paraRelection.Add(0x59, new ParameterStruct("S_POSITION_I", "0-100", "-", "R/W", "S位置环I参数"));
             paraRelection.Add(0x5a, new ParameterStruct("S_POSITION_D", "0-100", "-", "R/W", "S位置环D参数"));
             paraRelection.Add(0x5b, new ParameterStruct("S_POSITION_DS", "0-100", "-", "R/W", "S位置P死区"));
-            paraRelection.Add(0x59, new ParameterStruct("S_CURRENT_FD", "0-100", "-", "R/W", "前馈参数1"));
-            paraRelection.Add(0x5a, new ParameterStruct("M_CURRENT_FD", "0-100", "-", "R/W", "前馈参数2"));
-            paraRelection.Add(0x5b, new ParameterStruct("L_CURRENT_FD", "0-100", "-", "R/W", "前馈参数3"));
+            paraRelection.Add(0x5c, new ParameterStruct("S_CURRENT_FD", "0-100", "-", "R/W", "前馈参数1"));
+            paraRelection.Add(0x5d, new ParameterStruct("M_CURRENT_FD", "0-100", "-", "R/W", "前馈参数2"));
+            paraRelection.Add(0x5e, new ParameterStruct("L_CURRENT_FD", "0-100", "-", "R/W", "前馈参数3"));
 
             paraRelection.Add(0x61, new ParameterStruct("M_CURRENT_P", "0-100", "-", "R/W", "M电流环P参数"));
             paraRelection.Add(0x62, new ParameterStruct("M_CURRENT_I", "0-100", "-", "R/W", "M电流环I参数"));
