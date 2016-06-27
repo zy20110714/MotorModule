@@ -111,8 +111,12 @@ namespace ICDIBasic
         public const byte S_POSITION_P				= 0x58;	  //位置环P参数
         public const byte S_POSITION_I				= 0x59;	  //位置环I参数
         public const byte S_POSITION_D				= 0x5A;	  //位置环D参数
-        public const byte S_POSITION_DS				= 0x5B;	  //位置P死区
-                                                          
+        public const byte S_POSITION_DS				= 0x5B;   //位置P死区
+        public const byte S_CURRENT_FD              = 0x5C;    //位置P死区
+        public const byte M_CURRENT_FD              = 0x5D;    //位置P死区
+        public const byte L_CURRENT_FD              = 0x5E;	  //位置P死区
+
+
         public const byte M_CURRENT_P				= 0x61;	  //电流环P参数
         public const byte M_CURRENT_I				= 0x62;	  //电流环I参数
         public const byte M_CURRENT_D				= 0x63;	  //电流环D参数

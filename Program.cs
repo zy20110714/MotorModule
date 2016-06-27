@@ -16,8 +16,6 @@ namespace ICDIBasic
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(MainForm.GetInstance());
 
-
-
         }
     }
 }
