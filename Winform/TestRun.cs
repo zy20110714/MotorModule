@@ -14,8 +14,9 @@ namespace ICDIBasic
         public static int m_iWaveMode = 0;
         public static int m_iWaveChannel = 0;
 
-        public static bool Enablewave = false;
-     
+        public static bool EnableRun = false;
+        public static bool ChangeOK = false;
+
         public static float m_fFrequency = 0.5f;
         public static float m_fAmplitude = 0.0f;
         public static float m_fBias = 0.0f;
@@ -73,18 +74,22 @@ namespace ICDIBasic
 
         private void cBWaveform_SelectedIndexChanged(object sender, EventArgs e)
         {
+            clearValue();
             setInitalValue();
-            switch (cBWaveform.Text)
+            switch (cBWaveForm.Text)
             {
                 case "衡值": m_iWaveMode = MotionControl.WAVE_MODE_DC; tBFrequency.Enabled = false; tBAmplitude.Enabled = false; break;
                 case "方波": m_iWaveMode = MotionControl.WAVE_MODE_SQUARE; tBFrequency.Enabled = true; tBAmplitude.Enabled = true; break;
                 case "三角波": m_iWaveMode = MotionControl.WAVE_MODE_TRIANGLE; tBFrequency.Enabled = true; tBAmplitude.Enabled = true; break;
                 case "正弦波": m_iWaveMode = MotionControl.WAVE_MODE_SINE; tBFrequency.Enabled = true; tBAmplitude.Enabled = true; break;
             }
+            IniFile.WritePrivateProfileString("TestRun", "WaveForm", cBWaveForm.SelectedIndex.ToString(), IniFile.StrProPath);
         }
 
         private void cBControlMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ChangeOK = false;
+            Thread.Sleep(5);
             switch (cBControlMode.Text)
             {
                 case "开环占空比": m_iWaveChannel = MotionControl.WAVE_CONNECT_PWM; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_OPEN, PCan.currentID); lLUnit.Text = "Unit: %"; break;
@@ -101,7 +106,7 @@ namespace ICDIBasic
             }
             else
             {
-                setInitalValue();
+                clearValue();
             }
         }
 
@@ -117,7 +122,7 @@ namespace ICDIBasic
                 tBFrequency.Text = "0.2";
                 MessageBox.Show("请输入合法的数值！");
             }
-          
+            IniFile.WritePrivateProfileString("WaveForm" + cBWaveForm.SelectedIndex, "WaveFrequency", m_fFrequency2.ToString(), IniFile.StrProPath);
         }
 
         private void tBAmplitude_TextChanged(object sender, EventArgs e)
@@ -132,6 +137,7 @@ namespace ICDIBasic
                 tBAmplitude.Text = "0";
                 MessageBox.Show("请输入合法的数值！");
             }
+            IniFile.WritePrivateProfileString("WaveForm" + cBWaveForm.SelectedIndex, "WaveAmplitude", m_fAmplitude2.ToString(), IniFile.StrProPath);
         }
 
         private void tBBias_TextChanged(object sender, EventArgs e)
@@ -146,13 +152,16 @@ namespace ICDIBasic
                 MessageBox.Show("请输入合法的数值！");
                 MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
+            IniFile.WritePrivateProfileString("WaveForm" + cBWaveForm.SelectedIndex, "WaveBias", m_fBias2.ToString(), IniFile.StrProPath);
         }
 
         private void btnEnable_Click(object sender, EventArgs e)
         {
+            //cBCurrentRatio.Text = IniFile.ContentValue("plRange", "Current", IniFile.StrProPath);
+            //IniFile.WritePrivateProfileString("OscilloScope", "PIDGroup", type, IniFile.StrProPath);
             if (btnEnable.Text == "使能开启")
             {
-                Enablewave = true;
+                EnableRun = true;
                 btnEnable.Text = "使能关闭";
                 btnEnable.BackColor = Color.IndianRed;
                 pLEnable.Enabled = true;
@@ -168,7 +177,7 @@ namespace ICDIBasic
             else
             {
                 //将运动控制变量清零
-                Enablewave = false;
+                EnableRun = false;
                 pc.WriteOneWord(Configuration.TAG_OPEN_PWM, 0, PCan.currentID);
                 pc.WriteTwoWords(Configuration.TAG_CURRENT_L, 0, PCan.currentID);
                 pc.WriteTwoWords(Configuration.TAG_SPEED_L, 0, PCan.currentID);
@@ -185,7 +194,9 @@ namespace ICDIBasic
             //更新控制变量
             m_fFrequency = m_fFrequency2;
             m_fAmplitude = m_fAmplitude2;
-            m_fBias = m_fBias2;     
+            m_fBias = m_fBias2;
+
+            ChangeOK = true;
         }
 
         private void tBFrequency_KeyDown(object sender, KeyEventArgs e)
@@ -208,7 +219,7 @@ namespace ICDIBasic
 
         private void btnClearAll_Click(object sender, EventArgs e)
         {
-            setInitalValue(); 
+            clearValue(); 
         }
 
         private void pBMode_Click(object sender, EventArgs e)
@@ -233,19 +244,46 @@ namespace ICDIBasic
             gBManually.BackColor = Color.White;
             gBWaveFormProperty.BackColor = Color.SlateGray;
 
-            cBWaveform.SelectedIndex = 0;
+            cBWaveForm.SelectedIndex = Convert.ToInt32(IniFile.ContentValue("TestRun", "WaveForm", IniFile.StrProPath));
             lLUnit.Text = "Unit: %";
             setInitalValue();
         }
 
         void setInitalValue()
         {
-            m_fFrequency = 0.2f;
+            string strWaveFrequency = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveFrequency", IniFile.StrProPath);
+            string strWaveAmplitude = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveAmplitude", IniFile.StrProPath);
+            string strWaveBias = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveBias", IniFile.StrProPath);
+
+            m_fFrequency = Convert.ToSingle(strWaveFrequency);
+            m_fAmplitude = Convert.ToSingle(strWaveAmplitude);
+            m_fBias = Convert.ToSingle(strWaveBias);
+
+            tBFrequency.Text = strWaveFrequency;
+            tBAmplitude.Text = strWaveAmplitude;
+            tBBias.Text = strWaveBias;
+        }
+
+        public void clearValue()
+        {
+            ChangeOK = false;
+            Thread.Sleep(5);
+
+            pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID);
+            pc.WriteTwoWords(Configuration.TAG_SPEED_L, 0, PCan.currentID);
+         
+            Thread.Sleep(10);
+            switch (cBControlMode.Text)
+            {
+                case "开环占空比": m_iWaveChannel = MotionControl.WAVE_CONNECT_PWM; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_OPEN, PCan.currentID); lLUnit.Text = "Unit: %"; break;
+                case "电流控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_CUR; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_CURRENT, PCan.currentID); lLUnit.Text = "Unit: mA"; break;
+                case "速度控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_SPD; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID); lLUnit.Text = "Unit: rpm"; break;
+                case "位置控制": m_iWaveChannel = MotionControl.WAVE_CONNECT_POS; pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_POSITION, PCan.currentID); lLUnit.Text = "Unit: °"; break;
+            }
+
+            m_fFrequency = 0.0f;
             m_fAmplitude = 0.0f;
             m_fBias = 0.0f;
-            tBFrequency.Text = "0.2";
-            tBAmplitude.Text = "0";
-            tBBias.Text = "0";
         }
 
         private void MamuallyControl()
@@ -263,11 +301,8 @@ namespace ICDIBasic
         private void pBExit_Click(object sender, EventArgs e)
         {
             //将运动控制变量清零
-            Enablewave = false;
-            pc.WriteOneWord(Configuration.TAG_OPEN_PWM, 0, PCan.currentID);
-            pc.WriteTwoWords(Configuration.TAG_CURRENT_L, 0, PCan.currentID);
-            pc.WriteTwoWords(Configuration.TAG_SPEED_L, 0, PCan.currentID);
-            pc.WriteTwoWords(Configuration.TAG_POSITION_L, 0, PCan.currentID);
+            EnableRun = false;
+            clearValue();
 
             btnEnable.Text = "使能开启";
             btnEnable.BackColor = Color.Green;

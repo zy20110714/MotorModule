@@ -21,9 +21,7 @@ namespace ICDIBasic
     {
      
         #region Delegates
-        /// <summary>
         /// Read-Delegate Handler
-        /// </summary>
         private delegate void ReadDelegateHandler();
         public delegate void changeID();
         public delegate void MessageHandler(MessageEventArgs e);
@@ -31,14 +29,9 @@ namespace ICDIBasic
 
         #region Members
         
-        /// <summary>
-        /// Saves the desired connection mode
-        /// </summary>
-        private bool m_IsFD;
-        /// <summary>
-        /// Saves the handle of a PCAN hardware
-        /// </summary>
-        public static TPCANHandle m_PcanHandle;
+        private bool m_IsFD;                                 // Saves the desired connection mode
+
+        public static TPCANHandle m_PcanHandle;             // Saves the handle of a PCAN hardware
         /// <summary>
         /// Saves the baudrate register for a conenction
         /// </summary>
@@ -76,10 +69,11 @@ namespace ICDIBasic
         ParametersForm pf;
 
         OscilloScope os;
+
+        TestRun tr;
         #endregion
 
         #region Methods
-
         public static MainForm GetInstance()
         {
             if (pCurrentWin == null)
@@ -512,9 +506,15 @@ namespace ICDIBasic
         /// </summary>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // 结束运动
+            if(tr != null)
+            {
+                tr.clearValue();
+            }
+           
             tMMainFormRefresh.Stop();
+
             // Releases the used PCAN-Basic channel
-            //
             if (btnRelease.Enabled)
                 btnRelease_Click(this, new EventArgs());
             //释放CAN总线线程
@@ -527,7 +527,7 @@ namespace ICDIBasic
             //释放运动控制线程
             mc.Stop();
             mc = null;
-
+           
             UnInitialModule();
         }
 
@@ -621,74 +621,74 @@ namespace ICDIBasic
         }
         #endregion
 
-        #region Textbox event handlers
-        private void txtID_Leave(object sender, EventArgs e)
-        {
-            int iTextLength;
-            uint uiMaxValue;
+        //#region Textbox event handlers
+        //private void txtID_Leave(object sender, EventArgs e)
+        //{
+        //    int iTextLength;
+        //    uint uiMaxValue;
 
-            // Calculates the text length and Maximum ID value according
-            // with the Message Type
-            //
-            iTextLength = (chbExtended.Checked) ? 8 : 3;
-            uiMaxValue = (chbExtended.Checked) ? (uint)0x1FFFFFFF : (uint)0x7FF;
+        //    // Calculates the text length and Maximum ID value according
+        //    // with the Message Type
+        //    //
+        //    iTextLength = (chbExtended.Checked) ? 8 : 3;
+        //    uiMaxValue = (chbExtended.Checked) ? (uint)0x1FFFFFFF : (uint)0x7FF;
 
-            // The Textbox for the ID is represented with 3 characters for 
-            // Standard and 8 characters for extended messages.
-            // Therefore if the Length of the text is smaller than TextLength,  
-            // we add "0"
-            //
-            while (txtID.Text.Length != iTextLength)
-                txtID.Text = ("0" + txtID.Text);
+        //    // The Textbox for the ID is represented with 3 characters for 
+        //    // Standard and 8 characters for extended messages.
+        //    // Therefore if the Length of the text is smaller than TextLength,  
+        //    // we add "0"
+        //    //
+        //    while (txtID.Text.Length != iTextLength)
+        //        txtID.Text = ("0" + txtID.Text);
 
-            // We check that the ID is not bigger than current maximum value
-            //
-            if (Convert.ToUInt32(txtID.Text, 16) > uiMaxValue)
-                txtID.Text = string.Format("{0:X" + iTextLength.ToString() + "}", uiMaxValue);
-        }
+        //    // We check that the ID is not bigger than current maximum value
+        //    //
+        //    if (Convert.ToUInt32(txtID.Text, 16) > uiMaxValue)
+        //        txtID.Text = string.Format("{0:X" + iTextLength.ToString() + "}", uiMaxValue);
+        //}
 
-        private void txtID_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char chCheck;
+        //private void txtID_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    char chCheck;
 
-            // We convert the Character to its Upper case equivalent
-            //
-            chCheck = char.ToUpper(e.KeyChar);
+        //    // We convert the Character to its Upper case equivalent
+        //    //
+        //    chCheck = char.ToUpper(e.KeyChar);
 
-            // The Key is the Delete (Backspace) Key
-            //
-            if (chCheck == 8)
-                return;
-            // The Key is a number between 0-9
-            //
-            if ((chCheck > 47) && (chCheck < 58))
-                return;
-            // The Key is a character between A-F
-            //
-            if ((chCheck > 64) && (chCheck < 71))
-                return;
+        //    // The Key is the Delete (Backspace) Key
+        //    //
+        //    if (chCheck == 8)
+        //        return;
+        //    // The Key is a number between 0-9
+        //    //
+        //    if ((chCheck > 47) && (chCheck < 58))
+        //        return;
+        //    // The Key is a character between A-F
+        //    //
+        //    if ((chCheck > 64) && (chCheck < 71))
+        //        return;
 
-            // Is neither a number nor a character between A(a) and F(f)
-            //
-            e.Handled = true;
-        }
+        //    // Is neither a number nor a character between A(a) and F(f)
+        //    //
+        //    e.Handled = true;
+        //}
 
-        private void txtData0_Leave(object sender, EventArgs e)
-        {
-            TextBox txtbCurrentTextbox;
+        //private void txtData0_Leave(object sender, EventArgs e)
+        //{
+        //    TextBox txtbCurrentTextbox;
 
-            // all the Textbox Data fields are represented with 2 characters.
-            // Therefore if the Length of the text is smaller than 2, we add
-            // a "0"
-            //
-            if (sender.GetType().Name == "TextBox")
-            {
-                txtbCurrentTextbox = (TextBox)sender;
-                while (txtbCurrentTextbox.Text.Length != 2)
-                    txtbCurrentTextbox.Text = ("0" + txtbCurrentTextbox.Text);
-            }
-        }
-        #endregion
+        //    // all the Textbox Data fields are represented with 2 characters.
+        //    // Therefore if the Length of the text is smaller than 2, we add
+        //    // a "0"
+        //    //
+        //    if (sender.GetType().Name == "TextBox")
+        //    {
+        //        txtbCurrentTextbox = (TextBox)sender;
+        //        while (txtbCurrentTextbox.Text.Length != 2)
+        //            txtbCurrentTextbox.Text = ("0" + txtbCurrentTextbox.Text);
+        //    }
+        //}
+        //#endregion
 
         #region Radio- and Check- Buttons event-handlers
         private void chbShowPeriod_CheckedChanged(object sender, EventArgs e)
@@ -722,7 +722,6 @@ namespace ICDIBasic
                 txtID.Text = (uiTemp < 0x7FF) ? string.Format("{0:X3}", uiTemp) : "7FF";
             }
 
-            txtID_Leave(this, new EventArgs());
         }
 
         private void chbRemote_CheckedChanged(object sender, EventArgs e)

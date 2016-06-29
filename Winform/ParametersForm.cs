@@ -16,6 +16,7 @@ namespace ICDIBasic
         PCan pc;
         WriteParameters wp;
         int selectedItemIndex = -1;
+        int tVIndex = -1;
         public static Dictionary<byte, ParameterStruct> paraRelection = new Dictionary<byte, ParameterStruct>();
 
 
@@ -163,9 +164,7 @@ namespace ICDIBasic
         }                                                 
                                                           
         public void RefreshlVParam(int index)
-        {
-            //Thread.Sleep(1000);      //等待一定时间确保已经加载完成
-           
+        {      
             lVParam.Items.Clear();
             for (int i = 0; i < 16;i++ )
             {
@@ -200,11 +199,11 @@ namespace ICDIBasic
 
         private void tVParam_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            int index = e.Node.Index;
+            tVIndex = e.Node.Index;
 
             for (int i = 0; i < tVParam.Nodes.Count; i++)
             {
-                if (i == index)
+                if (i == tVIndex)
                 {
                     tVParam.Nodes[i].ForeColor = Color.BlueViolet;
                 }
@@ -213,8 +212,11 @@ namespace ICDIBasic
                     tVParam.Nodes[i].ForeColor = Color.Black;
                 }
             }
+            byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
+            pc.ReadWords(index, 16, PCan.currentID);
+            Thread.Sleep(150);
 
-            RefreshlVParam(index);
+            RefreshlVParam(tVIndex);
         }
 
 
@@ -475,6 +477,11 @@ namespace ICDIBasic
         {
             cBParametersSource.Text = "";
             cBParametersSource.Text = "从驱动器读取";
+            //刷新当前页面
+            byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
+            pc.ReadWords(index, 16, PCan.currentID);
+            Thread.Sleep(150);
+            RefreshlVParam(tVIndex);
         }
 
         private void pLName_Click(object sender, EventArgs e)

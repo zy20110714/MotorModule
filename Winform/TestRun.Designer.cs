@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestRun));
-            this.cBWaveform = new System.Windows.Forms.ComboBox();
+            this.cBWaveForm = new System.Windows.Forms.ComboBox();
             this.cBControlMode = new System.Windows.Forms.ComboBox();
             this.gBWaveFormProperty = new System.Windows.Forms.GroupBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -75,20 +75,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
             this.SuspendLayout();
             // 
-            // cBWaveform
+            // cBWaveForm
             // 
-            this.cBWaveform.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cBWaveform.FormattingEnabled = true;
-            this.cBWaveform.Items.AddRange(new object[] {
+            this.cBWaveForm.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBWaveForm.FormattingEnabled = true;
+            this.cBWaveForm.Items.AddRange(new object[] {
             "衡值",
             "方波",
             "三角波",
             "正弦波"});
-            this.cBWaveform.Location = new System.Drawing.Point(60, 36);
-            this.cBWaveform.Name = "cBWaveform";
-            this.cBWaveform.Size = new System.Drawing.Size(82, 24);
-            this.cBWaveform.TabIndex = 1;
-            this.cBWaveform.SelectedIndexChanged += new System.EventHandler(this.cBWaveform_SelectedIndexChanged);
+            this.cBWaveForm.Location = new System.Drawing.Point(60, 36);
+            this.cBWaveForm.Name = "cBWaveForm";
+            this.cBWaveForm.Size = new System.Drawing.Size(82, 24);
+            this.cBWaveForm.TabIndex = 1;
+            this.cBWaveForm.SelectedIndexChanged += new System.EventHandler(this.cBWaveform_SelectedIndexChanged);
             // 
             // cBControlMode
             // 
@@ -120,7 +120,7 @@
             this.gBWaveFormProperty.Controls.Add(this.tBBias);
             this.gBWaveFormProperty.Controls.Add(this.tBAmplitude);
             this.gBWaveFormProperty.Controls.Add(this.tBFrequency);
-            this.gBWaveFormProperty.Controls.Add(this.cBWaveform);
+            this.gBWaveFormProperty.Controls.Add(this.cBWaveForm);
             this.gBWaveFormProperty.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.gBWaveFormProperty.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gBWaveFormProperty.Location = new System.Drawing.Point(6, 59);
@@ -501,7 +501,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cBWaveform;
+        private System.Windows.Forms.ComboBox cBWaveForm;
         private System.Windows.Forms.ComboBox cBControlMode;
         private System.Windows.Forms.GroupBox gBWaveFormProperty;
         private System.Windows.Forms.Button btnClearAll;

@@ -14,7 +14,7 @@ namespace ICDIBasic
     public class IniFile
     {
         public static string InitialPara = Application.StartupPath + "\\" + "\\initialPara.ouj";//获取INI文件路径
-        public static string strProPath = Application.StartupPath + "\\" + "\\config.ouj";//获取INI文件路径
+        public static string StrProPath = Application.StartupPath + "\\" + "\\config.ouj";      //获取INI文件路径
         [DllImport("kernel32")]
         public static extern long WritePrivateProfileString(string section, string key, string val, string filepath);
         [DllImport("kernel32")]

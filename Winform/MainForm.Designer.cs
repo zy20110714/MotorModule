@@ -183,6 +183,7 @@
             this.btnMonitor = new System.Windows.Forms.Button();
             this.btnParameters = new System.Windows.Forms.Button();
             this.pLMain = new System.Windows.Forms.Panel();
+            this.tBMultiTurn = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdTo)).BeginInit();
@@ -203,8 +204,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.chbCanFD);
             this.groupBox1.Controls.Add(this.cbbHwType);
             this.groupBox1.Controls.Add(this.cbbInterrupt);
@@ -468,8 +469,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.btnFilterQuery);
             this.groupBox3.Controls.Add(this.chbFilterExt);
             this.groupBox3.Controls.Add(this.nudIdTo);
@@ -614,8 +615,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.btnParameterGet);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.nudDeviceId);
@@ -730,8 +731,8 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.btnReset);
             this.groupBox4.Controls.Add(this.btnStatus);
             this.groupBox4.Controls.Add(this.btnGetVersions);
@@ -815,8 +816,8 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.chbShowPeriod);
             this.groupBox5.Controls.Add(this.rdbManual);
             this.groupBox5.Controls.Add(this.rdbEvent);
@@ -956,8 +957,8 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.groupBox4);
             this.groupBox6.Controls.Add(this.laLength);
@@ -1072,787 +1073,395 @@
             // 
             // txtData60
             // 
-            this.txtData60.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData60.Enabled = false;
-            this.txtData60.Location = new System.Drawing.Point(368, 107);
-            this.txtData60.MaxLength = 2;
+            this.txtData60.Location = new System.Drawing.Point(0, 0);
             this.txtData60.Name = "txtData60";
-            this.txtData60.Size = new System.Drawing.Size(24, 21);
-            this.txtData60.TabIndex = 66;
-            this.txtData60.Text = "00";
-            this.txtData60.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData60.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData60.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData60.Size = new System.Drawing.Size(100, 21);
+            this.txtData60.TabIndex = 114;
             // 
             // txtData62
             // 
-            this.txtData62.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData62.Enabled = false;
-            this.txtData62.Location = new System.Drawing.Point(428, 107);
-            this.txtData62.MaxLength = 2;
+            this.txtData62.Location = new System.Drawing.Point(0, 0);
             this.txtData62.Name = "txtData62";
-            this.txtData62.Size = new System.Drawing.Size(24, 21);
-            this.txtData62.TabIndex = 68;
-            this.txtData62.Text = "00";
-            this.txtData62.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData62.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData62.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData62.Size = new System.Drawing.Size(100, 21);
+            this.txtData62.TabIndex = 115;
             // 
             // txtData47
             // 
-            this.txtData47.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData47.Enabled = false;
-            this.txtData47.Location = new System.Drawing.Point(458, 83);
-            this.txtData47.MaxLength = 2;
+            this.txtData47.Location = new System.Drawing.Point(0, 0);
             this.txtData47.Name = "txtData47";
-            this.txtData47.Size = new System.Drawing.Size(24, 21);
-            this.txtData47.TabIndex = 53;
-            this.txtData47.Text = "00";
-            this.txtData47.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData47.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData47.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData47.Size = new System.Drawing.Size(100, 21);
+            this.txtData47.TabIndex = 116;
             // 
             // txtData58
             // 
-            this.txtData58.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData58.Enabled = false;
-            this.txtData58.Location = new System.Drawing.Point(308, 107);
-            this.txtData58.MaxLength = 2;
+            this.txtData58.Location = new System.Drawing.Point(0, 0);
             this.txtData58.Name = "txtData58";
-            this.txtData58.Size = new System.Drawing.Size(24, 21);
-            this.txtData58.TabIndex = 64;
-            this.txtData58.Text = "00";
-            this.txtData58.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData58.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData58.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData58.Size = new System.Drawing.Size(100, 21);
+            this.txtData58.TabIndex = 117;
             // 
             // txtData57
             // 
-            this.txtData57.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData57.Enabled = false;
-            this.txtData57.Location = new System.Drawing.Point(278, 107);
-            this.txtData57.MaxLength = 2;
+            this.txtData57.Location = new System.Drawing.Point(0, 0);
             this.txtData57.Name = "txtData57";
-            this.txtData57.Size = new System.Drawing.Size(24, 21);
-            this.txtData57.TabIndex = 63;
-            this.txtData57.Text = "00";
-            this.txtData57.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData57.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData57.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData57.Size = new System.Drawing.Size(100, 21);
+            this.txtData57.TabIndex = 118;
             // 
             // txtData56
             // 
-            this.txtData56.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData56.Enabled = false;
-            this.txtData56.Location = new System.Drawing.Point(248, 107);
-            this.txtData56.MaxLength = 2;
+            this.txtData56.Location = new System.Drawing.Point(0, 0);
             this.txtData56.Name = "txtData56";
-            this.txtData56.Size = new System.Drawing.Size(24, 21);
-            this.txtData56.TabIndex = 62;
-            this.txtData56.Text = "00";
-            this.txtData56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData56.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData56.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData56.Size = new System.Drawing.Size(100, 21);
+            this.txtData56.TabIndex = 119;
             // 
             // txtData55
             // 
-            this.txtData55.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData55.Enabled = false;
-            this.txtData55.Location = new System.Drawing.Point(218, 107);
-            this.txtData55.MaxLength = 2;
+            this.txtData55.Location = new System.Drawing.Point(0, 0);
             this.txtData55.Name = "txtData55";
-            this.txtData55.Size = new System.Drawing.Size(24, 21);
-            this.txtData55.TabIndex = 61;
-            this.txtData55.Text = "00";
-            this.txtData55.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData55.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData55.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData55.Size = new System.Drawing.Size(100, 21);
+            this.txtData55.TabIndex = 120;
             // 
             // txtData54
             // 
-            this.txtData54.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData54.Enabled = false;
-            this.txtData54.Location = new System.Drawing.Point(188, 107);
-            this.txtData54.MaxLength = 2;
+            this.txtData54.Location = new System.Drawing.Point(0, 0);
             this.txtData54.Name = "txtData54";
-            this.txtData54.Size = new System.Drawing.Size(24, 21);
-            this.txtData54.TabIndex = 60;
-            this.txtData54.Text = "00";
-            this.txtData54.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData54.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData54.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData54.Size = new System.Drawing.Size(100, 21);
+            this.txtData54.TabIndex = 121;
             // 
             // txtData61
             // 
-            this.txtData61.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData61.Enabled = false;
-            this.txtData61.Location = new System.Drawing.Point(398, 107);
-            this.txtData61.MaxLength = 2;
+            this.txtData61.Location = new System.Drawing.Point(0, 0);
             this.txtData61.Name = "txtData61";
-            this.txtData61.Size = new System.Drawing.Size(24, 21);
-            this.txtData61.TabIndex = 67;
-            this.txtData61.Text = "00";
-            this.txtData61.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData61.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData61.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData61.Size = new System.Drawing.Size(100, 21);
+            this.txtData61.TabIndex = 122;
             // 
             // txtData63
             // 
-            this.txtData63.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData63.Enabled = false;
-            this.txtData63.Location = new System.Drawing.Point(458, 107);
-            this.txtData63.MaxLength = 2;
+            this.txtData63.Location = new System.Drawing.Point(0, 0);
             this.txtData63.Name = "txtData63";
-            this.txtData63.Size = new System.Drawing.Size(24, 21);
-            this.txtData63.TabIndex = 69;
-            this.txtData63.Text = "00";
-            this.txtData63.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData63.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData63.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData63.Size = new System.Drawing.Size(100, 21);
+            this.txtData63.TabIndex = 123;
             // 
             // txtData48
             // 
-            this.txtData48.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData48.Enabled = false;
-            this.txtData48.Location = new System.Drawing.Point(8, 107);
-            this.txtData48.MaxLength = 2;
+            this.txtData48.Location = new System.Drawing.Point(0, 0);
             this.txtData48.Name = "txtData48";
-            this.txtData48.Size = new System.Drawing.Size(24, 21);
-            this.txtData48.TabIndex = 54;
-            this.txtData48.Text = "00";
-            this.txtData48.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData48.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData48.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData48.Size = new System.Drawing.Size(100, 21);
+            this.txtData48.TabIndex = 124;
             // 
             // txtData53
             // 
-            this.txtData53.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData53.Enabled = false;
-            this.txtData53.Location = new System.Drawing.Point(158, 107);
-            this.txtData53.MaxLength = 2;
+            this.txtData53.Location = new System.Drawing.Point(0, 0);
             this.txtData53.Name = "txtData53";
-            this.txtData53.Size = new System.Drawing.Size(24, 21);
-            this.txtData53.TabIndex = 59;
-            this.txtData53.Text = "00";
-            this.txtData53.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData53.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData53.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData53.Size = new System.Drawing.Size(100, 21);
+            this.txtData53.TabIndex = 125;
             // 
             // txtData52
             // 
-            this.txtData52.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData52.Enabled = false;
-            this.txtData52.Location = new System.Drawing.Point(128, 107);
-            this.txtData52.MaxLength = 2;
+            this.txtData52.Location = new System.Drawing.Point(0, 0);
             this.txtData52.Name = "txtData52";
-            this.txtData52.Size = new System.Drawing.Size(24, 21);
-            this.txtData52.TabIndex = 58;
-            this.txtData52.Text = "00";
-            this.txtData52.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData52.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData52.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData52.Size = new System.Drawing.Size(100, 21);
+            this.txtData52.TabIndex = 126;
             // 
             // txtData51
             // 
-            this.txtData51.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData51.Enabled = false;
-            this.txtData51.Location = new System.Drawing.Point(98, 107);
-            this.txtData51.MaxLength = 2;
+            this.txtData51.Location = new System.Drawing.Point(0, 0);
             this.txtData51.Name = "txtData51";
-            this.txtData51.Size = new System.Drawing.Size(24, 21);
-            this.txtData51.TabIndex = 57;
-            this.txtData51.Text = "00";
-            this.txtData51.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData51.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData51.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData51.Size = new System.Drawing.Size(100, 21);
+            this.txtData51.TabIndex = 127;
             // 
             // txtData50
             // 
-            this.txtData50.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData50.Enabled = false;
-            this.txtData50.Location = new System.Drawing.Point(68, 107);
-            this.txtData50.MaxLength = 2;
+            this.txtData50.Location = new System.Drawing.Point(0, 0);
             this.txtData50.Name = "txtData50";
-            this.txtData50.Size = new System.Drawing.Size(24, 21);
-            this.txtData50.TabIndex = 56;
-            this.txtData50.Text = "00";
-            this.txtData50.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData50.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData50.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData50.Size = new System.Drawing.Size(100, 21);
+            this.txtData50.TabIndex = 128;
             // 
             // txtData49
             // 
-            this.txtData49.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData49.Enabled = false;
-            this.txtData49.Location = new System.Drawing.Point(38, 107);
-            this.txtData49.MaxLength = 2;
+            this.txtData49.Location = new System.Drawing.Point(0, 0);
             this.txtData49.Name = "txtData49";
-            this.txtData49.Size = new System.Drawing.Size(24, 21);
-            this.txtData49.TabIndex = 55;
-            this.txtData49.Text = "00";
-            this.txtData49.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData49.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData49.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData49.Size = new System.Drawing.Size(100, 21);
+            this.txtData49.TabIndex = 129;
             // 
             // txtData59
             // 
-            this.txtData59.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData59.Enabled = false;
-            this.txtData59.Location = new System.Drawing.Point(338, 107);
-            this.txtData59.MaxLength = 2;
+            this.txtData59.Location = new System.Drawing.Point(0, 0);
             this.txtData59.Name = "txtData59";
-            this.txtData59.Size = new System.Drawing.Size(24, 21);
-            this.txtData59.TabIndex = 65;
-            this.txtData59.Text = "00";
-            this.txtData59.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData59.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData59.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData59.Size = new System.Drawing.Size(100, 21);
+            this.txtData59.TabIndex = 130;
             // 
             // txtData46
             // 
-            this.txtData46.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData46.Enabled = false;
-            this.txtData46.Location = new System.Drawing.Point(428, 83);
-            this.txtData46.MaxLength = 2;
+            this.txtData46.Location = new System.Drawing.Point(0, 0);
             this.txtData46.Name = "txtData46";
-            this.txtData46.Size = new System.Drawing.Size(24, 21);
-            this.txtData46.TabIndex = 52;
-            this.txtData46.Text = "00";
-            this.txtData46.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData46.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData46.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData46.Size = new System.Drawing.Size(100, 21);
+            this.txtData46.TabIndex = 131;
             // 
             // txtData45
             // 
-            this.txtData45.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData45.Enabled = false;
-            this.txtData45.Location = new System.Drawing.Point(398, 83);
-            this.txtData45.MaxLength = 2;
+            this.txtData45.Location = new System.Drawing.Point(0, 0);
             this.txtData45.Name = "txtData45";
-            this.txtData45.Size = new System.Drawing.Size(24, 21);
-            this.txtData45.TabIndex = 51;
-            this.txtData45.Text = "00";
-            this.txtData45.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData45.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData45.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData45.Size = new System.Drawing.Size(100, 21);
+            this.txtData45.TabIndex = 132;
             // 
             // txtData44
             // 
-            this.txtData44.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData44.Enabled = false;
-            this.txtData44.Location = new System.Drawing.Point(368, 83);
-            this.txtData44.MaxLength = 2;
+            this.txtData44.Location = new System.Drawing.Point(0, 0);
             this.txtData44.Name = "txtData44";
-            this.txtData44.Size = new System.Drawing.Size(24, 21);
-            this.txtData44.TabIndex = 50;
-            this.txtData44.Text = "00";
-            this.txtData44.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData44.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData44.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData44.Size = new System.Drawing.Size(100, 21);
+            this.txtData44.TabIndex = 133;
             // 
             // txtData43
             // 
-            this.txtData43.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData43.Enabled = false;
-            this.txtData43.Location = new System.Drawing.Point(338, 83);
-            this.txtData43.MaxLength = 2;
+            this.txtData43.Location = new System.Drawing.Point(0, 0);
             this.txtData43.Name = "txtData43";
-            this.txtData43.Size = new System.Drawing.Size(24, 21);
-            this.txtData43.TabIndex = 49;
-            this.txtData43.Text = "00";
-            this.txtData43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData43.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData43.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData43.Size = new System.Drawing.Size(100, 21);
+            this.txtData43.TabIndex = 134;
             // 
             // txtData42
             // 
-            this.txtData42.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData42.Enabled = false;
-            this.txtData42.Location = new System.Drawing.Point(308, 83);
-            this.txtData42.MaxLength = 2;
+            this.txtData42.Location = new System.Drawing.Point(0, 0);
             this.txtData42.Name = "txtData42";
-            this.txtData42.Size = new System.Drawing.Size(24, 21);
-            this.txtData42.TabIndex = 48;
-            this.txtData42.Text = "00";
-            this.txtData42.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData42.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData42.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData42.Size = new System.Drawing.Size(100, 21);
+            this.txtData42.TabIndex = 135;
             // 
             // txtData41
             // 
-            this.txtData41.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData41.Enabled = false;
-            this.txtData41.Location = new System.Drawing.Point(278, 83);
-            this.txtData41.MaxLength = 2;
+            this.txtData41.Location = new System.Drawing.Point(0, 0);
             this.txtData41.Name = "txtData41";
-            this.txtData41.Size = new System.Drawing.Size(24, 21);
-            this.txtData41.TabIndex = 47;
-            this.txtData41.Text = "00";
-            this.txtData41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData41.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData41.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData41.Size = new System.Drawing.Size(100, 21);
+            this.txtData41.TabIndex = 136;
             // 
             // txtData40
             // 
-            this.txtData40.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData40.Enabled = false;
-            this.txtData40.Location = new System.Drawing.Point(248, 83);
-            this.txtData40.MaxLength = 2;
+            this.txtData40.Location = new System.Drawing.Point(0, 0);
             this.txtData40.Name = "txtData40";
-            this.txtData40.Size = new System.Drawing.Size(24, 21);
-            this.txtData40.TabIndex = 46;
-            this.txtData40.Text = "00";
-            this.txtData40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData40.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData40.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData40.Size = new System.Drawing.Size(100, 21);
+            this.txtData40.TabIndex = 137;
             // 
             // txtData39
             // 
-            this.txtData39.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData39.Enabled = false;
-            this.txtData39.Location = new System.Drawing.Point(218, 83);
-            this.txtData39.MaxLength = 2;
+            this.txtData39.Location = new System.Drawing.Point(0, 0);
             this.txtData39.Name = "txtData39";
-            this.txtData39.Size = new System.Drawing.Size(24, 21);
-            this.txtData39.TabIndex = 45;
-            this.txtData39.Text = "00";
-            this.txtData39.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData39.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData39.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData39.Size = new System.Drawing.Size(100, 21);
+            this.txtData39.TabIndex = 138;
             // 
             // txtData38
             // 
-            this.txtData38.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData38.Enabled = false;
-            this.txtData38.Location = new System.Drawing.Point(188, 83);
-            this.txtData38.MaxLength = 2;
+            this.txtData38.Location = new System.Drawing.Point(0, 0);
             this.txtData38.Name = "txtData38";
-            this.txtData38.Size = new System.Drawing.Size(24, 21);
-            this.txtData38.TabIndex = 44;
-            this.txtData38.Text = "00";
-            this.txtData38.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData38.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData38.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData38.Size = new System.Drawing.Size(100, 21);
+            this.txtData38.TabIndex = 139;
             // 
             // txtData37
             // 
-            this.txtData37.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData37.Enabled = false;
-            this.txtData37.Location = new System.Drawing.Point(158, 83);
-            this.txtData37.MaxLength = 2;
+            this.txtData37.Location = new System.Drawing.Point(0, 0);
             this.txtData37.Name = "txtData37";
-            this.txtData37.Size = new System.Drawing.Size(24, 21);
-            this.txtData37.TabIndex = 43;
-            this.txtData37.Text = "00";
-            this.txtData37.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData37.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData37.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData37.Size = new System.Drawing.Size(100, 21);
+            this.txtData37.TabIndex = 140;
             // 
             // txtData36
             // 
-            this.txtData36.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData36.Enabled = false;
-            this.txtData36.Location = new System.Drawing.Point(128, 83);
-            this.txtData36.MaxLength = 2;
+            this.txtData36.Location = new System.Drawing.Point(0, 0);
             this.txtData36.Name = "txtData36";
-            this.txtData36.Size = new System.Drawing.Size(24, 21);
-            this.txtData36.TabIndex = 42;
-            this.txtData36.Text = "00";
-            this.txtData36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData36.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData36.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData36.Size = new System.Drawing.Size(100, 21);
+            this.txtData36.TabIndex = 141;
             // 
             // txtData35
             // 
-            this.txtData35.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData35.Enabled = false;
-            this.txtData35.Location = new System.Drawing.Point(98, 83);
-            this.txtData35.MaxLength = 2;
+            this.txtData35.Location = new System.Drawing.Point(0, 0);
             this.txtData35.Name = "txtData35";
-            this.txtData35.Size = new System.Drawing.Size(24, 21);
-            this.txtData35.TabIndex = 41;
-            this.txtData35.Text = "00";
-            this.txtData35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData35.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData35.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData35.Size = new System.Drawing.Size(100, 21);
+            this.txtData35.TabIndex = 142;
             // 
             // txtData34
             // 
-            this.txtData34.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData34.Enabled = false;
-            this.txtData34.Location = new System.Drawing.Point(68, 83);
-            this.txtData34.MaxLength = 2;
+            this.txtData34.Location = new System.Drawing.Point(0, 0);
             this.txtData34.Name = "txtData34";
-            this.txtData34.Size = new System.Drawing.Size(24, 21);
-            this.txtData34.TabIndex = 40;
-            this.txtData34.Text = "00";
-            this.txtData34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData34.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData34.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData34.Size = new System.Drawing.Size(100, 21);
+            this.txtData34.TabIndex = 143;
             // 
             // txtData33
             // 
-            this.txtData33.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData33.Enabled = false;
-            this.txtData33.Location = new System.Drawing.Point(38, 83);
-            this.txtData33.MaxLength = 2;
+            this.txtData33.Location = new System.Drawing.Point(0, 0);
             this.txtData33.Name = "txtData33";
-            this.txtData33.Size = new System.Drawing.Size(24, 21);
-            this.txtData33.TabIndex = 39;
-            this.txtData33.Text = "00";
-            this.txtData33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData33.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData33.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData33.Size = new System.Drawing.Size(100, 21);
+            this.txtData33.TabIndex = 144;
             // 
             // txtData32
             // 
-            this.txtData32.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData32.Enabled = false;
-            this.txtData32.Location = new System.Drawing.Point(8, 83);
-            this.txtData32.MaxLength = 2;
+            this.txtData32.Location = new System.Drawing.Point(0, 0);
             this.txtData32.Name = "txtData32";
-            this.txtData32.Size = new System.Drawing.Size(24, 21);
-            this.txtData32.TabIndex = 38;
-            this.txtData32.Text = "00";
-            this.txtData32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData32.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData32.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData32.Size = new System.Drawing.Size(100, 21);
+            this.txtData32.TabIndex = 145;
             // 
             // txtData31
             // 
-            this.txtData31.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData31.Enabled = false;
-            this.txtData31.Location = new System.Drawing.Point(458, 59);
-            this.txtData31.MaxLength = 2;
+            this.txtData31.Location = new System.Drawing.Point(0, 0);
             this.txtData31.Name = "txtData31";
-            this.txtData31.Size = new System.Drawing.Size(24, 21);
-            this.txtData31.TabIndex = 37;
-            this.txtData31.Text = "00";
-            this.txtData31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData31.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData31.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData31.Size = new System.Drawing.Size(100, 21);
+            this.txtData31.TabIndex = 146;
             // 
             // txtData30
             // 
-            this.txtData30.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData30.Enabled = false;
-            this.txtData30.Location = new System.Drawing.Point(428, 59);
-            this.txtData30.MaxLength = 2;
+            this.txtData30.Location = new System.Drawing.Point(0, 0);
             this.txtData30.Name = "txtData30";
-            this.txtData30.Size = new System.Drawing.Size(24, 21);
-            this.txtData30.TabIndex = 36;
-            this.txtData30.Text = "00";
-            this.txtData30.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData30.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData30.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData30.Size = new System.Drawing.Size(100, 21);
+            this.txtData30.TabIndex = 147;
             // 
             // txtData29
             // 
-            this.txtData29.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData29.Enabled = false;
-            this.txtData29.Location = new System.Drawing.Point(398, 59);
-            this.txtData29.MaxLength = 2;
+            this.txtData29.Location = new System.Drawing.Point(0, 0);
             this.txtData29.Name = "txtData29";
-            this.txtData29.Size = new System.Drawing.Size(24, 21);
-            this.txtData29.TabIndex = 35;
-            this.txtData29.Text = "00";
-            this.txtData29.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData29.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData29.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData29.Size = new System.Drawing.Size(100, 21);
+            this.txtData29.TabIndex = 148;
             // 
             // txtData28
             // 
-            this.txtData28.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData28.Enabled = false;
-            this.txtData28.Location = new System.Drawing.Point(368, 59);
-            this.txtData28.MaxLength = 2;
+            this.txtData28.Location = new System.Drawing.Point(0, 0);
             this.txtData28.Name = "txtData28";
-            this.txtData28.Size = new System.Drawing.Size(24, 21);
-            this.txtData28.TabIndex = 34;
-            this.txtData28.Text = "00";
-            this.txtData28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData28.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData28.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData28.Size = new System.Drawing.Size(100, 21);
+            this.txtData28.TabIndex = 149;
             // 
             // txtData27
             // 
-            this.txtData27.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData27.Enabled = false;
-            this.txtData27.Location = new System.Drawing.Point(338, 59);
-            this.txtData27.MaxLength = 2;
+            this.txtData27.Location = new System.Drawing.Point(0, 0);
             this.txtData27.Name = "txtData27";
-            this.txtData27.Size = new System.Drawing.Size(24, 21);
-            this.txtData27.TabIndex = 33;
-            this.txtData27.Text = "00";
-            this.txtData27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData27.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData27.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData27.Size = new System.Drawing.Size(100, 21);
+            this.txtData27.TabIndex = 150;
             // 
             // txtData26
             // 
-            this.txtData26.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData26.Enabled = false;
-            this.txtData26.Location = new System.Drawing.Point(308, 59);
-            this.txtData26.MaxLength = 2;
+            this.txtData26.Location = new System.Drawing.Point(0, 0);
             this.txtData26.Name = "txtData26";
-            this.txtData26.Size = new System.Drawing.Size(24, 21);
-            this.txtData26.TabIndex = 32;
-            this.txtData26.Text = "00";
-            this.txtData26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData26.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData26.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData26.Size = new System.Drawing.Size(100, 21);
+            this.txtData26.TabIndex = 151;
             // 
             // txtData25
             // 
-            this.txtData25.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData25.Enabled = false;
-            this.txtData25.Location = new System.Drawing.Point(278, 59);
-            this.txtData25.MaxLength = 2;
+            this.txtData25.Location = new System.Drawing.Point(0, 0);
             this.txtData25.Name = "txtData25";
-            this.txtData25.Size = new System.Drawing.Size(24, 21);
-            this.txtData25.TabIndex = 31;
-            this.txtData25.Text = "00";
-            this.txtData25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData25.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData25.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData25.Size = new System.Drawing.Size(100, 21);
+            this.txtData25.TabIndex = 152;
             // 
             // txtData24
             // 
-            this.txtData24.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData24.Enabled = false;
-            this.txtData24.Location = new System.Drawing.Point(248, 59);
-            this.txtData24.MaxLength = 2;
+            this.txtData24.Location = new System.Drawing.Point(0, 0);
             this.txtData24.Name = "txtData24";
-            this.txtData24.Size = new System.Drawing.Size(24, 21);
-            this.txtData24.TabIndex = 30;
-            this.txtData24.Text = "00";
-            this.txtData24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData24.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData24.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData24.Size = new System.Drawing.Size(100, 21);
+            this.txtData24.TabIndex = 153;
             // 
             // txtData23
             // 
-            this.txtData23.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData23.Enabled = false;
-            this.txtData23.Location = new System.Drawing.Point(218, 59);
-            this.txtData23.MaxLength = 2;
+            this.txtData23.Location = new System.Drawing.Point(0, 0);
             this.txtData23.Name = "txtData23";
-            this.txtData23.Size = new System.Drawing.Size(24, 21);
-            this.txtData23.TabIndex = 29;
-            this.txtData23.Text = "00";
-            this.txtData23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData23.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData23.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData23.Size = new System.Drawing.Size(100, 21);
+            this.txtData23.TabIndex = 154;
             // 
             // txtData22
             // 
-            this.txtData22.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData22.Enabled = false;
-            this.txtData22.Location = new System.Drawing.Point(188, 59);
-            this.txtData22.MaxLength = 2;
+            this.txtData22.Location = new System.Drawing.Point(0, 0);
             this.txtData22.Name = "txtData22";
-            this.txtData22.Size = new System.Drawing.Size(24, 21);
-            this.txtData22.TabIndex = 28;
-            this.txtData22.Text = "00";
-            this.txtData22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData22.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData22.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData22.Size = new System.Drawing.Size(100, 21);
+            this.txtData22.TabIndex = 155;
             // 
             // txtData21
             // 
-            this.txtData21.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData21.Enabled = false;
-            this.txtData21.Location = new System.Drawing.Point(158, 59);
-            this.txtData21.MaxLength = 2;
+            this.txtData21.Location = new System.Drawing.Point(0, 0);
             this.txtData21.Name = "txtData21";
-            this.txtData21.Size = new System.Drawing.Size(24, 21);
-            this.txtData21.TabIndex = 27;
-            this.txtData21.Text = "00";
-            this.txtData21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData21.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData21.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData21.Size = new System.Drawing.Size(100, 21);
+            this.txtData21.TabIndex = 156;
             // 
             // txtData20
             // 
-            this.txtData20.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData20.Enabled = false;
-            this.txtData20.Location = new System.Drawing.Point(128, 59);
-            this.txtData20.MaxLength = 2;
+            this.txtData20.Location = new System.Drawing.Point(0, 0);
             this.txtData20.Name = "txtData20";
-            this.txtData20.Size = new System.Drawing.Size(24, 21);
-            this.txtData20.TabIndex = 26;
-            this.txtData20.Text = "00";
-            this.txtData20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData20.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData20.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData20.Size = new System.Drawing.Size(100, 21);
+            this.txtData20.TabIndex = 157;
             // 
             // txtData19
             // 
-            this.txtData19.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData19.Enabled = false;
-            this.txtData19.Location = new System.Drawing.Point(98, 59);
-            this.txtData19.MaxLength = 2;
+            this.txtData19.Location = new System.Drawing.Point(0, 0);
             this.txtData19.Name = "txtData19";
-            this.txtData19.Size = new System.Drawing.Size(24, 21);
-            this.txtData19.TabIndex = 25;
-            this.txtData19.Text = "00";
-            this.txtData19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData19.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData19.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData19.Size = new System.Drawing.Size(100, 21);
+            this.txtData19.TabIndex = 158;
             // 
             // txtData18
             // 
-            this.txtData18.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData18.Enabled = false;
-            this.txtData18.Location = new System.Drawing.Point(69, 59);
-            this.txtData18.MaxLength = 2;
+            this.txtData18.Location = new System.Drawing.Point(0, 0);
             this.txtData18.Name = "txtData18";
-            this.txtData18.Size = new System.Drawing.Size(24, 21);
-            this.txtData18.TabIndex = 24;
-            this.txtData18.Text = "00";
-            this.txtData18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData18.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData18.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData18.Size = new System.Drawing.Size(100, 21);
+            this.txtData18.TabIndex = 159;
             // 
             // txtData17
             // 
-            this.txtData17.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData17.Enabled = false;
-            this.txtData17.Location = new System.Drawing.Point(39, 59);
-            this.txtData17.MaxLength = 2;
+            this.txtData17.Location = new System.Drawing.Point(0, 0);
             this.txtData17.Name = "txtData17";
-            this.txtData17.Size = new System.Drawing.Size(24, 21);
-            this.txtData17.TabIndex = 23;
-            this.txtData17.Text = "00";
-            this.txtData17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData17.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData17.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData17.Size = new System.Drawing.Size(100, 21);
+            this.txtData17.TabIndex = 160;
             // 
             // txtData16
             // 
-            this.txtData16.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData16.Enabled = false;
-            this.txtData16.Location = new System.Drawing.Point(8, 59);
-            this.txtData16.MaxLength = 2;
+            this.txtData16.Location = new System.Drawing.Point(0, 0);
             this.txtData16.Name = "txtData16";
-            this.txtData16.Size = new System.Drawing.Size(24, 21);
-            this.txtData16.TabIndex = 22;
-            this.txtData16.Text = "00";
-            this.txtData16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData16.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData16.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData16.Size = new System.Drawing.Size(100, 21);
+            this.txtData16.TabIndex = 161;
             // 
             // txtData15
             // 
-            this.txtData15.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData15.Enabled = false;
-            this.txtData15.Location = new System.Drawing.Point(458, 35);
-            this.txtData15.MaxLength = 2;
+            this.txtData15.Location = new System.Drawing.Point(0, 0);
             this.txtData15.Name = "txtData15";
-            this.txtData15.Size = new System.Drawing.Size(24, 21);
-            this.txtData15.TabIndex = 21;
-            this.txtData15.Text = "00";
-            this.txtData15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData15.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData15.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData15.Size = new System.Drawing.Size(100, 21);
+            this.txtData15.TabIndex = 162;
             // 
             // txtData14
             // 
-            this.txtData14.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData14.Enabled = false;
-            this.txtData14.Location = new System.Drawing.Point(428, 35);
-            this.txtData14.MaxLength = 2;
+            this.txtData14.Location = new System.Drawing.Point(0, 0);
             this.txtData14.Name = "txtData14";
-            this.txtData14.Size = new System.Drawing.Size(24, 21);
-            this.txtData14.TabIndex = 20;
-            this.txtData14.Text = "00";
-            this.txtData14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData14.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData14.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData14.Size = new System.Drawing.Size(100, 21);
+            this.txtData14.TabIndex = 163;
             // 
             // txtData13
             // 
-            this.txtData13.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData13.Enabled = false;
-            this.txtData13.Location = new System.Drawing.Point(398, 35);
-            this.txtData13.MaxLength = 2;
+            this.txtData13.Location = new System.Drawing.Point(0, 0);
             this.txtData13.Name = "txtData13";
-            this.txtData13.Size = new System.Drawing.Size(24, 21);
-            this.txtData13.TabIndex = 19;
-            this.txtData13.Text = "00";
-            this.txtData13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData13.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData13.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData13.Size = new System.Drawing.Size(100, 21);
+            this.txtData13.TabIndex = 164;
             // 
             // txtData12
             // 
-            this.txtData12.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData12.Enabled = false;
-            this.txtData12.Location = new System.Drawing.Point(368, 35);
-            this.txtData12.MaxLength = 2;
+            this.txtData12.Location = new System.Drawing.Point(0, 0);
             this.txtData12.Name = "txtData12";
-            this.txtData12.Size = new System.Drawing.Size(24, 21);
-            this.txtData12.TabIndex = 18;
-            this.txtData12.Text = "00";
-            this.txtData12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData12.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData12.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData12.Size = new System.Drawing.Size(100, 21);
+            this.txtData12.TabIndex = 165;
             // 
             // txtData11
             // 
-            this.txtData11.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData11.Enabled = false;
-            this.txtData11.Location = new System.Drawing.Point(338, 35);
-            this.txtData11.MaxLength = 2;
+            this.txtData11.Location = new System.Drawing.Point(0, 0);
             this.txtData11.Name = "txtData11";
-            this.txtData11.Size = new System.Drawing.Size(24, 21);
-            this.txtData11.TabIndex = 17;
-            this.txtData11.Text = "00";
-            this.txtData11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData11.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData11.Size = new System.Drawing.Size(100, 21);
+            this.txtData11.TabIndex = 166;
             // 
             // txtData10
             // 
-            this.txtData10.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData10.Enabled = false;
-            this.txtData10.Location = new System.Drawing.Point(308, 35);
-            this.txtData10.MaxLength = 2;
+            this.txtData10.Location = new System.Drawing.Point(0, 0);
             this.txtData10.Name = "txtData10";
-            this.txtData10.Size = new System.Drawing.Size(24, 21);
-            this.txtData10.TabIndex = 16;
-            this.txtData10.Text = "00";
-            this.txtData10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData10.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData10.Size = new System.Drawing.Size(100, 21);
+            this.txtData10.TabIndex = 167;
             // 
             // txtData9
             // 
-            this.txtData9.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData9.Enabled = false;
-            this.txtData9.Location = new System.Drawing.Point(278, 35);
-            this.txtData9.MaxLength = 2;
+            this.txtData9.Location = new System.Drawing.Point(0, 0);
             this.txtData9.Name = "txtData9";
-            this.txtData9.Size = new System.Drawing.Size(24, 21);
-            this.txtData9.TabIndex = 15;
-            this.txtData9.Text = "00";
-            this.txtData9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData9.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData9.Size = new System.Drawing.Size(100, 21);
+            this.txtData9.TabIndex = 168;
             // 
             // txtData8
             // 
-            this.txtData8.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtData8.Enabled = false;
-            this.txtData8.Location = new System.Drawing.Point(248, 35);
-            this.txtData8.MaxLength = 2;
+            this.txtData8.Location = new System.Drawing.Point(0, 0);
             this.txtData8.Name = "txtData8";
-            this.txtData8.Size = new System.Drawing.Size(24, 21);
-            this.txtData8.TabIndex = 14;
-            this.txtData8.Text = "00";
-            this.txtData8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData8.Leave += new System.EventHandler(this.txtData0_Leave);
+            this.txtData8.Size = new System.Drawing.Size(100, 21);
+            this.txtData8.TabIndex = 169;
             // 
             // chbBRS
             // 
@@ -1940,8 +1549,6 @@
             this.txtID.Size = new System.Drawing.Size(112, 21);
             this.txtID.TabIndex = 0;
             this.txtID.Text = "0";
-            this.txtID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtID.Leave += new System.EventHandler(this.txtID_Leave);
             // 
             // txtData7
             // 
@@ -1953,8 +1560,6 @@
             this.txtData7.TabIndex = 13;
             this.txtData7.Text = "00";
             this.txtData7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData7.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // txtData6
             // 
@@ -1966,8 +1571,6 @@
             this.txtData6.TabIndex = 12;
             this.txtData6.Text = "00";
             this.txtData6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData6.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // txtData5
             // 
@@ -1979,8 +1582,6 @@
             this.txtData5.TabIndex = 11;
             this.txtData5.Text = "00";
             this.txtData5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData5.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // txtData4
             // 
@@ -1992,8 +1593,6 @@
             this.txtData4.TabIndex = 10;
             this.txtData4.Text = "00";
             this.txtData4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData4.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // txtData3
             // 
@@ -2005,8 +1604,6 @@
             this.txtData3.TabIndex = 9;
             this.txtData3.Text = "00";
             this.txtData3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData3.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // txtData2
             // 
@@ -2018,8 +1615,6 @@
             this.txtData2.TabIndex = 8;
             this.txtData2.Text = "00";
             this.txtData2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData2.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // txtData1
             // 
@@ -2031,8 +1626,6 @@
             this.txtData1.TabIndex = 7;
             this.txtData1.Text = "00";
             this.txtData1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData1.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // txtData0
             // 
@@ -2044,8 +1637,6 @@
             this.txtData0.TabIndex = 6;
             this.txtData0.Text = "00";
             this.txtData0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtData0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
-            this.txtData0.Leave += new System.EventHandler(this.txtData0_Leave);
             // 
             // nudLength
             // 
@@ -2137,6 +1728,7 @@
             // 
             this.pLContent.BackColor = System.Drawing.Color.Tan;
             this.pLContent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pLContent.Controls.Add(this.tBMultiTurn);
             this.pLContent.Controls.Add(this.panel2);
             this.pLContent.Controls.Add(this.panel1);
             this.pLContent.Controls.Add(this.label2);
@@ -2249,6 +1841,13 @@
             this.pLMain.Name = "pLMain";
             this.pLMain.Size = new System.Drawing.Size(994, 612);
             this.pLMain.TabIndex = 55;
+            // 
+            // tBMultiTurn
+            // 
+            this.tBMultiTurn.Location = new System.Drawing.Point(644, 5);
+            this.tBMultiTurn.Name = "tBMultiTurn";
+            this.tBMultiTurn.Size = new System.Drawing.Size(81, 21);
+            this.tBMultiTurn.TabIndex = 53;
             // 
             // MainForm
             // 
@@ -2448,6 +2047,7 @@
         private System.Windows.Forms.Button btnWave;
         private System.Windows.Forms.Panel pLMain;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox tBMultiTurn;
     }
 }
 

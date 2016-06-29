@@ -143,12 +143,12 @@ namespace ICDIBasic
 
             loadLVMeasureItems();
 
-            cBCurrentRatio.Text = IniFile.ContentValue("plRange", "Current", IniFile.strProPath);
-            cBSpeedRatio.Text = IniFile.ContentValue("plRange", "Speed", IniFile.strProPath);
-            cBPositionRatio.Text = IniFile.ContentValue("plRange", "Position", IniFile.strProPath);
-            cr = Convert.ToDouble(IniFile.ContentValue("plRange", "Current", IniFile.strProPath));
-            sr = Convert.ToDouble(IniFile.ContentValue("plRange", "Speed", IniFile.strProPath));
-            pr = Convert.ToDouble(IniFile.ContentValue("plRange", "Position", IniFile.strProPath));
+            cBCurrentRatio.Text = IniFile.ContentValue("plRange", "Current", IniFile.StrProPath);
+            cBSpeedRatio.Text = IniFile.ContentValue("plRange", "Speed", IniFile.StrProPath);
+            cBPositionRatio.Text = IniFile.ContentValue("plRange", "Position", IniFile.StrProPath);
+            cr = Convert.ToDouble(IniFile.ContentValue("plRange", "Current", IniFile.StrProPath));
+            sr = Convert.ToDouble(IniFile.ContentValue("plRange", "Speed", IniFile.StrProPath));
+            pr = Convert.ToDouble(IniFile.ContentValue("plRange", "Position", IniFile.StrProPath));
             currentOffset = 0.0f;
             speedOffset = 0.0f; ;
             positionOffset = 0.0f;
@@ -328,8 +328,9 @@ namespace ICDIBasic
 
         void loadPID()
         {
-            //string pidGroup = IniFile.ContentValue("OscilloScope", "PIDGroup", IniFile.strProPath);
-            //cBAdjustGroup.Text = pidGroup;
+            string pidGroup = IniFile.ContentValue("OscilloScope", "PIDGroup", IniFile.StrProPath);
+            cBAdjustGroup.Text = pidGroup;
+            
             Thread.Sleep(5);
 
             tBCurrentP.Text = Configuration.MemoryControlTable[CURRENT_P].ToString();
@@ -491,7 +492,7 @@ namespace ICDIBasic
                 gBPos.Enabled = true;
             }
             pc.WriteOneWord(Configuration.SEV_PARAME_LOCKED, Convert.ToInt16(type), PCan.currentID);    //应设置触发条件
-            IniFile.WritePrivateProfileString("OscilloScope", "PIDGroup", type, IniFile.strProPath);
+            IniFile.WritePrivateProfileString("OscilloScope", "PIDGroup", type, IniFile.StrProPath);
             loadPID();
         }
 
@@ -741,17 +742,17 @@ namespace ICDIBasic
             if (cb.Name == "cBCurrentRatio")
             {
                 cr = Convert.ToDouble(cBCurrentRatio.Text.Substring(0, cBCurrentRatio.Text.Length - 2));
-                IniFile.WritePrivateProfileString("plRange", "Current", cr.ToString(), IniFile.strProPath);
+                IniFile.WritePrivateProfileString("plRange", "Current", cr.ToString(), IniFile.StrProPath);
             }
             else if (cb.Name == "cBSpeedRatio")
             {
                 sr = Convert.ToDouble(cBSpeedRatio.Text.Substring(0, cBSpeedRatio.Text.Length - 3));
-                IniFile.WritePrivateProfileString("plRange", "Speed", sr.ToString(), IniFile.strProPath);
+                IniFile.WritePrivateProfileString("plRange", "Speed", sr.ToString(), IniFile.StrProPath);
             }
             else if (cb.Name == "cBPositionRatio")
             {
                 pr = Convert.ToDouble(cBPositionRatio.Text.Substring(0, cBPositionRatio.Text.Length - 1));
-                IniFile.WritePrivateProfileString("plRange", "Position", pr.ToString(), IniFile.strProPath);
+                IniFile.WritePrivateProfileString("plRange", "Position", pr.ToString(), IniFile.StrProPath);
             }
             btnMeasure.Focus();
         }
@@ -768,17 +769,17 @@ namespace ICDIBasic
                     if (cb.Name == "cBCurrentRatio")
                     {
                         cr = Convert.ToDouble(cb.Text.Substring(0, cb.Text.Length - 2));
-                        IniFile.WritePrivateProfileString("plRange", "Current", cr.ToString(), IniFile.strProPath);
+                        IniFile.WritePrivateProfileString("plRange", "Current", cr.ToString(), IniFile.StrProPath);
                     }
                     else if (cb.Name == "cBSpeedRatio")
                     {
                         sr = Convert.ToDouble(cb.Text.Substring(0, cb.Text.Length - 3));
-                        IniFile.WritePrivateProfileString("plRange", "Speed", sr.ToString(), IniFile.strProPath);
+                        IniFile.WritePrivateProfileString("plRange", "Speed", sr.ToString(), IniFile.StrProPath);
                     }
                     else if (cb.Name == "cBPositionRatio")
                     {
                         pr = Convert.ToDouble(cb.Text.Substring(0, cb.Text.Length - 1));
-                        IniFile.WritePrivateProfileString("plRange", "Position", pr.ToString(), IniFile.strProPath);
+                        IniFile.WritePrivateProfileString("plRange", "Position", pr.ToString(), IniFile.StrProPath);
                     }
                 }
                 catch (System.Exception ex)

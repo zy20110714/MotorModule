@@ -109,7 +109,7 @@ namespace ICDIBasic
         {
             //AllocConsole();
             //System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
-            if (TestRun.Enablewave)
+            if (TestRun.EnableRun && TestRun.ChangeOK)
             {
                 double tempf = 0;
                 double time = 0;
@@ -286,23 +286,25 @@ namespace ICDIBasic
             }
         }
 
-        void SetValue(short Value)
+        void SetValue(int value)
         {
             switch (TestRun.m_iWaveChannel)
             {
                 case WAVE_CONNECT_NON: 
                     break;
                 case WAVE_CONNECT_PWM:
-                    pc.WriteOneWord(Configuration.TAG_OPEN_PWM, Value, PCan.currentID);
+                    pc.WriteOneWord(Configuration.TAG_OPEN_PWM, (short)value, PCan.currentID);
                     break;
                 case WAVE_CONNECT_CUR:
-                    pc.WriteTwoWords(Configuration.TAG_CURRENT_L, Value, PCan.currentID);
+                    pc.WriteTwoWords(Configuration.TAG_CURRENT_L, value, PCan.currentID);
                     break;
                 case WAVE_CONNECT_SPD:
-                    pc.WriteTwoWords(Configuration.TAG_SPEED_L, Value, PCan.currentID);
+                    value = Convert.ToInt32(value / 60.0 * 65536.0);
+                    pc.WriteTwoWords(Configuration.TAG_SPEED_L, value, PCan.currentID);
                     break;
                 case WAVE_CONNECT_POS:
-                    pc.WriteTwoWords(Configuration.TAG_POSITION_L, Value, PCan.currentID);
+                    value = Convert.ToInt32(value / 360.0 * 65535.0);
+                    pc.WriteTwoWords(Configuration.TAG_POSITION_L, value, PCan.currentID);
                     break;
                 default:
                     break;
