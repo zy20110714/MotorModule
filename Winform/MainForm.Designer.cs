@@ -281,10 +281,7 @@
             this.btnRelease.TabIndex = 35;
             this.btnRelease.Text = "Release";
             this.btnRelease.Click += new System.EventHandler(this.btnRelease_Click);
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            // groupBox2
+         
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -370,11 +367,7 @@
             this.lbxInfo.Name = "lbxInfo";
             this.lbxInfo.Size = new System.Drawing.Size(120, 88);
             this.lbxInfo.TabIndex = 59;
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtData60.Location = new System.Drawing.Point(0, 0);
+         
             // 
             // tMMainFormRefresh
             // 
