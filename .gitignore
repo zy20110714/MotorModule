@@ -5,6 +5,7 @@ Thumbs.db
 *.user
 *.aps
 *.pch
+*.pfx
 *.vspscc
 *_i.c
 *_p.c
@@ -18,7 +19,12 @@ Thumbs.db
 *.ilk
 *.log
 
-
+[Bb]in
+[Dd]ebug*/*
+![Dd]ebug*/PCANBasic.dll
+![Dd]ebug*/log4net.dll
+![Dd]ebug*/resource/
+![Dd]ebug*/*.ouj
 *.lib
 *.sbr
 obj/

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PCANBasicExample.Properties {
+namespace MotorModule.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

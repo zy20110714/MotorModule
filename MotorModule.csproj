@@ -8,16 +8,18 @@
     <ProjectGuid>{0CBCC19A-D35C-493D-A04C-DE1AA7E31F0D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PCANBasicExample</RootNamespace>
-    <AssemblyName>PCANBasicExample</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <RootNamespace>MotorModule</RootNamespace>
+    <AssemblyName>ORProject</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\Users\lenovo\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -27,10 +29,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -88,6 +90,23 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>AB481B637EC3219B48C7197DB7D0566CBAA75667</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -98,51 +117,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
-    <Compile Include="ControlsHandlers.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MessageProccessing.cs" />
-    <Compile Include="MessageStatus.cs" />
-    <Compile Include="MotionControl.cs" />
-    <Compile Include="NewPanel.cs">
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Accessory\IniFile.cs" />
+    <Compile Include="Accessory\NewListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="OscilloScope.cs">
+    <Compile Include="Winform\ControlsHandlers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OscilloScope.Designer.cs">
+    <Compile Include="Winform\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Winform\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThreadManagment\MessageProccessing.cs" />
+    <Compile Include="Accessory\MessageStatus.cs" />
+    <Compile Include="Accessory\Module.cs" />
+    <Compile Include="ThreadManagment\MotionControl.cs" />
+    <Compile Include="Accessory\NewPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Winform\OscilloScope.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Winform\OscilloScope.Designer.cs">
       <DependentUpon>OscilloScope.cs</DependentUpon>
     </Compile>
-    <Compile Include="ParametersForm.cs">
+    <Compile Include="Winform\ParametersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ParametersForm.Designer.cs">
+    <Compile Include="Winform\ParametersForm.Designer.cs">
       <DependentUpon>ParametersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PCan.cs" />
-    <Compile Include="PCANBasic.cs" />
+    <Compile Include="ThreadManagment\PCan.cs" />
+    <Compile Include="Accessory\PCANBasic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestRun.cs">
+    <Compile Include="Winform\TestRun.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestRun.Designer.cs">
+    <Compile Include="Winform\TestRun.Designer.cs">
       <DependentUpon>TestRun.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainForm.resx">
+    <Compile Include="Winform\WriteParameters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Winform\WriteParameters.Designer.cs">
+      <DependentUpon>WriteParameters.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Winform\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="OscilloScope.resx">
+    <EmbeddedResource Include="Winform\OscilloScope.resx">
       <DependentUpon>OscilloScope.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ParametersForm.resx">
+    <EmbeddedResource Include="Winform\ParametersForm.resx">
       <DependentUpon>ParametersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -155,9 +186,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TestRun.resx">
+    <EmbeddedResource Include="Winform\TestRun.resx">
       <DependentUpon>TestRun.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Winform\WriteParameters.resx">
+      <DependentUpon>WriteParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Configuration\app.config" />
+    <None Include="Configuration\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -185,6 +221,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
