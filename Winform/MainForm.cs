@@ -446,8 +446,8 @@ namespace ICDIBasic
 
             InitialMainForm();
 
-          
-           
+            this.mc.MessageSend += new MotionControl.MessageEventHandler(this.mThread_MessageSend);
+
 
         }
 
@@ -498,7 +498,7 @@ namespace ICDIBasic
           //线程间消息传递函数
         public void Message(MessageEventArgs e)
         {
-
+            MainForm.GetInstance().sBFeedbackShow(e.Action, 0);
         }
 
         /// <summary>

@@ -804,12 +804,9 @@ namespace ICDIBasic
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            pLMain.Size = new Size(MainForm.GetInstance().Size.Width, MainForm.GetInstance().Size.Height - 85);
+            pLMain.Size = new Size(MainForm.GetInstance().Size.Width, MainForm.GetInstance().Size.Height - 92);   //调节窗口竖直方向的大小
             pLContent.Size = new Size(MainForm.GetInstance().Size.Width, 35);
-          
         }
-
-
 
         #endregion
 
@@ -861,8 +858,12 @@ namespace ICDIBasic
                     MessageBox.Show("模块" + cBID.Text + "已断开连接！");
                 }
             }
-            pc.ReadOneWord(Configuration.SYS_POSITION_H, PCan.currentID);
-            tBMultiTurn.Text = Configuration.MemoryControlTable[Configuration.SYS_POSITION_H].ToString();
+
+            if(cBID.Text != "")
+            {
+                pc.ReadOneWord(Configuration.SYS_POSITION_H, PCan.currentID);
+                tBMultiTurn.Text = Configuration.MemoryControlTable[Configuration.SYS_POSITION_H].ToString();
+            }
         }
 
         #endregion

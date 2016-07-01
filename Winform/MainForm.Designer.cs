@@ -174,6 +174,7 @@
             this.statusBarPanel3 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel4 = new System.Windows.Forms.StatusBarPanel();
             this.pLContent = new System.Windows.Forms.Panel();
+            this.tBMultiTurn = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.cBID = new System.Windows.Forms.ComboBox();
@@ -183,7 +184,6 @@
             this.btnMonitor = new System.Windows.Forms.Button();
             this.btnParameters = new System.Windows.Forms.Button();
             this.pLMain = new System.Windows.Forms.Panel();
-            this.tBMultiTurn = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdTo)).BeginInit();
@@ -1677,7 +1677,7 @@
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Location = new System.Drawing.Point(763, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(29, 18);
+            this.panel1.Size = new System.Drawing.Size(25, 18);
             this.panel1.TabIndex = 52;
             // 
             // sBFeedback
@@ -1742,6 +1742,13 @@
             this.pLContent.Name = "pLContent";
             this.pLContent.Size = new System.Drawing.Size(997, 35);
             this.pLContent.TabIndex = 54;
+            // 
+            // tBMultiTurn
+            // 
+            this.tBMultiTurn.Location = new System.Drawing.Point(644, 5);
+            this.tBMultiTurn.Name = "tBMultiTurn";
+            this.tBMultiTurn.Size = new System.Drawing.Size(81, 21);
+            this.tBMultiTurn.TabIndex = 53;
             // 
             // panel2
             // 
@@ -1841,13 +1848,6 @@
             this.pLMain.Name = "pLMain";
             this.pLMain.Size = new System.Drawing.Size(994, 612);
             this.pLMain.TabIndex = 55;
-            // 
-            // tBMultiTurn
-            // 
-            this.tBMultiTurn.Location = new System.Drawing.Point(644, 5);
-            this.tBMultiTurn.Name = "tBMultiTurn";
-            this.tBMultiTurn.Size = new System.Drawing.Size(81, 21);
-            this.tBMultiTurn.TabIndex = 53;
             // 
             // MainForm
             // 
