@@ -19,7 +19,6 @@ namespace ICDIBasic
 {
     public partial class MainForm
     {
-        bool IsCheckConnection = false;
         public static bool IsDataRecieved = false;
         public static short IDName = 0;
 
@@ -721,12 +720,24 @@ namespace ICDIBasic
             sBFeedbackShow(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToLongTimeString(), 3);
         }
 
+        //主要功能：检测已连接的模块是否仍连接着（tMCheck中设置了间隔时间为2000 ms） 以优先级高的方式传送
+        //当且仅当“展开ID下拉菜单，并且搜索到的ID数大于0”，才开启该定时检测
+        //公共属性IDName可能是用来记录已经选中的ID号，但不是可以用cBID.Text来确认已选中的ID吗
+        //公共属性IsDataRecieved
         private void tMCheck_Tick(object sender, EventArgs e)
         {
-            //检测总线上的模块是否存在（tMCheck中设置了间隔时间为2000 ms） 以优先级高的方式传送
             string message = "";
             string caption = "";
-       
+            bool IsCheckConnection = false;
+
+            //根据cBID.Text来判断当前连接与否？连接了哪个？
+            if (cBID.Text != "")
+            {
+                ;
+            }
+
+
+
             if (!IsCheckConnection)
             {
                 //如果IsCheckConnection为false（初始化时为false）
@@ -763,7 +774,7 @@ namespace ICDIBasic
                 //    MessageBox.Show("模块" + cBID.Text + "已断开连接！");
                 //}
             }
-
+            //更新编码器多圈数据
             if(cBID.Text != "")
             {
                 pc.ReadOneWord(Configuration.SYS_POSITION_H, PCan.currentID);
