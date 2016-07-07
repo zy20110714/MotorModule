@@ -756,12 +756,12 @@ namespace ICDIBasic
                         return;
                     }
                 }
-                if (cBID.Text != "" && !MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)) && IDName != Convert.ToInt16(cBID.Text))
-                {
-                    //此处判断如果前面为false,则不进行下一步判断
-                    tMCheck.Enabled = false;
-                    MessageBox.Show("模块" + cBID.Text + "已断开连接！");
-                }
+                //if (cBID.Text != "" && !MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)) && IDName != Convert.ToInt16(cBID.Text))
+                //{
+                //    //此处判断如果前面为false,则不进行下一步判断
+                //    tMCheck.Enabled = false;
+                //    MessageBox.Show("模块" + cBID.Text + "已断开连接！");
+                //}
             }
 
             if(cBID.Text != "")

@@ -22,10 +22,10 @@ namespace ICDIBasic
         public static float m_fBias = 0.0f;
         public static float StepLength = 0.1f;
 
-       float m_fFrequency2 = 0.5f;
-       float m_fAmplitude2 = 0.0f;
-       float m_fBias2 = 0.0f;
-       
+        float m_fFrequency2 = 0.5f;
+        float m_fAmplitude2 = 0.0f;
+        float m_fBias2 = 0.0f;
+
 
 
         PCan pc;
@@ -216,12 +216,12 @@ namespace ICDIBasic
         private void tBBias_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                m_fBias = m_fBias2; 
+                m_fBias = m_fBias2;
         }
 
         private void btnClearAll_Click(object sender, EventArgs e)
         {
-            clearValue(); 
+            clearValue();
         }
 
         private void pBMode_Click(object sender, EventArgs e)
@@ -229,7 +229,7 @@ namespace ICDIBasic
             if (Convert.ToInt32(pBMode.Tag) == 1)
             {
                 MamuallyControl();
-            } 
+            }
             else
             {
                 InitialAutomaticControl();
@@ -273,7 +273,7 @@ namespace ICDIBasic
 
             pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID);
             pc.WriteTwoWords(Configuration.TAG_SPEED_L, 0, PCan.currentID);
-         
+
             Thread.Sleep(10);
             switch (cBControlMode.Text)
             {
@@ -378,7 +378,7 @@ namespace ICDIBasic
             int AcTime = Convert.ToInt32(StepLength * 10);
             int count = 0;
             bool DecExit = false;
-            
+
             while (!DecExit)
             {
                 if (!NormalExit)
@@ -399,7 +399,7 @@ namespace ICDIBasic
                     }
                 }
                 byte bt = Configuration.TAG_OPEN_PWM;
-                switch(m_iWaveChannel)
+                switch (m_iWaveChannel)
                 {
                     case MotionControl.WAVE_CONNECT_PWM: pc.ReadWords(Configuration.TAG_OPEN_PWM, 1, PCan.currentID); break;
                     case MotionControl.WAVE_CONNECT_CUR: bt = Configuration.SCP_MEACUR_L; break;
@@ -433,12 +433,12 @@ namespace ICDIBasic
 
                 switch (m_iWaveChannel)
                 {
-                    case MotionControl.WAVE_CONNECT_PWM: pc.WriteTwoWords(Configuration.TAG_OPEN_PWM, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 1); })); break;
-                    case MotionControl.WAVE_CONNECT_CUR: pc.WriteTwoWords(Configuration.TAG_CURRENT_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 2); })); break;
-                    case MotionControl.WAVE_CONNECT_SPD: pc.WriteTwoWords(Configuration.TAG_SPEED_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 3); })); break;
-                    case MotionControl.WAVE_CONNECT_POS: pc.WriteTwoWords(Configuration.TAG_POSITION_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate{ showManuallyDta(value, 4); })); break;
+                    case MotionControl.WAVE_CONNECT_PWM: pc.WriteTwoWords(Configuration.TAG_OPEN_PWM, value, PCan.currentID); this.Invoke((EventHandler)(delegate { showManuallyDta(value, 1); })); break;
+                    case MotionControl.WAVE_CONNECT_CUR: pc.WriteTwoWords(Configuration.TAG_CURRENT_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate { showManuallyDta(value, 2); })); break;
+                    case MotionControl.WAVE_CONNECT_SPD: pc.WriteTwoWords(Configuration.TAG_SPEED_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate { showManuallyDta(value, 3); })); break;
+                    case MotionControl.WAVE_CONNECT_POS: pc.WriteTwoWords(Configuration.TAG_POSITION_L, value, PCan.currentID); this.Invoke((EventHandler)(delegate { showManuallyDta(value, 4); })); break;
                 }
-              
+
             }
 
             this.Invoke((EventHandler)(delegate

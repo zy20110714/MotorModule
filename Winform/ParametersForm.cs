@@ -476,7 +476,7 @@ namespace ICDIBasic
 
         private void btnInitialize_Click(object sender, EventArgs e)
         {
-            cBParametersSource.Text = "";
+            //cBParametersSource.Text = "";
             cBParametersSource.Text = "从驱动器读取";
             //刷新当前页面
             byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);

@@ -100,7 +100,7 @@ namespace ICDIBasic
                 throw new Win32Exception("QueryPerformanceFrequency() function is not supported");
             }
 
-            Interval = 0.5f;                      //定时精度 1ms
+            Interval = 1.0f;                      //定时精度 1ms
 
             thread = new Thread(new ThreadStart(ThreadProc));
             thread.Name = "HighAccuracyTimer";
