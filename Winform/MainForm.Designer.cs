@@ -376,6 +376,7 @@
             // 
             // tMCheck
             // 
+            this.tMCheck.Enabled = true;
             this.tMCheck.Interval = 2000;
             this.tMCheck.Tick += new System.EventHandler(this.tMCheck_Tick);
             // 
