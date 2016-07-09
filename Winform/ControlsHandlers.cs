@@ -724,43 +724,50 @@ namespace ICDIBasic
         //其他说明：程序启动时即开始该定时检测（间隔时间为2000 ms），模块若断开，不关闭程序则程序重启
         private void tMCheck_Tick(object sender, EventArgs e)
         {
-            //根据cBID.Text来判断当前连接与否，连接了哪个
+            //功能不完善的临时用法
             if (cBID.Text != "")
             {
-                //如果选中了连接的模块，监测ID是否仍在线，掉线则弹出警告
-                MessageProccessing.allID2.Clear();//从List中移除所有元素，初始化allID2
-                pc.SearchModuleID();//返回ID号时，在MessageProccessing里会添加ID2
-                Thread.Sleep(150);//必须的，不然总显示断开连接
-                if (MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)))
-                {
-                    //如果选中的ID仍在线，更新编码器多圈数据
-                    pc.ReadOneWord(Configuration.SYS_POSITION_H, PCan.currentID);
-                    tBMultiTurn.Text = Configuration.MemoryControlTable[Configuration.SYS_POSITION_H].ToString();
-                }
-                else
-                {
-                    //如果选中的模块掉线，则弹出警告
-                    string message = "您确定要关闭吗？";
-                    string caption = string.Format("模块{0}已断开连接！", cBID.Text);
-                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                    DialogResult result = MessageBox.Show(this, message, caption, buttons);
-                    if (result == DialogResult.Yes)
-                    {
-                        //确认警告，关闭程序
-                        this.Close();
-                    }
-                    else
-                    {
-                        //忽视警告，程序重启
-                        Application.Restart();
-                    }
-                }
+                pc.ReadOneWord(Configuration.SYS_POSITION_H, PCan.currentID);
+                tBMultiTurn.Text = Configuration.MemoryControlTable[Configuration.SYS_POSITION_H].ToString();
             }
-            else
-            {
-                //如果没有选中模块
-                ;
-            }
+            //根据cBID.Text来判断当前连接与否，连接了哪个
+            //if (cBID.Text != "")
+            //{
+            //    //如果选中了连接的模块，监测ID是否仍在线，掉线则弹出警告
+            //    MessageProccessing.allID2.Clear();//从List中移除所有元素，初始化allID2
+            //    pc.SearchModuleID();//返回ID号时，在MessageProccessing里会添加ID2
+            //    Thread.Sleep(150);//必须的，不然总显示断开连接——该功能不成熟
+            //    if (MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)))
+            //    {
+            //        //如果选中的ID仍在线，更新编码器多圈数据
+            //        pc.ReadOneWord(Configuration.SYS_POSITION_H, PCan.currentID);
+            //        tBMultiTurn.Text = Configuration.MemoryControlTable[Configuration.SYS_POSITION_H].ToString();
+            //    }
+            //    else
+            //    {
+            //        //该检测功能还不成熟
+            //        ////如果选中的模块掉线，则弹出警告
+            //        //string message = "您确定要关闭吗？";
+            //        //string caption = string.Format("模块{0}已断开连接！", cBID.Text);
+            //        //MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
+            //        //DialogResult result = MessageBox.Show(this, message, caption, buttons);
+            //        //switch (result)
+            //        //{
+            //        //    case DialogResult.Yes:
+            //        //        this.Close();
+            //        //        break;
+            //        //    case DialogResult.No:
+            //        //        Application.Restart();
+            //        //        break;
+            //        //    default: return;
+            //        //}
+            //    }
+            //}
+            //else
+            //{
+            //    //如果没有选中模块
+            //    ;
+            //}
         }
 
         #endregion
