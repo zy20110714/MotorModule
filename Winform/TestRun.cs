@@ -22,18 +22,24 @@ namespace ICDIBasic
         public static float m_fBias = 0.0f;
         public static float StepLength = 0.1f;
 
+        public static float manualMin = 0.0f;
+        public static float manualMax = 0.0f;
+        public static float manualCur = 0.0f;
+        public static float manualMinTemp = 0.0f;
+        public static float manualMaxTemp = 0.0f;
+        int manualValue = 0;
+
+
         float m_fFrequency2 = 0.5f;
         float m_fAmplitude2 = 0.0f;
         float m_fBias2 = 0.0f;
-
-
 
         PCan pc;
         Thread threadDirectMove;
         public bool NormalExit = false;
 
-
         public static TestRun pCurrentWin = null;//句柄
+
         public TestRun()
         {
             InitializeComponent();
@@ -229,10 +235,12 @@ namespace ICDIBasic
             if (Convert.ToInt32(pBMode.Tag) == 1)
             {
                 MamuallyControl();
+                tMManualControl.Start();
             }
             else
             {
                 InitialAutomaticControl();
+                tMManualControl.Stop();
             }
         }
 
@@ -317,7 +325,6 @@ namespace ICDIBasic
         {
             this.BringToFront();
         }
-
 
         #region 用鼠标拖拽移动窗体
         private Point mousePoint = Point.Empty;
@@ -473,19 +480,47 @@ namespace ICDIBasic
             }
         }
 
+        private void tBMin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    manualMin = Convert.ToSingle(tBMin.Text);
+                }
+                catch (System.Exception ex)
+                {
+                    tBMin.Text = "0";
+                    MessageBox.Show("请输入合法的数值！");
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                }
+            }
+        }
 
+        private void tBMax_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    manualMax = Convert.ToSingle(tBMax.Text);
+                }
+                catch (System.Exception ex)
+                {
+                    tBMax.Text = "0";
+                    MessageBox.Show("请输入合法的数值！");
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                }
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
+        private void tMManualControl_Tick(object sender, EventArgs e)
+        {
+            //根据设置的Min和Max，以及滑块位置，获得当前角度值
+            manualCur = manualMin + (manualMax - manualMin) * tBManual.Value / 100;
+            tBCur.Text = manualCur.ToString();
+            manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
+            pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
+        }
     }
 }

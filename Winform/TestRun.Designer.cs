@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestRun));
             this.cBWaveForm = new System.Windows.Forms.ComboBox();
             this.cBControlMode = new System.Windows.Forms.ComboBox();
@@ -61,6 +62,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
+            this.tMManualControl = new System.Windows.Forms.Timer(this.components);
             this.gBWaveFormProperty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -285,7 +287,7 @@
             this.gBManually.Size = new System.Drawing.Size(330, 210);
             this.gBManually.TabIndex = 4;
             this.gBManually.TabStop = false;
-            this.gBManually.Text = "手动控制";
+            this.gBManually.Text = "手动控制位置";
             // 
             // tBStep
             // 
@@ -299,13 +301,12 @@
             // 
             // tBCur
             // 
-            this.tBCur.Location = new System.Drawing.Point(143, 155);
+            this.tBCur.Location = new System.Drawing.Point(100, 155);
             this.tBCur.Name = "tBCur";
-            this.tBCur.Size = new System.Drawing.Size(55, 31);
+            this.tBCur.Size = new System.Drawing.Size(143, 31);
             this.tBCur.TabIndex = 2;
             this.tBCur.Text = "0";
             this.tBCur.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBCur.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
             // 
             // btnReverse
             // 
@@ -335,7 +336,6 @@
             // 
             this.tBManual.AutoSize = false;
             this.tBManual.BackColor = System.Drawing.SystemColors.Control;
-            this.tBManual.Enabled = false;
             this.tBManual.Location = new System.Drawing.Point(0, 192);
             this.tBManual.Maximum = 100;
             this.tBManual.Name = "tBManual";
@@ -382,7 +382,7 @@
             this.tBMax.TabIndex = 2;
             this.tBMax.Text = "0";
             this.tBMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBMax.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
+            this.tBMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMax_KeyDown);
             // 
             // label7
             // 
@@ -402,7 +402,7 @@
             this.tBMin.TabIndex = 2;
             this.tBMin.Text = "0";
             this.tBMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBMin.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
+            this.tBMin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMin_KeyDown);
             // 
             // lLUnit
             // 
@@ -461,6 +461,10 @@
             this.pBSetUp.Size = new System.Drawing.Size(52, 52);
             this.pBSetUp.TabIndex = 0;
             this.pBSetUp.TabStop = false;
+            // 
+            // tMManualControl
+            // 
+            this.tMManualControl.Tick += new System.EventHandler(this.tMManualControl_Tick);
             // 
             // TestRun
             // 
@@ -533,5 +537,6 @@
         private System.Windows.Forms.Button btnReverse;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lLUnit;
+        private System.Windows.Forms.Timer tMManualControl;
     }
 }
