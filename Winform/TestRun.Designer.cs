@@ -44,24 +44,26 @@
             this.tBFrequency = new System.Windows.Forms.TextBox();
             this.btnEnable = new System.Windows.Forms.Button();
             this.pLEnable = new System.Windows.Forms.Panel();
+            this.lLUnit = new System.Windows.Forms.Label();
             this.pBMode = new System.Windows.Forms.PictureBox();
             this.gBManually = new System.Windows.Forms.GroupBox();
+            this.btnTrackBarCenter = new System.Windows.Forms.Button();
+            this.btnReturnToZero = new System.Windows.Forms.Button();
+            this.btnEnManCtrl = new System.Windows.Forms.Button();
             this.tBStep = new System.Windows.Forms.TextBox();
-            this.tBCur = new System.Windows.Forms.TextBox();
             this.btnReverse = new System.Windows.Forms.Button();
             this.btnForward = new System.Windows.Forms.Button();
             this.tBManual = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.Current = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tBMax = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tBMin = new System.Windows.Forms.TextBox();
-            this.lLUnit = new System.Windows.Forms.Label();
             this.pLName = new System.Windows.Forms.Panel();
+            this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
-            this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.tMManualControl = new System.Windows.Forms.Timer(this.components);
             this.gBWaveFormProperty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -73,8 +75,8 @@
             this.gBManually.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tBManual)).BeginInit();
             this.pLName.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
             this.SuspendLayout();
             // 
             // cBWaveForm
@@ -96,7 +98,7 @@
             // 
             this.cBControlMode.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.cBControlMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cBControlMode.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBControlMode.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cBControlMode.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cBControlMode.FormattingEnabled = true;
             this.cBControlMode.Items.AddRange(new object[] {
@@ -104,9 +106,10 @@
             "电流控制",
             "速度控制",
             "位置控制"});
-            this.cBControlMode.Location = new System.Drawing.Point(6, 13);
+            this.cBControlMode.Location = new System.Drawing.Point(10, 9);
+            this.cBControlMode.Margin = new System.Windows.Forms.Padding(0);
             this.cBControlMode.Name = "cBControlMode";
-            this.cBControlMode.Size = new System.Drawing.Size(125, 29);
+            this.cBControlMode.Size = new System.Drawing.Size(150, 32);
             this.cBControlMode.TabIndex = 1;
             this.cBControlMode.SelectedIndexChanged += new System.EventHandler(this.cBControlMode_SelectedIndexChanged);
             // 
@@ -125,9 +128,9 @@
             this.gBWaveFormProperty.Controls.Add(this.cBWaveForm);
             this.gBWaveFormProperty.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.gBWaveFormProperty.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBWaveFormProperty.Location = new System.Drawing.Point(6, 59);
+            this.gBWaveFormProperty.Location = new System.Drawing.Point(10, 50);
             this.gBWaveFormProperty.Name = "gBWaveFormProperty";
-            this.gBWaveFormProperty.Size = new System.Drawing.Size(330, 225);
+            this.gBWaveFormProperty.Size = new System.Drawing.Size(330, 250);
             this.gBWaveFormProperty.TabIndex = 2;
             this.gBWaveFormProperty.TabStop = false;
             this.gBWaveFormProperty.Text = "波形发生器";
@@ -232,9 +235,10 @@
             this.btnEnable.BackColor = System.Drawing.Color.Green;
             this.btnEnable.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnable.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnEnable.Location = new System.Drawing.Point(238, 53);
+            this.btnEnable.Location = new System.Drawing.Point(0, 50);
+            this.btnEnable.Margin = new System.Windows.Forms.Padding(0);
             this.btnEnable.Name = "btnEnable";
-            this.btnEnable.Size = new System.Drawing.Size(343, 43);
+            this.btnEnable.Size = new System.Drawing.Size(400, 50);
             this.btnEnable.TabIndex = 3;
             this.btnEnable.Text = "使能开启";
             this.btnEnable.UseVisualStyleBackColor = false;
@@ -243,21 +247,34 @@
             // pLEnable
             // 
             this.pLEnable.BackColor = System.Drawing.Color.White;
-            this.pLEnable.Controls.Add(this.pBMode);
-            this.pLEnable.Controls.Add(this.gBManually);
-            this.pLEnable.Controls.Add(this.gBWaveFormProperty);
             this.pLEnable.Controls.Add(this.cBControlMode);
             this.pLEnable.Controls.Add(this.lLUnit);
-            this.pLEnable.Location = new System.Drawing.Point(238, 98);
+            this.pLEnable.Controls.Add(this.pBMode);
+            this.pLEnable.Controls.Add(this.gBWaveFormProperty);
+            this.pLEnable.Controls.Add(this.gBManually);
+            this.pLEnable.Location = new System.Drawing.Point(25, 100);
+            this.pLEnable.Margin = new System.Windows.Forms.Padding(0);
             this.pLEnable.Name = "pLEnable";
-            this.pLEnable.Size = new System.Drawing.Size(343, 510);
+            this.pLEnable.Size = new System.Drawing.Size(350, 650);
             this.pLEnable.TabIndex = 4;
+            // 
+            // lLUnit
+            // 
+            this.lLUnit.AutoSize = true;
+            this.lLUnit.BackColor = System.Drawing.Color.White;
+            this.lLUnit.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lLUnit.Location = new System.Drawing.Point(170, 14);
+            this.lLUnit.Name = "lLUnit";
+            this.lLUnit.Size = new System.Drawing.Size(53, 23);
+            this.lLUnit.TabIndex = 0;
+            this.lLUnit.Text = "Unit:";
             // 
             // pBMode
             // 
             this.pBMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBMode.Image = ((System.Drawing.Image)(resources.GetObject("pBMode.Image")));
-            this.pBMode.Location = new System.Drawing.Point(286, 4);
+            this.pBMode.Location = new System.Drawing.Point(290, 0);
+            this.pBMode.Margin = new System.Windows.Forms.Padding(0);
             this.pBMode.Name = "pBMode";
             this.pBMode.Size = new System.Drawing.Size(50, 50);
             this.pBMode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -269,29 +286,68 @@
             // gBManually
             // 
             this.gBManually.BackColor = System.Drawing.Color.White;
+            this.gBManually.Controls.Add(this.btnTrackBarCenter);
+            this.gBManually.Controls.Add(this.btnEnManCtrl);
             this.gBManually.Controls.Add(this.tBStep);
-            this.gBManually.Controls.Add(this.tBCur);
             this.gBManually.Controls.Add(this.btnReverse);
             this.gBManually.Controls.Add(this.btnForward);
             this.gBManually.Controls.Add(this.tBManual);
             this.gBManually.Controls.Add(this.label5);
-            this.gBManually.Controls.Add(this.label3);
+            this.gBManually.Controls.Add(this.Current);
             this.gBManually.Controls.Add(this.label6);
             this.gBManually.Controls.Add(this.tBMax);
             this.gBManually.Controls.Add(this.label7);
             this.gBManually.Controls.Add(this.tBMin);
+            this.gBManually.Controls.Add(this.btnReturnToZero);
             this.gBManually.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.gBManually.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBManually.Location = new System.Drawing.Point(6, 293);
+            this.gBManually.Location = new System.Drawing.Point(10, 300);
             this.gBManually.Name = "gBManually";
-            this.gBManually.Size = new System.Drawing.Size(330, 210);
+            this.gBManually.Size = new System.Drawing.Size(330, 350);
             this.gBManually.TabIndex = 4;
             this.gBManually.TabStop = false;
             this.gBManually.Text = "手动控制位置";
             // 
+            // btnTrackBarCenter
+            // 
+            this.btnTrackBarCenter.Location = new System.Drawing.Point(0, 250);
+            this.btnTrackBarCenter.Margin = new System.Windows.Forms.Padding(0);
+            this.btnTrackBarCenter.Name = "btnTrackBarCenter";
+            this.btnTrackBarCenter.Size = new System.Drawing.Size(330, 50);
+            this.btnTrackBarCenter.TabIndex = 6;
+            this.btnTrackBarCenter.Text = "滑块回中";
+            this.btnTrackBarCenter.UseVisualStyleBackColor = true;
+            this.btnTrackBarCenter.Click += new System.EventHandler(this.btnTrackBarCenter_Click);
+            // 
+            // btnReturnToZero
+            // 
+            this.btnReturnToZero.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnReturnToZero.Location = new System.Drawing.Point(0, 300);
+            this.btnReturnToZero.Margin = new System.Windows.Forms.Padding(0);
+            this.btnReturnToZero.Name = "btnReturnToZero";
+            this.btnReturnToZero.Size = new System.Drawing.Size(330, 50);
+            this.btnReturnToZero.TabIndex = 7;
+            this.btnReturnToZero.Text = "按住回零";
+            this.btnReturnToZero.UseVisualStyleBackColor = true;
+            this.btnReturnToZero.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseDown);
+            this.btnReturnToZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseUp);
+            // 
+            // btnEnManCtrl
+            // 
+            this.btnEnManCtrl.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnEnManCtrl.Location = new System.Drawing.Point(0, 200);
+            this.btnEnManCtrl.Margin = new System.Windows.Forms.Padding(0);
+            this.btnEnManCtrl.Name = "btnEnManCtrl";
+            this.btnEnManCtrl.Size = new System.Drawing.Size(330, 50);
+            this.btnEnManCtrl.TabIndex = 6;
+            this.btnEnManCtrl.Text = "开始";
+            this.btnEnManCtrl.UseVisualStyleBackColor = true;
+            this.btnEnManCtrl.Click += new System.EventHandler(this.btnEnManCtrl_Click);
+            // 
             // tBStep
             // 
-            this.tBStep.Location = new System.Drawing.Point(143, 79);
+            this.tBStep.Enabled = false;
+            this.tBStep.Location = new System.Drawing.Point(143, 37);
             this.tBStep.Name = "tBStep";
             this.tBStep.Size = new System.Drawing.Size(55, 31);
             this.tBStep.TabIndex = 5;
@@ -299,22 +355,14 @@
             this.tBStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBStep.TextChanged += new System.EventHandler(this.tBStep_TextChanged);
             // 
-            // tBCur
-            // 
-            this.tBCur.Location = new System.Drawing.Point(100, 155);
-            this.tBCur.Name = "tBCur";
-            this.tBCur.Size = new System.Drawing.Size(143, 31);
-            this.tBCur.TabIndex = 2;
-            this.tBCur.Text = "0";
-            this.tBCur.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // btnReverse
             // 
             this.btnReverse.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReverse.BackgroundImage")));
             this.btnReverse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnReverse.Location = new System.Drawing.Point(25, 34);
+            this.btnReverse.Enabled = false;
+            this.btnReverse.Location = new System.Drawing.Point(25, 25);
             this.btnReverse.Name = "btnReverse";
-            this.btnReverse.Size = new System.Drawing.Size(75, 75);
+            this.btnReverse.Size = new System.Drawing.Size(50, 50);
             this.btnReverse.TabIndex = 4;
             this.btnReverse.UseVisualStyleBackColor = true;
             this.btnReverse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
@@ -324,9 +372,10 @@
             // 
             this.btnForward.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnForward.BackgroundImage")));
             this.btnForward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnForward.Location = new System.Drawing.Point(244, 35);
+            this.btnForward.Enabled = false;
+            this.btnForward.Location = new System.Drawing.Point(244, 25);
             this.btnForward.Name = "btnForward";
-            this.btnForward.Size = new System.Drawing.Size(75, 75);
+            this.btnForward.Size = new System.Drawing.Size(50, 50);
             this.btnForward.TabIndex = 4;
             this.btnForward.UseVisualStyleBackColor = true;
             this.btnForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
@@ -336,10 +385,11 @@
             // 
             this.tBManual.AutoSize = false;
             this.tBManual.BackColor = System.Drawing.SystemColors.Control;
-            this.tBManual.Location = new System.Drawing.Point(0, 192);
+            this.tBManual.Location = new System.Drawing.Point(0, 150);
+            this.tBManual.Margin = new System.Windows.Forms.Padding(0);
             this.tBManual.Maximum = 100;
             this.tBManual.Name = "tBManual";
-            this.tBManual.Size = new System.Drawing.Size(330, 20);
+            this.tBManual.Size = new System.Drawing.Size(330, 50);
             this.tBManual.TabIndex = 3;
             this.tBManual.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tBManual.Value = 50;
@@ -348,27 +398,28 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(36, 135);
+            this.label5.Location = new System.Drawing.Point(6, 75);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 19);
+            this.label5.Size = new System.Drawing.Size(131, 19);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Min";
+            this.label5.Text = "与零位偏移最小/°";
             // 
-            // label3
+            // Current
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(152, 55);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 19);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Step";
+            this.Current.AutoSize = true;
+            this.Current.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Current.Location = new System.Drawing.Point(143, 108);
+            this.Current.Name = "Current";
+            this.Current.Size = new System.Drawing.Size(32, 23);
+            this.Current.TabIndex = 0;
+            this.Current.Text = "00";
+            this.Current.Visible = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(143, 136);
+            this.label6.Location = new System.Drawing.Point(143, 75);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(55, 19);
             this.label6.TabIndex = 0;
@@ -376,7 +427,7 @@
             // 
             // tBMax
             // 
-            this.tBMax.Location = new System.Drawing.Point(264, 155);
+            this.tBMax.Location = new System.Drawing.Point(264, 100);
             this.tBMax.Name = "tBMax";
             this.tBMax.Size = new System.Drawing.Size(55, 31);
             this.tBMax.TabIndex = 2;
@@ -388,15 +439,15 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(273, 136);
+            this.label7.Location = new System.Drawing.Point(199, 75);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(37, 19);
+            this.label7.Size = new System.Drawing.Size(131, 19);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Max";
+            this.label7.Text = "与零位偏移最大/°";
             // 
             // tBMin
             // 
-            this.tBMin.Location = new System.Drawing.Point(25, 154);
+            this.tBMin.Location = new System.Drawing.Point(25, 100);
             this.tBMin.Name = "tBMin";
             this.tBMin.Size = new System.Drawing.Size(55, 31);
             this.tBMin.TabIndex = 2;
@@ -404,37 +455,38 @@
             this.tBMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBMin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMin_KeyDown);
             // 
-            // lLUnit
-            // 
-            this.lLUnit.AutoSize = true;
-            this.lLUnit.BackColor = System.Drawing.Color.White;
-            this.lLUnit.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lLUnit.Location = new System.Drawing.Point(177, 18);
-            this.lLUnit.Name = "lLUnit";
-            this.lLUnit.Size = new System.Drawing.Size(45, 21);
-            this.lLUnit.TabIndex = 0;
-            this.lLUnit.Text = "Unit:";
-            // 
             // pLName
             // 
             this.pLName.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Controls.Add(this.label2);
             this.pLName.Controls.Add(this.pBExit);
-            this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Location = new System.Drawing.Point(0, 0);
+            this.pLName.Margin = new System.Windows.Forms.Padding(0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(590, 52);
+            this.pLName.Size = new System.Drawing.Size(400, 50);
             this.pLName.TabIndex = 5;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
             this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
             this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
             // 
+            // pBSetUp
+            // 
+            this.pBSetUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBSetUp.BackgroundImage")));
+            this.pBSetUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBSetUp.Location = new System.Drawing.Point(0, 0);
+            this.pBSetUp.Margin = new System.Windows.Forms.Padding(0);
+            this.pBSetUp.Name = "pBSetUp";
+            this.pBSetUp.Size = new System.Drawing.Size(50, 50);
+            this.pBSetUp.TabIndex = 0;
+            this.pBSetUp.TabStop = false;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(233, 9);
+            this.label2.Location = new System.Drawing.Point(147, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 33);
             this.label2.TabIndex = 1;
@@ -445,22 +497,13 @@
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(538, 0);
+            this.pBExit.Location = new System.Drawing.Point(350, 0);
+            this.pBExit.Margin = new System.Windows.Forms.Padding(0);
             this.pBExit.Name = "pBExit";
-            this.pBExit.Size = new System.Drawing.Size(52, 52);
+            this.pBExit.Size = new System.Drawing.Size(50, 50);
             this.pBExit.TabIndex = 0;
             this.pBExit.TabStop = false;
             this.pBExit.Click += new System.EventHandler(this.pBExit_Click);
-            // 
-            // pBSetUp
-            // 
-            this.pBSetUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBSetUp.BackgroundImage")));
-            this.pBSetUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pBSetUp.Location = new System.Drawing.Point(0, 0);
-            this.pBSetUp.Name = "pBSetUp";
-            this.pBSetUp.Size = new System.Drawing.Size(52, 52);
-            this.pBSetUp.TabIndex = 0;
-            this.pBSetUp.TabStop = false;
             // 
             // tMManualControl
             // 
@@ -470,10 +513,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 610);
+            this.ClientSize = new System.Drawing.Size(400, 760);
             this.Controls.Add(this.pLName);
-            this.Controls.Add(this.pLEnable);
             this.Controls.Add(this.btnEnable);
+            this.Controls.Add(this.pLEnable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -497,8 +540,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tBManual)).EndInit();
             this.pLName.ResumeLayout(false);
             this.pLName.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -519,7 +562,6 @@
         private System.Windows.Forms.TextBox tBMin;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tBMax;
-        private System.Windows.Forms.TextBox tBCur;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox gBManually;
@@ -535,8 +577,11 @@
         private System.Windows.Forms.Button btnForward;
         private System.Windows.Forms.TextBox tBStep;
         private System.Windows.Forms.Button btnReverse;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label Current;
         private System.Windows.Forms.Label lLUnit;
         private System.Windows.Forms.Timer tMManualControl;
+        private System.Windows.Forms.Button btnEnManCtrl;
+        private System.Windows.Forms.Button btnTrackBarCenter;
+        private System.Windows.Forms.Button btnReturnToZero;
     }
 }

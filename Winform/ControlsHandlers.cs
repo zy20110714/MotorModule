@@ -786,7 +786,7 @@ namespace ICDIBasic
             tr = TestRun.GetInstance();
             tr.MdiParent = this;
             tr.Parent = pLMain;
-            tr.Location = new Point(410, 0);
+            tr.Location = new Point(900, 0);
             tr.BringToFront();
             tr.Show();
         }

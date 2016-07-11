@@ -234,8 +234,7 @@ namespace ICDIBasic
         {
             if (Convert.ToInt32(pBMode.Tag) == 1)
             {
-                MamuallyControl();
-                tMManualControl.Start();
+                MamuallyControl();                
             }
             else
             {
@@ -463,7 +462,7 @@ namespace ICDIBasic
                 case 3: mData = value * 60.0 / 65536; break;
                 case 4: mData = value * 60.0 / 65536; break;
             }
-            tBCur.Text = value.ToString(); tBManual.Value = Convert.ToInt32(mData);
+            Current.Text = value.ToString(); tBManual.Value = Convert.ToInt32(mData);
         }
 
         private void tBStep_TextChanged(object sender, EventArgs e)
@@ -480,6 +479,7 @@ namespace ICDIBasic
             }
         }
 
+        //按enter输入偏移零位的最小度数，同时进行输入检查
         private void tBMin_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -497,6 +497,7 @@ namespace ICDIBasic
             }
         }
 
+        //按enter输入偏移零位的最大度数，同时进行输入检查
         private void tBMax_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -514,13 +515,53 @@ namespace ICDIBasic
             }
         }
 
+        //在定时器中控制模块
         private void tMManualControl_Tick(object sender, EventArgs e)
         {
             //根据设置的Min和Max，以及滑块位置，获得当前角度值
             manualCur = manualMin + (manualMax - manualMin) * tBManual.Value / 100;
-            tBCur.Text = manualCur.ToString();
+            Current.Text = manualCur.ToString();
             manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
             pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
+        }
+
+        //手动控制启停按钮，控制定时器启停
+        private void btnEnManCtrl_Click(object sender, EventArgs e)
+        {
+            if (tMManualControl.Enabled)
+            {
+                Current.Visible = false;
+                tMManualControl.Stop();
+                btnEnManCtrl.Text = "开始";
+            }
+            else
+            {
+                Current.Visible = true;
+                tMManualControl.Start();
+                btnEnManCtrl.Text = "停止";
+            }
+        }
+
+        //滑块回中按钮
+        private void btnTrackBarCenter_Click(object sender, EventArgs e)
+        {
+            tBManual.Value = (tBManual.Maximum + tBManual.Minimum) / 2;
+        }
+
+        //按住按钮加速回零
+        private void btnReturnToZero_MouseDown(object sender, MouseEventArgs e)
+        {
+            //读当前工作模式CworkModeWORK_MODE，切换工作模式为速度控制
+            //初始化控制速度，开启定时器（定时器中读当前位置，控制模块运动）
+
+        }
+
+        //释放按钮回零控制结束
+        private void btnReturnToZero_MouseUp(object sender, MouseEventArgs e)
+        {
+            //关闭定时器
+            //切换回之前的工作模式
+
         }
     }
 }
