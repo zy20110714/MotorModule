@@ -89,6 +89,9 @@ namespace ICDIBasic
             //pLEnable.Enabled = false;
             pLEnable.Enabled = true;//测试用
             MamuallyControl();//测试用
+
+            //根据cBS的值确定
+            //if ()
         }
 
         private void cBWaveform_SelectedIndexChanged(object sender, EventArgs e)
@@ -493,6 +496,7 @@ namespace ICDIBasic
             }
         }
 
+        #region 输入tBMin
         //输入tBMin完毕后调用
         private void tBMin_InputDone()
         {
@@ -522,7 +526,9 @@ namespace ICDIBasic
         {
             tBMin_InputDone();
         }
+        #endregion
 
+        #region 输入tBMax
         //输入tBMax完毕后调用
         private void tBMax_InputDone()
         {
@@ -552,6 +558,7 @@ namespace ICDIBasic
         {
             tBMax_InputDone();
         }
+        #endregion
 
         //在定时器中控制模块
         private void tMManualControl_Tick(object sender, EventArgs e)

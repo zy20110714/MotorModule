@@ -68,6 +68,7 @@
             this.tMReturnToZero = new System.Windows.Forms.Timer(this.components);
             this.tMRandomMotion = new System.Windows.Forms.Timer(this.components);
             this.btnRandomMotion = new System.Windows.Forms.Button();
+            this.cBSymmetry = new System.Windows.Forms.CheckBox();
             this.gBWaveFormProperty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -521,7 +522,7 @@
             // 
             // tMRandomMotion
             // 
-            this.tMRandomMotion.Interval = 5000;
+            this.tMRandomMotion.Interval = 2000;
             this.tMRandomMotion.Tick += new System.EventHandler(this.tMRandomMotion_Tick);
             // 
             // btnRandomMotion
@@ -536,6 +537,19 @@
             this.btnRandomMotion.UseVisualStyleBackColor = true;
             this.btnRandomMotion.Click += new System.EventHandler(this.btnRandomMotion_Click);
             // 
+            // cBSymmetry
+            // 
+            this.cBSymmetry.AutoSize = true;
+            this.cBSymmetry.Checked = true;
+            this.cBSymmetry.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cBSymmetry.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBSymmetry.Location = new System.Drawing.Point(402, 550);
+            this.cBSymmetry.Name = "cBSymmetry";
+            this.cBSymmetry.Size = new System.Drawing.Size(155, 25);
+            this.cBSymmetry.TabIndex = 8;
+            this.cBSymmetry.Text = "零位偏移对称";
+            this.cBSymmetry.UseVisualStyleBackColor = true;
+            // 
             // TestRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -545,6 +559,7 @@
             this.Controls.Add(this.btnEnable);
             this.Controls.Add(this.pLEnable);
             this.Controls.Add(this.btnRandomMotion);
+            this.Controls.Add(this.cBSymmetry);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -571,6 +586,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -614,5 +630,6 @@
         private System.Windows.Forms.Timer tMReturnToZero;
         private System.Windows.Forms.Timer tMRandomMotion;
         private System.Windows.Forms.Button btnRandomMotion;
+        private System.Windows.Forms.CheckBox cBSymmetry;
     }
 }
