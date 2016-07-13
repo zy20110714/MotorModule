@@ -48,7 +48,6 @@
             this.pBMode = new System.Windows.Forms.PictureBox();
             this.gBManually = new System.Windows.Forms.GroupBox();
             this.btnTrackBarCenter = new System.Windows.Forms.Button();
-            this.btnReturnToZero = new System.Windows.Forms.Button();
             this.btnEnManCtrl = new System.Windows.Forms.Button();
             this.tBStep = new System.Windows.Forms.TextBox();
             this.btnReverse = new System.Windows.Forms.Button();
@@ -60,11 +59,15 @@
             this.tBMax = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tBMin = new System.Windows.Forms.TextBox();
+            this.btnReturnToZero = new System.Windows.Forms.Button();
             this.pLName = new System.Windows.Forms.Panel();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.tMManualControl = new System.Windows.Forms.Timer(this.components);
+            this.tMReturnToZero = new System.Windows.Forms.Timer(this.components);
+            this.tMRandomMotion = new System.Windows.Forms.Timer(this.components);
+            this.btnRandomMotion = new System.Windows.Forms.Button();
             this.gBWaveFormProperty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -314,23 +317,10 @@
             this.btnTrackBarCenter.Margin = new System.Windows.Forms.Padding(0);
             this.btnTrackBarCenter.Name = "btnTrackBarCenter";
             this.btnTrackBarCenter.Size = new System.Drawing.Size(330, 50);
-            this.btnTrackBarCenter.TabIndex = 6;
+            this.btnTrackBarCenter.TabIndex = 5;
             this.btnTrackBarCenter.Text = "滑块回中";
             this.btnTrackBarCenter.UseVisualStyleBackColor = true;
             this.btnTrackBarCenter.Click += new System.EventHandler(this.btnTrackBarCenter_Click);
-            // 
-            // btnReturnToZero
-            // 
-            this.btnReturnToZero.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnReturnToZero.Location = new System.Drawing.Point(0, 300);
-            this.btnReturnToZero.Margin = new System.Windows.Forms.Padding(0);
-            this.btnReturnToZero.Name = "btnReturnToZero";
-            this.btnReturnToZero.Size = new System.Drawing.Size(330, 50);
-            this.btnReturnToZero.TabIndex = 7;
-            this.btnReturnToZero.Text = "按住回零";
-            this.btnReturnToZero.UseVisualStyleBackColor = true;
-            this.btnReturnToZero.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseDown);
-            this.btnReturnToZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseUp);
             // 
             // btnEnManCtrl
             // 
@@ -339,7 +329,7 @@
             this.btnEnManCtrl.Margin = new System.Windows.Forms.Padding(0);
             this.btnEnManCtrl.Name = "btnEnManCtrl";
             this.btnEnManCtrl.Size = new System.Drawing.Size(330, 50);
-            this.btnEnManCtrl.TabIndex = 6;
+            this.btnEnManCtrl.TabIndex = 4;
             this.btnEnManCtrl.Text = "开始";
             this.btnEnManCtrl.UseVisualStyleBackColor = true;
             this.btnEnManCtrl.Click += new System.EventHandler(this.btnEnManCtrl_Click);
@@ -350,7 +340,7 @@
             this.tBStep.Location = new System.Drawing.Point(143, 37);
             this.tBStep.Name = "tBStep";
             this.tBStep.Size = new System.Drawing.Size(55, 31);
-            this.tBStep.TabIndex = 5;
+            this.tBStep.TabIndex = 0;
             this.tBStep.Text = "0";
             this.tBStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBStep.TextChanged += new System.EventHandler(this.tBStep_TextChanged);
@@ -363,7 +353,7 @@
             this.btnReverse.Location = new System.Drawing.Point(25, 25);
             this.btnReverse.Name = "btnReverse";
             this.btnReverse.Size = new System.Drawing.Size(50, 50);
-            this.btnReverse.TabIndex = 4;
+            this.btnReverse.TabIndex = 0;
             this.btnReverse.UseVisualStyleBackColor = true;
             this.btnReverse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
             this.btnReverse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
@@ -376,7 +366,7 @@
             this.btnForward.Location = new System.Drawing.Point(244, 25);
             this.btnForward.Name = "btnForward";
             this.btnForward.Size = new System.Drawing.Size(50, 50);
-            this.btnForward.TabIndex = 4;
+            this.btnForward.TabIndex = 0;
             this.btnForward.UseVisualStyleBackColor = true;
             this.btnForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
             this.btnForward.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
@@ -434,6 +424,7 @@
             this.tBMax.Text = "0";
             this.tBMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMax_KeyDown);
+            this.tBMax.Leave += new System.EventHandler(this.tBMax_Leave);
             // 
             // label7
             // 
@@ -450,10 +441,24 @@
             this.tBMin.Location = new System.Drawing.Point(25, 100);
             this.tBMin.Name = "tBMin";
             this.tBMin.Size = new System.Drawing.Size(55, 31);
-            this.tBMin.TabIndex = 2;
+            this.tBMin.TabIndex = 1;
             this.tBMin.Text = "0";
             this.tBMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBMin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMin_KeyDown);
+            this.tBMin.Leave += new System.EventHandler(this.tBMin_Leave);
+            // 
+            // btnReturnToZero
+            // 
+            this.btnReturnToZero.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnReturnToZero.Location = new System.Drawing.Point(0, 300);
+            this.btnReturnToZero.Margin = new System.Windows.Forms.Padding(0);
+            this.btnReturnToZero.Name = "btnReturnToZero";
+            this.btnReturnToZero.Size = new System.Drawing.Size(330, 50);
+            this.btnReturnToZero.TabIndex = 6;
+            this.btnReturnToZero.Text = "按住回零";
+            this.btnReturnToZero.UseVisualStyleBackColor = true;
+            this.btnReturnToZero.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseDown);
+            this.btnReturnToZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseUp);
             // 
             // pLName
             // 
@@ -489,7 +494,7 @@
             this.label2.Location = new System.Drawing.Point(147, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 33);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 0;
             this.label2.Text = "试运行";
             // 
             // pBExit
@@ -509,14 +514,37 @@
             // 
             this.tMManualControl.Tick += new System.EventHandler(this.tMManualControl_Tick);
             // 
+            // tMReturnToZero
+            // 
+            this.tMReturnToZero.Interval = 500;
+            this.tMReturnToZero.Tick += new System.EventHandler(this.tMReturnToZero_Tick);
+            // 
+            // tMRandomMotion
+            // 
+            this.tMRandomMotion.Interval = 5000;
+            this.tMRandomMotion.Tick += new System.EventHandler(this.tMRandomMotion_Tick);
+            // 
+            // btnRandomMotion
+            // 
+            this.btnRandomMotion.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnRandomMotion.Location = new System.Drawing.Point(402, 600);
+            this.btnRandomMotion.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRandomMotion.Name = "btnRandomMotion";
+            this.btnRandomMotion.Size = new System.Drawing.Size(330, 50);
+            this.btnRandomMotion.TabIndex = 7;
+            this.btnRandomMotion.Text = "开始随机";
+            this.btnRandomMotion.UseVisualStyleBackColor = true;
+            this.btnRandomMotion.Click += new System.EventHandler(this.btnRandomMotion_Click);
+            // 
             // TestRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 760);
+            this.ClientSize = new System.Drawing.Size(800, 760);
             this.Controls.Add(this.pLName);
             this.Controls.Add(this.btnEnable);
             this.Controls.Add(this.pLEnable);
+            this.Controls.Add(this.btnRandomMotion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -583,5 +611,8 @@
         private System.Windows.Forms.Button btnEnManCtrl;
         private System.Windows.Forms.Button btnTrackBarCenter;
         private System.Windows.Forms.Button btnReturnToZero;
+        private System.Windows.Forms.Timer tMReturnToZero;
+        private System.Windows.Forms.Timer tMRandomMotion;
+        private System.Windows.Forms.Button btnRandomMotion;
     }
 }

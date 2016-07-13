@@ -22,12 +22,23 @@ namespace ICDIBasic
         public static float m_fBias = 0.0f;
         public static float StepLength = 0.1f;
 
+        //手动控制使用
         public static float manualMin = 0.0f;
         public static float manualMax = 0.0f;
         public static float manualCur = 0.0f;
         public static float manualMinTemp = 0.0f;
         public static float manualMaxTemp = 0.0f;
         int manualValue = 0;
+
+        //手动控制中回零功能使用
+        public short CurrentWorkMode = 0;
+        public int speedOfReturnZero = 0;
+        public int currentPosition = 0;
+        const short deadZone = 20;
+
+        //时间毫秒数，取得随机数
+        Random rad = new Random(DateTime.Now.Millisecond);
+
 
 
         float m_fFrequency2 = 0.5f;
@@ -75,7 +86,9 @@ namespace ICDIBasic
 
             InitialAutomaticControl();
 
-            pLEnable.Enabled = false;
+            //pLEnable.Enabled = false;
+            pLEnable.Enabled = true;//测试用
+            MamuallyControl();//测试用
         }
 
         private void cBWaveform_SelectedIndexChanged(object sender, EventArgs e)
@@ -234,7 +247,7 @@ namespace ICDIBasic
         {
             if (Convert.ToInt32(pBMode.Tag) == 1)
             {
-                MamuallyControl();                
+                MamuallyControl();
             }
             else
             {
@@ -304,13 +317,14 @@ namespace ICDIBasic
             gBManually.BackColor = Color.SlateGray;
             gBWaveFormProperty.BackColor = Color.White;
 
-            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);       //向下位机请求数据
+            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);//向下位机请求数据
         }
 
         private void pBExit_Click(object sender, EventArgs e)
         {
             //将运动控制变量清零
             EnableRun = false;
+
             clearValue();
 
             btnEnable.Text = "使能开启";
@@ -479,21 +493,48 @@ namespace ICDIBasic
             }
         }
 
+        //输入tBMin完毕后调用
+        private void tBMin_InputDone()
+        {
+            try
+            {
+                manualMin = Convert.ToSingle(tBMin.Text);
+            }
+            catch (System.Exception ex)
+            {
+                tBMin.Text = "0";
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
+        }
+
         //按enter输入偏移零位的最小度数，同时进行输入检查
         private void tBMin_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                try
-                {
-                    manualMin = Convert.ToSingle(tBMin.Text);
-                }
-                catch (System.Exception ex)
-                {
-                    tBMin.Text = "0";
-                    MessageBox.Show("请输入合法的数值！");
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                }
+                tBMin_InputDone();
+            }
+        }
+
+        //没有按enter确认的情况，也可以修改
+        private void tBMin_Leave(object sender, EventArgs e)
+        {
+            tBMin_InputDone();
+        }
+
+        //输入tBMax完毕后调用
+        private void tBMax_InputDone()
+        {
+            try
+            {
+                manualMax = Convert.ToSingle(tBMax.Text);
+            }
+            catch (System.Exception ex)
+            {
+                tBMax.Text = "0";
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
         }
 
@@ -502,17 +543,14 @@ namespace ICDIBasic
         {
             if (e.KeyCode == Keys.Enter)
             {
-                try
-                {
-                    manualMax = Convert.ToSingle(tBMax.Text);
-                }
-                catch (System.Exception ex)
-                {
-                    tBMax.Text = "0";
-                    MessageBox.Show("请输入合法的数值！");
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                }
+                tBMax_InputDone();
             }
+        }
+
+        //没有按enter确认的情况，也可以修改
+        private void tBMax_Leave(object sender, EventArgs e)
+        {
+            tBMax_InputDone();
         }
 
         //在定时器中控制模块
@@ -551,17 +589,98 @@ namespace ICDIBasic
         //按住按钮加速回零
         private void btnReturnToZero_MouseDown(object sender, MouseEventArgs e)
         {
-            //读当前工作模式CworkModeWORK_MODE，切换工作模式为速度控制
+            //读当前工作模式CurrentWorkMode，切换工作模式为速度控制
+            CurrentWorkMode = Configuration.MemoryControlTable[Convert.ToByte("30", 16)];
+            pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID);
             //初始化控制速度，开启定时器（定时器中读当前位置，控制模块运动）
-
+            speedOfReturnZero = 0;
+            tMReturnToZero.Enabled = true;
         }
 
         //释放按钮回零控制结束
         private void btnReturnToZero_MouseUp(object sender, MouseEventArgs e)
         {
             //关闭定时器
-            //切换回之前的工作模式
+            tMReturnToZero.Enabled = false;
+            //速度回0，切换回之前的工作模式
+            speedOfReturnZero = 0;
+            pc.WriteOneWord(Configuration.TAG_SPEED_H, Convert.ToSByte(speedOfReturnZero), PCan.currentID);
+            pc.WriteOneWord(Configuration.TAG_WORK_MODE, CurrentWorkMode, PCan.currentID);
 
+            //MessageBox.Show(speedOfReturnZero.ToString()+"以及"+ currentPosition);//测试用
+        }
+
+        //回零定时器
+        private void tMReturnToZero_Tick(object sender, EventArgs e)
+        {
+            ////预备用位置环控制使用
+            //////manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
+            //////pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
+
+            ////根据当前位置确定速度值（正负？大小？）
+            //byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
+            //byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
+            //byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
+            //currentPosition = BitConverter.ToInt32(tempResult, 0);
+            ////currentPosition = 2000;
+            //MessageBox.Show(currentPosition.ToString()+"以及"+ speedOfReturnZero.ToString());//测试用
+            //if ((currentPosition + deadZone) < 0)
+            //{
+            //    //如果当前位置为负，则需要正转
+            //    speedOfReturnZero += 1;
+            //}
+            //else if ((currentPosition - deadZone) > 0)
+            //{
+            //    //否则当前位置为正，需要反转
+            //    speedOfReturnZero -= 1;
+            //}
+            //else
+            //{
+            //    speedOfReturnZero = 0;
+            //}
+            ////校对控制速度，读到的速度限制为rpm，转换成rps，要求不大于速度限制的一半
+            //if (Math.Abs(speedOfReturnZero) > Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED]/60/2)
+            //{
+            //    if (speedOfReturnZero > 0)
+            //    {
+            //        speedOfReturnZero = Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED] / 60 / 2;
+            //    }
+            //    else
+            //    {
+            //        speedOfReturnZero = -Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED] / 60 / 2;
+            //    }
+            //}
+            ////发控制速度的指令
+            //pc.WriteOneWord(Configuration.TAG_SPEED_H, Convert.ToSByte(speedOfReturnZero), PCan.currentID);
+            ////发读当前位置的指令
+            //pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
+        }
+
+        //随机运动启停按钮，控制定时器启停
+        private void btnRandomMotion_Click(object sender, EventArgs e)
+        {
+            if (tMRandomMotion.Enabled)
+            {
+                Current.Visible = false;
+                tMRandomMotion.Stop();
+                btnRandomMotion.Text = "开始随机";
+            }
+            else
+            {
+                Current.Visible = true;
+                tMRandomMotion.Start();
+                btnRandomMotion.Text = "停止随机";
+            }
+        }
+
+        //随机运动控制用定时器（每2秒给一个位置值）
+        private void tMRandomMotion_Tick(object sender, EventArgs e)
+        {
+            //根据设置的Min和Max，让滑块位置随机，获得当前角度值
+            manualCur = manualMin + (manualMax - manualMin) * rad.Next(101) / 100;
+            Current.Text = manualCur.ToString();
+            manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
+            pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
         }
     }
 }
