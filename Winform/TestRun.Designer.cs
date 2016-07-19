@@ -33,15 +33,15 @@
             this.cBWaveForm = new System.Windows.Forms.ComboBox();
             this.cBControlMode = new System.Windows.Forms.ComboBox();
             this.gBWaveFormProperty = new System.Windows.Forms.GroupBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pBWaveForm = new System.Windows.Forms.PictureBox();
-            this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnConfirm = new System.Windows.Forms.Button();
-            this.tBBias = new System.Windows.Forms.TextBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tBAmplitude = new System.Windows.Forms.TextBox();
             this.tBFrequency = new System.Windows.Forms.TextBox();
+            this.tBBias = new System.Windows.Forms.TextBox();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnClearAll = new System.Windows.Forms.Button();
             this.btnEnable = new System.Windows.Forms.Button();
             this.pLEnable = new System.Windows.Forms.Panel();
             this.lLUnit = new System.Windows.Forms.Label();
@@ -66,14 +66,13 @@
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.tMManualControl = new System.Windows.Forms.Timer(this.components);
             this.tMReturnToZero = new System.Windows.Forms.Timer(this.components);
-            this.tMRandomMotion = new System.Windows.Forms.Timer(this.components);
             this.btnRandomMotion = new System.Windows.Forms.Button();
             this.cBSymmetry = new System.Windows.Forms.CheckBox();
             this.gBWaveFormProperty.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pLEnable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBMode)).BeginInit();
             this.gBManually.SuspendLayout();
@@ -120,16 +119,16 @@
             // gBWaveFormProperty
             // 
             this.gBWaveFormProperty.BackColor = System.Drawing.Color.SlateGray;
-            this.gBWaveFormProperty.Controls.Add(this.pictureBox3);
-            this.gBWaveFormProperty.Controls.Add(this.pictureBox2);
-            this.gBWaveFormProperty.Controls.Add(this.pictureBox1);
             this.gBWaveFormProperty.Controls.Add(this.pBWaveForm);
-            this.gBWaveFormProperty.Controls.Add(this.btnClearAll);
-            this.gBWaveFormProperty.Controls.Add(this.btnConfirm);
-            this.gBWaveFormProperty.Controls.Add(this.tBBias);
+            this.gBWaveFormProperty.Controls.Add(this.pictureBox3);
+            this.gBWaveFormProperty.Controls.Add(this.pictureBox1);
+            this.gBWaveFormProperty.Controls.Add(this.pictureBox2);
+            this.gBWaveFormProperty.Controls.Add(this.cBWaveForm);
             this.gBWaveFormProperty.Controls.Add(this.tBAmplitude);
             this.gBWaveFormProperty.Controls.Add(this.tBFrequency);
-            this.gBWaveFormProperty.Controls.Add(this.cBWaveForm);
+            this.gBWaveFormProperty.Controls.Add(this.tBBias);
+            this.gBWaveFormProperty.Controls.Add(this.btnConfirm);
+            this.gBWaveFormProperty.Controls.Add(this.btnClearAll);
             this.gBWaveFormProperty.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.gBWaveFormProperty.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gBWaveFormProperty.Location = new System.Drawing.Point(10, 50);
@@ -138,36 +137,6 @@
             this.gBWaveFormProperty.TabIndex = 2;
             this.gBWaveFormProperty.TabStop = false;
             this.gBWaveFormProperty.Text = "波形发生器";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(185, 30);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 4;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(185, 113);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(17, 113);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
             // 
             // pBWaveForm
             // 
@@ -179,16 +148,68 @@
             this.pBWaveForm.TabIndex = 4;
             this.pBWaveForm.TabStop = false;
             // 
-            // btnClearAll
+            // pictureBox3
             // 
-            this.btnClearAll.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClearAll.BackgroundImage")));
-            this.btnClearAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnClearAll.Location = new System.Drawing.Point(193, 169);
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(50, 50);
-            this.btnClearAll.TabIndex = 3;
-            this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(185, 30);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(17, 113);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(185, 113);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            // 
+            // tBAmplitude
+            // 
+            this.tBAmplitude.Location = new System.Drawing.Point(226, 34);
+            this.tBAmplitude.Name = "tBAmplitude";
+            this.tBAmplitude.Size = new System.Drawing.Size(82, 31);
+            this.tBAmplitude.TabIndex = 2;
+            this.tBAmplitude.Text = "0";
+            this.tBAmplitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBAmplitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBAmplitude_KeyDown);
+            this.tBAmplitude.Leave += new System.EventHandler(this.tBAmplitude_Leave);
+            // 
+            // tBFrequency
+            // 
+            this.tBFrequency.Location = new System.Drawing.Point(60, 117);
+            this.tBFrequency.Name = "tBFrequency";
+            this.tBFrequency.Size = new System.Drawing.Size(82, 31);
+            this.tBFrequency.TabIndex = 1;
+            this.tBFrequency.Text = "0.5";
+            this.tBFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBFrequency.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBFrequency_KeyDown);
+            this.tBFrequency.Leave += new System.EventHandler(this.tBFrequency_Leave);
+            // 
+            // tBBias
+            // 
+            this.tBBias.Location = new System.Drawing.Point(226, 117);
+            this.tBBias.Name = "tBBias";
+            this.tBBias.Size = new System.Drawing.Size(82, 31);
+            this.tBBias.TabIndex = 2;
+            this.tBBias.Text = "0";
+            this.tBBias.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBBias.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBBias_KeyDown);
+            this.tBBias.Leave += new System.EventHandler(this.tBBias_Leave);
             // 
             // btnConfirm
             // 
@@ -201,38 +222,16 @@
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
-            // tBBias
+            // btnClearAll
             // 
-            this.tBBias.Location = new System.Drawing.Point(226, 117);
-            this.tBBias.Name = "tBBias";
-            this.tBBias.Size = new System.Drawing.Size(82, 31);
-            this.tBBias.TabIndex = 2;
-            this.tBBias.Text = "0";
-            this.tBBias.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBBias.TextChanged += new System.EventHandler(this.tBBias_TextChanged);
-            this.tBBias.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBBias_KeyDown);
-            // 
-            // tBAmplitude
-            // 
-            this.tBAmplitude.Location = new System.Drawing.Point(226, 34);
-            this.tBAmplitude.Name = "tBAmplitude";
-            this.tBAmplitude.Size = new System.Drawing.Size(82, 31);
-            this.tBAmplitude.TabIndex = 2;
-            this.tBAmplitude.Text = "0";
-            this.tBAmplitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBAmplitude.TextChanged += new System.EventHandler(this.tBAmplitude_TextChanged);
-            this.tBAmplitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBAmplitude_KeyDown);
-            // 
-            // tBFrequency
-            // 
-            this.tBFrequency.Location = new System.Drawing.Point(60, 117);
-            this.tBFrequency.Name = "tBFrequency";
-            this.tBFrequency.Size = new System.Drawing.Size(82, 31);
-            this.tBFrequency.TabIndex = 1;
-            this.tBFrequency.Text = "0.5";
-            this.tBFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBFrequency.TextChanged += new System.EventHandler(this.tBFrequency_TextChanged);
-            this.tBFrequency.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBFrequency_KeyDown);
+            this.btnClearAll.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClearAll.BackgroundImage")));
+            this.btnClearAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnClearAll.Location = new System.Drawing.Point(193, 169);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(50, 50);
+            this.btnClearAll.TabIndex = 3;
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // btnEnable
             // 
@@ -472,7 +471,6 @@
             this.pLName.Name = "pLName";
             this.pLName.Size = new System.Drawing.Size(400, 50);
             this.pLName.TabIndex = 5;
-            this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
             this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
             this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
@@ -520,11 +518,6 @@
             this.tMReturnToZero.Interval = 500;
             this.tMReturnToZero.Tick += new System.EventHandler(this.tMReturnToZero_Tick);
             // 
-            // tMRandomMotion
-            // 
-            this.tMRandomMotion.Interval = 2000;
-            this.tMRandomMotion.Tick += new System.EventHandler(this.tMRandomMotion_Tick);
-            // 
             // btnRandomMotion
             // 
             this.btnRandomMotion.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -549,6 +542,7 @@
             this.cBSymmetry.TabIndex = 8;
             this.cBSymmetry.Text = "零位偏移对称";
             this.cBSymmetry.UseVisualStyleBackColor = true;
+            this.cBSymmetry.CheckedChanged += new System.EventHandler(this.cBSymmetry_CheckedChanged);
             // 
             // TestRun
             // 
@@ -568,13 +562,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "TestRun";
             this.TopMost = true;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TestRun_FormClosed);
+            this.Click += new System.EventHandler(this.TestRun_Click);
             this.gBWaveFormProperty.ResumeLayout(false);
             this.gBWaveFormProperty.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.pLEnable.ResumeLayout(false);
             this.pLEnable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBMode)).EndInit();
@@ -628,7 +622,6 @@
         private System.Windows.Forms.Button btnTrackBarCenter;
         private System.Windows.Forms.Button btnReturnToZero;
         private System.Windows.Forms.Timer tMReturnToZero;
-        private System.Windows.Forms.Timer tMRandomMotion;
         private System.Windows.Forms.Button btnRandomMotion;
         private System.Windows.Forms.CheckBox cBSymmetry;
     }
