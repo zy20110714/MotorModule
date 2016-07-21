@@ -22,10 +22,6 @@ namespace ICDIBasic
         public static float m_fAmplitude = 0.0f;
         public static float m_fBias = 0.0f;
 
-        //手动控制使用，设置为变量使得在输入错误时能返回上一结果，设置为全局使得在定时器中可以调用
-        public static float manualMin = 0.0f;
-        public static float manualMax = 0.0f;
-
         //手动控制中回零功能使用
         public short CurrentWorkMode = 0;
         public int speedOfReturnZero = 0;
@@ -400,6 +396,11 @@ namespace ICDIBasic
 
         #endregion
 
+        #region 手动控制零位偏转
+        //手动控制使用，设置为变量使得在输入错误时能返回上一结果，设置为全局使得在定时器中可以调用
+        private float manualMin = 0.0f;
+        private float manualMax = 0.0f;
+
         #region 输入tBMin
         //输入tBMin完毕后调用
         private void tBMin_InputDone()
@@ -478,19 +479,30 @@ namespace ICDIBasic
         //手动控制启停按钮，控制定时器启停
         private void btnEnManCtrl_Click(object sender, EventArgs e)
         {
-            if (tMManualControl.Enabled)
+            if (Configuration.MemoryControlTable[Convert.ToByte("30", 16)] != Configuration.MODE_POSITION)
             {
-                Current.Visible = false;
-                tMManualControl.Stop();
-                btnEnManCtrl.Text = "开始";
-                btnRandomMotion.Enabled = true;//允许随机运动
+                MessageBox.Show("请在位置控制模式下使用！");
             }
             else
             {
-                Current.Visible = true;
-                tMManualControl.Start();
-                btnEnManCtrl.Text = "停止";
-                btnRandomMotion.Enabled = false;//禁止随机运动
+                if (tMManualControl.Enabled)
+                {
+                    Current.Visible = false;
+                    tMManualControl.Stop();
+                    btnEnManCtrl.Text = "开始";
+                    btnRandomMotion.Enabled = true;//允许随机运动
+                    cBControlMode.Enabled = true;//允许模式切换
+                    pBMode.Enabled = true;//允许模式切换
+                }
+                else
+                {
+                    Current.Visible = true;
+                    tMManualControl.Start();
+                    btnEnManCtrl.Text = "停止";
+                    btnRandomMotion.Enabled = false;//禁止随机运动
+                    cBControlMode.Enabled = false;//禁止模式切换
+                    pBMode.Enabled = false;//禁止模式切换
+                }
             }
         }
 
@@ -500,6 +512,106 @@ namespace ICDIBasic
             tBManual.Value = (tBManual.Maximum + tBManual.Minimum) / 2;
         }
 
+        //随机运动控制用线程（并不是精确地每2秒给一个位置值）
+        private delegate void FlushClient();
+        Thread thread = null;
+
+        private void ThreadRandomMotion()
+        {
+            while (true)
+            {
+                ThreadFunction();
+                Thread.Sleep(2000);
+            }
+        }
+
+        private void ThreadFunction()
+        {
+            if (Current.InvokeRequired)//等待异步
+            {
+                FlushClient fc = new FlushClient(ThreadFunction);
+                Invoke(fc); //通过代理调用刷新方法
+            }
+            else
+            {
+                //根据设置的Min和Max，让滑块位置随机，获得当前角度值
+                float manualCur = manualMin + (manualMax - manualMin) * rad.Next(101) / 100;
+                Current.Text = manualCur.ToString();
+                int manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
+                pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
+            }
+        }
+
+        //随机运动启停按钮，创建后台线程
+        private void btnRandomMotion_Click(object sender, EventArgs e)
+        {
+            if (Configuration.MemoryControlTable[Convert.ToByte("30", 16)] != Configuration.MODE_POSITION)
+            {
+                MessageBox.Show("请在位置控制模式下使用！");
+            }
+            else
+            {
+                //手动控制不在进行时，才能开始
+                if (thread == null)
+                {
+                    thread = new Thread(ThreadRandomMotion);
+                    thread.IsBackground = true;
+                    thread.Start();
+                    Current.Visible = true;
+                    btnRandomMotion.Text = "停止随机";
+                    btnEnManCtrl.Enabled = false;//禁止手动控制
+                    cBControlMode.Enabled = false;//禁止模式切换
+                    pBMode.Enabled = false;//禁止模式切换
+                }
+                else
+                {
+                    try
+                    {
+                        thread.Abort();
+                    }
+                    catch (Exception)
+                    {
+                        ;
+                    }
+                    thread = null;
+                    Current.Visible = false;
+                    btnRandomMotion.Text = "开始随机";
+                    btnEnManCtrl.Enabled = true;//允许手动控制
+                    cBControlMode.Enabled = true;//允许模式切换
+                    pBMode.Enabled = true;//允许模式切换
+                }
+            }
+        }
+
+        //根据cBSymmetry的值确定tBMin（偏移零位的最小度数）是否关闭使能并保持和tBMax一致
+        private void IscBSymmetryChecked()
+        {
+            if (cBSymmetry.Checked)
+            {
+                tBMin.Enabled = false;
+                //若tBMax的值为正，tBMin为负，否则tBMin和tBMax相等
+                if (Convert.ToSingle(tBMax.Text) > 0)
+                {
+                    tBMin.Text = (Convert.ToSingle(tBMax.Text) * -1).ToString();
+                    tBMin_InputDone();//只改变Text并没有实际上的控制效果
+                }
+                else
+                {
+                    tBMin.Text = tBMax.Text;
+                    tBMin_InputDone();//只改变Text并没有实际上的控制效果
+                }
+            }
+            else
+                tBMin.Enabled = true;
+        }
+
+        //改变勾选框时，直接调用
+        private void cBSymmetry_CheckedChanged(object sender, EventArgs e)
+        {
+            IscBSymmetryChecked();
+        }
+        #endregion
+        
         //按住按钮加速回零
         private void btnReturnToZero_MouseDown(object sender, MouseEventArgs e)
         {
@@ -568,94 +680,6 @@ namespace ICDIBasic
             //pc.WriteOneWord(Configuration.TAG_SPEED_H, Convert.ToSByte(speedOfReturnZero), PCan.currentID);
             ////发读当前位置的指令
             //pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
-        }
-
-        //随机运动控制用线程（并不是精确地每2秒给一个位置值）
-        private delegate void FlushClient();
-        Thread thread = null;
-
-        private void ThreadRandomMotion()
-        {
-            while (true)
-            {
-                ThreadFunction();
-                Thread.Sleep(2000);
-            }
-        }
-
-        private void ThreadFunction()
-        {
-            if (Current.InvokeRequired)//等待异步
-            {
-                FlushClient fc = new FlushClient(ThreadFunction);
-                Invoke(fc); //通过代理调用刷新方法
-            }
-            else
-            {
-                //根据设置的Min和Max，让滑块位置随机，获得当前角度值
-                float manualCur = manualMin + (manualMax - manualMin) * rad.Next(101) / 100;
-                Current.Text = manualCur.ToString();
-                int manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
-                pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
-            }
-        }
-        
-        //随机运动启停按钮，创建后台线程
-        private void btnRandomMotion_Click(object sender, EventArgs e)
-        {
-            //手动控制不在进行时，才能开始
-            if (thread == null)
-            {
-                thread = new Thread(ThreadRandomMotion);
-                thread.IsBackground = true;
-                thread.Start();
-                Current.Visible = true;
-                btnRandomMotion.Text = "停止随机";
-                btnEnManCtrl.Enabled = false;//禁止手动控制
-            }
-            else
-            {
-                try
-                {
-                    thread.Abort();
-                }
-                catch (Exception)
-                {
-                    ;
-                }
-                thread = null;
-                Current.Visible = false;
-                btnRandomMotion.Text = "开始随机";
-                btnEnManCtrl.Enabled = true;//允许手动控制
-            }
-        }
-
-        //根据cBSymmetry的值确定tBMin（偏移零位的最小度数）是否关闭使能并保持和tBMax一致
-        private void IscBSymmetryChecked()
-        {
-            if (cBSymmetry.Checked)
-            {
-                tBMin.Enabled = false;
-                //若tBMax的值为正，tBMin为负，否则tBMin和tBMax相等
-                if (Convert.ToSingle(tBMax.Text) > 0)
-                {
-                    tBMin.Text = (Convert.ToSingle(tBMax.Text) * -1).ToString();
-                    tBMin_InputDone();//只改变Text并没有实际上的控制效果
-                }
-                else
-                {
-                    tBMin.Text = tBMax.Text;
-                    tBMin_InputDone();//只改变Text并没有实际上的控制效果
-                }
-            }
-            else
-                tBMin.Enabled = true;
-        }
-
-        //改变勾选框时，直接调用
-        private void cBSymmetry_CheckedChanged(object sender, EventArgs e)
-        {
-            IscBSymmetryChecked();
         }
 
         #region 线程监视码盘寄存器错误
@@ -898,7 +922,7 @@ namespace ICDIBasic
         }
         #endregion
 
-        #region 在当前位置步进
+        #region 在当前位置运动
 
         #region 输入tBStep
         private float StepLength = 0.1f;
@@ -923,13 +947,43 @@ namespace ICDIBasic
             {
                 tBStep_InputDone();
             }
-
         }
 
         private void tBStep_Leave(object sender, EventArgs e)
         {
             tBStep_InputDone();
         }
+        #endregion
+
+        #region 输入tBControlInterval
+        private int controlInterval = 100;
+
+        private void tBControlInterval_InputDone()
+        {
+            try
+            {
+                controlInterval = Convert.ToInt32(tBControlInterval.Text);
+            }
+            catch (System.Exception ex)
+            {
+                tBControlInterval.Text = Convert.ToString(controlInterval);
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
+        }
+
+        private void tBControlInterval_Leave(object sender, EventArgs e)
+        {
+            tBControlInterval_InputDone();
+        }
+
+        private void tBControlInterval_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBControlInterval_InputDone();
+            }
+        }        
         #endregion
 
         Thread threadDirectMove = null;
@@ -962,15 +1016,18 @@ namespace ICDIBasic
 
         private void JogThread(object str)
         {
-            int AcTime = 10;
-            int count = 0;
+            float AcTime = 10;
+            float count = 0;
             bool DecExit = false;
             byte bt = Configuration.TAG_OPEN_PWM;
+
+            //m_iWaveChannel = MotionControl.WAVE_CONNECT_POS;//测试用
 
             switch (m_iWaveChannel)
             {
                 case MotionControl.WAVE_CONNECT_PWM:
                     pc.ReadWords(Configuration.TAG_OPEN_PWM, 1, PCan.currentID);
+                    bt = Configuration.TAG_OPEN_PWM;
                     break;
                 case MotionControl.WAVE_CONNECT_CUR:
                     bt = Configuration.TAG_CURRENT_L;
@@ -982,6 +1039,7 @@ namespace ICDIBasic
                     bt = Configuration.TAG_POSITION_L;
                     break;
             }
+            bt = Configuration.TAG_POSITION_L;//测试用
 
             int value = 0;
             int initialValue = 0;
@@ -997,7 +1055,8 @@ namespace ICDIBasic
                 initialValue = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
             }
 
-
+            value = initialValue;
+            //value = 0;//测试用
             while (!DecExit)
             {
                 if (!NormalExit)
@@ -1009,30 +1068,39 @@ namespace ICDIBasic
                 }
                 else
                 {
-                    if (count-- == 0)
+                    if (count-- <= 0)
                     {
-                        DecExit = true;
-                        continue;
+                        if (m_iWaveChannel != MotionControl.WAVE_CONNECT_SPD)
+                        {
+                            DecExit = true;
+                            continue;
+                        }
+                        else
+                        {
+                            ;
+                        }
                     }
                 }
                 //以固定频率控制运动 10ms
                 //threadDirectMove.Join(10);
+                Thread.Sleep(Convert.ToInt32(tBControlInterval.Text));
 
                 if (str.ToString() == "btnReverse")
                 {
-                    value = initialValue - Convert.ToInt32(count * StepLength / AcTime);
-                    if (value < initialValue - StepLength)
-                    {
-                        value = initialValue - Convert.ToInt32(StepLength);
-                    }
+                    value -= Convert.ToInt32(count * StepLength / AcTime);
+                    //if (value < initialValue - StepLength)
+                    //{
+                    //    value = initialValue - Convert.ToInt32(StepLength);
+                    //}
                 }
                 else
                 {
-                    value = initialValue + Convert.ToInt32(count * StepLength / AcTime);
-                    if (value > initialValue + StepLength)
-                    {
-                        value = initialValue + Convert.ToInt32(StepLength);
-                    }
+                    value += Convert.ToInt32(count * StepLength / AcTime);
+                    //value = initialValue + Convert.ToInt32(count * StepLength / AcTime);
+                    //if (value > initialValue + StepLength)
+                    //{
+                    //    value = initialValue + Convert.ToInt32(StepLength);
+                    //}
                 }
 
                 switch (m_iWaveChannel)
@@ -1055,7 +1123,7 @@ namespace ICDIBasic
                         break;
                 }
             }
-            threadDirectMove.Abort();
+            threadDirectMove = null;
         }
 
         private void showManuallyDta(int value, int type)
@@ -1072,7 +1140,7 @@ namespace ICDIBasic
                     lLOffset.Text = value.ToString();
                     break;
                 case MotionControl.WAVE_CONNECT_POS:
-                    lLOffset.Text = (value * 360.0 / 65536).ToString();
+                    lLOffset.Text = (value * 360.0 / 65536).ToString("F2");
                     break;
             }
         }
