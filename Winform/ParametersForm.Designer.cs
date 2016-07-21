@@ -74,6 +74,7 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnSetZeroPosition = new System.Windows.Forms.Button();
             this.pLName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
@@ -399,7 +400,7 @@
             // 
             this.pLExplain2.Controls.Add(this.tBExplain);
             this.pLExplain2.Controls.Add(this.pLExplain);
-            this.pLExplain2.Location = new System.Drawing.Point(205, 458);
+            this.pLExplain2.Location = new System.Drawing.Point(201, 611);
             this.pLExplain2.Name = "pLExplain2";
             this.pLExplain2.Size = new System.Drawing.Size(639, 150);
             this.pLExplain2.TabIndex = 6;
@@ -446,7 +447,7 @@
             this.lVParam.Location = new System.Drawing.Point(205, 115);
             this.lVParam.MultiSelect = false;
             this.lVParam.Name = "lVParam";
-            this.lVParam.Size = new System.Drawing.Size(639, 339);
+            this.lVParam.Size = new System.Drawing.Size(639, 490);
             this.lVParam.TabIndex = 3;
             this.lVParam.UseCompatibleStateImageBehavior = false;
             this.lVParam.View = System.Windows.Forms.View.Details;
@@ -489,11 +490,23 @@
             this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader6.Width = 69;
             // 
+            // btnSetZeroPosition
+            // 
+            this.btnSetZeroPosition.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetZeroPosition.Location = new System.Drawing.Point(40, 640);
+            this.btnSetZeroPosition.Name = "btnSetZeroPosition";
+            this.btnSetZeroPosition.Size = new System.Drawing.Size(130, 80);
+            this.btnSetZeroPosition.TabIndex = 8;
+            this.btnSetZeroPosition.Text = "当前位置\r\n设为零点";
+            this.btnSetZeroPosition.UseVisualStyleBackColor = true;
+            this.btnSetZeroPosition.Click += new System.EventHandler(this.btnSetZeroPosition_Click);
+            // 
             // ParametersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 610);
+            this.ClientSize = new System.Drawing.Size(845, 760);
+            this.Controls.Add(this.btnSetZeroPosition);
             this.Controls.Add(this.cBParametersSource);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pLExplain2);
@@ -561,5 +574,6 @@
         private System.Windows.Forms.Button btnInitialize;
         private System.Windows.Forms.OpenFileDialog oFParaPath;
         private System.Windows.Forms.SaveFileDialog saveFileDialogParaPath;
+        private System.Windows.Forms.Button btnSetZeroPosition;
     }
 }

@@ -85,6 +85,7 @@ namespace ICDIBasic
             paraRelection.Add(0x25, new ParameterStruct("MOT_HALL_VALUE", "0-100", "-", "R", "当前霍尔状态"));
             paraRelection.Add(0x26, new ParameterStruct("MOT_ST_DAT", "0-100", "-", "R", "绝对编码器单圈数据"));
             paraRelection.Add(0x27, new ParameterStruct("MOT_MT_DAT", "0-100", "-", "R", "绝对编码器多圈数据"));
+            paraRelection.Add(0x28, new ParameterStruct("MOT_ENC_STA", "0-100", "-", "R", "绝对编码器多圈状态"));
 
             paraRelection.Add(0x30, new ParameterStruct("TAG_WORK_MODE", "0-100", "3", "R/W", "工作模式：0-开环，1-电流模式，2-速度模式，3-位置模式"));
             paraRelection.Add(0x31, new ParameterStruct("TAG_OPEN_PWM", "0-100", "0", "R/W", "开环模式下占空比"));
@@ -521,6 +522,27 @@ namespace ICDIBasic
         }
         #endregion
 
+        private void btnSetZeroPosition_Click(object sender, EventArgs e)
+        {
+            //如果当前是位置控制模式，则向内存控制表SYS_SET_ZERO_POS写入1
+            if ("3" == Configuration.MemoryControlTable[Convert.ToByte("30", 16)].ToString())
+            {
+                try
+                {                    
+                    pc.WriteOneWord(Configuration.SYS_SET_ZERO_POS, 0x01, PCan.currentID);
+                    //Thread.Sleep(10);//不知是否必须
+                    MessageBox.Show("设置成功，请烧写Flash！");
+                }
+                catch
+                {
+                    MessageBox.Show("向内存控制表写入失败！");
+                }
+            }
+            else
+            {
+                MessageBox.Show("当前非位置控制模式！");
+            }
+        }
     }
 
 
