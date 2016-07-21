@@ -56,11 +56,12 @@ namespace ICDIBasic
 
         private void InitialControls()
         {
-            //pLEnable.Enabled = false;//试运行控制使能关闭
+            pLEnable.Enabled = false;//试运行控制使能关闭
             //AutomaticControl();//默认使用自动控制
+            MamuallyControl();//默认使用手动控制
 
-            pLEnable.Enabled = true;//测试用
-            MamuallyControl();//测试用
+            //pLEnable.Enabled = true;//测试用
+            //MamuallyControl();//测试用
 
             IscBSymmetryChecked();//根据cBSymmetry的值确定tBMin
         }
@@ -135,7 +136,7 @@ namespace ICDIBasic
             gBManually.Enabled = false;
             gBWaveFormProperty.Enabled = true;
             gBManually.BackColor = Color.White;
-            gBWaveFormProperty.BackColor = Color.SlateGray;//关闭手动开自动
+            gBWaveFormProperty.BackColor = Color.LightSteelBlue;//关闭手动开自动
             setAutomaticInitalValue();
         }
 
@@ -161,7 +162,7 @@ namespace ICDIBasic
             pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\M.jpg");
             gBManually.Enabled = true;
             gBWaveFormProperty.Enabled = false;
-            gBManually.BackColor = Color.SlateGray;
+            gBManually.BackColor = Color.LightSteelBlue;
             gBWaveFormProperty.BackColor = Color.White;//关闭自动开手动
 
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);//向下位机请求数据
@@ -599,7 +600,7 @@ namespace ICDIBasic
             }
         }
         
-        //随机运动启停按钮，控制定时器启停
+        //随机运动启停按钮，创建后台线程
         private void btnRandomMotion_Click(object sender, EventArgs e)
         {
             //手动控制不在进行时，才能开始
@@ -657,143 +658,425 @@ namespace ICDIBasic
             IscBSymmetryChecked();
         }
 
-        //Thread threadDirectMove;
-        //public static float StepLength = 0.1f;
+        #region 线程监视码盘寄存器错误
+        #region 输入tBRegisterNumber
+        private byte registerNumber = 0x76;
+        private void tBRegisterNumber_InputDone()
+        {
+            try
+            {
+                registerNumber = Convert.ToByte(tBRegisterNumber.Text, 16);
+            }
+            catch (System.Exception ex)
+            {
+                tBRegisterNumber.Text = Convert.ToString(registerNumber, 16);
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
+        }
+
+        private void tBRegisterNumber_Leave(object sender, EventArgs e)
+        {
+            tBRegisterNumber_InputDone();
+        }
+
+        private void tBRegisterNumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBRegisterNumber_InputDone();
+            }
+        }
+        #endregion
+
+        #region 输入tBRegisterNumber2
+        private byte registerNumber2 = 0x77;
+        private void tBRegisterNumber2_InputDone()
+        {
+            try
+            {
+                registerNumber2 = Convert.ToByte(tBRegisterNumber2.Text, 16);
+            }
+            catch (System.Exception ex)
+            {
+                tBRegisterNumber2.Text = Convert.ToString(registerNumber2, 16);
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
+        }
+
+        private void tBRegisterNumber2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBRegisterNumber2_InputDone();
+            }
+        }
+
+        private void tBRegisterNumber2_Leave(object sender, EventArgs e)
+        {
+            tBRegisterNumber2_InputDone();
+        }
+        #endregion
+
+        #region 输入tBInterval
+        private int interval = 1000;
+
+        private void tBInterval_InputDone()
+        {
+            try
+            {
+                interval = Convert.ToInt32(tBInterval.Text);
+            }
+            catch (System.Exception ex)
+            {
+                tBInterval.Text = Convert.ToString(interval);
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
+        }
+
+        private void tBInterval_Leave(object sender, EventArgs e)
+        {
+            tBInterval_InputDone();
+        }
+
+        private void tBInterval_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBInterval_InputDone();
+            }
+        }
+        #endregion
+
+        //监视错误用线程（并不是精确地每1000 ms）
+        private void ThreadMonitorError()
+        {
+            while (IsMonitorError1 || IsMonitorError2)
+            {
+                if (IsMonitorError1)
+                {
+                    pc.WriteOneWord(0x08, registerNumber, PCan.currentID);
+                    Thread.Sleep(10);
+                    pc.ReadOneWord(0x0d, PCan.currentID);
+                    Thread.Sleep(10);
+                    MonitorError();
+                    Thread.Sleep(interval);
+                }
+                if (IsMonitorError2)
+                {
+                    pc.WriteOneWord(0x08, registerNumber2, PCan.currentID);
+                    Thread.Sleep(10);
+                    pc.ReadOneWord(0x0d, PCan.currentID);
+                    Thread.Sleep(10);
+                    //关闭窗口之后报错：
+                    //“System.InvalidOperationException”类型的未经处理的异常在 System.Windows.Forms.dll 中发生
+                    //其他信息: 在创建窗口句柄之前，不能在控件上调用 Invoke 或 BeginInvoke。
+                    //Invoke((EventHandler)(delegate
+                    //{
+                    //    if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber2)
+                    //    {
+                    //        Monitor77.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
+                    //    }
+                    //    else
+                    //    {
+                    //        Monitor77.Text = "未及时更新";
+                    //    }
+                    //}));
+                    MonitorError2();
+                    Thread.Sleep(interval);
+                }
+            }
+            threadMonitorError = null;
+        }
+
+        private void MonitorError()
+        {
+            if (Current.InvokeRequired)//等待异步
+            {
+                FlushClient ME = new FlushClient(MonitorError);
+                Invoke(ME); //通过代理调用刷新方法
+            }
+            else
+            {
+                if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber)
+                {
+                    Monitor76.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
+                }
+                //else if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber2)
+                //{
+                //    Monitor77.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
+                //}
+                else
+                {
+                    Monitor76.Text = "未及时更新";
+                    //Monitor77.Text = "未及时更新";
+                }
+            }
+        }
+
+        private void MonitorError2()
+        {
+            if (Current.InvokeRequired)//等待异步
+            {
+                FlushClient ME = new FlushClient(MonitorError2);
+                Invoke(ME); //通过代理调用刷新方法
+            }
+            else
+            {
+                if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber2)
+                {
+                    Monitor77.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
+                }
+                else
+                {
+                    Monitor77.Text = "未及时更新";
+                }
+            }
+        }
+
+        //监视错误启停按钮，创建后台线程
+        Thread threadMonitorError = null;
+        private bool IsMonitorError1 = false;
+        private bool IsMonitorError2 = false;
+
+        private void btnMonitorStart_Click(object sender, EventArgs e)
+        {
+            if (threadMonitorError == null)
+            {
+                threadMonitorError = new Thread(ThreadMonitorError);
+                threadMonitorError.IsBackground = true;
+
+                IsMonitorError1 = true;
+                btnMonitorStart.Text = "停止发送";
+
+                threadMonitorError.Start();
+            }
+            else
+            {
+                if (IsMonitorError1 == false)
+                {
+                    IsMonitorError1 = true;
+                    btnMonitorStart.Text = "停止发送";
+                }
+                else
+                {
+                    IsMonitorError1 = false;
+                    Monitor76.Text = "未启动";
+                    btnMonitorStart.Text = "开始查询";
+                }
+            }
+        }
+
+        private void btnMonitorStart2_Click(object sender, EventArgs e)
+        {
+            if (threadMonitorError == null)
+            {
+                threadMonitorError = new Thread(ThreadMonitorError);
+                threadMonitorError.IsBackground = true;
+
+                IsMonitorError2 = true;
+                btnMonitorStart2.Text = "停止发送";
+
+                threadMonitorError.Start();
+            }
+            else
+            {
+                if (IsMonitorError2 == false)
+                {
+                    IsMonitorError2 = true;
+                    btnMonitorStart2.Text = "停止发送";
+                }
+                else
+                {
+                    IsMonitorError2 = false;
+                    Monitor77.Text = "未启动";
+                    btnMonitorStart2.Text = "开始查询";
+                }
+            }
+        }
+        #endregion
+
+        #region 在当前位置步进
+
+        #region 输入tBStep
+        private float StepLength = 0.1f;
+
+        private void tBStep_InputDone()
+        {
+            try
+            {
+                StepLength = Convert.ToSingle(tBStep.Text);
+            }
+            catch (System.Exception ex)
+            {
+                tBStep.Text = Convert.ToString(StepLength);
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
+        }
+
+        private void tBStep_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBStep_InputDone();
+            }
+
+        }
+
+        private void tBStep_Leave(object sender, EventArgs e)
+        {
+            tBStep_InputDone();
+        }
+        #endregion
+
+        Thread threadDirectMove = null;
+        private bool NormalExit = false;
+
         private void btnReverse_MouseDown(object sender, MouseEventArgs e)
         {
-            //    if (threadDirectMove != null)
-            //    {
-            //        if (threadDirectMove.IsAlive)
-            //        {
-            //            return;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Button btn = sender as Button;
-            //        string str = btn.Name;
-            //        NormalExit = false;
-            //        threadDirectMove = new Thread(new ParameterizedThreadStart(JogThread));
-            //        threadDirectMove.Priority = ThreadPriority.Highest;
-            //        threadDirectMove.Start(str);
-            //    }
+            if (threadDirectMove == null)
+            {
+                Button btn = sender as Button;
+                string str = btn.Name;
+
+                NormalExit = false;
+                threadDirectMove = new Thread(new ParameterizedThreadStart(JogThread));
+                threadDirectMove.Start(str);
+            }
+            else
+            {
+                if (threadDirectMove.IsAlive)
+                {
+                    return;
+                }
+            }
         }
 
         private void btnReverse_MouseUp(object sender, MouseEventArgs e)
         {
-            //    NormalExit = true;
+            NormalExit = true;
         }
 
         private void JogThread(object str)
         {
-            //    int AcTime = Convert.ToInt32(StepLength * 10);
-            //    int count = 0;
-            //    bool DecExit = false;
+            int AcTime = 10;
+            int count = 0;
+            bool DecExit = false;
+            byte bt = Configuration.TAG_OPEN_PWM;
 
-            //    while (!DecExit)
-            //    {
-            //        if (!NormalExit)
-            //        {
-            //            count++;
-            //            if (count > AcTime)
-            //            {
-            //                count = AcTime;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            count--;
-            //            if (count == 0)
-            //            {
-            //                DecExit = true;
-            //                break;
-            //            }
-            //        }
-            //        byte bt = Configuration.TAG_OPEN_PWM;
-            //        switch (m_iWaveChannel)
-            //        {
-            //            case MotionControl.WAVE_CONNECT_PWM: pc.ReadWords(Configuration.TAG_OPEN_PWM, 1, PCan.currentID); break;
-            //            case MotionControl.WAVE_CONNECT_CUR: bt = Configuration.SCP_MEACUR_L; break;
-            //            case MotionControl.WAVE_CONNECT_SPD: bt = Configuration.SCP_MEASPD_L; break;
-            //            case MotionControl.WAVE_CONNECT_POS: bt = Configuration.SCP_MEAPOS_L; break;
-            //        }
+            switch (m_iWaveChannel)
+            {
+                case MotionControl.WAVE_CONNECT_PWM:
+                    pc.ReadWords(Configuration.TAG_OPEN_PWM, 1, PCan.currentID);
+                    break;
+                case MotionControl.WAVE_CONNECT_CUR:
+                    bt = Configuration.TAG_CURRENT_L;
+                    break;
+                case MotionControl.WAVE_CONNECT_SPD:
+                    bt = Configuration.TAG_SPEED_L;
+                    break;
+                case MotionControl.WAVE_CONNECT_POS:
+                    bt = Configuration.TAG_POSITION_L;
+                    break;
+            }
 
-            //        //以固定频率控制运动 10ms
-            //        threadDirectMove.Join(10);
+            int value = 0;
+            int initialValue = 0;
 
-            //        int value = 0;
-            //        if (bt != Configuration.TAG_OPEN_PWM)
-            //        {
-            //            byte[] value1 = BitConverter.GetBytes(Configuration.MemoryControlTable[bt]);
-            //            byte[] value2 = BitConverter.GetBytes(Configuration.MemoryControlTable[bt + 1]);
-            //            value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
-            //        }
-            //        else
-            //        {
-            //            value = Configuration.MemoryControlTable[Configuration.TAG_OPEN_PWM];
-            //        }
+            if (bt == Configuration.TAG_OPEN_PWM)
+            {
+                initialValue = Configuration.MemoryControlTable[Configuration.TAG_OPEN_PWM];
+            }
+            else
+            {
+                byte[] value1 = BitConverter.GetBytes(Configuration.MemoryControlTable[bt]);
+                byte[] value2 = BitConverter.GetBytes(Configuration.MemoryControlTable[bt + 1]);
+                initialValue = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+            }
 
-            //        if (str.ToString() == "btnReverse")
-            //        {
-            //            value -= Convert.ToInt32(count * StepLength / AcTime);
-            //        }
-            //        else
-            //        {
-            //            value += Convert.ToInt32(count * StepLength / AcTime);
-            //        }
 
-            //        switch (m_iWaveChannel)
-            //        {
-            //            case MotionControl.WAVE_CONNECT_PWM:
-            //                pc.WriteTwoWords(Configuration.TAG_OPEN_PWM, value, PCan.currentID);
-            //                this.Invoke((EventHandler)(delegate { showManuallyDta(value, 1); }));
-            //                break;
-            //            case MotionControl.WAVE_CONNECT_CUR:
-            //                pc.WriteTwoWords(Configuration.TAG_CURRENT_L, value, PCan.currentID);
-            //                this.Invoke((EventHandler)(delegate { showManuallyDta(value, 2); }));
-            //                break;
-            //            case MotionControl.WAVE_CONNECT_SPD:
-            //                pc.WriteTwoWords(Configuration.TAG_SPEED_L, value, PCan.currentID);
-            //                this.Invoke((EventHandler)(delegate { showManuallyDta(value, 3); }));
-            //                break;
-            //            case MotionControl.WAVE_CONNECT_POS:
-            //                pc.WriteTwoWords(Configuration.TAG_POSITION_L, value, PCan.currentID);
-            //                this.Invoke((EventHandler)(delegate { showManuallyDta(value, 4); }));
-            //                break;
-            //        }
-            //    }
+            while (!DecExit)
+            {
+                if (!NormalExit)
+                {
+                    if (++count > AcTime)
+                    {
+                        count = AcTime;
+                    }
+                }
+                else
+                {
+                    if (count-- == 0)
+                    {
+                        DecExit = true;
+                        continue;
+                    }
+                }
+                //以固定频率控制运动 10ms
+                //threadDirectMove.Join(10);
 
-            //    this.Invoke((EventHandler)(delegate
-            //    { MainForm.GetInstance().sBFeedbackShow("手动线程退出！", 1); }));
-            //    threadDirectMove.Abort();
+                if (str.ToString() == "btnReverse")
+                {
+                    value = initialValue - Convert.ToInt32(count * StepLength / AcTime);
+                    if (value < initialValue - StepLength)
+                    {
+                        value = initialValue - Convert.ToInt32(StepLength);
+                    }
+                }
+                else
+                {
+                    value = initialValue + Convert.ToInt32(count * StepLength / AcTime);
+                    if (value > initialValue + StepLength)
+                    {
+                        value = initialValue + Convert.ToInt32(StepLength);
+                    }
+                }
+
+                switch (m_iWaveChannel)
+                {
+                    case MotionControl.WAVE_CONNECT_PWM:
+                        pc.WriteOneWord(Configuration.TAG_OPEN_PWM, (short)value, PCan.currentID);
+                        this.Invoke((EventHandler)(delegate { showManuallyDta(value, 1); }));
+                        break;
+                    case MotionControl.WAVE_CONNECT_CUR:
+                        pc.WriteTwoWords(Configuration.TAG_CURRENT_L, value, PCan.currentID);
+                        this.Invoke((EventHandler)(delegate { showManuallyDta(value, 2); }));
+                        break;
+                    case MotionControl.WAVE_CONNECT_SPD:
+                        pc.WriteTwoWords(Configuration.TAG_SPEED_L, value, PCan.currentID);
+                        this.Invoke((EventHandler)(delegate { showManuallyDta(value, 3); }));
+                        break;
+                    case MotionControl.WAVE_CONNECT_POS:
+                        pc.WriteTwoWords(Configuration.TAG_POSITION_L, value, PCan.currentID);
+                        this.Invoke((EventHandler)(delegate { showManuallyDta(value, 4); }));
+                        break;
+                }
+            }
+            threadDirectMove.Abort();
         }
 
         private void showManuallyDta(int value, int type)
         {
-            //    double mData = 0.0f;
-            //    switch (type)
-            //    {
-            //        case 1: mData = value; break;
-            //        case 2: mData = value; break;
-            //        case 3: mData = value * 60.0 / 65536; break;
-            //        case 4: mData = value * 60.0 / 65536; break;
-            //    }
-            //    Current.Text = value.ToString(); tBManual.Value = Convert.ToInt32(mData);
+            switch (type)
+            {
+                case MotionControl.WAVE_CONNECT_PWM:
+                    lLOffset.Text = value.ToString();
+                    break;
+                case MotionControl.WAVE_CONNECT_CUR:
+                    lLOffset.Text = value.ToString();
+                    break;
+                case MotionControl.WAVE_CONNECT_SPD:
+                    lLOffset.Text = value.ToString();
+                    break;
+                case MotionControl.WAVE_CONNECT_POS:
+                    lLOffset.Text = (value * 360.0 / 65536).ToString();
+                    break;
+            }
         }
-
-        private void tBStep_TextChanged(object sender, EventArgs e)
-        {
-            //    try
-            //    {
-            //        StepLength = Convert.ToSingle(tBStep.Text);
-            //    }
-            //    catch (System.Exception ex)
-            //    {
-            //        tBStep.Text = "0";
-            //        MessageBox.Show("请输入合法的数值！");
-            //        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-            //    }
-        }
+        #endregion
 
     }
 }

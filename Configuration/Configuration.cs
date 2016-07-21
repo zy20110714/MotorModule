@@ -50,12 +50,12 @@ namespace ICDIBasic
         public const byte SYS_VOLTAGE				= 0x05;	//系统电压
         public const byte SYS_TEMP					= 0x06;	//系统温度
         public const byte SYS_REDU_RATIO			= 0x07;	//模块减速比
-        //public const byte SYS_BAUDRATE_232		= 0x08;	//232端口波特率
+        public const byte SYS_BAUDRATE_232		    = 0x08;	//232端口波特率
         public const byte SYS_BAUDRATE_CAN			= 0x09;	//CAN总线波特率
         public const byte SYS_ENABLE_DRIVER			= 0x0a;	//驱动器使能标志
         public const byte SYS_ENABLE_ON_POWER		= 0x0b;	//上电使能驱动器标志
         public const byte SYS_SAVE_TO_FLASH			= 0x0c;	//保存数据到Flash标志
-        //public const byte SYS_DEMA_ABSPOS			= 0x0d;	//自动标定绝对位置标志
+        public const byte SYS_DEMA_ABSPOS			= 0x0d;	//自动标定绝对位置标志
         public const byte SYS_SET_ZERO_POS			= 0x0e;	//将当前位置设置为零点标志
         public const byte SYS_CLEAR_ERROR			= 0x0f;	//清除错误标志
                                                           
@@ -74,8 +74,8 @@ namespace ICDIBasic
         public const byte MOT_INDUC					= 0x21;	//电机电感
         public const byte MOT_RATED_VOL				= 0x22;	//电机额定电压
         public const byte MOT_RATED_CUR				= 0x23;	//电机额定电流
-        //public const byte MOT_ENC_LINES			= 0x24;	//码盘线数
-        //public const byte MOT_HALL_VALUE			= 0x25;	//当前霍尔状态
+        public const byte MOT_ENC_LINES		    	= 0x24;	//码盘线数
+        public const byte MOT_HALL_VALUE			= 0x25;	//当前霍尔状态
         public const byte MOT_ST_DAT  				= 0x26;	//绝对编码器单圈数据
         public const byte MOT_MT_DAT  				= 0x27;	//绝对编码器多圈数据
                                                           

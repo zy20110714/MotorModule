@@ -46,12 +46,29 @@
             this.pLEnable = new System.Windows.Forms.Panel();
             this.lLUnit = new System.Windows.Forms.Label();
             this.pBMode = new System.Windows.Forms.PictureBox();
+            this.pLMonitorError = new ICDIBasic.NewPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tBRegisterNumber2 = new System.Windows.Forms.TextBox();
+            this.Monitor77 = new System.Windows.Forms.Label();
+            this.btnMonitorStart2 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tBRegisterNumber = new System.Windows.Forms.TextBox();
+            this.Monitor76 = new System.Windows.Forms.Label();
+            this.btnMonitorStart = new System.Windows.Forms.Button();
             this.gBManually = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.gBStepMovement = new System.Windows.Forms.GroupBox();
+            this.btnReverse = new System.Windows.Forms.Button();
+            this.lLOffset = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tBStep = new System.Windows.Forms.TextBox();
+            this.btnForward = new System.Windows.Forms.Button();
+            this.btnRandomMotion = new System.Windows.Forms.Button();
+            this.cBSymmetry = new System.Windows.Forms.CheckBox();
             this.btnTrackBarCenter = new System.Windows.Forms.Button();
             this.btnEnManCtrl = new System.Windows.Forms.Button();
-            this.tBStep = new System.Windows.Forms.TextBox();
-            this.btnReverse = new System.Windows.Forms.Button();
-            this.btnForward = new System.Windows.Forms.Button();
             this.tBManual = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
             this.Current = new System.Windows.Forms.Label();
@@ -66,8 +83,9 @@
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.tMManualControl = new System.Windows.Forms.Timer(this.components);
             this.tMReturnToZero = new System.Windows.Forms.Timer(this.components);
-            this.btnRandomMotion = new System.Windows.Forms.Button();
-            this.cBSymmetry = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tBInterval = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.gBWaveFormProperty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -75,7 +93,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pLEnable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBMode)).BeginInit();
+            this.pLMonitorError.SuspendLayout();
             this.gBManually.SuspendLayout();
+            this.gBStepMovement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tBManual)).BeginInit();
             this.pLName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
@@ -118,7 +138,7 @@
             // 
             // gBWaveFormProperty
             // 
-            this.gBWaveFormProperty.BackColor = System.Drawing.Color.SlateGray;
+            this.gBWaveFormProperty.BackColor = System.Drawing.Color.LightSteelBlue;
             this.gBWaveFormProperty.Controls.Add(this.pBWaveForm);
             this.gBWaveFormProperty.Controls.Add(this.pictureBox3);
             this.gBWaveFormProperty.Controls.Add(this.pictureBox1);
@@ -241,7 +261,7 @@
             this.btnEnable.Location = new System.Drawing.Point(0, 50);
             this.btnEnable.Margin = new System.Windows.Forms.Padding(0);
             this.btnEnable.Name = "btnEnable";
-            this.btnEnable.Size = new System.Drawing.Size(400, 50);
+            this.btnEnable.Size = new System.Drawing.Size(800, 50);
             this.btnEnable.TabIndex = 3;
             this.btnEnable.Text = "使能开启";
             this.btnEnable.UseVisualStyleBackColor = false;
@@ -254,11 +274,12 @@
             this.pLEnable.Controls.Add(this.lLUnit);
             this.pLEnable.Controls.Add(this.pBMode);
             this.pLEnable.Controls.Add(this.gBWaveFormProperty);
+            this.pLEnable.Controls.Add(this.pLMonitorError);
             this.pLEnable.Controls.Add(this.gBManually);
-            this.pLEnable.Location = new System.Drawing.Point(25, 100);
+            this.pLEnable.Location = new System.Drawing.Point(0, 100);
             this.pLEnable.Margin = new System.Windows.Forms.Padding(0);
             this.pLEnable.Name = "pLEnable";
-            this.pLEnable.Size = new System.Drawing.Size(350, 650);
+            this.pLEnable.Size = new System.Drawing.Size(800, 650);
             this.pLEnable.TabIndex = 4;
             // 
             // lLUnit
@@ -286,14 +307,128 @@
             this.pBMode.Tag = "1";
             this.pBMode.Click += new System.EventHandler(this.pBMode_Click);
             // 
+            // pLMonitorError
+            // 
+            this.pLMonitorError.Controls.Add(this.label12);
+            this.pLMonitorError.Controls.Add(this.tBInterval);
+            this.pLMonitorError.Controls.Add(this.label11);
+            this.pLMonitorError.Controls.Add(this.label4);
+            this.pLMonitorError.Controls.Add(this.tBRegisterNumber2);
+            this.pLMonitorError.Controls.Add(this.Monitor77);
+            this.pLMonitorError.Controls.Add(this.btnMonitorStart2);
+            this.pLMonitorError.Controls.Add(this.label3);
+            this.pLMonitorError.Controls.Add(this.label1);
+            this.pLMonitorError.Controls.Add(this.tBRegisterNumber);
+            this.pLMonitorError.Controls.Add(this.Monitor76);
+            this.pLMonitorError.Controls.Add(this.btnMonitorStart);
+            this.pLMonitorError.Location = new System.Drawing.Point(378, 68);
+            this.pLMonitorError.Name = "pLMonitorError";
+            this.pLMonitorError.Size = new System.Drawing.Size(390, 200);
+            this.pLMonitorError.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(31, 124);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 21);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "0x";
+            // 
+            // tBRegisterNumber2
+            // 
+            this.tBRegisterNumber2.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBRegisterNumber2.Location = new System.Drawing.Point(68, 119);
+            this.tBRegisterNumber2.Name = "tBRegisterNumber2";
+            this.tBRegisterNumber2.Size = new System.Drawing.Size(49, 31);
+            this.tBRegisterNumber2.TabIndex = 15;
+            this.tBRegisterNumber2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBRegisterNumber2_KeyDown);
+            this.tBRegisterNumber2.Leave += new System.EventHandler(this.tBRegisterNumber2_Leave);
+            // 
+            // Monitor77
+            // 
+            this.Monitor77.AutoSize = true;
+            this.Monitor77.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Monitor77.Location = new System.Drawing.Point(252, 124);
+            this.Monitor77.Name = "Monitor77";
+            this.Monitor77.Size = new System.Drawing.Size(73, 21);
+            this.Monitor77.TabIndex = 14;
+            this.Monitor77.Text = "未启动";
+            // 
+            // btnMonitorStart2
+            // 
+            this.btnMonitorStart2.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnMonitorStart2.Location = new System.Drawing.Point(132, 109);
+            this.btnMonitorStart2.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMonitorStart2.Name = "btnMonitorStart2";
+            this.btnMonitorStart2.Size = new System.Drawing.Size(106, 50);
+            this.btnMonitorStart2.TabIndex = 13;
+            this.btnMonitorStart2.Text = "开始查询";
+            this.btnMonitorStart2.UseVisualStyleBackColor = true;
+            this.btnMonitorStart2.Click += new System.EventHandler(this.btnMonitorStart2_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(94, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(178, 21);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "编码器寄存器查询";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(29, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 21);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "0x";
+            // 
+            // tBRegisterNumber
+            // 
+            this.tBRegisterNumber.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tBRegisterNumber.Location = new System.Drawing.Point(66, 60);
+            this.tBRegisterNumber.Name = "tBRegisterNumber";
+            this.tBRegisterNumber.Size = new System.Drawing.Size(49, 31);
+            this.tBRegisterNumber.TabIndex = 10;
+            this.tBRegisterNumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBRegisterNumber_KeyDown);
+            this.tBRegisterNumber.Leave += new System.EventHandler(this.tBRegisterNumber_Leave);
+            // 
+            // Monitor76
+            // 
+            this.Monitor76.AutoSize = true;
+            this.Monitor76.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Monitor76.Location = new System.Drawing.Point(250, 65);
+            this.Monitor76.Name = "Monitor76";
+            this.Monitor76.Size = new System.Drawing.Size(73, 21);
+            this.Monitor76.TabIndex = 9;
+            this.Monitor76.Text = "未启动";
+            // 
+            // btnMonitorStart
+            // 
+            this.btnMonitorStart.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnMonitorStart.Location = new System.Drawing.Point(130, 50);
+            this.btnMonitorStart.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMonitorStart.Name = "btnMonitorStart";
+            this.btnMonitorStart.Size = new System.Drawing.Size(106, 50);
+            this.btnMonitorStart.TabIndex = 8;
+            this.btnMonitorStart.Text = "开始查询";
+            this.btnMonitorStart.UseVisualStyleBackColor = true;
+            this.btnMonitorStart.Click += new System.EventHandler(this.btnMonitorStart_Click);
+            // 
             // gBManually
             // 
             this.gBManually.BackColor = System.Drawing.Color.White;
+            this.gBManually.Controls.Add(this.label10);
+            this.gBManually.Controls.Add(this.gBStepMovement);
+            this.gBManually.Controls.Add(this.btnRandomMotion);
+            this.gBManually.Controls.Add(this.cBSymmetry);
             this.gBManually.Controls.Add(this.btnTrackBarCenter);
             this.gBManually.Controls.Add(this.btnEnManCtrl);
-            this.gBManually.Controls.Add(this.tBStep);
-            this.gBManually.Controls.Add(this.btnReverse);
-            this.gBManually.Controls.Add(this.btnForward);
             this.gBManually.Controls.Add(this.tBManual);
             this.gBManually.Controls.Add(this.label5);
             this.gBManually.Controls.Add(this.Current);
@@ -306,17 +441,128 @@
             this.gBManually.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gBManually.Location = new System.Drawing.Point(10, 300);
             this.gBManually.Name = "gBManually";
-            this.gBManually.Size = new System.Drawing.Size(330, 350);
+            this.gBManually.Size = new System.Drawing.Size(778, 313);
             this.gBManually.TabIndex = 4;
             this.gBManually.TabStop = false;
             this.gBManually.Text = "手动控制位置";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(147, 141);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 21);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "零位";
+            // 
+            // gBStepMovement
+            // 
+            this.gBStepMovement.Controls.Add(this.btnReverse);
+            this.gBStepMovement.Controls.Add(this.lLOffset);
+            this.gBStepMovement.Controls.Add(this.label9);
+            this.gBStepMovement.Controls.Add(this.label8);
+            this.gBStepMovement.Controls.Add(this.tBStep);
+            this.gBStepMovement.Controls.Add(this.btnForward);
+            this.gBStepMovement.Location = new System.Drawing.Point(368, 30);
+            this.gBStepMovement.Name = "gBStepMovement";
+            this.gBStepMovement.Size = new System.Drawing.Size(390, 155);
+            this.gBStepMovement.TabIndex = 9;
+            this.gBStepMovement.TabStop = false;
+            this.gBStepMovement.Text = "单步运动";
+            // 
+            // btnReverse
+            // 
+            this.btnReverse.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReverse.BackgroundImage")));
+            this.btnReverse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReverse.Location = new System.Drawing.Point(45, 37);
+            this.btnReverse.Name = "btnReverse";
+            this.btnReverse.Size = new System.Drawing.Size(50, 50);
+            this.btnReverse.TabIndex = 0;
+            this.btnReverse.UseVisualStyleBackColor = true;
+            this.btnReverse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
+            this.btnReverse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
+            // 
+            // lLOffset
+            // 
+            this.lLOffset.AutoSize = true;
+            this.lLOffset.Location = new System.Drawing.Point(151, 116);
+            this.lLOffset.Name = "lLOffset";
+            this.lLOffset.Size = new System.Drawing.Size(0, 21);
+            this.lLOffset.TabIndex = 3;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(159, 87);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(73, 21);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "已偏转";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(160, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 21);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "步长/°";
+            // 
+            // tBStep
+            // 
+            this.tBStep.Location = new System.Drawing.Point(164, 50);
+            this.tBStep.Name = "tBStep";
+            this.tBStep.Size = new System.Drawing.Size(55, 31);
+            this.tBStep.TabIndex = 0;
+            this.tBStep.Text = "0.1";
+            this.tBStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBStep.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBStep_KeyDown);
+            this.tBStep.Leave += new System.EventHandler(this.tBStep_Leave);
+            // 
+            // btnForward
+            // 
+            this.btnForward.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnForward.BackgroundImage")));
+            this.btnForward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnForward.Location = new System.Drawing.Point(299, 37);
+            this.btnForward.Name = "btnForward";
+            this.btnForward.Size = new System.Drawing.Size(50, 50);
+            this.btnForward.TabIndex = 0;
+            this.btnForward.UseVisualStyleBackColor = true;
+            this.btnForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
+            this.btnForward.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
+            // 
+            // btnRandomMotion
+            // 
+            this.btnRandomMotion.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnRandomMotion.Location = new System.Drawing.Point(224, 167);
+            this.btnRandomMotion.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRandomMotion.Name = "btnRandomMotion";
+            this.btnRandomMotion.Size = new System.Drawing.Size(110, 50);
+            this.btnRandomMotion.TabIndex = 7;
+            this.btnRandomMotion.Text = "开始随机";
+            this.btnRandomMotion.UseVisualStyleBackColor = true;
+            this.btnRandomMotion.Click += new System.EventHandler(this.btnRandomMotion_Click);
+            // 
+            // cBSymmetry
+            // 
+            this.cBSymmetry.AutoSize = true;
+            this.cBSymmetry.Checked = true;
+            this.cBSymmetry.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cBSymmetry.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBSymmetry.Location = new System.Drawing.Point(14, 237);
+            this.cBSymmetry.Name = "cBSymmetry";
+            this.cBSymmetry.Size = new System.Drawing.Size(155, 25);
+            this.cBSymmetry.TabIndex = 8;
+            this.cBSymmetry.Text = "零位偏移对称";
+            this.cBSymmetry.UseVisualStyleBackColor = true;
+            this.cBSymmetry.CheckedChanged += new System.EventHandler(this.cBSymmetry_CheckedChanged);
+            // 
             // btnTrackBarCenter
             // 
-            this.btnTrackBarCenter.Location = new System.Drawing.Point(0, 250);
+            this.btnTrackBarCenter.Location = new System.Drawing.Point(114, 167);
             this.btnTrackBarCenter.Margin = new System.Windows.Forms.Padding(0);
             this.btnTrackBarCenter.Name = "btnTrackBarCenter";
-            this.btnTrackBarCenter.Size = new System.Drawing.Size(330, 50);
+            this.btnTrackBarCenter.Size = new System.Drawing.Size(110, 50);
             this.btnTrackBarCenter.TabIndex = 5;
             this.btnTrackBarCenter.Text = "滑块回中";
             this.btnTrackBarCenter.UseVisualStyleBackColor = true;
@@ -325,57 +571,20 @@
             // btnEnManCtrl
             // 
             this.btnEnManCtrl.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnEnManCtrl.Location = new System.Drawing.Point(0, 200);
+            this.btnEnManCtrl.Location = new System.Drawing.Point(4, 167);
             this.btnEnManCtrl.Margin = new System.Windows.Forms.Padding(0);
             this.btnEnManCtrl.Name = "btnEnManCtrl";
-            this.btnEnManCtrl.Size = new System.Drawing.Size(330, 50);
+            this.btnEnManCtrl.Size = new System.Drawing.Size(110, 50);
             this.btnEnManCtrl.TabIndex = 4;
             this.btnEnManCtrl.Text = "开始";
             this.btnEnManCtrl.UseVisualStyleBackColor = true;
             this.btnEnManCtrl.Click += new System.EventHandler(this.btnEnManCtrl_Click);
             // 
-            // tBStep
-            // 
-            this.tBStep.Enabled = false;
-            this.tBStep.Location = new System.Drawing.Point(143, 37);
-            this.tBStep.Name = "tBStep";
-            this.tBStep.Size = new System.Drawing.Size(55, 31);
-            this.tBStep.TabIndex = 0;
-            this.tBStep.Text = "0";
-            this.tBStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBStep.TextChanged += new System.EventHandler(this.tBStep_TextChanged);
-            // 
-            // btnReverse
-            // 
-            this.btnReverse.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReverse.BackgroundImage")));
-            this.btnReverse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnReverse.Enabled = false;
-            this.btnReverse.Location = new System.Drawing.Point(25, 25);
-            this.btnReverse.Name = "btnReverse";
-            this.btnReverse.Size = new System.Drawing.Size(50, 50);
-            this.btnReverse.TabIndex = 0;
-            this.btnReverse.UseVisualStyleBackColor = true;
-            this.btnReverse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
-            this.btnReverse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
-            // 
-            // btnForward
-            // 
-            this.btnForward.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnForward.BackgroundImage")));
-            this.btnForward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnForward.Enabled = false;
-            this.btnForward.Location = new System.Drawing.Point(244, 25);
-            this.btnForward.Name = "btnForward";
-            this.btnForward.Size = new System.Drawing.Size(50, 50);
-            this.btnForward.TabIndex = 0;
-            this.btnForward.UseVisualStyleBackColor = true;
-            this.btnForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
-            this.btnForward.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
-            // 
             // tBManual
             // 
             this.tBManual.AutoSize = false;
             this.tBManual.BackColor = System.Drawing.SystemColors.Control;
-            this.tBManual.Location = new System.Drawing.Point(0, 150);
+            this.tBManual.Location = new System.Drawing.Point(4, 117);
             this.tBManual.Margin = new System.Windows.Forms.Padding(0);
             this.tBManual.Maximum = 100;
             this.tBManual.Name = "tBManual";
@@ -388,17 +597,17 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 75);
+            this.label5.Location = new System.Drawing.Point(20, 42);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(131, 19);
+            this.label5.Size = new System.Drawing.Size(83, 19);
             this.label5.TabIndex = 0;
-            this.label5.Text = "与零位偏移最小/°";
+            this.label5.Text = "偏移最小/°";
             // 
             // Current
             // 
             this.Current.AutoSize = true;
             this.Current.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Current.Location = new System.Drawing.Point(143, 108);
+            this.Current.Location = new System.Drawing.Point(147, 75);
             this.Current.Name = "Current";
             this.Current.Size = new System.Drawing.Size(32, 23);
             this.Current.TabIndex = 0;
@@ -409,15 +618,15 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(143, 75);
+            this.label6.Location = new System.Drawing.Point(142, 48);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 19);
+            this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Current";
+            this.label6.Text = "当前位置";
             // 
             // tBMax
             // 
-            this.tBMax.Location = new System.Drawing.Point(264, 100);
+            this.tBMax.Location = new System.Drawing.Point(268, 67);
             this.tBMax.Name = "tBMax";
             this.tBMax.Size = new System.Drawing.Size(55, 31);
             this.tBMax.TabIndex = 2;
@@ -430,15 +639,15 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(199, 75);
+            this.label7.Location = new System.Drawing.Point(255, 42);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(131, 19);
+            this.label7.Size = new System.Drawing.Size(83, 19);
             this.label7.TabIndex = 0;
-            this.label7.Text = "与零位偏移最大/°";
+            this.label7.Text = "偏移最大/°";
             // 
             // tBMin
             // 
-            this.tBMin.Location = new System.Drawing.Point(25, 100);
+            this.tBMin.Location = new System.Drawing.Point(29, 67);
             this.tBMin.Name = "tBMin";
             this.tBMin.Size = new System.Drawing.Size(55, 31);
             this.tBMin.TabIndex = 1;
@@ -449,8 +658,9 @@
             // 
             // btnReturnToZero
             // 
+            this.btnReturnToZero.Enabled = false;
             this.btnReturnToZero.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnReturnToZero.Location = new System.Drawing.Point(0, 300);
+            this.btnReturnToZero.Location = new System.Drawing.Point(403, 256);
             this.btnReturnToZero.Margin = new System.Windows.Forms.Padding(0);
             this.btnReturnToZero.Name = "btnReturnToZero";
             this.btnReturnToZero.Size = new System.Drawing.Size(330, 50);
@@ -469,7 +679,7 @@
             this.pLName.Location = new System.Drawing.Point(0, 0);
             this.pLName.Margin = new System.Windows.Forms.Padding(0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(400, 50);
+            this.pLName.Size = new System.Drawing.Size(800, 50);
             this.pLName.TabIndex = 5;
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
             this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
@@ -479,6 +689,7 @@
             // 
             this.pBSetUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBSetUp.BackgroundImage")));
             this.pBSetUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBSetUp.Dock = System.Windows.Forms.DockStyle.Left;
             this.pBSetUp.Location = new System.Drawing.Point(0, 0);
             this.pBSetUp.Margin = new System.Windows.Forms.Padding(0);
             this.pBSetUp.Name = "pBSetUp";
@@ -490,7 +701,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(147, 9);
+            this.label2.Location = new System.Drawing.Point(337, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 33);
             this.label2.TabIndex = 0;
@@ -501,7 +712,8 @@
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(350, 0);
+            this.pBExit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pBExit.Location = new System.Drawing.Point(750, 0);
             this.pBExit.Margin = new System.Windows.Forms.Padding(0);
             this.pBExit.Name = "pBExit";
             this.pBExit.Size = new System.Drawing.Size(50, 50);
@@ -518,42 +730,43 @@
             this.tMReturnToZero.Interval = 500;
             this.tMReturnToZero.Tick += new System.EventHandler(this.tMReturnToZero_Tick);
             // 
-            // btnRandomMotion
+            // label11
             // 
-            this.btnRandomMotion.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnRandomMotion.Location = new System.Drawing.Point(402, 600);
-            this.btnRandomMotion.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRandomMotion.Name = "btnRandomMotion";
-            this.btnRandomMotion.Size = new System.Drawing.Size(330, 50);
-            this.btnRandomMotion.TabIndex = 7;
-            this.btnRandomMotion.Text = "开始随机";
-            this.btnRandomMotion.UseVisualStyleBackColor = true;
-            this.btnRandomMotion.Click += new System.EventHandler(this.btnRandomMotion_Click);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 181);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 12);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "查询间隔";
             // 
-            // cBSymmetry
+            // tBInterval
             // 
-            this.cBSymmetry.AutoSize = true;
-            this.cBSymmetry.Checked = true;
-            this.cBSymmetry.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cBSymmetry.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cBSymmetry.Location = new System.Drawing.Point(402, 550);
-            this.cBSymmetry.Name = "cBSymmetry";
-            this.cBSymmetry.Size = new System.Drawing.Size(155, 25);
-            this.cBSymmetry.TabIndex = 8;
-            this.cBSymmetry.Text = "零位偏移对称";
-            this.cBSymmetry.UseVisualStyleBackColor = true;
-            this.cBSymmetry.CheckedChanged += new System.EventHandler(this.cBSymmetry_CheckedChanged);
+            this.tBInterval.Location = new System.Drawing.Point(69, 172);
+            this.tBInterval.Name = "tBInterval";
+            this.tBInterval.Size = new System.Drawing.Size(48, 21);
+            this.tBInterval.TabIndex = 18;
+            this.tBInterval.Text = "1000";
+            this.tBInterval.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBInterval_KeyDown);
+            this.tBInterval.Leave += new System.EventHandler(this.tBInterval_Leave);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(130, 181);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(17, 12);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "ms";
             // 
             // TestRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 760);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(800, 720);
             this.Controls.Add(this.pLName);
             this.Controls.Add(this.btnEnable);
             this.Controls.Add(this.pLEnable);
-            this.Controls.Add(this.btnRandomMotion);
-            this.Controls.Add(this.cBSymmetry);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -572,15 +785,18 @@
             this.pLEnable.ResumeLayout(false);
             this.pLEnable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBMode)).EndInit();
+            this.pLMonitorError.ResumeLayout(false);
+            this.pLMonitorError.PerformLayout();
             this.gBManually.ResumeLayout(false);
             this.gBManually.PerformLayout();
+            this.gBStepMovement.ResumeLayout(false);
+            this.gBStepMovement.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tBManual)).EndInit();
             this.pLName.ResumeLayout(false);
             this.pLName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -624,5 +840,23 @@
         private System.Windows.Forms.Timer tMReturnToZero;
         private System.Windows.Forms.Button btnRandomMotion;
         private System.Windows.Forms.CheckBox cBSymmetry;
+        private NewPanel pLMonitorError;
+        private System.Windows.Forms.Label Monitor76;
+        private System.Windows.Forms.Button btnMonitorStart;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tBRegisterNumber;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tBRegisterNumber2;
+        private System.Windows.Forms.Label Monitor77;
+        private System.Windows.Forms.Button btnMonitorStart2;
+        private System.Windows.Forms.GroupBox gBStepMovement;
+        private System.Windows.Forms.Label lLOffset;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tBInterval;
     }
 }
