@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace ICDIBasic
 {
@@ -21,15 +22,6 @@ namespace ICDIBasic
         public static float m_fFrequency = 0.5f;
         public static float m_fAmplitude = 0.0f;
         public static float m_fBias = 0.0f;
-
-        //手动控制中回零功能使用
-        public short CurrentWorkMode = 0;
-        public int speedOfReturnZero = 0;
-        public int currentPosition = 0;
-        const short deadZone = 20;
-
-        //手动控制中随机运动功能使用，时间毫秒数，取得随机数
-        Random rad = new Random(DateTime.Now.Millisecond);
 
         public static TestRun pCurrentWin = null;//句柄
         PCan pc;
@@ -512,6 +504,9 @@ namespace ICDIBasic
             tBManual.Value = (tBManual.Maximum + tBManual.Minimum) / 2;
         }
 
+        //手动控制中随机运动功能使用，时间毫秒数，取得随机数
+        Random rad = new Random(DateTime.Now.Millisecond);
+
         //随机运动控制用线程（并不是精确地每2秒给一个位置值）
         private delegate void FlushClient();
         Thread thread = null;
@@ -611,7 +606,13 @@ namespace ICDIBasic
             IscBSymmetryChecked();
         }
         #endregion
-        
+
+        //手动控制中回零功能使用
+        public short CurrentWorkMode = 0;
+        public int speedOfReturnZero = 0;
+        public int currentPosition = 0;
+        const short deadZone = 20;
+
         //按住按钮加速回零
         private void btnReturnToZero_MouseDown(object sender, MouseEventArgs e)
         {
@@ -682,14 +683,14 @@ namespace ICDIBasic
             //pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
         }
 
-        #region 线程监视码盘寄存器错误
-        #region 输入tBRegisterNumber
-        private byte registerNumber = 0x76;
+        #region 对编码器寄存器读写线程
+        #region 输入tBRegisterNumber//读寄存器的地址
+        private short registerNumber = 0x0000;
         private void tBRegisterNumber_InputDone()
         {
             try
             {
-                registerNumber = Convert.ToByte(tBRegisterNumber.Text, 16);
+                registerNumber = Convert.ToInt16(tBRegisterNumber.Text, 16);
             }
             catch (System.Exception ex)
             {
@@ -710,36 +711,6 @@ namespace ICDIBasic
             {
                 tBRegisterNumber_InputDone();
             }
-        }
-        #endregion
-
-        #region 输入tBRegisterNumber2
-        private byte registerNumber2 = 0x77;
-        private void tBRegisterNumber2_InputDone()
-        {
-            try
-            {
-                registerNumber2 = Convert.ToByte(tBRegisterNumber2.Text, 16);
-            }
-            catch (System.Exception ex)
-            {
-                tBRegisterNumber2.Text = Convert.ToString(registerNumber2, 16);
-                MessageBox.Show("请输入合法的数值！");
-                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-            }
-        }
-
-        private void tBRegisterNumber2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                tBRegisterNumber2_InputDone();
-            }
-        }
-
-        private void tBRegisterNumber2_Leave(object sender, EventArgs e)
-        {
-            tBRegisterNumber2_InputDone();
         }
         #endregion
 
@@ -774,43 +745,68 @@ namespace ICDIBasic
         }
         #endregion
 
+        private void Log(String logMessage, TextWriter w)
+        {
+            //w.Write("{0} ", w.);//行号？
+            w.Write("{0} {1} ", DateTime.Now.ToLongDateString(), DateTime.Now.ToLongTimeString());
+            w.WriteLine("{0}", logMessage);
+            // Update the underlying file.
+            w.Flush();
+        }
+        private void IsFileExist()
+        {
+            if (!File.Exists("MonitorErrorData" + DateTime.Now.ToLongDateString() + ".log"))
+            {
+                StreamWriter fs = File.CreateText("MonitorErrorData" + DateTime.Now.ToLongDateString() + ".log");
+                fs.Write("日    期      时间     ", DateTime.Now.ToLongDateString(), DateTime.Now.ToLongTimeString());
+                fs.WriteLine("查询 返回");
+                fs.Close();
+            }
+        }
+        private void CheckFile()
+        {
+        }
+        private void WriteLog(string registerID)
+        {
+            IsFileExist();
+            using (StreamWriter w = File.AppendText("MonitorErrorData" + DateTime.Now.ToLongDateString() + ".log"))
+            {
+                string tempStr = registerID + " " + Configuration.MemoryControlTable[0x08].ToString("x4");
+                Log(tempStr, w);
+                // Close the writer and underlying file.
+                w.Close();
+            }
+            CheckFile();
+        }
+
         //监视错误用线程（并不是精确地每1000 ms）
         private void ThreadMonitorError()
         {
-            while (IsMonitorError1 || IsMonitorError2)
+            while (IsMonitorError1)
             {
-                if (IsMonitorError1)
-                {
                     pc.WriteOneWord(0x08, registerNumber, PCan.currentID);
                     Thread.Sleep(10);
-                    pc.ReadOneWord(0x0d, PCan.currentID);
+                    pc.ReadOneWord(0x08, PCan.currentID);
                     Thread.Sleep(10);
                     MonitorError();
+
+                    WriteLog(registerNumber.ToString("x4"));
+
                     Thread.Sleep(interval);
-                }
-                if (IsMonitorError2)
-                {
-                    pc.WriteOneWord(0x08, registerNumber2, PCan.currentID);
-                    Thread.Sleep(10);
-                    pc.ReadOneWord(0x0d, PCan.currentID);
-                    Thread.Sleep(10);
-                    //关闭窗口之后报错：
-                    //“System.InvalidOperationException”类型的未经处理的异常在 System.Windows.Forms.dll 中发生
-                    //其他信息: 在创建窗口句柄之前，不能在控件上调用 Invoke 或 BeginInvoke。
-                    //Invoke((EventHandler)(delegate
-                    //{
-                    //    if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber2)
-                    //    {
-                    //        Monitor77.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
-                    //    }
-                    //    else
-                    //    {
-                    //        Monitor77.Text = "未及时更新";
-                    //    }
-                    //}));
-                    MonitorError2();
-                    Thread.Sleep(interval);
-                }
+                //关闭窗口之后报错：
+                //“System.InvalidOperationException”类型的未经处理的异常在 System.Windows.Forms.dll 中发生
+                //其他信息: 在创建窗口句柄之前，不能在控件上调用 Invoke 或 BeginInvoke。
+                //Invoke((EventHandler)(delegate
+                //{
+                //    if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber2)
+                //    {
+                //        Monitor77.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
+                //    }
+                //    else
+                //    {
+                //        Monitor77.Text = "未及时更新";
+                //    }
+                //}));
             }
             threadMonitorError = null;
         }
@@ -824,9 +820,9 @@ namespace ICDIBasic
             }
             else
             {
-                if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber)
+                if ((Configuration.MemoryControlTable[0x0d] >> 8) == 00)
                 {
-                    Monitor76.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
+                    Monitor76.Text = Configuration.MemoryControlTable[0x08].ToString("x4");
                 }
                 //else if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber2)
                 //{
@@ -840,90 +836,104 @@ namespace ICDIBasic
             }
         }
 
-        private void MonitorError2()
-        {
-            if (Current.InvokeRequired)//等待异步
-            {
-                FlushClient ME = new FlushClient(MonitorError2);
-                Invoke(ME); //通过代理调用刷新方法
-            }
-            else
-            {
-                if ((Configuration.MemoryControlTable[0x0d] >> 8) == registerNumber2)
-                {
-                    Monitor77.Text = Configuration.MemoryControlTable[0x0d].ToString("x4");
-                }
-                else
-                {
-                    Monitor77.Text = "未及时更新";
-                }
-            }
-        }
-
         //监视错误启停按钮，创建后台线程
         Thread threadMonitorError = null;
         private bool IsMonitorError1 = false;
-        private bool IsMonitorError2 = false;
 
         private void btnMonitorStart_Click(object sender, EventArgs e)
         {
-            if (threadMonitorError == null)
+            if (tBRegisterNumber.Text == "")
             {
-                threadMonitorError = new Thread(ThreadMonitorError);
-                threadMonitorError.IsBackground = true;
-
-                IsMonitorError1 = true;
-                btnMonitorStart.Text = "停止发送";
-
-                threadMonitorError.Start();
+                MessageBox.Show("还未输入！");
             }
             else
             {
-                if (IsMonitorError1 == false)
+                if (threadMonitorError == null)
                 {
+                    threadMonitorError = new Thread(ThreadMonitorError);
+                    threadMonitorError.IsBackground = true;
+
                     IsMonitorError1 = true;
                     btnMonitorStart.Text = "停止发送";
+
+                    threadMonitorError.Start();
                 }
                 else
                 {
-                    IsMonitorError1 = false;
-                    Monitor76.Text = "未启动";
-                    btnMonitorStart.Text = "开始查询";
+                    if (IsMonitorError1 == false)
+                    {
+                        IsMonitorError1 = true;
+                        btnMonitorStart.Text = "停止发送";
+                    }
+                    else
+                    {
+                        IsMonitorError1 = false;
+                        Monitor76.Text = "未启动";
+                        btnMonitorStart.Text = "开始查询";
+                    }
                 }
             }
         }
 
-        private void btnMonitorStart2_Click(object sender, EventArgs e)
+        #region 写寄存器
+        #region 输入tBRegisterNumber2
+        private short registerNumber2 = 0x0000;
+        private void tBRegisterNumber2_InputDone()
         {
-            if (threadMonitorError == null)
+            try
             {
-                threadMonitorError = new Thread(ThreadMonitorError);
-                threadMonitorError.IsBackground = true;
-
-                IsMonitorError2 = true;
-                btnMonitorStart2.Text = "停止发送";
-
-                threadMonitorError.Start();
+                registerNumber2 = Convert.ToInt16(tBRegisterNumber2.Text, 16);
             }
-            else
+            catch (System.Exception ex)
             {
-                if (IsMonitorError2 == false)
-                {
-                    IsMonitorError2 = true;
-                    btnMonitorStart2.Text = "停止发送";
-                }
-                else
-                {
-                    IsMonitorError2 = false;
-                    Monitor77.Text = "未启动";
-                    btnMonitorStart2.Text = "开始查询";
-                }
+                tBRegisterNumber2.Text = Convert.ToString(registerNumber2, 16);
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
+        }
+
+        private void tBRegisterNumber2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBRegisterNumber2_InputDone();
+            }
+        }
+
+        private void tBRegisterNumber2_Leave(object sender, EventArgs e)
+        {
+            tBRegisterNumber2_InputDone();
         }
         #endregion
 
-        #region 在当前位置运动
+        //写寄存器
+        private void btnMonitorStart2_Click(object sender, EventArgs e)
+        {
+            if (tBRegisterNumber2.Text == "")
+            {
+                MessageBox.Show("还未输入！");
+            }
+            else
+            {
+                pc.WriteOneWord(0x0d, registerNumber2, PCan.currentID);
+                Thread.Sleep(10);
+                pc.ReadOneWord(0x0d, PCan.currentID);
+                Thread.Sleep(10);
+                if (Configuration.MemoryControlTable[0x0d] == 0x0001)
+                {
+                    Monitor77.Text = "写入成功";
+                }
+                else
+                {
+                    Monitor77.Text = "写入失败";
+                }
+                tBRegisterNumber2.Text = "";
+            }
+        }
+        #endregion
+        #endregion
 
+        #region 在当前位置运动
         #region 输入tBStep
         private float StepLength = 0.1f;
 
