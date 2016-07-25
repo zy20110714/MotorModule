@@ -42,7 +42,6 @@
             this.tBBias = new System.Windows.Forms.TextBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnEnable = new System.Windows.Forms.Button();
             this.pLEnable = new System.Windows.Forms.Panel();
             this.lLUnit = new System.Windows.Forms.Label();
             this.pBMode = new System.Windows.Forms.PictureBox();
@@ -71,25 +70,25 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tBStep = new System.Windows.Forms.TextBox();
             this.btnForward = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tBCurrent = new System.Windows.Forms.TextBox();
             this.btnRandomMotion = new System.Windows.Forms.Button();
             this.cBSymmetry = new System.Windows.Forms.CheckBox();
-            this.btnTrackBarCenter = new System.Windows.Forms.Button();
             this.btnEnManCtrl = new System.Windows.Forms.Button();
             this.tBManual = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
-            this.Current = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tBMax = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tBMin = new System.Windows.Forms.TextBox();
             this.btnReturnToZero = new System.Windows.Forms.Button();
-            this.pLName = new System.Windows.Forms.Panel();
-            this.pBSetUp = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pBExit = new System.Windows.Forms.PictureBox();
             this.tMManualControl = new System.Windows.Forms.Timer(this.components);
             this.tMReturnToZero = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.pBSetUp = new System.Windows.Forms.PictureBox();
+            this.pLName = new System.Windows.Forms.Panel();
+            this.pBExit = new System.Windows.Forms.PictureBox();
+            this.pBMinimized = new System.Windows.Forms.PictureBox();
             this.gBWaveFormProperty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -100,10 +99,12 @@
             this.gBMonitorError.SuspendLayout();
             this.gBManually.SuspendLayout();
             this.gBStepMovement.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tBManual)).BeginInit();
-            this.pLName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
+            this.pLName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBMinimized)).BeginInit();
             this.SuspendLayout();
             // 
             // cBWaveForm
@@ -257,20 +258,6 @@
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
-            // btnEnable
-            // 
-            this.btnEnable.BackColor = System.Drawing.Color.Green;
-            this.btnEnable.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnEnable.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnEnable.Location = new System.Drawing.Point(0, 50);
-            this.btnEnable.Margin = new System.Windows.Forms.Padding(0);
-            this.btnEnable.Name = "btnEnable";
-            this.btnEnable.Size = new System.Drawing.Size(800, 50);
-            this.btnEnable.TabIndex = 3;
-            this.btnEnable.Text = "使能开启";
-            this.btnEnable.UseVisualStyleBackColor = false;
-            this.btnEnable.Click += new System.EventHandler(this.btnEnable_Click);
-            // 
             // pLEnable
             // 
             this.pLEnable.BackColor = System.Drawing.Color.White;
@@ -280,11 +267,12 @@
             this.pLEnable.Controls.Add(this.gBWaveFormProperty);
             this.pLEnable.Controls.Add(this.gBMonitorError);
             this.pLEnable.Controls.Add(this.gBManually);
-            this.pLEnable.Location = new System.Drawing.Point(0, 100);
+            this.pLEnable.Location = new System.Drawing.Point(0, 50);
             this.pLEnable.Margin = new System.Windows.Forms.Padding(0);
             this.pLEnable.Name = "pLEnable";
-            this.pLEnable.Size = new System.Drawing.Size(800, 650);
+            this.pLEnable.Size = new System.Drawing.Size(800, 671);
             this.pLEnable.TabIndex = 4;
+            this.pLEnable.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLEnable_MouseDown);
             // 
             // lLUnit
             // 
@@ -467,22 +455,11 @@
             // 
             this.gBManually.BackColor = System.Drawing.Color.White;
             this.gBManually.Controls.Add(this.gBStepMovement);
-            this.gBManually.Controls.Add(this.label10);
-            this.gBManually.Controls.Add(this.btnRandomMotion);
-            this.gBManually.Controls.Add(this.cBSymmetry);
-            this.gBManually.Controls.Add(this.btnTrackBarCenter);
-            this.gBManually.Controls.Add(this.btnEnManCtrl);
-            this.gBManually.Controls.Add(this.tBManual);
-            this.gBManually.Controls.Add(this.label5);
-            this.gBManually.Controls.Add(this.Current);
-            this.gBManually.Controls.Add(this.label6);
-            this.gBManually.Controls.Add(this.tBMax);
-            this.gBManually.Controls.Add(this.label7);
-            this.gBManually.Controls.Add(this.tBMin);
+            this.gBManually.Controls.Add(this.groupBox1);
             this.gBManually.Controls.Add(this.btnReturnToZero);
             this.gBManually.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.gBManually.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gBManually.Location = new System.Drawing.Point(10, 300);
+            this.gBManually.Location = new System.Drawing.Point(10, 345);
             this.gBManually.Name = "gBManually";
             this.gBManually.Size = new System.Drawing.Size(778, 313);
             this.gBManually.TabIndex = 4;
@@ -596,14 +573,35 @@
             this.btnForward.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseDown);
             this.btnForward.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReverse_MouseUp);
             // 
-            // label10
+            // groupBox1
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(147, 141);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(52, 21);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "零位";
+            this.groupBox1.Controls.Add(this.tBCurrent);
+            this.groupBox1.Controls.Add(this.btnRandomMotion);
+            this.groupBox1.Controls.Add(this.cBSymmetry);
+            this.groupBox1.Controls.Add(this.btnEnManCtrl);
+            this.groupBox1.Controls.Add(this.tBManual);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.tBMax);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.tBMin);
+            this.groupBox1.Location = new System.Drawing.Point(6, 30);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(356, 276);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "零位偏移";
+            // 
+            // tBCurrent
+            // 
+            this.tBCurrent.Location = new System.Drawing.Point(125, 54);
+            this.tBCurrent.Name = "tBCurrent";
+            this.tBCurrent.Size = new System.Drawing.Size(100, 31);
+            this.tBCurrent.TabIndex = 11;
+            this.tBCurrent.Text = "0";
+            this.tBCurrent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBCurrent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrent_KeyDown);
+            this.tBCurrent.Leave += new System.EventHandler(this.tBCurrent_Leave);
             // 
             // btnRandomMotion
             // 
@@ -631,21 +629,10 @@
             this.cBSymmetry.UseVisualStyleBackColor = true;
             this.cBSymmetry.CheckedChanged += new System.EventHandler(this.cBSymmetry_CheckedChanged);
             // 
-            // btnTrackBarCenter
-            // 
-            this.btnTrackBarCenter.Location = new System.Drawing.Point(114, 167);
-            this.btnTrackBarCenter.Margin = new System.Windows.Forms.Padding(0);
-            this.btnTrackBarCenter.Name = "btnTrackBarCenter";
-            this.btnTrackBarCenter.Size = new System.Drawing.Size(110, 50);
-            this.btnTrackBarCenter.TabIndex = 5;
-            this.btnTrackBarCenter.Text = "滑块回中";
-            this.btnTrackBarCenter.UseVisualStyleBackColor = true;
-            this.btnTrackBarCenter.Click += new System.EventHandler(this.btnTrackBarCenter_Click);
-            // 
             // btnEnManCtrl
             // 
             this.btnEnManCtrl.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnEnManCtrl.Location = new System.Drawing.Point(4, 167);
+            this.btnEnManCtrl.Location = new System.Drawing.Point(3, 167);
             this.btnEnManCtrl.Margin = new System.Windows.Forms.Padding(0);
             this.btnEnManCtrl.Name = "btnEnManCtrl";
             this.btnEnManCtrl.Size = new System.Drawing.Size(110, 50);
@@ -658,7 +645,7 @@
             // 
             this.tBManual.AutoSize = false;
             this.tBManual.BackColor = System.Drawing.SystemColors.Control;
-            this.tBManual.Location = new System.Drawing.Point(4, 117);
+            this.tBManual.Location = new System.Drawing.Point(3, 91);
             this.tBManual.Margin = new System.Windows.Forms.Padding(0);
             this.tBManual.Maximum = 100;
             this.tBManual.Name = "tBManual";
@@ -666,33 +653,24 @@
             this.tBManual.TabIndex = 3;
             this.tBManual.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tBManual.Value = 50;
+            this.tBManual.Scroll += new System.EventHandler(this.tBManual_Scroll);
+            this.tBManual.Enter += new System.EventHandler(this.tBManual_Scroll);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(20, 42);
+            this.label5.Location = new System.Drawing.Point(10, 27);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 19);
             this.label5.TabIndex = 0;
             this.label5.Text = "偏移最小/°";
             // 
-            // Current
-            // 
-            this.Current.AutoSize = true;
-            this.Current.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Current.Location = new System.Drawing.Point(147, 75);
-            this.Current.Name = "Current";
-            this.Current.Size = new System.Drawing.Size(32, 23);
-            this.Current.TabIndex = 0;
-            this.Current.Text = "00";
-            this.Current.Visible = false;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(142, 48);
+            this.label6.Location = new System.Drawing.Point(141, 30);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 0;
@@ -700,11 +678,11 @@
             // 
             // tBMax
             // 
-            this.tBMax.Location = new System.Drawing.Point(268, 67);
+            this.tBMax.Location = new System.Drawing.Point(269, 54);
             this.tBMax.Name = "tBMax";
             this.tBMax.Size = new System.Drawing.Size(55, 31);
             this.tBMax.TabIndex = 2;
-            this.tBMax.Text = "0";
+            this.tBMax.Text = "360";
             this.tBMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMax_KeyDown);
             this.tBMax.Leave += new System.EventHandler(this.tBMax_Leave);
@@ -713,7 +691,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(255, 42);
+            this.label7.Location = new System.Drawing.Point(251, 29);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 19);
             this.label7.TabIndex = 0;
@@ -721,11 +699,11 @@
             // 
             // tBMin
             // 
-            this.tBMin.Location = new System.Drawing.Point(29, 67);
+            this.tBMin.Location = new System.Drawing.Point(25, 52);
             this.tBMin.Name = "tBMin";
             this.tBMin.Size = new System.Drawing.Size(55, 31);
             this.tBMin.TabIndex = 1;
-            this.tBMin.Text = "0";
+            this.tBMin.Text = "360";
             this.tBMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBMin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMin_KeyDown);
             this.tBMin.Leave += new System.EventHandler(this.tBMin_Leave);
@@ -744,20 +722,24 @@
             this.btnReturnToZero.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseDown);
             this.btnReturnToZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReturnToZero_MouseUp);
             // 
-            // pLName
+            // tMManualControl
             // 
-            this.pLName.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.pLName.Controls.Add(this.pBSetUp);
-            this.pLName.Controls.Add(this.label2);
-            this.pLName.Controls.Add(this.pBExit);
-            this.pLName.Location = new System.Drawing.Point(0, 0);
-            this.pLName.Margin = new System.Windows.Forms.Padding(0);
-            this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(800, 50);
-            this.pLName.TabIndex = 5;
-            this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
-            this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
-            this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
+            this.tMManualControl.Tick += new System.EventHandler(this.tMManualControl_Tick);
+            // 
+            // tMReturnToZero
+            // 
+            this.tMReturnToZero.Interval = 500;
+            this.tMReturnToZero.Tick += new System.EventHandler(this.tMReturnToZero_Tick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(337, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 33);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "试运行";
             // 
             // pBSetUp
             // 
@@ -771,15 +753,21 @@
             this.pBSetUp.TabIndex = 0;
             this.pBSetUp.TabStop = false;
             // 
-            // label2
+            // pLName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(337, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 33);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "试运行";
+            this.pLName.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pLName.Controls.Add(this.pBMinimized);
+            this.pLName.Controls.Add(this.pBSetUp);
+            this.pLName.Controls.Add(this.label2);
+            this.pLName.Controls.Add(this.pBExit);
+            this.pLName.Location = new System.Drawing.Point(0, 0);
+            this.pLName.Margin = new System.Windows.Forms.Padding(0);
+            this.pLName.Name = "pLName";
+            this.pLName.Size = new System.Drawing.Size(800, 50);
+            this.pLName.TabIndex = 5;
+            this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
+            this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
+            this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
             // 
             // pBExit
             // 
@@ -795,14 +783,17 @@
             this.pBExit.TabStop = false;
             this.pBExit.Click += new System.EventHandler(this.pBExit_Click);
             // 
-            // tMManualControl
+            // pBMinimized
             // 
-            this.tMManualControl.Tick += new System.EventHandler(this.tMManualControl_Tick);
-            // 
-            // tMReturnToZero
-            // 
-            this.tMReturnToZero.Interval = 500;
-            this.tMReturnToZero.Tick += new System.EventHandler(this.tMReturnToZero_Tick);
+            this.pBMinimized.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBMinimized.BackgroundImage")));
+            this.pBMinimized.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pBMinimized.InitialImage = null;
+            this.pBMinimized.Location = new System.Drawing.Point(697, 0);
+            this.pBMinimized.Name = "pBMinimized";
+            this.pBMinimized.Size = new System.Drawing.Size(50, 50);
+            this.pBMinimized.TabIndex = 1;
+            this.pBMinimized.TabStop = false;
+            this.pBMinimized.Click += new System.EventHandler(this.pBMinimized_Click);
             // 
             // TestRun
             // 
@@ -811,17 +802,14 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(800, 720);
             this.Controls.Add(this.pLName);
-            this.Controls.Add(this.btnEnable);
             this.Controls.Add(this.pLEnable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "TestRun";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "TestRun";
+            this.Text = "试运行";
             this.TopMost = true;
-            this.Click += new System.EventHandler(this.TestRun_Click);
             this.gBWaveFormProperty.ResumeLayout(false);
             this.gBWaveFormProperty.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).EndInit();
@@ -834,14 +822,16 @@
             this.gBMonitorError.ResumeLayout(false);
             this.gBMonitorError.PerformLayout();
             this.gBManually.ResumeLayout(false);
-            this.gBManually.PerformLayout();
             this.gBStepMovement.ResumeLayout(false);
             this.gBStepMovement.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tBManual)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             this.pLName.ResumeLayout(false);
             this.pLName.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBMinimized)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -856,7 +846,6 @@
         private System.Windows.Forms.TextBox tBBias;
         private System.Windows.Forms.TextBox tBAmplitude;
         private System.Windows.Forms.TextBox tBFrequency;
-        private System.Windows.Forms.Button btnEnable;
         private System.Windows.Forms.Panel pLEnable;
         private System.Windows.Forms.TrackBar tBManual;
         private System.Windows.Forms.TextBox tBMin;
@@ -870,18 +859,12 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pBWaveForm;
-        private System.Windows.Forms.Panel pLName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pBExit;
-        private System.Windows.Forms.PictureBox pBSetUp;
         private System.Windows.Forms.Button btnForward;
         private System.Windows.Forms.TextBox tBStep;
         private System.Windows.Forms.Button btnReverse;
-        private System.Windows.Forms.Label Current;
         private System.Windows.Forms.Label lLUnit;
         private System.Windows.Forms.Timer tMManualControl;
         private System.Windows.Forms.Button btnEnManCtrl;
-        private System.Windows.Forms.Button btnTrackBarCenter;
         private System.Windows.Forms.Button btnReturnToZero;
         private System.Windows.Forms.Timer tMReturnToZero;
         private System.Windows.Forms.Button btnRandomMotion;
@@ -890,7 +873,6 @@
         private System.Windows.Forms.Label lLOffset;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox gBMonitorError;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tBInterval;
@@ -908,5 +890,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox tBCurrent;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pBSetUp;
+        private System.Windows.Forms.Panel pLName;
+        private System.Windows.Forms.PictureBox pBExit;
+        private System.Windows.Forms.PictureBox pBMinimized;
     }
 }

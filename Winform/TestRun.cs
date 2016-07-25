@@ -15,7 +15,7 @@ namespace ICDIBasic
         public static int m_iWaveMode = 0;
         public static int m_iWaveChannel = 0;
 
-        public static bool EnableRun = false;
+        public static bool EnableRun = true;
         public static bool ChangeOK = false;
 
         //自动控制使用
@@ -40,127 +40,6 @@ namespace ICDIBasic
             InitializeComponent();
             pc = new PCan();
             InitialControls();
-        }
-
-        private void InitialControls()
-        {
-            pLEnable.Enabled = false;//试运行控制使能关闭
-            //AutomaticControl();//默认使用自动控制
-            MamuallyControl();//默认使用手动控制
-
-            //pLEnable.Enabled = true;//测试用
-            //MamuallyControl();//测试用
-
-            IscBSymmetryChecked();//根据cBSymmetry的值确定tBMin
-        }
-
-        private void TestRun_Click(object sender, EventArgs e)
-        {
-            BringToFront();
-        }
-
-        #region 用鼠标拖拽移动窗体
-        private Point mousePoint = Point.Empty;
-        private void pLName_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                mousePoint = MousePosition;
-            }
-        }
-
-        private void pLName_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left && mousePoint != Point.Empty)
-            {
-                Top += MousePosition.Y - mousePoint.Y;
-                Left += MousePosition.X - mousePoint.X;
-                mousePoint = MousePosition;
-            }
-        }
-
-        private void pLName_MouseUp(object sender, MouseEventArgs e)
-        {
-            mousePoint = Point.Empty;
-        }
-        #endregion
-
-        private void btnEnable_Click(object sender, EventArgs e)
-        {
-            if (btnEnable.Text == "使能开启")
-            {
-                btnEnable.Text = "使能关闭";
-                btnEnable.BackColor = Color.IndianRed;
-                pLEnable.Enabled = true;
-                EnableRun = true;
-                //根据控制表当前数据初始化控制模式
-                switch (Configuration.MemoryControlTable[Configuration.TAG_WORK_MODE])
-                {
-                    case 0: cBControlMode.SelectedIndex = 0; break;
-                    case 1: cBControlMode.SelectedIndex = 1; break;
-                    case 2: cBControlMode.SelectedIndex = 2; break;
-                    case 3: cBControlMode.SelectedIndex = 3; break;
-                }
-            }
-            else
-            {
-                //将运动控制变量清零                
-                //pc.WriteOneWord(Configuration.TAG_OPEN_PWM, 0, PCan.currentID);
-                //pc.WriteTwoWords(Configuration.TAG_CURRENT_L, 0, PCan.currentID);
-                //pc.WriteTwoWords(Configuration.TAG_SPEED_L, 0, PCan.currentID);
-                //pc.WriteTwoWords(Configuration.TAG_POSITION_L, 0, PCan.currentID);
-
-                btnEnable.Text = "使能开启";
-                btnEnable.BackColor = Color.Green;
-                pLEnable.Enabled = false;
-                clearValue();
-            }
-        }
-
-        private void AutomaticControl()
-        {
-            pBMode.Tag = 1;//自定义数据，表示自动控制
-            pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\A.jpg");
-            gBManually.Enabled = false;
-            gBWaveFormProperty.Enabled = true;
-            gBManually.BackColor = Color.White;
-            gBWaveFormProperty.BackColor = Color.LightSteelBlue;//关闭手动开自动
-            setAutomaticInitalValue();
-        }
-
-        private void setAutomaticInitalValue()
-        {
-            cBWaveForm.SelectedIndex = Convert.ToInt32(IniFile.ContentValue("TestRun", "WaveForm", IniFile.StrProPath));//从文件读入波形生成配置
-            string strWaveFrequency = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveFrequency", IniFile.StrProPath);
-            string strWaveAmplitude = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveAmplitude", IniFile.StrProPath);
-            string strWaveBias = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveBias", IniFile.StrProPath);
-
-            m_fFrequency = Convert.ToSingle(strWaveFrequency);
-            m_fAmplitude = Convert.ToSingle(strWaveAmplitude);
-            m_fBias = Convert.ToSingle(strWaveBias);
-
-            tBFrequency.Text = strWaveFrequency;
-            tBAmplitude.Text = strWaveAmplitude;
-            tBBias.Text = strWaveBias;
-        }
-
-        private void MamuallyControl()
-        {
-            pBMode.Tag = 2;//自定义数据，表示手动控制
-            pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\M.jpg");
-            gBManually.Enabled = true;
-            gBWaveFormProperty.Enabled = false;
-            gBManually.BackColor = Color.LightSteelBlue;
-            gBWaveFormProperty.BackColor = Color.White;//关闭自动开手动
-
-            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);//向下位机请求数据
-        }
-
-        private void pBExit_Click(object sender, EventArgs e)
-        {
-            clearValue();
-            pCurrentWin = null;
-            this.Close();
         }
 
         public void clearValue()
@@ -200,6 +79,123 @@ namespace ICDIBasic
                     lLUnit.Text = "Unit: °";
                     break;
             }
+        }
+
+        private void pBExit_Click(object sender, EventArgs e)
+        {
+            clearValue();
+            pCurrentWin = null;
+            this.Close();
+        }
+
+        private void pBMinimized_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void InitialControls()
+        {
+            pLEnable.Enabled = true;
+            EnableRun = true;
+            //根据控制表当前数据初始化控制模式
+            switch (Configuration.MemoryControlTable[Configuration.TAG_WORK_MODE])
+            {
+                case 0: cBControlMode.SelectedIndex = 0; break;
+                case 1: cBControlMode.SelectedIndex = 1; break;
+                case 2: cBControlMode.SelectedIndex = 2; break;
+                case 3: cBControlMode.SelectedIndex = 3; break;
+            }
+
+            AutomaticControl();//默认使用自动控制
+            //MamuallyControl();//默认使用手动控制
+
+            //pLEnable.Enabled = true;//测试用
+            //MamuallyControl();//测试用
+
+            IscBSymmetryChecked();//根据cBSymmetry的值确定tBMin
+        }
+
+        private void pLEnable_MouseDown(object sender, MouseEventArgs e)
+        {
+            BringToFront();
+        }
+
+        #region 用鼠标拖拽移动窗体
+        private Point mousePoint = Point.Empty;
+        private void pLName_MouseDown(object sender, MouseEventArgs e)
+        {
+            BringToFront();
+            if (e.Button == MouseButtons.Left)
+            {
+                mousePoint = MousePosition;
+            }
+        }
+
+        private void pLName_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && mousePoint != Point.Empty)
+            {
+                Top += MousePosition.Y - mousePoint.Y;
+                Left += MousePosition.X - mousePoint.X;
+                mousePoint = MousePosition;
+            }
+        }
+
+        private void pLName_MouseUp(object sender, MouseEventArgs e)
+        {
+            mousePoint = Point.Empty;
+        }
+        #endregion
+
+        private void AutomaticControl()
+        {
+            pBMode.Tag = 1;//自定义数据，表示自动控制
+            pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\A.jpg");
+            gBManually.Enabled = false;
+            gBWaveFormProperty.Enabled = true;
+            gBManually.BackColor = Color.White;
+            gBWaveFormProperty.BackColor = Color.LightSteelBlue;//关闭手动开自动
+            setAutomaticInitalValue();
+        }
+
+        private void setAutomaticInitalValue()
+        {
+            cBWaveForm.SelectedIndex = Convert.ToInt32(IniFile.ContentValue("TestRun", "WaveForm", IniFile.StrProPath));//从文件读入波形生成配置
+            string strWaveFrequency = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveFrequency", IniFile.StrProPath);
+            string strWaveAmplitude = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveAmplitude", IniFile.StrProPath);
+            string strWaveBias = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveBias", IniFile.StrProPath);
+
+            m_fFrequency = Convert.ToSingle(strWaveFrequency);
+            m_fAmplitude = Convert.ToSingle(strWaveAmplitude);
+            m_fBias = Convert.ToSingle(strWaveBias);
+
+            tBFrequency.Text = strWaveFrequency;
+            tBAmplitude.Text = strWaveAmplitude;
+            tBBias.Text = strWaveBias;
+        }
+
+        private void MamuallyControl()
+        {
+            pBMode.Tag = 2;//自定义数据，表示手动控制
+            pBMode.Image = Image.FromFile(Application.StartupPath + "\\resource\\M.jpg");
+            gBManually.Enabled = true;
+            gBWaveFormProperty.Enabled = false;
+            gBManually.BackColor = Color.LightSteelBlue;
+            gBWaveFormProperty.BackColor = Color.White;//关闭自动开手动
+
+            pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
+            Thread.Sleep(10);
+            byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
+            byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
+            byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
+            currentPosition = BitConverter.ToInt32(tempResult, 0);
+            //MessageBox.Show(Convert.ToString(currentPosition));//测试用
+            mCurrent = Convert.ToSingle(currentPosition) * 360 / 65536;
+            tBCurrent.Text = mCurrent.ToString("F2");
+            tBCurrentChangetBManual();
+
+
+            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);//向下位机请求数据
         }
 
         private void cBControlMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -243,7 +239,6 @@ namespace ICDIBasic
         private void cBWaveform_SelectedIndexChanged(object sender, EventArgs e)
         {
             clearValue();
-            setAutomaticInitalValue();
             switch (cBWaveForm.Text)
             {
                 case "衡值":
@@ -268,16 +263,19 @@ namespace ICDIBasic
                     break;
             }
             IniFile.WritePrivateProfileString("TestRun", "WaveForm", cBWaveForm.SelectedIndex.ToString(), IniFile.StrProPath);
+            setAutomaticInitalValue();
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             ChangeOK = true;
+            EnableRun = true;
         }
 
         private void btnClearAll_Click(object sender, EventArgs e)
         {
             clearValue();
+            EnableRun = true;
         }
 
         private void pBMode_Click(object sender, EventArgs e)
@@ -288,8 +286,8 @@ namespace ICDIBasic
             }
             else
             {
-                AutomaticControl();
                 tMManualControl.Stop();
+                AutomaticControl();                
             }
         }
 
@@ -389,9 +387,10 @@ namespace ICDIBasic
         #endregion
 
         #region 手动控制零位偏转
+        
         //手动控制使用，设置为变量使得在输入错误时能返回上一结果，设置为全局使得在定时器中可以调用
-        private float manualMin = 0.0f;
-        private float manualMax = 0.0f;
+        private float manualMin = 360.0f;
+        private float manualMax = 360.0f;
 
         #region 输入tBMin
         //输入tBMin完毕后调用
@@ -458,13 +457,56 @@ namespace ICDIBasic
         }
         #endregion
 
+        #region 输入tBCurrent
+
+        private float mCurrent = 0.0f;
+
+        private void tBCurrent_InputDone()
+        {
+            try
+            {
+                mCurrent = Convert.ToSingle(tBCurrent.Text);
+            }
+            catch (System.Exception ex)
+            {
+                tBCurrent.Text = mCurrent.ToString("F2");
+                MessageBox.Show("请输入合法的数值！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                return;
+            }
+            tBCurrentChangetBManual();
+        }
+
+        private void tBCurrentChangetBManual()
+        {
+            try
+            {
+                tBManual.Value = Convert.ToInt16(100 * (mCurrent - manualMin) / (manualMax - manualMin));
+            }
+            catch
+            {
+                //待处理
+            }
+        }
+
+        private void tBCurrent_Leave(object sender, EventArgs e)
+        {
+            tBCurrent_InputDone();
+        }
+
+        private void tBCurrent_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBCurrent_InputDone();
+            }
+        }
+        #endregion
+
         //在定时器中控制模块
         private void tMManualControl_Tick(object sender, EventArgs e)
         {
-            //根据设置的Min和Max，以及滑块位置，获得当前角度值
-            float manualCur = manualMin + (manualMax - manualMin) * tBManual.Value / 100;
-            Current.Text = manualCur.ToString();
-            int manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
+            int manualValue = Convert.ToInt32(mCurrent / 360.0 * 65535.0);
             pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
         }
 
@@ -479,7 +521,6 @@ namespace ICDIBasic
             {
                 if (tMManualControl.Enabled)
                 {
-                    Current.Visible = false;
                     tMManualControl.Stop();
                     btnEnManCtrl.Text = "开始";
                     btnRandomMotion.Enabled = true;//允许随机运动
@@ -488,92 +529,11 @@ namespace ICDIBasic
                 }
                 else
                 {
-                    Current.Visible = true;
                     tMManualControl.Start();
                     btnEnManCtrl.Text = "停止";
                     btnRandomMotion.Enabled = false;//禁止随机运动
                     cBControlMode.Enabled = false;//禁止模式切换
                     pBMode.Enabled = false;//禁止模式切换
-                }
-            }
-        }
-
-        //滑块回中按钮
-        private void btnTrackBarCenter_Click(object sender, EventArgs e)
-        {
-            tBManual.Value = (tBManual.Maximum + tBManual.Minimum) / 2;
-        }
-
-        //手动控制中随机运动功能使用，时间毫秒数，取得随机数
-        Random rad = new Random(DateTime.Now.Millisecond);
-
-        //随机运动控制用线程（并不是精确地每2秒给一个位置值）
-        private delegate void FlushClient();
-        Thread thread = null;
-
-        private void ThreadRandomMotion()
-        {
-            while (true)
-            {
-                ThreadFunction();
-                Thread.Sleep(2000);
-            }
-        }
-
-        private void ThreadFunction()
-        {
-            if (Current.InvokeRequired)//等待异步
-            {
-                FlushClient fc = new FlushClient(ThreadFunction);
-                Invoke(fc); //通过代理调用刷新方法
-            }
-            else
-            {
-                //根据设置的Min和Max，让滑块位置随机，获得当前角度值
-                float manualCur = manualMin + (manualMax - manualMin) * rad.Next(101) / 100;
-                Current.Text = manualCur.ToString();
-                int manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
-                pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
-            }
-        }
-
-        //随机运动启停按钮，创建后台线程
-        private void btnRandomMotion_Click(object sender, EventArgs e)
-        {
-            if (Configuration.MemoryControlTable[Convert.ToByte("30", 16)] != Configuration.MODE_POSITION)
-            {
-                MessageBox.Show("请在位置控制模式下使用！");
-            }
-            else
-            {
-                //手动控制不在进行时，才能开始
-                if (thread == null)
-                {
-                    thread = new Thread(ThreadRandomMotion);
-                    thread.IsBackground = true;
-                    thread.Start();
-                    Current.Visible = true;
-                    btnRandomMotion.Text = "停止随机";
-                    btnEnManCtrl.Enabled = false;//禁止手动控制
-                    cBControlMode.Enabled = false;//禁止模式切换
-                    pBMode.Enabled = false;//禁止模式切换
-                }
-                else
-                {
-                    try
-                    {
-                        thread.Abort();
-                    }
-                    catch (Exception)
-                    {
-                        ;
-                    }
-                    thread = null;
-                    Current.Visible = false;
-                    btnRandomMotion.Text = "开始随机";
-                    btnEnManCtrl.Enabled = true;//允许手动控制
-                    cBControlMode.Enabled = true;//允许模式切换
-                    pBMode.Enabled = true;//允许模式切换
                 }
             }
         }
@@ -605,6 +565,89 @@ namespace ICDIBasic
         {
             IscBSymmetryChecked();
         }
+
+        private void tBManual_Scroll(object sender, EventArgs e)
+        {
+            //根据设置的Min和Max，以及滑块位置，获得当前角度值
+            mCurrent = manualMin + (manualMax - manualMin) * tBManual.Value / 100;
+            tBCurrent.Text = mCurrent.ToString("F2");
+        }
+
+        #region 随机运动相关
+        //手动控制中随机运动功能使用，时间毫秒数，取得随机数
+        Random rad = new Random(DateTime.Now.Millisecond);
+        //随机运动控制用线程（并不是精确地每2秒给一个位置值）
+        private delegate void FlushClient();
+        Thread thread = null;
+
+        private void ThreadRandomMotion()
+        {
+            while (true)
+            {
+                ThreadFunction();
+                Thread.Sleep(2000);
+            }
+        }
+
+        private void ThreadFunction()
+        {
+            if (tBCurrent.InvokeRequired)//等待异步
+            {
+                FlushClient fc = new FlushClient(ThreadFunction);
+                Invoke(fc); //通过代理调用刷新方法
+            }
+            else
+            {
+                //根据设置的Min和Max，让滑块位置随机，获得当前角度值
+                mCurrent = manualMin + (manualMax - manualMin) * rad.Next(101) / 100;
+                tBCurrent.Text = mCurrent.ToString("F2");
+                tBCurrentChangetBManual();
+                int manualValue = Convert.ToInt32(mCurrent / 360.0 * 65535.0);
+                pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
+            }
+        }
+
+        //随机运动启停按钮，创建后台线程
+        private void btnRandomMotion_Click(object sender, EventArgs e)
+        {
+            if (Configuration.MemoryControlTable[Convert.ToByte("30", 16)] != Configuration.MODE_POSITION)
+            {
+                MessageBox.Show("请在位置控制模式下使用！");
+            }
+            else
+            {
+                //手动控制不在进行时，才能开始
+                if (thread == null)
+                {
+                    thread = new Thread(ThreadRandomMotion);
+                    thread.IsBackground = true;
+                    thread.Start();
+                    btnRandomMotion.Text = "停止随机";
+                    btnEnManCtrl.Enabled = false;//禁止手动控制
+                    cBControlMode.Enabled = false;//禁止模式切换
+                    pBMode.Enabled = false;//禁止模式切换
+                }
+                else
+                {
+                    try
+                    {
+                        thread.Abort();
+                    }
+                    catch (Exception)
+                    {
+                        ;
+                    }
+                    thread = null;
+                    btnRandomMotion.Text = "开始随机";
+                    btnEnManCtrl.Enabled = true;//允许手动控制
+                    cBControlMode.Enabled = true;//允许模式切换
+                    pBMode.Enabled = true;//允许模式切换
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         //手动控制中回零功能使用
@@ -684,7 +727,7 @@ namespace ICDIBasic
         }
 
         #region 对编码器寄存器读写线程
-        #region 输入tBRegisterNumber//读寄存器的地址
+        #region 输入tBRegisterNumber
         private short registerNumber = 0x0000;
         private void tBRegisterNumber_InputDone()
         {
@@ -765,6 +808,33 @@ namespace ICDIBasic
         }
         private void CheckFile()
         {
+            //FileStream fs = new FileStream("MonitorErrorData" + DateTime.Now.ToLongDateString() + ".log", FileMode.Open);
+            //StreamReader m_streamReader = new StreamReader(fs);
+            ////fs.Seek(-1, SeekOrigin.Current);//定位在当前位置上移动一个位置
+            ////using (StreamReader sr = new StreamReader("MonitorErrorData" + DateTime.Now.ToLongDateString() + ".log"))
+            ////{
+            ////    String line = sr.
+            ////    ResultBlock.Text = line;
+            ////}
+            //m_streamReader.BaseStream.Seek(0, SeekOrigin.End);
+            //m_streamReader.BaseStream.Seek(-1, SeekOrigin.Current);
+            //string arry = "";
+            
+            //string strLine = m_streamReader.ReadLine();
+            //do
+            //{
+            //    string[] split = strLine.Split(' ');
+            //    string a = split[0];
+            //    if (a == "2016年7月22日")
+            //    {
+            //        arry += strLine + "\n";
+            //    }
+            //    strLine = m_streamReader.ReadLine();
+            //} while (strLine != null && strLine != "");
+            //fs.Close();
+            //fs.Dispose();
+            //MessageBox.Show(arry);
+            //arry = "";
         }
         private void WriteLog(string registerID)
         {
@@ -813,7 +883,7 @@ namespace ICDIBasic
 
         private void MonitorError()
         {
-            if (Current.InvokeRequired)//等待异步
+            if (tBCurrent.InvokeRequired)//等待异步
             {
                 FlushClient ME = new FlushClient(MonitorError);
                 Invoke(ME); //通过代理调用刷新方法
@@ -934,6 +1004,7 @@ namespace ICDIBasic
         #endregion
 
         #region 在当前位置运动
+
         #region 输入tBStep
         private float StepLength = 0.1f;
 
@@ -1155,6 +1226,5 @@ namespace ICDIBasic
             }
         }
         #endregion
-
     }
 }
