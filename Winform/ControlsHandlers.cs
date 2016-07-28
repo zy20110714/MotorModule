@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+
+
 
 /// <summary>
 /// Inclusion of PEAK PCAN-Basic namespace
@@ -19,6 +22,9 @@ namespace ICDIBasic
 {
     public partial class MainForm
     {
+        [DllImport("user32")]
+        public static extern int SetParent(int hWndChild, int hWndNewParent);
+
         public static bool IsDataRecieved = false;
         public static short IDName = 0;
 
@@ -775,30 +781,39 @@ namespace ICDIBasic
         private void btnParameters_Click(object sender, EventArgs e)
         {
             pf = ParametersForm.GetInstance();
+            pf.StartPosition = FormStartPosition.Manual;
+            pf.Location = new Point(0, 35);
             pf.MdiParent = this;
-            pf.Parent = pLMain;
-            pf.BringToFront();
+            //pf.Parent = pLMain;
+            //pf.BringToFront();
             pf.Show();
+            SetParent((int)pf.Handle, (int)this.Handle);
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
             tr = TestRun.GetInstance();
+            tr.StartPosition = FormStartPosition.Manual;
+            tr.Location = new Point(900, 35);
             tr.MdiParent = this;
-            tr.Parent = pLMain;
-            tr.Location = new Point(900, 0);
-            tr.BringToFront();
+            //tr.Parent = pLMain;
+            //tr.BringToFront();
+            SetParent((int)tr.Handle, (int)this.Handle);
             tr.Show();
+            
         }
 
 
         private void btnWave_Click(object sender, EventArgs e)
         {
             os = OscilloScope.GetInstance();
+            os.StartPosition = FormStartPosition.Manual;
+            os.Location = new Point(0, 35);
             os.MdiParent = this;
-            os.Parent = pLMain;
-            os.BringToFront();
+            //os.Parent = pLMain;
+            //os.BringToFront();
             os.Show();
+            SetParent((int)os.Handle, (int)this.Handle);
         }
 
 
