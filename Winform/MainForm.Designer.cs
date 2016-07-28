@@ -197,7 +197,7 @@
             this.cbbBaudrates.Size = new System.Drawing.Size(116, 20);
             this.cbbBaudrates.TabIndex = 49;
             this.cbbBaudrates.SelectedIndexChanged += new System.EventHandler(this.cbbBaudrates_SelectedIndexChanged);
-            //
+            // 
             // txtBitrate
             // 
             this.txtBitrate.Location = new System.Drawing.Point(204, 23);
@@ -281,7 +281,8 @@
             this.btnRelease.TabIndex = 35;
             this.btnRelease.Text = "Release";
             this.btnRelease.Click += new System.EventHandler(this.btnRelease_Click);
-         
+            // 
+            // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -367,7 +368,6 @@
             this.lbxInfo.Name = "lbxInfo";
             this.lbxInfo.Size = new System.Drawing.Size(120, 88);
             this.lbxInfo.TabIndex = 59;
-         
             // 
             // tMMainFormRefresh
             // 
@@ -376,6 +376,7 @@
             // 
             // tMCheck
             // 
+            this.tMCheck.Enabled = true;
             this.tMCheck.Interval = 2000;
             this.tMCheck.Tick += new System.EventHandler(this.tMCheck_Tick);
             // 
@@ -569,14 +570,15 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OR模块调试";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

@@ -40,7 +40,6 @@
             this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
             this.pBRecordImage = new System.Windows.Forms.PictureBox();
             this.btnMeasure = new System.Windows.Forms.Button();
-            this.pLPaint = new ICDIBasic.NewPanel();
             this.tBtrace = new System.Windows.Forms.TrackBar();
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.cDcolor = new System.Windows.Forms.ColorDialog();
@@ -107,13 +106,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnCurrentCompensation = new System.Windows.Forms.Button();
             this.btnFriction = new System.Windows.Forms.Button();
             this.tMPointer = new System.Windows.Forms.Timer(this.components);
             this.pLName = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
-            this.btnCurrentCompensation = new System.Windows.Forms.Button();
+            this.pLPaint = new ICDIBasic.NewPanel();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
@@ -278,16 +278,6 @@
             this.btnMeasure.UseVisualStyleBackColor = false;
             this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
             // 
-            // pLPaint
-            // 
-            this.pLPaint.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pLPaint.Location = new System.Drawing.Point(6, 1);
-            this.pLPaint.Name = "pLPaint";
-            this.pLPaint.Size = new System.Drawing.Size(740, 360);
-            this.pLPaint.TabIndex = 0;
-            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
-            // 
             // tBtrace
             // 
             this.tBtrace.AutoSize = false;
@@ -319,7 +309,7 @@
             this.tCMonitor.Location = new System.Drawing.Point(0, 454);
             this.tCMonitor.Name = "tCMonitor";
             this.tCMonitor.SelectedIndex = 0;
-            this.tCMonitor.Size = new System.Drawing.Size(839, 150);
+            this.tCMonitor.Size = new System.Drawing.Size(839, 220);
             this.tCMonitor.TabIndex = 1;
             this.tCMonitor.SelectedIndexChanged += new System.EventHandler(this.tCMonitor_SelectedIndexChanged);
             // 
@@ -328,7 +318,7 @@
             this.tabPage4.Controls.Add(this.lVMeasureItems);
             this.tabPage4.Location = new System.Drawing.Point(4, 31);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(831, 115);
+            this.tabPage4.Size = new System.Drawing.Size(831, 185);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "测量项目";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -351,7 +341,7 @@
             this.lVMeasureItems.Location = new System.Drawing.Point(0, 0);
             this.lVMeasureItems.MultiSelect = false;
             this.lVMeasureItems.Name = "lVMeasureItems";
-            this.lVMeasureItems.Size = new System.Drawing.Size(828, 115);
+            this.lVMeasureItems.Size = new System.Drawing.Size(828, 200);
             this.lVMeasureItems.TabIndex = 0;
             this.lVMeasureItems.UseCompatibleStateImageBehavior = false;
             this.lVMeasureItems.View = System.Windows.Forms.View.Details;
@@ -401,7 +391,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 31);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(831, 115);
+            this.tabPage1.Size = new System.Drawing.Size(831, 165);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "测量条件";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -445,7 +435,7 @@
             this.tabPage3.Controls.Add(this.cBPointer);
             this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(831, 115);
+            this.tabPage3.Size = new System.Drawing.Size(831, 165);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "指针";
             // 
@@ -595,7 +585,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(831, 115);
+            this.tabPage2.Size = new System.Drawing.Size(831, 165);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "PID手动调整";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -974,10 +964,21 @@
             this.tabPage5.Controls.Add(this.btnFriction);
             this.tabPage5.Location = new System.Drawing.Point(4, 31);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(831, 115);
+            this.tabPage5.Size = new System.Drawing.Size(831, 165);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "自动增益调整";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // btnCurrentCompensation
+            // 
+            this.btnCurrentCompensation.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCurrentCompensation.BackgroundImage")));
+            this.btnCurrentCompensation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCurrentCompensation.Location = new System.Drawing.Point(155, 13);
+            this.btnCurrentCompensation.Name = "btnCurrentCompensation";
+            this.btnCurrentCompensation.Size = new System.Drawing.Size(166, 53);
+            this.btnCurrentCompensation.TabIndex = 0;
+            this.btnCurrentCompensation.UseVisualStyleBackColor = true;
+            this.btnCurrentCompensation.Click += new System.EventHandler(this.btnCurrentCompensation_Click);
             // 
             // btnFriction
             // 
@@ -1013,10 +1014,10 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("隶书", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label16.Location = new System.Drawing.Point(367, 9);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(103, 29);
+            this.label16.Size = new System.Drawing.Size(102, 33);
             this.label16.TabIndex = 1;
             this.label16.Text = "示波器";
             // 
@@ -1042,22 +1043,21 @@
             this.pBSetUp.TabIndex = 0;
             this.pBSetUp.TabStop = false;
             // 
-            // btnCurrentCompensation
+            // pLPaint
             // 
-            this.btnCurrentCompensation.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCurrentCompensation.BackgroundImage")));
-            this.btnCurrentCompensation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnCurrentCompensation.Location = new System.Drawing.Point(155, 13);
-            this.btnCurrentCompensation.Name = "btnCurrentCompensation";
-            this.btnCurrentCompensation.Size = new System.Drawing.Size(166, 53);
-            this.btnCurrentCompensation.TabIndex = 0;
-            this.btnCurrentCompensation.UseVisualStyleBackColor = true;
-            this.btnCurrentCompensation.Click += new System.EventHandler(this.btnCurrentCompensation_Click);
+            this.pLPaint.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pLPaint.Location = new System.Drawing.Point(6, 1);
+            this.pLPaint.Name = "pLPaint";
+            this.pLPaint.Size = new System.Drawing.Size(740, 360);
+            this.pLPaint.TabIndex = 0;
+            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
             // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 600);
+            this.ClientSize = new System.Drawing.Size(832, 703);
             this.Controls.Add(this.pLName);
             this.Controls.Add(this.tCMonitor);
             this.Controls.Add(this.pLBoard);
