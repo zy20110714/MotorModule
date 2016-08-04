@@ -71,6 +71,9 @@ namespace ICDIBasic
         OscilloScope os;
 
         TestRun tr;
+
+        Monitor mo;
+
         #endregion
 
         #region Methods
@@ -809,11 +812,11 @@ namespace ICDIBasic
             //    chbFD.Checked = false;
         }
 
-        #endregion
 
 
         #endregion
 
+        #endregion
 
         #endregion
 

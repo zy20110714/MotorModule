@@ -537,6 +537,7 @@
             this.btnMonitor.Size = new System.Drawing.Size(90, 35);
             this.btnMonitor.TabIndex = 1;
             this.btnMonitor.UseVisualStyleBackColor = true;
+            this.btnMonitor.Click += new System.EventHandler(this.btnMonitor_Click);
             // 
             // btnParameters
             // 

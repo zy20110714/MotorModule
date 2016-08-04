@@ -816,6 +816,17 @@ namespace ICDIBasic
             SetParent((int)os.Handle, (int)this.Handle);
         }
 
+        private void btnMonitor_Click(object sender, EventArgs e)
+        {
+            mo = Monitor.GetInstance();
+            mo.StartPosition = FormStartPosition.Manual;
+            mo.Location = new Point(0, 35);
+            mo.MdiParent = this;
+            //pf.Parent = pLMain;
+            //pf.BringToFront();
+            mo.Show();
+            SetParent((int)mo.Handle, (int)this.Handle);
+        }
 
 
         private void cBID_DropDown(object sender, EventArgs e)
