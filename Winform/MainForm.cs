@@ -820,5 +820,29 @@ namespace ICDIBasic
 
         #endregion
 
+        private void cBID_TextChanged(object sender, EventArgs e)
+        {
+            if (cBID.Text != "")
+            {
+                btnParameters.Enabled = true;
+                btnRun.Enabled = true;
+                btnWave.Enabled = true;
+                btnMonitor.Enabled = true;
+                PCan.currentID = Convert.ToByte(cBID.Text);
+                pc.WriteOneWord(Configuration.SYS_ID, PCan.currentID, PCan.currentID);
+                InitialMemoryControlTable();
+                if (pf != null)
+                {
+                    pf.RefreshlVParam(0);
+                }
+            }
+            else
+            {
+                btnParameters.Enabled = false;
+                btnRun.Enabled = false;
+                btnWave.Enabled = false;
+                btnMonitor.Enabled = false;
+            }
+        }
     }
 }

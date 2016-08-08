@@ -134,15 +134,6 @@ namespace ICDIBasic
             }
         }
 
-        //private void cbbParameter_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    // Activates/deactivates controls according with the selected 
-        //    // PCAN-Basic parameter 
-        //    //
-        //    rdbParamActive.Enabled = cbbParameter.SelectedIndex != 0;
-        //    rdbParamInactive.Enabled = rdbParamActive.Enabled;
-        //    nudDeviceId.Enabled = !rdbParamActive.Enabled;
-        //}
         #endregion
 
         #region Button event-handlers
@@ -831,6 +822,7 @@ namespace ICDIBasic
 
         private void cBID_DropDown(object sender, EventArgs e)
         {
+            cBID.Items.Clear();
             MessageProccessing.allID.Clear();
             pc.SearchModuleID();
             //等待返回ID号
@@ -853,31 +845,6 @@ namespace ICDIBasic
             catch (System.Exception ex)
             {
                 MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-            }
-            // short aa = Configuration.MemoryControlTable[5];
-        }
-
-        private void cBID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cBID.Text != null)
-            {
-                btnParameters.Enabled = true;
-                btnRun.Enabled = true;
-                btnWave.Enabled = true;
-                PCan.currentID = Convert.ToByte(cBID.Text);
-                pc.WriteOneWord(Configuration.SYS_ID, PCan.currentID, PCan.currentID);
-                InitialMemoryControlTable();
-                if (pf != null)
-                {
-                    pf.RefreshlVParam(0);
-                }
-               
-            }
-            else
-            {
-                btnParameters.Enabled = false;
-                btnRun.Enabled = false;
-                btnWave.Enabled = false;
             }
         }
 

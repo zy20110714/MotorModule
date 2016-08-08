@@ -83,6 +83,16 @@ namespace ICDIBasic
 
         private void pBExit_Click(object sender, EventArgs e)
         {
+            try
+            {
+                thread.Abort();
+            }
+            catch (Exception)
+            {
+                ;
+            }
+            thread = null;
+
             clearValue();
             pCurrentWin = null;
             this.Close();
@@ -574,6 +584,7 @@ namespace ICDIBasic
         }
 
         #region 随机运动相关
+
         //手动控制中随机运动功能使用，时间毫秒数，取得随机数
         Random rad = new Random(DateTime.Now.Millisecond);
         //随机运动控制用线程（并不是精确地每2秒给一个位置值）

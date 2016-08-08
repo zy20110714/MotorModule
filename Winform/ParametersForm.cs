@@ -43,17 +43,16 @@ namespace ICDIBasic
             this.KeyPreview = true;
             tVParam.SelectedNode = tVParam.Nodes[0];
             tVParam.Nodes[0].Checked = true;
-            RefreshlVParam(tVParam.SelectedNode.Index);
-     
+            RefreshlVParam(tVParam.SelectedNode.Index);     
         }
 
-        private void  InitialParameters()
+        private void InitialParameters()
         {
             paraRelection.Clear();
 
-            paraRelection.Add(0x01, new ParameterStruct("SYS_ID", "0-100", "-", "R/W", "驱动器ID"));
-            paraRelection.Add(0x02, new ParameterStruct("SYS_MODEL_TYPE", "0-100", "J", "R", "驱动器型号"));
-            paraRelection.Add(0x03, new ParameterStruct("SYS_FW_VERSION", "0-100", "-", "R", "固件版本"));
+            paraRelection.Add(0x01, new ParameterStruct("SYS_ID", "1-254", "-", "R/W", "驱动器ID"));
+            paraRelection.Add(0x02, new ParameterStruct("SYS_MODEL_TYPE", "0-99", "J", "R", "驱动器型号"));
+            paraRelection.Add(0x03, new ParameterStruct("SYS_FW_VERSION", "0-99", "-", "R", "固件版本"));
             paraRelection.Add(0x04, new ParameterStruct("SYS_ERROR", "0-100", "-", "R", "错误代码"));
             paraRelection.Add(0x05, new ParameterStruct("SYS_VOLTAGE", "0-100", "0.01V", "R", "系统电压"));
             paraRelection.Add(0x06, new ParameterStruct("SYS_TEMP", "0-100", "0.1℃", "R", "系统温度"));
@@ -162,7 +161,6 @@ namespace ICDIBasic
             paraRelection.Add(0x9b, new ParameterStruct("SCP_TAGPOS_H", "0-100", "0", "R", "目标位置数据集"));
             paraRelection.Add(0x9c, new ParameterStruct("SCP_MEAPOS_L", "0-100", "0", "R", "实际位置数据集"));
             paraRelection.Add(0x9d, new ParameterStruct("SCP_MEAPOS_H", "0-100", "0", "R", "实际位置数据集"));
-
         }                                                 
                                                           
         public void RefreshlVParam(int index)
@@ -188,7 +186,6 @@ namespace ICDIBasic
                     lVParam.Items[i].SubItems.AddRange(new string[] { str, "reserved", "--",  "--", "--" });
                     lVParam.Items[i].BackColor = tBUnused.BackColor;
                 }
-             
             }
         }
 
@@ -196,7 +193,6 @@ namespace ICDIBasic
         {
             pCurrentWin = null;
             timerUpdate.Stop();
-
         }
 
         private void tVParam_AfterSelect(object sender, TreeViewEventArgs e)
@@ -220,7 +216,6 @@ namespace ICDIBasic
 
             RefreshlVParam(tVIndex);
         }
-
 
         private void lVParam_DoubleClick(object sender, EventArgs e)
         {
@@ -283,72 +278,46 @@ namespace ICDIBasic
                     tBExplain.Text = "保留字段";
                     MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                 }
-             
-
-                //    for (int i = 0; i < lVParam.Items.Count; i++)
-                //    {
-                //        if (i == nIndex)
-                //        {
-                //            lVParam.Items[i].BackColor = Color.DodgerBlue;
-                //        }
-                //        else
-                //        {
-                //            lVParam.Items[i].BackColor = Color.White;
-                //        }
-
-                //    }
-                //}
-                //else
-                //{
-                //    for (int i = 0; i < lVParam.Items.Count; i++)
-                //    {
-                //        lVParam.Items[i].BackColor = Color.White;
-                //    }
-                //}
             }
             else
             {
                 tBExplain.Text = "";
             }
-
-           
-          
         }
 
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (e.KeyCode == Keys.Enter)
             {
-                case Keys.Enter: if (tb != null)
+                if (tb != null)
+                {
+                    Int16 value = 0;
+                    try
                     {
-                        Int16 value = 0;
-                        try
+                        if (cBHexDisplay.Checked)
                         {
-                            if (cBHexDisplay.Checked)
-                            {
-                                value = Convert.ToInt16(tb.Text, 16);
-                            }
-                            else
-                            {
-                                value = Convert.ToInt16(tb.Text);
-                            }
+                            value = Convert.ToInt16(tb.Text, 16);
                         }
-                        catch (System.Exception ex)
+                        else
                         {
-                            MessageBox.Show("请输入合法的字符串！");
-                            lVParam.Controls.Remove(tb);
-                            tb = null;
-                            MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                            return;
+                            value = Convert.ToInt16(tb.Text);
                         }
-
-                        lVParam.SelectedItems[0].SubItems[4].Text = tb.Text;
-                        //更改内存控制表
-                        pc.WriteOneWord(Convert.ToByte(lVParam.Items[selectedItemIndex].SubItems[1].Text, 16), value, PCan.currentID);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        MessageBox.Show("请输入合法的字符串！");
                         lVParam.Controls.Remove(tb);
                         tb = null;
+                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                        return;
                     }
-                    break;
+
+                    lVParam.SelectedItems[0].SubItems[4].Text = tb.Text;
+                    //更改内存控制表
+                    pc.WriteOneWord(Convert.ToByte(lVParam.Items[selectedItemIndex].SubItems[1].Text, 16), value, PCan.currentID);
+                    lVParam.Controls.Remove(tb);
+                    tb = null;
+                }
             }
         }
 
@@ -356,19 +325,9 @@ namespace ICDIBasic
         {
             if (tb != null && !tb.Focused)
             {
-
                 lVParam.Controls.Remove(tb);
                 tb = null;
             }
-        }
-
-        private void lVParam_MouseLeave(object sender, EventArgs e)
-        {
-            //if (tb != null && tb.Focused)
-            //{
-            //    lVParam.Controls.Remove(tb);
-            //    tb = null;
-            //}
         }
 
         private void cBHexDisplay_CheckedChanged(object sender, EventArgs e)
@@ -389,13 +348,22 @@ namespace ICDIBasic
         {
             //以1000ms的间隔更新变量
             lVParam.BeginUpdate();
-            
+            byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
+            pc.ReadWords(index, 16, PCan.currentID);
+            Thread.Sleep(15);
+            //只刷新数据部分
             for (int i = 0; i < 16; i++)
             {
                 string str = lVParam.Items[i].SubItems[1].Text;
                 lVParam.Items[i].SubItems[4].Text = cBHexDisplay.Checked ? Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString("x4") : Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString();
             }
             lVParam.EndUpdate();
+            ////刷新当前页面
+            //cBParametersSource.Text = "从驱动器读取";
+            //byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
+            //pc.ReadWords(index, 16, PCan.currentID);
+            //Thread.Sleep(150);
+            //RefreshlVParam(tVIndex);
         }
 
         private void btnFlash_Click(object sender, EventArgs e)
@@ -406,14 +374,13 @@ namespace ICDIBasic
             wp.Parent = ParametersForm.GetInstance();
             wp.Location = new Point(205,125);
             wp.BringToFront();
-            wp.Show();
-            
+            wp.Show();            
         }
 
         private void pBExit_Click(object sender, EventArgs e)
         {
             //关闭参数设置页面
-            this.Close();
+            Close();
         }
 
         private void btnCalculator_Click(object sender, EventArgs e)
@@ -439,11 +406,6 @@ namespace ICDIBasic
             MainForm.GetInstance().sBFeedbackShow("参数保存成功！",1);
         }
 
-        /// <summary>
-        /// 选择参数读取来源
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void cBParametersSource_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cBParametersSource.Text == "从驱动器读取")
@@ -472,18 +434,6 @@ namespace ICDIBasic
 
             }
             btnFlash.Focus();
-
-        }
-
-        private void btnInitialize_Click(object sender, EventArgs e)
-        {
-            //cBParametersSource.Text = "";
-            cBParametersSource.Text = "从驱动器读取";
-            //刷新当前页面
-            byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
-            pc.ReadWords(index, 16, PCan.currentID);
-            Thread.Sleep(150);
-            RefreshlVParam(tVIndex);
         }
 
         private void pLName_Click(object sender, EventArgs e)
@@ -491,16 +441,14 @@ namespace ICDIBasic
             this.BringToFront();
         }
 
-      
-
         #region 用鼠标拖拽移动窗体
+
         private Point mousePoint = Point.Empty;
+
         private void pLName_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                //_mousePoint.X = e.X;
-                //_mousePoint.Y = e.Y;
                 mousePoint = MousePosition;
             }
         }
@@ -518,8 +466,8 @@ namespace ICDIBasic
                 this.Left += MousePosition.X - mousePoint.X;
                 mousePoint = MousePosition;
             }
-            //this.PointToClient(MousePosition).Y
         }
+        
         #endregion
 
         private void btnSetZeroPosition_Click(object sender, EventArgs e)
@@ -527,22 +475,23 @@ namespace ICDIBasic
             //如果当前是位置控制模式，则向内存控制表SYS_SET_ZERO_POS写入1
             if ("3" == Configuration.MemoryControlTable[Convert.ToByte("30", 16)].ToString())
             {
-                try
-                {                    
-                    pc.WriteOneWord(Configuration.SYS_SET_ZERO_POS, 0x01, PCan.currentID);
-                    //Thread.Sleep(10);//不知是否必须
-                    MessageBox.Show("设置成功，请烧写Flash！");
-                }
-                catch
-                {
-                    MessageBox.Show("向内存控制表写入失败！");
-                }
+                pc.WriteOneWord(Configuration.SYS_SET_ZERO_POS, 0x01, PCan.currentID);
+                Thread.Sleep(10);
+                //更新分类1
+                pc.ReadWords(16, 16, PCan.currentID);
+                Thread.Sleep(10);
+                //更新分类3，不更新出现了问题
+                pc.ReadWords(48, 16, PCan.currentID);
+                Thread.Sleep(10);
+                //给出下一步提示，可以直接点击烧写
+                MessageBox.Show("设置成功，请烧写Flash！");
             }
             else
             {
                 MessageBox.Show("当前非位置控制模式！");
             }
         }
+
     }
 
 
@@ -561,7 +510,7 @@ namespace ICDIBasic
             Unit = unit;
             Competence = competence;
             Description = description;
-    }
+        }
     }
 
 }

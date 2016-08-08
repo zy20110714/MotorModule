@@ -473,7 +473,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(79, 9);
+            this.label2.Location = new System.Drawing.Point(3, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 14);
             this.label2.TabIndex = 3;
@@ -484,18 +484,19 @@
             this.cBID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBID.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cBID.FormattingEnabled = true;
-            this.cBID.Location = new System.Drawing.Point(-2, -2);
+            this.cBID.Location = new System.Drawing.Point(71, -2);
             this.cBID.Name = "cBID";
             this.cBID.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cBID.Size = new System.Drawing.Size(64, 37);
             this.cBID.TabIndex = 2;
             this.cBID.DropDown += new System.EventHandler(this.cBID_DropDown);
-            this.cBID.SelectedIndexChanged += new System.EventHandler(this.cBID_SelectedIndexChanged);
+            this.cBID.TextChanged += new System.EventHandler(this.cBID_TextChanged);
             // 
             // btnOther
             // 
             this.btnOther.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnOther.BackgroundImage")));
             this.btnOther.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnOther.Enabled = false;
             this.btnOther.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnOther.Location = new System.Drawing.Point(535, -2);
             this.btnOther.Name = "btnOther";
@@ -507,6 +508,7 @@
             // 
             this.btnRun.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRun.BackgroundImage")));
             this.btnRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRun.Enabled = false;
             this.btnRun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRun.Location = new System.Drawing.Point(444, -2);
             this.btnRun.Name = "btnRun";
@@ -519,6 +521,7 @@
             // 
             this.btnWave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnWave.BackgroundImage")));
             this.btnWave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnWave.Enabled = false;
             this.btnWave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnWave.Location = new System.Drawing.Point(348, -2);
             this.btnWave.Name = "btnWave";
@@ -531,6 +534,7 @@
             // 
             this.btnMonitor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMonitor.BackgroundImage")));
             this.btnMonitor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnMonitor.Enabled = false;
             this.btnMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMonitor.Location = new System.Drawing.Point(254, -2);
             this.btnMonitor.Name = "btnMonitor";

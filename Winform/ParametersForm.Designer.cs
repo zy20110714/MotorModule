@@ -67,6 +67,7 @@
             this.cBParametersSource = new System.Windows.Forms.ComboBox();
             this.oFParaPath = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogParaPath = new System.Windows.Forms.SaveFileDialog();
+            this.btnSetZeroPosition = new System.Windows.Forms.Button();
             this.lVParam = new ICDIBasic.NewListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -74,7 +75,6 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnSetZeroPosition = new System.Windows.Forms.Button();
             this.pLName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
@@ -91,7 +91,7 @@
             this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Location = new System.Drawing.Point(0, 0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(844, 52);
+            this.pLName.Size = new System.Drawing.Size(893, 52);
             this.pLName.TabIndex = 0;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
@@ -113,7 +113,7 @@
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(792, 0);
+            this.pBExit.Location = new System.Drawing.Point(841, -1);
             this.pBExit.Name = "pBExit";
             this.pBExit.Size = new System.Drawing.Size(52, 52);
             this.pBExit.TabIndex = 0;
@@ -188,7 +188,7 @@
             treeNode8,
             treeNode9,
             treeNode10});
-            this.tVParam.Size = new System.Drawing.Size(200, 516);
+            this.tVParam.Size = new System.Drawing.Size(245, 452);
             this.tVParam.TabIndex = 1;
             this.tVParam.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tVParam_AfterSelect);
             // 
@@ -210,9 +210,9 @@
             this.pLDescribe.Controls.Add(this.btnInitialize);
             this.pLDescribe.Controls.Add(this.btnSave);
             this.pLDescribe.Controls.Add(this.btnFlash);
-            this.pLDescribe.Location = new System.Drawing.Point(206, 55);
+            this.pLDescribe.Location = new System.Drawing.Point(251, 55);
             this.pLDescribe.Name = "pLDescribe";
-            this.pLDescribe.Size = new System.Drawing.Size(638, 55);
+            this.pLDescribe.Size = new System.Drawing.Size(642, 55);
             this.pLDescribe.TabIndex = 4;
             this.pLDescribe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
             // 
@@ -222,7 +222,7 @@
             this.btnCalculator.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCalculator.FlatAppearance.BorderSize = 0;
             this.btnCalculator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalculator.Location = new System.Drawing.Point(422, 2);
+            this.btnCalculator.Location = new System.Drawing.Point(425, 2);
             this.btnCalculator.Name = "btnCalculator";
             this.btnCalculator.Size = new System.Drawing.Size(67, 50);
             this.btnCalculator.TabIndex = 0;
@@ -235,7 +235,7 @@
             this.btnCompare.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCompare.FlatAppearance.BorderSize = 0;
             this.btnCompare.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCompare.Location = new System.Drawing.Point(360, 2);
+            this.btnCompare.Location = new System.Drawing.Point(354, 2);
             this.btnCompare.Name = "btnCompare";
             this.btnCompare.Size = new System.Drawing.Size(65, 50);
             this.btnCompare.TabIndex = 0;
@@ -245,14 +245,15 @@
             // 
             this.btnInitialize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnInitialize.BackgroundImage")));
             this.btnInitialize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnInitialize.Enabled = false;
             this.btnInitialize.FlatAppearance.BorderSize = 0;
             this.btnInitialize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInitialize.Location = new System.Drawing.Point(289, 2);
+            this.btnInitialize.Location = new System.Drawing.Point(283, 1);
             this.btnInitialize.Name = "btnInitialize";
             this.btnInitialize.Size = new System.Drawing.Size(65, 50);
             this.btnInitialize.TabIndex = 0;
             this.btnInitialize.UseVisualStyleBackColor = true;
-            this.btnInitialize.Click += new System.EventHandler(this.btnInitialize_Click);
+            this.btnInitialize.Visible = false;
             // 
             // btnSave
             // 
@@ -260,7 +261,7 @@
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Location = new System.Drawing.Point(495, 2);
+            this.btnSave.Location = new System.Drawing.Point(498, 2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(65, 50);
             this.btnSave.TabIndex = 0;
@@ -273,7 +274,7 @@
             this.btnFlash.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnFlash.FlatAppearance.BorderSize = 0;
             this.btnFlash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFlash.Location = new System.Drawing.Point(564, 3);
+            this.btnFlash.Location = new System.Drawing.Point(569, 2);
             this.btnFlash.Name = "btnFlash";
             this.btnFlash.Size = new System.Drawing.Size(70, 50);
             this.btnFlash.TabIndex = 0;
@@ -400,9 +401,9 @@
             // 
             this.pLExplain2.Controls.Add(this.tBExplain);
             this.pLExplain2.Controls.Add(this.pLExplain);
-            this.pLExplain2.Location = new System.Drawing.Point(201, 611);
+            this.pLExplain2.Location = new System.Drawing.Point(251, 549);
             this.pLExplain2.Name = "pLExplain2";
-            this.pLExplain2.Size = new System.Drawing.Size(639, 150);
+            this.pLExplain2.Size = new System.Drawing.Size(642, 150);
             this.pLExplain2.TabIndex = 6;
             this.pLExplain2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
             // 
@@ -421,7 +422,7 @@
             "读取标准出厂设置"});
             this.cBParametersSource.Location = new System.Drawing.Point(0, 55);
             this.cBParametersSource.Name = "cBParametersSource";
-            this.cBParametersSource.Size = new System.Drawing.Size(200, 29);
+            this.cBParametersSource.Size = new System.Drawing.Size(245, 29);
             this.cBParametersSource.TabIndex = 7;
             this.cBParametersSource.TabStop = false;
             this.cBParametersSource.Text = "从驱动器读取";
@@ -430,6 +431,17 @@
             // oFParaPath
             // 
             this.oFParaPath.FileName = "openFileDialog1";
+            // 
+            // btnSetZeroPosition
+            // 
+            this.btnSetZeroPosition.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetZeroPosition.Location = new System.Drawing.Point(46, 578);
+            this.btnSetZeroPosition.Name = "btnSetZeroPosition";
+            this.btnSetZeroPosition.Size = new System.Drawing.Size(130, 80);
+            this.btnSetZeroPosition.TabIndex = 8;
+            this.btnSetZeroPosition.Text = "当前位置\r\n设为零点";
+            this.btnSetZeroPosition.UseVisualStyleBackColor = true;
+            this.btnSetZeroPosition.Click += new System.EventHandler(this.btnSetZeroPosition_Click);
             // 
             // lVParam
             // 
@@ -444,16 +456,15 @@
             this.lVParam.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lVParam.FullRowSelect = true;
             this.lVParam.GridLines = true;
-            this.lVParam.Location = new System.Drawing.Point(205, 115);
+            this.lVParam.Location = new System.Drawing.Point(251, 116);
             this.lVParam.MultiSelect = false;
             this.lVParam.Name = "lVParam";
-            this.lVParam.Size = new System.Drawing.Size(639, 490);
+            this.lVParam.Size = new System.Drawing.Size(642, 427);
             this.lVParam.TabIndex = 3;
             this.lVParam.UseCompatibleStateImageBehavior = false;
             this.lVParam.View = System.Windows.Forms.View.Details;
             this.lVParam.SelectedIndexChanged += new System.EventHandler(this.lVParam_SelectedIndexChanged);
             this.lVParam.DoubleClick += new System.EventHandler(this.lVParam_DoubleClick);
-            this.lVParam.MouseLeave += new System.EventHandler(this.lVParam_MouseLeave);
             // 
             // columnHeader1
             // 
@@ -470,13 +481,13 @@
             // 
             this.columnHeader3.Text = "参数名称";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 200;
+            this.columnHeader3.Width = 255;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "范围";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 135;
+            this.columnHeader4.Width = 79;
             // 
             // columnHeader5
             // 
@@ -490,22 +501,11 @@
             this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader6.Width = 69;
             // 
-            // btnSetZeroPosition
-            // 
-            this.btnSetZeroPosition.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetZeroPosition.Location = new System.Drawing.Point(40, 640);
-            this.btnSetZeroPosition.Name = "btnSetZeroPosition";
-            this.btnSetZeroPosition.Size = new System.Drawing.Size(130, 80);
-            this.btnSetZeroPosition.TabIndex = 8;
-            this.btnSetZeroPosition.Text = "当前位置\r\n设为零点";
-            this.btnSetZeroPosition.UseVisualStyleBackColor = true;
-            this.btnSetZeroPosition.Click += new System.EventHandler(this.btnSetZeroPosition_Click);
-            // 
             // ParametersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 760);
+            this.ClientSize = new System.Drawing.Size(895, 701);
             this.Controls.Add(this.btnSetZeroPosition);
             this.Controls.Add(this.cBParametersSource);
             this.Controls.Add(this.label1);
@@ -521,7 +521,7 @@
             this.MinimizeBox = false;
             this.Name = "ParametersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Parameters";
+            this.Text = "            ";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParametersForm_FormClosed);
             this.pLName.ResumeLayout(false);
