@@ -514,7 +514,7 @@
             this.tBMax.Name = "tBMax";
             this.tBMax.Size = new System.Drawing.Size(55, 31);
             this.tBMax.TabIndex = 2;
-            this.tBMax.Text = "360";
+            this.tBMax.Text = "30";
             this.tBMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBMax.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMax_KeyDown);
             this.tBMax.Leave += new System.EventHandler(this.tBMax_Leave);
@@ -535,7 +535,7 @@
             this.tBMin.Name = "tBMin";
             this.tBMin.Size = new System.Drawing.Size(55, 31);
             this.tBMin.TabIndex = 1;
-            this.tBMin.Text = "360";
+            this.tBMin.Text = "-30";
             this.tBMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBMin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBMin_KeyDown);
             this.tBMin.Leave += new System.EventHandler(this.tBMin_Leave);

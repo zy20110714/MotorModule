@@ -399,8 +399,8 @@ namespace ICDIBasic
         #region 手动控制零位偏转
         
         //手动控制使用，设置为变量使得在输入错误时能返回上一结果，设置为全局使得在定时器中可以调用
-        private float manualMin = 360.0f;
-        private float manualMax = 360.0f;
+        private float manualMin = 30.0f;
+        private float manualMax = 30.0f;
 
         #region 输入tBMin
         //输入tBMin完毕后调用

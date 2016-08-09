@@ -50,119 +50,119 @@ namespace ICDIBasic
         {
             paraRelection.Clear();
 
-            paraRelection.Add(0x01, new ParameterStruct("SYS_ID", "1-254", "-", "R/W", "驱动器ID"));
-            paraRelection.Add(0x02, new ParameterStruct("SYS_MODEL_TYPE", "0-99", "J", "R", "驱动器型号"));
-            paraRelection.Add(0x03, new ParameterStruct("SYS_FW_VERSION", "0-99", "-", "R", "固件版本"));
-            paraRelection.Add(0x04, new ParameterStruct("SYS_ERROR", "0-100", "-", "R", "错误代码"));
-            paraRelection.Add(0x05, new ParameterStruct("SYS_VOLTAGE", "0-100", "0.01V", "R", "系统电压"));
-            paraRelection.Add(0x06, new ParameterStruct("SYS_TEMP", "0-100", "0.1℃", "R", "系统温度"));
-            paraRelection.Add(0x07, new ParameterStruct("SYS_REDU_RATIO", "0-100", "-", "R", "模块减速比"));
-            paraRelection.Add(0x08, new ParameterStruct("SYS_BAUDRATE_232", "0-100", "1", "R/W", "232端口波特率"));
-            paraRelection.Add(0x09, new ParameterStruct("SYS_BAUDRATE_CAN", "0-100", "2", "R/W", "CAN总线波特率"));
-            paraRelection.Add(0x0a, new ParameterStruct("SYS_ENABLE_DRIVER", "0-100", "0", "R/W", "驱动器使能标志"));
-            paraRelection.Add(0x0b, new ParameterStruct("SYS_ENABLE_ON_POWER", "0-100", "1", "R/W", "上电使能驱动器标志"));
-            paraRelection.Add(0x0c, new ParameterStruct("SYS_SAVE_TO_FLASH", "0-100", "0", "R/W", "保存数据到Flash标志"));
-            paraRelection.Add(0x0d, new ParameterStruct("SYS_DEMA_ABSPOS", "0-100", "0", "R/W", "自动标定绝对位置标志"));
-            paraRelection.Add(0x0e, new ParameterStruct("SYS_SET_ZERO_POS", "0-100", "0", "R/W", "将当前位置设置为零点标志"));
-            paraRelection.Add(0x0f, new ParameterStruct("SYS_CLEAR_ERROR", "0-100", "0", "R/W", "清除错误标志"));
+            paraRelection.Add(0x01, new ParameterStruct("SYS_ID",               "1-254",  "-",      "R/W",  "驱动器ID"));
+            paraRelection.Add(0x02, new ParameterStruct("SYS_MODEL_TYPE",       "-",      "-",      "R",    "驱动器型号: 10, 11, 20, 21, 30, 40"));
+            paraRelection.Add(0x03, new ParameterStruct("SYS_FW_VERSION",       "-",      "-",      "R",    "固件版本"));
+            paraRelection.Add(0x04, new ParameterStruct("SYS_ERROR",            "0-256",  "-",      "R",    "错误代码: 1-过流，2-过压，4-欠压，8-过温，32-码盘错误，128-电流检测错误"));
+            paraRelection.Add(0x05, new ParameterStruct("SYS_VOLTAGE",          "≈2400",  "0.01V",  "R",    "系统电压"));
+            paraRelection.Add(0x06, new ParameterStruct("SYS_TEMP",             "0-800",  "0.1℃",  "R",    "系统温度"));
+            paraRelection.Add(0x07, new ParameterStruct("SYS_REDU_RATIO",       "0-120",  "-",      "R",    "模块减速比"));
+            paraRelection.Add(0x08, new ParameterStruct("SYS_BAUDRATE_232",     "-",      "-",      "R/W",  "232端口波特率"));
+            paraRelection.Add(0x09, new ParameterStruct("SYS_BAUDRATE_CAN",     "-",      "-",      "R/W",  "CAN总线波特率"));
+            paraRelection.Add(0x0a, new ParameterStruct("SYS_ENABLE_DRIVER",    "0-1",    "-",      "R/W",  "驱动器使能标志"));
+            paraRelection.Add(0x0b, new ParameterStruct("SYS_ENABLE_ON_POWER",  "0-1",    "-",      "R/W",  "上电使能驱动器标志"));
+            paraRelection.Add(0x0c, new ParameterStruct("SYS_SAVE_TO_FLASH",    "0-1",    "-",      "R/W",  "保存数据到Flash标志"));
+            paraRelection.Add(0x0d, new ParameterStruct("SYS_DEMA_ABSPOS",      "0-1",    "-",      "R/W",  "自动标定绝对位置标志"));
+            paraRelection.Add(0x0e, new ParameterStruct("SYS_SET_ZERO_POS",     "0-1",    "-",      "R/W",  "将当前位置设置为零点标志"));
+            paraRelection.Add(0x0f, new ParameterStruct("SYS_CLEAR_ERROR",      "0-1",    "-",      "R/W",  "清除错误标志"));
 
-            paraRelection.Add(0x10, new ParameterStruct("SYS_CURRENT_L", "0-100", "-", "R", "当前电流低16位"));
-            paraRelection.Add(0x11, new ParameterStruct("SYS_CURRENT_H", "0-100", "-", "R", "当前电流高16位"));
-            paraRelection.Add(0x12, new ParameterStruct("SYS_SPEED_L", "0-100", "-", "R", "当前速度低16位"));
-            paraRelection.Add(0x13, new ParameterStruct("SYS_SPEED_H", "0-100", "-", "R", "当前速度高16位"));
-            paraRelection.Add(0x14, new ParameterStruct("SYS_POSITION_L", "0-100", "-", "R", "当前位置低16位"));
-            paraRelection.Add(0x15, new ParameterStruct("SYS_POSITION_H", "0-100", "-", "R", "当前位置高16位"));
-            paraRelection.Add(0x16, new ParameterStruct("SYS_POTEN_VALUE", "0-100", "-", "R", "数字电位器值"));
-            paraRelection.Add(0x17, new ParameterStruct("SYS_ZERO_POS_OFFSET_L", "0-100", "-", "R/W", "零点位置偏移量低16位"));
-            paraRelection.Add(0x18, new ParameterStruct("SYS_ZERO_POS_OFFSET_H", "0-100", "-", "R/W", "零点位置偏移量高16位"));
+            paraRelection.Add(0x10, new ParameterStruct("SYS_CURRENT_L",          "0-65535",  "-", "R",   "当前电流低16位"));
+            paraRelection.Add(0x11, new ParameterStruct("SYS_CURRENT_H",          "0-65535",  "-", "R",   "当前电流高16位"));
+            paraRelection.Add(0x12, new ParameterStruct("SYS_SPEED_L",            "0-65535",  "-", "R",   "当前速度低16位"));
+            paraRelection.Add(0x13, new ParameterStruct("SYS_SPEED_H",            "0-65535",  "-", "R",   "当前速度高16位"));
+            paraRelection.Add(0x14, new ParameterStruct("SYS_POSITION_L",         "0-65535",  "-", "R",   "当前位置低16位"));
+            paraRelection.Add(0x15, new ParameterStruct("SYS_POSITION_H",         "0-65535",  "-", "R",   "当前位置高16位"));
+            paraRelection.Add(0x16, new ParameterStruct("SYS_POTEN_VALUE",        "-",        "-", "R",   "数字电位器值"));
+            paraRelection.Add(0x17, new ParameterStruct("SYS_ZERO_POS_OFFSET_L",  "0-65535",  "-", "R/W", "零点位置偏移量低16位"));
+            paraRelection.Add(0x18, new ParameterStruct("SYS_ZERO_POS_OFFSET_H",  "0-65535",  "-", "R/W", "零点位置偏移量高16位"));
 
-            paraRelection.Add(0x20, new ParameterStruct("MOT_RES", "0-100", "mΩ", "R", "电机内阻"));
-            paraRelection.Add(0x21, new ParameterStruct("MOT_INDUC", "0-100", "mH", "R", "电机电感"));
-            paraRelection.Add(0x22, new ParameterStruct("MOT_RATED_VOL", "0-100", "0.1V", "R", "电机额定电压"));
-            paraRelection.Add(0x23, new ParameterStruct("MOT_RATED_CUR", "0-100", "mA", "R", "电机额定电流"));
-            paraRelection.Add(0x24, new ParameterStruct("MOT_ENC_LINES", "0-100", "-", "R", "码盘线数"));
-            paraRelection.Add(0x25, new ParameterStruct("MOT_HALL_VALUE", "0-100", "-", "R", "当前霍尔状态"));
-            paraRelection.Add(0x26, new ParameterStruct("MOT_ST_DAT", "0-100", "-", "R", "绝对编码器单圈数据"));
-            paraRelection.Add(0x27, new ParameterStruct("MOT_MT_DAT", "0-100", "-", "R", "绝对编码器多圈数据"));
-            paraRelection.Add(0x28, new ParameterStruct("MOT_ENC_STA", "0-100", "-", "R", "绝对编码器多圈状态"));
+            paraRelection.Add(0x20, new ParameterStruct("MOT_RES",          "-",        "mΩ",  "R", "电机内阻"));
+            paraRelection.Add(0x21, new ParameterStruct("MOT_INDUC",        "-",        "mH",   "R", "电机电感"));
+            paraRelection.Add(0x22, new ParameterStruct("MOT_RATED_VOL",    "-",        "0.1V", "R", "电机额定电压"));
+            paraRelection.Add(0x23, new ParameterStruct("MOT_RATED_CUR",    "-",        "mA",   "R", "电机额定电流"));
+            paraRelection.Add(0x24, new ParameterStruct("MOT_ENC_LINES",    "-",        "-",    "R", "码盘线数"));
+            paraRelection.Add(0x25, new ParameterStruct("MOT_HALL_VALUE",   "-",        "-",    "R", "当前霍尔状态"));
+            paraRelection.Add(0x26, new ParameterStruct("MOT_ST_DAT",       "0-65535",  "-",    "R", "绝对编码器单圈数据"));
+            paraRelection.Add(0x27, new ParameterStruct("MOT_MT_DAT",       "0-65535",  "-",    "R", "绝对编码器多圈数据"));
+            paraRelection.Add(0x28, new ParameterStruct("MOT_ENC_STA",      "-",        "-",    "R", "绝对编码器多圈状态"));
 
-            paraRelection.Add(0x30, new ParameterStruct("TAG_WORK_MODE", "0-100", "3", "R/W", "工作模式：0-开环，1-电流模式，2-速度模式，3-位置模式"));
-            paraRelection.Add(0x31, new ParameterStruct("TAG_OPEN_PWM", "0-100", "0", "R/W", "开环模式下占空比"));
-            paraRelection.Add(0x32, new ParameterStruct("TAG_CURRENT_L", "0-100", "mA", "R/W", "目标电流低16位"));
-            paraRelection.Add(0x33, new ParameterStruct("TAG_CURRENT_H", "0-100", "mA", "R/W", "目标电流高16位"));
-            paraRelection.Add(0x34, new ParameterStruct("TAG_SPEED_L", "0-100", "units/s", "R/W", "目标速度低16位"));
-            paraRelection.Add(0x35, new ParameterStruct("TAG_SPEED_H", "0-100", "units/s", "R/W", "目标速度高16位"));
-            paraRelection.Add(0x36, new ParameterStruct("TAG_POSITION_L", "0-100", "units", "R/W", "目标位置低16位"));
-            paraRelection.Add(0x37, new ParameterStruct("TAG_POSITION_H", "0-100", "units", "R/W", "目标位置高16位"));
+            paraRelection.Add(0x30, new ParameterStruct("TAG_WORK_MODE",    "0-3",      "-",        "R/W", "工作模式：0-开环，1-电流模式，2-速度模式，3-位置模式"));
+            paraRelection.Add(0x31, new ParameterStruct("TAG_OPEN_PWM",     "0-100",    "-",        "R/W", "开环模式下占空比"));
+            paraRelection.Add(0x32, new ParameterStruct("TAG_CURRENT_L",    "0-65535",  "mA",       "R/W", "目标电流低16位"));
+            paraRelection.Add(0x33, new ParameterStruct("TAG_CURRENT_H",    "0-65535",  "mA",       "R/W", "目标电流高16位"));
+            paraRelection.Add(0x34, new ParameterStruct("TAG_SPEED_L",      "0-65535",  "units/s",  "R/W", "目标速度低16位"));
+            paraRelection.Add(0x35, new ParameterStruct("TAG_SPEED_H",      "0-65535",  "units/s",  "R/W", "目标速度高16位"));
+            paraRelection.Add(0x36, new ParameterStruct("TAG_POSITION_L",   "0-65535",  "units",    "R/W", "目标位置低16位"));
+            paraRelection.Add(0x37, new ParameterStruct("TAG_POSITION_H",   "0-65535",  "units",    "R/W", "目标位置高16位"));
 
-            paraRelection.Add(0x40, new ParameterStruct("LIT_MAX_CURRENT", "0-100", "mA", "R/W", "最大电流"));
-            paraRelection.Add(0x41, new ParameterStruct("LIT_MAX_SPEED", "0-100", "rpm", "R/W", "最大速度"));
-            paraRelection.Add(0x42, new ParameterStruct("LIT_MAX_ACC", "0-100", "rpm/s", "R/W", "最大加/减速度"));
-            paraRelection.Add(0x43, new ParameterStruct("LIT_MIN_POSITION_L", "0-100", "units", "R/W", "最小位置低16位"));
-            paraRelection.Add(0x44, new ParameterStruct("LIT_MIN_POSITION_H", "0-100", "units", "R/W", "最小位置高16位"));
-            paraRelection.Add(0x45, new ParameterStruct("LIT_MAX_POSITION_L", "0-100", "units", "R/W", "最大位置低16位"));
-            paraRelection.Add(0x46, new ParameterStruct("LIT_MAX_POSITION_H", "0-100", "units", "R/W", "最大位置高16位"));
+            paraRelection.Add(0x40, new ParameterStruct("LIT_MAX_CURRENT",      "0-65535", "mA",      "R/W", "最大电流"));
+            paraRelection.Add(0x41, new ParameterStruct("LIT_MAX_SPEED",        "0-65535", "rpm",     "R/W", "最大速度"));
+            paraRelection.Add(0x42, new ParameterStruct("LIT_MAX_ACC",          "0-65535", "rpm/s",   "R/W", "最大加/减速度"));
+            paraRelection.Add(0x43, new ParameterStruct("LIT_MIN_POSITION_L",   "0-65535", "units",   "R/W", "最小位置低16位"));
+            paraRelection.Add(0x44, new ParameterStruct("LIT_MIN_POSITION_H",   "0-65535", "units",   "R/W", "最小位置高16位"));
+            paraRelection.Add(0x45, new ParameterStruct("LIT_MAX_POSITION_L",   "0-65535", "units",   "R/W", "最大位置低16位"));
+            paraRelection.Add(0x46, new ParameterStruct("LIT_MAX_POSITION_H",   "0-65535", "units",   "R/W", "最大位置高16位"));
 
-            paraRelection.Add(0x50, new ParameterStruct("SEV_PARAME_LOCKED", "0-100", "0", "R/W", "三闭环参数锁定标志：0-自动切换，1-低载PID参数，2-中载PID参数，3-重载PID参数"));
-            paraRelection.Add(0x51, new ParameterStruct("S_CURRENT_P", "0-100", "-", "R/W", "S电流环P参数"));
-            paraRelection.Add(0x52, new ParameterStruct("S_CURRENT_I", "0-100", "-", "R/W", "S电流环I参数"));
-            paraRelection.Add(0x53, new ParameterStruct("S_CURRENT_D", "0-100", "-", "R/W", "S电流环D参数"));
-            paraRelection.Add(0x54, new ParameterStruct("S_SPEED_P", "0-100", "-", "R/W", "S速度环P参数"));
-            paraRelection.Add(0x55, new ParameterStruct("S_SPEED_I", "0-100", "-", "R/W", "S速度环I参数"));
-            paraRelection.Add(0x56, new ParameterStruct("S_SPEED_D", "0-100", "-", "R/W", "S速度环D参数"));
-            paraRelection.Add(0x57, new ParameterStruct("S_SPEED_DS", "0-100", "-", "R/W", "S速度P死区"));
-            paraRelection.Add(0x58, new ParameterStruct("S_POSITION_P", "0-100", "-", "R/W", "S位置环P参数"));
-            paraRelection.Add(0x59, new ParameterStruct("S_POSITION_I", "0-100", "-", "R/W", "S位置环I参数"));
-            paraRelection.Add(0x5a, new ParameterStruct("S_POSITION_D", "0-100", "-", "R/W", "S位置环D参数"));
-            paraRelection.Add(0x5b, new ParameterStruct("S_POSITION_DS", "0-100", "-", "R/W", "S位置P死区"));
-            paraRelection.Add(0x5c, new ParameterStruct("S_CURRENT_FD", "0-100", "-", "R/W", "前馈参数1"));
-            paraRelection.Add(0x5d, new ParameterStruct("M_CURRENT_FD", "0-100", "-", "R/W", "前馈参数2"));
-            paraRelection.Add(0x5e, new ParameterStruct("L_CURRENT_FD", "0-100", "-", "R/W", "前馈参数3"));
+            paraRelection.Add(0x50, new ParameterStruct("SEV_PARAME_LOCKED",  "0-3",      "-", "R/W", "三闭环参数锁定标志：0-自动切换，1-低载PID参数，2-中载PID参数，3-重载PID参数"));
+            paraRelection.Add(0x51, new ParameterStruct("S_CURRENT_P",        "0-65535",  "-", "R/W", "S电流环P参数"));
+            paraRelection.Add(0x52, new ParameterStruct("S_CURRENT_I",        "0-65535",  "-", "R/W", "S电流环I参数"));
+            paraRelection.Add(0x53, new ParameterStruct("S_CURRENT_D",        "0-65535",  "-", "R/W", "S电流环D参数"));
+            paraRelection.Add(0x54, new ParameterStruct("S_SPEED_P",          "0-65535",  "-", "R/W", "S速度环P参数"));
+            paraRelection.Add(0x55, new ParameterStruct("S_SPEED_I",          "0-65535",  "-", "R/W", "S速度环I参数"));
+            paraRelection.Add(0x56, new ParameterStruct("S_SPEED_D",          "0-65535",  "-", "R/W", "S速度环D参数"));
+            paraRelection.Add(0x57, new ParameterStruct("S_SPEED_DS",         "0-65535",  "-", "R/W", "S速度P死区"));
+            paraRelection.Add(0x58, new ParameterStruct("S_POSITION_P",       "0-65535",  "-", "R/W", "S位置环P参数"));
+            paraRelection.Add(0x59, new ParameterStruct("S_POSITION_I",       "0-65535",  "-", "R/W", "S位置环I参数"));
+            paraRelection.Add(0x5a, new ParameterStruct("S_POSITION_D",       "0-65535",  "-", "R/W", "S位置环D参数"));
+            paraRelection.Add(0x5b, new ParameterStruct("S_POSITION_DS",      "0-65535",  "-", "R/W", "S位置P死区"));
+            paraRelection.Add(0x5c, new ParameterStruct("S_CURRENT_FD",       "0-65535",  "-", "R/W", "前馈参数1"));
+            paraRelection.Add(0x5d, new ParameterStruct("M_CURRENT_FD",       "0-65535",  "-", "R/W", "前馈参数2"));
+            paraRelection.Add(0x5e, new ParameterStruct("L_CURRENT_FD",       "0-65535",  "-", "R/W", "前馈参数3"));
 
 
-            paraRelection.Add(0x61, new ParameterStruct("M_CURRENT_P", "0-100", "-", "R/W", "M电流环P参数"));
-            paraRelection.Add(0x62, new ParameterStruct("M_CURRENT_I", "0-100", "-", "R/W", "M电流环I参数"));
-            paraRelection.Add(0x63, new ParameterStruct("M_CURRENT_D", "0-100", "-", "R/W", "M电流环D参数"));
-            paraRelection.Add(0x64, new ParameterStruct("M_SPEED_P", "0-100", "-", "R/W", "M速度环P参数"));
-            paraRelection.Add(0x65, new ParameterStruct("M_SPEED_I", "0-100", "-", "R/W", "M速度环I参数"));
-            paraRelection.Add(0x66, new ParameterStruct("M_SPEED_D", "0-100", "-", "R/W", "M速度环D参数"));
-            paraRelection.Add(0x67, new ParameterStruct("M_SPEED_DS", "0-100", "-", "R/W", "M速度P死区"));
-            paraRelection.Add(0x68, new ParameterStruct("M_POSITION_P", "0-100", "-", "R/W", "M位置环P参数"));
-            paraRelection.Add(0x69, new ParameterStruct("M_POSITION_I", "0-100", "-", "R/W", "M位置环I参数"));
-            paraRelection.Add(0x6a, new ParameterStruct("M_POSITION_D", "0-100", "-", "R/W", "M位置环D参数"));
-            paraRelection.Add(0x6b, new ParameterStruct("M_POSITION_DS", "0-100", "-", "R/W", "M位置P死区"));
+            paraRelection.Add(0x61, new ParameterStruct("M_CURRENT_P",    "0-65535", "-", "R/W", "M电流环P参数"));
+            paraRelection.Add(0x62, new ParameterStruct("M_CURRENT_I",    "0-65535", "-", "R/W", "M电流环I参数"));
+            paraRelection.Add(0x63, new ParameterStruct("M_CURRENT_D",    "0-65535", "-", "R/W", "M电流环D参数"));
+            paraRelection.Add(0x64, new ParameterStruct("M_SPEED_P",      "0-65535", "-", "R/W", "M速度环P参数"));
+            paraRelection.Add(0x65, new ParameterStruct("M_SPEED_I",      "0-65535", "-", "R/W", "M速度环I参数"));
+            paraRelection.Add(0x66, new ParameterStruct("M_SPEED_D",      "0-65535", "-", "R/W", "M速度环D参数"));
+            paraRelection.Add(0x67, new ParameterStruct("M_SPEED_DS",     "0-65535", "-", "R/W", "M速度P死区"));
+            paraRelection.Add(0x68, new ParameterStruct("M_POSITION_P",   "0-65535", "-", "R/W", "M位置环P参数"));
+            paraRelection.Add(0x69, new ParameterStruct("M_POSITION_I",   "0-65535", "-", "R/W", "M位置环I参数"));
+            paraRelection.Add(0x6a, new ParameterStruct("M_POSITION_D",   "0-65535", "-", "R/W", "M位置环D参数"));
+            paraRelection.Add(0x6b, new ParameterStruct("M_POSITION_DS",  "0-65535", "-", "R/W", "M位置P死区"));
 
-            paraRelection.Add(0x71, new ParameterStruct("L_CURRENT_P", "0-100", "-", "R/W", "L电流环P参数"));
-            paraRelection.Add(0x72, new ParameterStruct("L_CURRENT_I", "0-100", "-", "R/W", "L电流环I参数"));
-            paraRelection.Add(0x73, new ParameterStruct("L_CURRENT_D", "0-100", "-", "R/W", "L电流环D参数"));
-            paraRelection.Add(0x74, new ParameterStruct("L_SPEED_P", "0-100", "-", "R/W", "L速度环P参数"));
-            paraRelection.Add(0x75, new ParameterStruct("L_SPEED_I", "0-100", "-", "R/W", "L速度环I参数"));
-            paraRelection.Add(0x76, new ParameterStruct("L_SPEED_D", "0-100", "-", "R/W", "L速度环D参数"));
-            paraRelection.Add(0x77, new ParameterStruct("L_SPEED_DS", "0-100", "-", "R/W", "L速度P死区"));
-            paraRelection.Add(0x78, new ParameterStruct("L_POSITION_P", "0-100", "-", "R/W", "L位置环P参数"));
-            paraRelection.Add(0x79, new ParameterStruct("L_POSITION_I", "0-100", "-", "R/W", "L位置环I参数"));
-            paraRelection.Add(0x7a, new ParameterStruct("L_POSITION_D", "0-100", "-", "R/W", "L位置环D参数"));
-            paraRelection.Add(0x7b, new ParameterStruct("L_POSITION_DS", "0-100", "-", "R/W", "L位置P死区"));
+            paraRelection.Add(0x71, new ParameterStruct("L_CURRENT_P",    "0-65535", "-", "R/W", "L电流环P参数"));
+            paraRelection.Add(0x72, new ParameterStruct("L_CURRENT_I",    "0-65535", "-", "R/W", "L电流环I参数"));
+            paraRelection.Add(0x73, new ParameterStruct("L_CURRENT_D",    "0-65535", "-", "R/W", "L电流环D参数"));
+            paraRelection.Add(0x74, new ParameterStruct("L_SPEED_P",      "0-65535", "-", "R/W", "L速度环P参数"));
+            paraRelection.Add(0x75, new ParameterStruct("L_SPEED_I",      "0-65535", "-", "R/W", "L速度环I参数"));
+            paraRelection.Add(0x76, new ParameterStruct("L_SPEED_D",      "0-65535", "-", "R/W", "L速度环D参数"));
+            paraRelection.Add(0x77, new ParameterStruct("L_SPEED_DS",     "0-65535", "-", "R/W", "L速度P死区"));
+            paraRelection.Add(0x78, new ParameterStruct("L_POSITION_P",   "0-65535", "-", "R/W", "L位置环P参数"));
+            paraRelection.Add(0x79, new ParameterStruct("L_POSITION_I",   "0-65535", "-", "R/W", "L位置环I参数"));
+            paraRelection.Add(0x7a, new ParameterStruct("L_POSITION_D",   "0-65535", "-", "R/W", "L位置环D参数"));
+            paraRelection.Add(0x7b, new ParameterStruct("L_POSITION_DS",  "0-65535", "-", "R/W", "L位置P死区"));
 
-            paraRelection.Add(0x80, new ParameterStruct("BRAKE_RELEASE_CMD", "0-100", "0", "R/W", "刹车释放命令，0-保持制动，1-释放刹车"));
-            paraRelection.Add(0x81, new ParameterStruct("BRAKE_STATE", "0-100", "0", "R", "刹车状态，0-保持制动，1-释放刹车"));
+            paraRelection.Add(0x80, new ParameterStruct("BRAKE_RELEASE_CMD",  "0-1", "-", "R/W",  "刹车释放命令，0-保持制动，1-释放刹车"));
+            paraRelection.Add(0x81, new ParameterStruct("BRAKE_STATE",        "0-1", "-", "R",    "刹车状态，0-保持制动，1-释放刹车"));
 
-            paraRelection.Add(0x90, new ParameterStruct("SCP_MASK", "0-100", "0", "R/W", "记录对象标志MASK"));
-            paraRelection.Add(0x91, new ParameterStruct("SCP_REC_TIM", "0-100", "1", "R/W", "记录时间间隔（对10kHZ的分频值）"));
-            paraRelection.Add(0x92, new ParameterStruct("SCP_TAGCUR_L", "0-100", "0", "R", "目标电流数据集"));
-            paraRelection.Add(0x93, new ParameterStruct("SCP_TAGCUR_H", "0-100", "0", "R", "目标电流数据集"));
-            paraRelection.Add(0x94, new ParameterStruct("SCP_MEACUR_L", "0-100", "0", "R", "实际电流数据集"));
-            paraRelection.Add(0x95, new ParameterStruct("SCP_MEACUR_H", "0-100", "0", "R", "实际电流数据集"));
-            paraRelection.Add(0x96, new ParameterStruct("SCP_TAGSPD_L", "0-100", "0", "R", "目标速度数据集"));
-            paraRelection.Add(0x97, new ParameterStruct("SCP_TAGSPD_H", "0-100", "0", "R", "目标速度数据集"));
-            paraRelection.Add(0x98, new ParameterStruct("SCP_MEASPD_L", "0-100", "0", "R", "实际速度数据集"));
-            paraRelection.Add(0x99, new ParameterStruct("SCP_MEASPD_H", "0-100", "0", "R", "实际速度数据集"));
-            paraRelection.Add(0x9a, new ParameterStruct("SCP_TAGPOS_L", "0-100", "0", "R", "目标位置数据集"));
-            paraRelection.Add(0x9b, new ParameterStruct("SCP_TAGPOS_H", "0-100", "0", "R", "目标位置数据集"));
-            paraRelection.Add(0x9c, new ParameterStruct("SCP_MEAPOS_L", "0-100", "0", "R", "实际位置数据集"));
-            paraRelection.Add(0x9d, new ParameterStruct("SCP_MEAPOS_H", "0-100", "0", "R", "实际位置数据集"));
-        }                                                 
-                                                          
+            paraRelection.Add(0x90, new ParameterStruct("SCP_MASK",     "0-63",     "-", "R/W", "记录对象标志MASK"));
+            paraRelection.Add(0x91, new ParameterStruct("SCP_REC_TIM",  "0-65535",  "-", "R/W", "记录时间间隔（对10kHZ的分频值）"));
+            paraRelection.Add(0x92, new ParameterStruct("SCP_TAGCUR_L", "-",        "-", "R",   "目标电流数据集"));
+            paraRelection.Add(0x93, new ParameterStruct("SCP_TAGCUR_H", "-",        "-", "R",   "目标电流数据集"));
+            paraRelection.Add(0x94, new ParameterStruct("SCP_MEACUR_L", "-",        "-", "R",   "实际电流数据集"));
+            paraRelection.Add(0x95, new ParameterStruct("SCP_MEACUR_H", "-",        "-", "R",   "实际电流数据集"));
+            paraRelection.Add(0x96, new ParameterStruct("SCP_TAGSPD_L", "-",        "-", "R",   "目标速度数据集"));
+            paraRelection.Add(0x97, new ParameterStruct("SCP_TAGSPD_H", "-",        "-", "R",   "目标速度数据集"));
+            paraRelection.Add(0x98, new ParameterStruct("SCP_MEASPD_L", "-",        "-", "R",   "实际速度数据集"));
+            paraRelection.Add(0x99, new ParameterStruct("SCP_MEASPD_H", "-",        "-", "R",   "实际速度数据集"));
+            paraRelection.Add(0x9a, new ParameterStruct("SCP_TAGPOS_L", "-",        "-", "R",   "目标位置数据集"));
+            paraRelection.Add(0x9b, new ParameterStruct("SCP_TAGPOS_H", "-",        "-", "R",   "目标位置数据集"));
+            paraRelection.Add(0x9c, new ParameterStruct("SCP_MEAPOS_L", "-",        "-", "R",   "实际位置数据集"));
+            paraRelection.Add(0x9d, new ParameterStruct("SCP_MEAPOS_H", "-",        "-", "R",   "实际位置数据集"));
+        }
+
         public void RefreshlVParam(int index)
         {      
             lVParam.Items.Clear();
@@ -321,7 +321,7 @@ namespace ICDIBasic
             }
         }
 
-        private void tb_MouseLeave(object sender, System.EventArgs e)
+        private void tb_MouseLeave(object sender, EventArgs e)
         {
             if (tb != null && !tb.Focused)
             {
@@ -371,7 +371,7 @@ namespace ICDIBasic
             //lVParam.Visible = false;
             wp = WriteParameters.GetInstance();
             //wp.MdiParent = this;
-            wp.Parent = ParametersForm.GetInstance();
+            //wp.Parent = ParametersForm.GetInstance();
             wp.Location = new Point(205,125);
             wp.BringToFront();
             wp.Show();            
@@ -492,6 +492,14 @@ namespace ICDIBasic
             }
         }
 
+        private void btnClearError_Click(object sender, EventArgs e)
+        {
+            pc.WriteOneWord(Configuration.SYS_CLEAR_ERROR, 0x01, PCan.currentID);
+            Thread.Sleep(10);
+            pc.WriteOneWord(Configuration.SYS_ENABLE_DRIVER, 0x01, PCan.currentID);
+            Thread.Sleep(10);
+            MessageBox.Show("清错并使能成功。");
+        }
     }
 
 

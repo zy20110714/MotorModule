@@ -71,7 +71,7 @@
             this.btnCancel.Location = new System.Drawing.Point(398, 308);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(70, 70);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -89,7 +89,7 @@
             this.lVFlash.Location = new System.Drawing.Point(35, 36);
             this.lVFlash.Name = "lVFlash";
             this.lVFlash.Size = new System.Drawing.Size(560, 270);
-            this.lVFlash.TabIndex = 2;
+            this.lVFlash.TabIndex = 3;
             this.lVFlash.UseCompatibleStateImageBehavior = false;
             this.lVFlash.View = System.Windows.Forms.View.Details;
             // 

@@ -47,11 +47,13 @@
             this.tVParam = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.pLDescribe = new System.Windows.Forms.Panel();
+            this.btnSetZeroPosition = new System.Windows.Forms.Button();
+            this.btnClearError = new System.Windows.Forms.Button();
+            this.btnFlash = new System.Windows.Forms.Button();
             this.btnCalculator = new System.Windows.Forms.Button();
             this.btnCompare = new System.Windows.Forms.Button();
             this.btnInitialize = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnFlash = new System.Windows.Forms.Button();
             this.pLExplain = new System.Windows.Forms.Panel();
             this.cBHexDisplay = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -67,7 +69,6 @@
             this.cBParametersSource = new System.Windows.Forms.ComboBox();
             this.oFParaPath = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogParaPath = new System.Windows.Forms.SaveFileDialog();
-            this.btnSetZeroPosition = new System.Windows.Forms.Button();
             this.lVParam = new ICDIBasic.NewListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -91,7 +92,7 @@
             this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Location = new System.Drawing.Point(0, 0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(893, 52);
+            this.pLName.Size = new System.Drawing.Size(926, 52);
             this.pLName.TabIndex = 0;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
@@ -113,7 +114,7 @@
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(841, -1);
+            this.pBExit.Location = new System.Drawing.Point(874, 0);
             this.pBExit.Name = "pBExit";
             this.pBExit.Size = new System.Drawing.Size(52, 52);
             this.pBExit.TabIndex = 0;
@@ -205,16 +206,53 @@
             // 
             // pLDescribe
             // 
+            this.pLDescribe.Controls.Add(this.btnSetZeroPosition);
+            this.pLDescribe.Controls.Add(this.btnClearError);
+            this.pLDescribe.Controls.Add(this.btnFlash);
             this.pLDescribe.Controls.Add(this.btnCalculator);
             this.pLDescribe.Controls.Add(this.btnCompare);
             this.pLDescribe.Controls.Add(this.btnInitialize);
             this.pLDescribe.Controls.Add(this.btnSave);
-            this.pLDescribe.Controls.Add(this.btnFlash);
             this.pLDescribe.Location = new System.Drawing.Point(251, 55);
             this.pLDescribe.Name = "pLDescribe";
-            this.pLDescribe.Size = new System.Drawing.Size(642, 55);
+            this.pLDescribe.Size = new System.Drawing.Size(675, 55);
             this.pLDescribe.TabIndex = 4;
             this.pLDescribe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
+            // 
+            // btnSetZeroPosition
+            // 
+            this.btnSetZeroPosition.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetZeroPosition.Location = new System.Drawing.Point(484, 3);
+            this.btnSetZeroPosition.Name = "btnSetZeroPosition";
+            this.btnSetZeroPosition.Size = new System.Drawing.Size(101, 51);
+            this.btnSetZeroPosition.TabIndex = 8;
+            this.btnSetZeroPosition.Text = "当前位置\r\n设为零点";
+            this.btnSetZeroPosition.UseVisualStyleBackColor = true;
+            this.btnSetZeroPosition.Click += new System.EventHandler(this.btnSetZeroPosition_Click);
+            // 
+            // btnClearError
+            // 
+            this.btnClearError.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClearError.Location = new System.Drawing.Point(375, 13);
+            this.btnClearError.Name = "btnClearError";
+            this.btnClearError.Size = new System.Drawing.Size(87, 29);
+            this.btnClearError.TabIndex = 9;
+            this.btnClearError.Text = "清错使能";
+            this.btnClearError.UseVisualStyleBackColor = true;
+            this.btnClearError.Click += new System.EventHandler(this.btnClearError_Click);
+            // 
+            // btnFlash
+            // 
+            this.btnFlash.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFlash.BackgroundImage")));
+            this.btnFlash.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnFlash.FlatAppearance.BorderSize = 0;
+            this.btnFlash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFlash.Location = new System.Drawing.Point(602, 2);
+            this.btnFlash.Name = "btnFlash";
+            this.btnFlash.Size = new System.Drawing.Size(70, 50);
+            this.btnFlash.TabIndex = 0;
+            this.btnFlash.UseVisualStyleBackColor = true;
+            this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
             // 
             // btnCalculator
             // 
@@ -222,7 +260,7 @@
             this.btnCalculator.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCalculator.FlatAppearance.BorderSize = 0;
             this.btnCalculator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalculator.Location = new System.Drawing.Point(425, 2);
+            this.btnCalculator.Location = new System.Drawing.Point(221, 4);
             this.btnCalculator.Name = "btnCalculator";
             this.btnCalculator.Size = new System.Drawing.Size(67, 50);
             this.btnCalculator.TabIndex = 0;
@@ -235,7 +273,7 @@
             this.btnCompare.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCompare.FlatAppearance.BorderSize = 0;
             this.btnCompare.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCompare.Location = new System.Drawing.Point(354, 2);
+            this.btnCompare.Location = new System.Drawing.Point(150, 4);
             this.btnCompare.Name = "btnCompare";
             this.btnCompare.Size = new System.Drawing.Size(65, 50);
             this.btnCompare.TabIndex = 0;
@@ -248,7 +286,7 @@
             this.btnInitialize.Enabled = false;
             this.btnInitialize.FlatAppearance.BorderSize = 0;
             this.btnInitialize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInitialize.Location = new System.Drawing.Point(283, 1);
+            this.btnInitialize.Location = new System.Drawing.Point(79, 3);
             this.btnInitialize.Name = "btnInitialize";
             this.btnInitialize.Size = new System.Drawing.Size(65, 50);
             this.btnInitialize.TabIndex = 0;
@@ -261,25 +299,12 @@
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Location = new System.Drawing.Point(498, 2);
+            this.btnSave.Location = new System.Drawing.Point(294, 4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(65, 50);
             this.btnSave.TabIndex = 0;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnFlash
-            // 
-            this.btnFlash.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFlash.BackgroundImage")));
-            this.btnFlash.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnFlash.FlatAppearance.BorderSize = 0;
-            this.btnFlash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFlash.Location = new System.Drawing.Point(569, 2);
-            this.btnFlash.Name = "btnFlash";
-            this.btnFlash.Size = new System.Drawing.Size(70, 50);
-            this.btnFlash.TabIndex = 0;
-            this.btnFlash.UseVisualStyleBackColor = true;
-            this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
             // 
             // pLExplain
             // 
@@ -293,7 +318,7 @@
             this.pLExplain.Controls.Add(this.tBReadOnly);
             this.pLExplain.Location = new System.Drawing.Point(3, 79);
             this.pLExplain.Name = "pLExplain";
-            this.pLExplain.Size = new System.Drawing.Size(639, 63);
+            this.pLExplain.Size = new System.Drawing.Size(666, 63);
             this.pLExplain.TabIndex = 5;
             // 
             // cBHexDisplay
@@ -394,7 +419,7 @@
             this.tBExplain.Multiline = true;
             this.tBExplain.Name = "tBExplain";
             this.tBExplain.ReadOnly = true;
-            this.tBExplain.Size = new System.Drawing.Size(633, 57);
+            this.tBExplain.Size = new System.Drawing.Size(666, 57);
             this.tBExplain.TabIndex = 0;
             // 
             // pLExplain2
@@ -403,7 +428,7 @@
             this.pLExplain2.Controls.Add(this.pLExplain);
             this.pLExplain2.Location = new System.Drawing.Point(251, 549);
             this.pLExplain2.Name = "pLExplain2";
-            this.pLExplain2.Size = new System.Drawing.Size(642, 150);
+            this.pLExplain2.Size = new System.Drawing.Size(672, 150);
             this.pLExplain2.TabIndex = 6;
             this.pLExplain2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
             // 
@@ -432,17 +457,6 @@
             // 
             this.oFParaPath.FileName = "openFileDialog1";
             // 
-            // btnSetZeroPosition
-            // 
-            this.btnSetZeroPosition.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetZeroPosition.Location = new System.Drawing.Point(46, 578);
-            this.btnSetZeroPosition.Name = "btnSetZeroPosition";
-            this.btnSetZeroPosition.Size = new System.Drawing.Size(130, 80);
-            this.btnSetZeroPosition.TabIndex = 8;
-            this.btnSetZeroPosition.Text = "当前位置\r\n设为零点";
-            this.btnSetZeroPosition.UseVisualStyleBackColor = true;
-            this.btnSetZeroPosition.Click += new System.EventHandler(this.btnSetZeroPosition_Click);
-            // 
             // lVParam
             // 
             this.lVParam.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
@@ -459,7 +473,7 @@
             this.lVParam.Location = new System.Drawing.Point(251, 116);
             this.lVParam.MultiSelect = false;
             this.lVParam.Name = "lVParam";
-            this.lVParam.Size = new System.Drawing.Size(642, 427);
+            this.lVParam.Size = new System.Drawing.Size(675, 427);
             this.lVParam.TabIndex = 3;
             this.lVParam.UseCompatibleStateImageBehavior = false;
             this.lVParam.View = System.Windows.Forms.View.Details;
@@ -487,7 +501,7 @@
             // 
             this.columnHeader4.Text = "范围";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 79;
+            this.columnHeader4.Width = 116;
             // 
             // columnHeader5
             // 
@@ -505,8 +519,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(895, 701);
-            this.Controls.Add(this.btnSetZeroPosition);
+            this.ClientSize = new System.Drawing.Size(926, 701);
             this.Controls.Add(this.cBParametersSource);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pLExplain2);
@@ -575,5 +588,6 @@
         private System.Windows.Forms.OpenFileDialog oFParaPath;
         private System.Windows.Forms.SaveFileDialog saveFileDialogParaPath;
         private System.Windows.Forms.Button btnSetZeroPosition;
+        private System.Windows.Forms.Button btnClearError;
     }
 }

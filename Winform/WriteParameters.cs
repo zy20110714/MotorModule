@@ -27,7 +27,8 @@ namespace ICDIBasic
             if (pCurrentWin == null)
             {
                 pCurrentWin = new WriteParameters();
-                pCurrentWin.TopLevel = false;
+                //pCurrentWin.TopLevel = false;
+                //pCurrentWin.TopLevel = true;
             }
             return pCurrentWin;
         }
@@ -120,7 +121,5 @@ namespace ICDIBasic
         {
             pCurrentWin = null;
         }
-
-    
     }
 }
