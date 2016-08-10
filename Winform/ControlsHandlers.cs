@@ -785,7 +785,7 @@ namespace ICDIBasic
         {
             tr = TestRun.GetInstance();
             tr.StartPosition = FormStartPosition.Manual;
-            tr.Location = new Point(900, 35);
+            tr.Location = new Point(950, 35);
             tr.MdiParent = this;
             //tr.Parent = pLMain;
             //tr.BringToFront();
@@ -831,7 +831,7 @@ namespace ICDIBasic
             {
                 for (int i = 0; i < MessageProccessing.allID.Count; i++)
                 {
-                    if (!cBID.Items.Contains(MessageProccessing.allID[i]))
+                    if (!cBID.Items.Contains(MessageProccessing.allID[i]))//allID[]中添加元素的方案已经确定了不会有重复项，没必要再判断
                     {
                         cBID.Items.Add(MessageProccessing.allID[i]);
                     }

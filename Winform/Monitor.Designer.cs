@@ -42,6 +42,7 @@
             this.btnMonitorStart = new System.Windows.Forms.Button();
             this.tBRegisterNumber = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSetZeroForAll = new System.Windows.Forms.Button();
             this.gBMonitorError.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -198,11 +199,22 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "0x";
             // 
+            // btnSetZeroForAll
+            // 
+            this.btnSetZeroForAll.Location = new System.Drawing.Point(276, 411);
+            this.btnSetZeroForAll.Name = "btnSetZeroForAll";
+            this.btnSetZeroForAll.Size = new System.Drawing.Size(143, 23);
+            this.btnSetZeroForAll.TabIndex = 12;
+            this.btnSetZeroForAll.Text = "全部ID设零（临时）";
+            this.btnSetZeroForAll.UseVisualStyleBackColor = true;
+            this.btnSetZeroForAll.Click += new System.EventHandler(this.btnSetZeroForAll_Click);
+            // 
             // Monitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 537);
+            this.Controls.Add(this.btnSetZeroForAll);
             this.Controls.Add(this.gBMonitorError);
             this.Name = "Monitor";
             this.Text = "监视器";
@@ -229,5 +241,6 @@
         private System.Windows.Forms.Button btnMonitorStart;
         private System.Windows.Forms.TextBox tBRegisterNumber;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSetZeroForAll;
     }
 }

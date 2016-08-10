@@ -321,5 +321,21 @@ namespace ICDIBasic
         #endregion
 
         #endregion
+
+        #region 一键设置全部模块当前位置为0（临时）
+
+        private void btnSetZeroForAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < MessageProccessing.allID.Count; i++)
+            {
+                pc.WriteOneWord(Configuration.SYS_SET_ZERO_POS, 0x01, MessageProccessing.allID[i]);
+                Thread.Sleep(1);
+                pc.WriteOneWord(Configuration.SYS_SAVE_TO_FLASH, 0x01, MessageProccessing.allID[i]);
+                Thread.Sleep(1);
+            }
+            MessageBox.Show("完成");
+        }
+
+        #endregion
     }
 }
