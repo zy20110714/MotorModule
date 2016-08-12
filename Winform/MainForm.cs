@@ -833,7 +833,7 @@ namespace ICDIBasic
                 InitialMemoryControlTable();
                 if (pf != null)
                 {
-                    pf.RefreshlVParam(0);
+                    pf.RefreshlVParam(ParametersForm.tVIndex);
                 }
             }
             else

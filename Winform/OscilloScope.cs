@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-//using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
@@ -16,10 +15,11 @@ namespace ICDIBasic
     public partial class OscilloScope : Form
     {
         public static OscilloScope pCurrentWin = null;//句柄
-        public static List<ShowItem> showItems = new List<ShowItem>();
-        public static byte Mask = 0; 
-        public static int Interval = 0;
         Dictionary<byte, string> itemRelection = new Dictionary<byte, string>();
+        public static List<ShowItem> showItems = new List<ShowItem>();
+        public static byte Mask = 0;
+
+        public static int Interval = 0;
         ComboBox cb;
         Thread thread;
         PCan pc;
@@ -47,25 +47,24 @@ namespace ICDIBasic
 
         public static List<float> currentC = new List<float>();
         public static List<float> currentS = new List<float>();
-        public static List<int> currentT = new List<int>();
+        public static List<int> currentT   = new List<int>();
         public static List<float> currentA = new List<float>();
 
-
-        public static byte CURRENT_P = 0x61;	  //电流环P参数
-        public static byte CURRENT_I = 0x62;	  //电流环I参数
-        public static byte CURRENT_D = 0x63;	  //电流环D参数
-        public static byte SPEED_P = 0x64;	  //速度环P参数
-        public static byte SPEED_I = 0x65;	  //速度环I参数
-        public static byte SPEED_D = 0x66;	  //速度环D参数
-        public static byte SPEED_DS = 0x67;	  //速度P死区
-        public static byte POSITION_P = 0x68;	  //位置环P参数
-        public static byte POSITION_I = 0x69;	  //位置环I参数
-        public static byte POSITION_D = 0x6A;	  //位置环D参数
+        public static byte CURRENT_P   = 0x61;    //电流环P参数
+        public static byte CURRENT_I   = 0x62;    //电流环I参数
+        public static byte CURRENT_D   = 0x63;    //电流环D参数
+        public static byte SPEED_P     = 0x64;    //速度环P参数
+        public static byte SPEED_I     = 0x65;    //速度环I参数
+        public static byte SPEED_D     = 0x66;    //速度环D参数
+        public static byte SPEED_DS    = 0x67;    //速度P死区
+        public static byte POSITION_P  = 0x68;    //位置环P参数
+        public static byte POSITION_I  = 0x69;    //位置环I参数
+        public static byte POSITION_D  = 0x6A;    //位置环D参数
         public static byte POSITION_DS = 0x6B;    //位置P死区
 
 
-        public static float measureCurrent = 0;          //实际电流
-        public static float measureSpeed = 0;          //实际电流
+        public static float measureCurrent = 0;    //实际电流
+        public static float measureSpeed   = 0;    //实际电流
 
         public OscilloScope()
         {
@@ -73,9 +72,12 @@ namespace ICDIBasic
             pc = new PCan();
 
             InitialControls();
+
+            //未用
             thread = new Thread(new ThreadStart(ThreadProc));
             thread.Name = "HighAccuracyTimer";
             //thread.Start();
+
             timerPaint.Start();
         }
 
@@ -118,6 +120,7 @@ namespace ICDIBasic
         {
             tracePos1 = 0;
             tracePos2 = pLPaint.Width;
+
             itemRelection.Clear();
             itemRelection.Add(Configuration.SCP_TAGCUR_L, "指令电流");
             itemRelection.Add(Configuration.SCP_TAGSPD_L, "指令速度");
@@ -125,8 +128,10 @@ namespace ICDIBasic
             itemRelection.Add(Configuration.SCP_MEACUR_L, "实际电流");
             itemRelection.Add(Configuration.SCP_MEASPD_L, "实际速度");
             itemRelection.Add(Configuration.SCP_MEAPOS_L, "实际位置");
-            showItems.Clear();
+
             Mask = (byte)Configuration.MemoryControlTable[Configuration.SCP_MASK];
+
+            showItems.Clear();
             showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGCUR) != 0x00, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Dot, pLPaint.Width, Configuration.MASK_TAGCUR));
             showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGSPD) != 0x00, Configuration.SCP_TAGSPD_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
             showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGPOS) != 0x00, Configuration.SCP_TAGPOS_L, "观测", Color.Blue, DashStyle.Dash, pLPaint.Width, Configuration.MASK_TAGPOS));
@@ -169,9 +174,7 @@ namespace ICDIBasic
             pc.WriteOneWord(Configuration.SCP_REC_TIM, interval, PCan.currentID);
         }
 
-
-
-
+        //未用方法
         private void ThreadProc()
         {
             //while (running)
@@ -656,7 +659,7 @@ namespace ICDIBasic
         {
             if (e.Button == MouseButtons.Right)
             {
-                if (e.X > 420 && e.X < 570)
+                if (e.X > 420 && e.X < 570)//右击颜色
                 {
                     int index = lVMeasureItems.FocusedItem.Index;
                     if (cDcolor.ShowDialog() == DialogResult.OK)
@@ -665,7 +668,7 @@ namespace ICDIBasic
                         loadLVMeasureItems();
                     }
                 }
-                else if (e.X > 570 && e.X < 740)
+                else if (e.X > 570 && e.X < 740)//右击线型
                 {
                     int index = lVMeasureItems.FocusedItem.Index;
                     Rectangle tt = lVMeasureItems.Items[index].SubItems[4].Bounds;
@@ -778,7 +781,6 @@ namespace ICDIBasic
             btnMeasure.Focus();
         }
 
-
         private void cBCurrentRatio_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -874,7 +876,28 @@ namespace ICDIBasic
             EnableCurrentCompensation = true;
         }
 
+        private void nUSmoothData_ValueChanged(object sender, EventArgs e)
+        {
+            switch(Convert.ToInt32(nUSmoothData.Value))
+            {
+                case 0: MotionControl.kfQ = 0.0; MotionControl.kfR = 0.0; break;
+                case 1: MotionControl.kfQ = 0.1; MotionControl.kfR = 0.1; break;
+                case 2: MotionControl.kfQ = 0.1; MotionControl.kfR = 10; break;
+                case 3: MotionControl.kfQ = 0.01; MotionControl.kfR = 50; break;
+                case 4: MotionControl.kfQ = 10; MotionControl.kfR = 0.1; break;
+                case 5: MotionControl.kfQ = 50; MotionControl.kfR = 0.01; break;
+            }
+        }
+
+        #region 标题栏的事件
+
+        private void pLName_Click(object sender, EventArgs e)
+        {
+            BringToFront();
+        }
+
         #region 用鼠标拖拽移动窗体
+
         private Point mousePoint = Point.Empty;
         private void pLName_MouseDown(object sender, MouseEventArgs e)
         {
@@ -901,6 +924,7 @@ namespace ICDIBasic
         {
             mousePoint = Point.Empty;
         }
+
         #endregion
 
         private void pBExit_Click(object sender, EventArgs e)
@@ -908,25 +932,7 @@ namespace ICDIBasic
             this.Close();
         }
 
-        private void pLName_Click(object sender, EventArgs e)
-        {
-            this.BringToFront();
-        }
-
-        private void nUSmoothData_ValueChanged(object sender, EventArgs e)
-        {
-            switch(Convert.ToInt32(nUSmoothData.Value))
-            {
-                case 0: MotionControl.kfQ = 0.0; MotionControl.kfR = 0.0; break;
-                case 1: MotionControl.kfQ = 0.1; MotionControl.kfR = 0.1; break;
-                case 2: MotionControl.kfQ = 0.1; MotionControl.kfR = 10; break;
-                case 3: MotionControl.kfQ = 0.01; MotionControl.kfR = 50; break;
-                case 4: MotionControl.kfQ = 10; MotionControl.kfR = 0.1; break;
-                case 5: MotionControl.kfQ = 50; MotionControl.kfR = 0.01; break;
-            }
-        }
-
-       
+        #endregion
     }
 
     public class ShowItem
@@ -949,7 +955,6 @@ namespace ICDIBasic
             Mask = mask;
         }
     }
-
 
     public class Node
     {

@@ -40,6 +40,7 @@
             this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
             this.pBRecordImage = new System.Windows.Forms.PictureBox();
             this.btnMeasure = new System.Windows.Forms.Button();
+            this.pLPaint = new ICDIBasic.NewPanel();
             this.tBtrace = new System.Windows.Forms.TrackBar();
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.cDcolor = new System.Windows.Forms.ColorDialog();
@@ -113,7 +114,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
-            this.pLPaint = new ICDIBasic.NewPanel();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
@@ -278,6 +278,16 @@
             this.btnMeasure.UseVisualStyleBackColor = false;
             this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
             // 
+            // pLPaint
+            // 
+            this.pLPaint.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pLPaint.Location = new System.Drawing.Point(6, 1);
+            this.pLPaint.Name = "pLPaint";
+            this.pLPaint.Size = new System.Drawing.Size(740, 360);
+            this.pLPaint.TabIndex = 0;
+            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
+            // 
             // tBtrace
             // 
             this.tBtrace.AutoSize = false;
@@ -391,7 +401,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 31);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(831, 165);
+            this.tabPage1.Size = new System.Drawing.Size(831, 185);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "测量条件";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -435,7 +445,7 @@
             this.tabPage3.Controls.Add(this.cBPointer);
             this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(831, 165);
+            this.tabPage3.Size = new System.Drawing.Size(831, 185);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "指针";
             // 
@@ -585,7 +595,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(831, 165);
+            this.tabPage2.Size = new System.Drawing.Size(831, 185);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "PID手动调整";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -964,7 +974,7 @@
             this.tabPage5.Controls.Add(this.btnFriction);
             this.tabPage5.Location = new System.Drawing.Point(4, 31);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(831, 165);
+            this.tabPage5.Size = new System.Drawing.Size(831, 185);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "自动增益调整";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1042,16 +1052,6 @@
             this.pBSetUp.Size = new System.Drawing.Size(52, 52);
             this.pBSetUp.TabIndex = 0;
             this.pBSetUp.TabStop = false;
-            // 
-            // pLPaint
-            // 
-            this.pLPaint.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pLPaint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pLPaint.Location = new System.Drawing.Point(6, 1);
-            this.pLPaint.Name = "pLPaint";
-            this.pLPaint.Size = new System.Drawing.Size(740, 360);
-            this.pLPaint.TabIndex = 0;
-            this.pLPaint.Paint += new System.Windows.Forms.PaintEventHandler(this.pLPaint_Paint);
             // 
             // OscilloScope
             // 

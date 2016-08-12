@@ -487,7 +487,7 @@
             this.cBID.Location = new System.Drawing.Point(71, -2);
             this.cBID.Name = "cBID";
             this.cBID.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cBID.Size = new System.Drawing.Size(64, 37);
+            this.cBID.Size = new System.Drawing.Size(79, 37);
             this.cBID.TabIndex = 2;
             this.cBID.DropDown += new System.EventHandler(this.cBID_DropDown);
             this.cBID.TextChanged += new System.EventHandler(this.cBID_TextChanged);

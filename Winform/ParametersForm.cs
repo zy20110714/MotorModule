@@ -12,13 +12,12 @@ namespace ICDIBasic
     public partial class ParametersForm : Form
     {
         public static ParametersForm pCurrentWin = null;//句柄
-        TextBox tb;
+        TextBox tb;//用于动态生成TextBox以供编辑变量的数值
         PCan pc;
         WriteParameters wp;
         int selectedItemIndex = -1;
-        int tVIndex = -1;
+        public static int tVIndex;//标记当前选中的分类号，需要在主界面更改ID时更新参数表
         public static Dictionary<byte, ParameterStruct> paraRelection = new Dictionary<byte, ParameterStruct>();
-
 
         public ParametersForm()
         {
@@ -42,6 +41,7 @@ namespace ICDIBasic
         {
             this.KeyPreview = true;
             tVParam.SelectedNode = tVParam.Nodes[0];
+            tVIndex = 0;
             tVParam.Nodes[0].Checked = true;
             RefreshlVParam(tVParam.SelectedNode.Index);     
         }
@@ -163,6 +163,7 @@ namespace ICDIBasic
             paraRelection.Add(0x9d, new ParameterStruct("SCP_MEAPOS_H", "-",        "-", "R",   "实际位置数据集"));
         }
 
+        //刷新相应分类号的参数表
         public void RefreshlVParam(int index)
         {      
             lVParam.Items.Clear();
@@ -174,13 +175,19 @@ namespace ICDIBasic
                 byte addr = Convert.ToByte(str, 16);
                 try
                 {
-                    lVParam.Items[i].SubItems.AddRange(new string[] { str, paraRelection[addr].Name, paraRelection[addr].Range, cBHexDisplay.Checked ? Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString("x4") : Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString(), paraRelection[addr].Unit });
+                    lVParam.Items[i].SubItems.AddRange(
+                        new string[] {
+                            str,
+                            paraRelection[addr].Name,
+                            paraRelection[addr].Range,
+                            cBHexDisplay.Checked ? Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString("x4") : Configuration.MemoryControlTable[Convert.ToByte(str, 16)].ToString(),
+                            paraRelection[addr].Unit });
                     if (paraRelection[addr].Competence == "R")
                     {
                         lVParam.Items[i].BackColor = tBReadOnly.BackColor;
                     }
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     lVParam.Items[i].SubItems.AddRange(new string[] { str, "reserved", "--",  "--", "--" });
@@ -189,15 +196,22 @@ namespace ICDIBasic
             }
         }
 
+        //关闭窗口后
         private void ParametersForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             pCurrentWin = null;
             timerUpdate.Stop();
         }
 
+        //选择分类号
         private void tVParam_AfterSelect(object sender, TreeViewEventArgs e)
         {
             tVIndex = e.Node.Index;
+
+            //刷新显示
+            byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
+            pc.ReadWords(index, 16, PCan.currentID);
+            Thread.Sleep(16);
 
             for (int i = 0; i < tVParam.Nodes.Count; i++)
             {
@@ -210,147 +224,144 @@ namespace ICDIBasic
                     tVParam.Nodes[i].ForeColor = Color.Black;
                 }
             }
-            byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
-            pc.ReadWords(index, 16, PCan.currentID);
-            Thread.Sleep(150);
 
             RefreshlVParam(tVIndex);
         }
 
+        #region 修改参数表中的一项
+
         private void lVParam_DoubleClick(object sender, EventArgs e)
         {
             //动态生成TextBox以供编辑变量的数值
-            if (lVParam.SelectedItems.Count > 0)
+            if (lVParam.SelectedItems.Count <= 0)
             {
-                selectedItemIndex = lVParam.SelectedItems[0].Index; // 记录上一次选择的索引位置
-                try
+                return;
+            }
+            
+            selectedItemIndex = lVParam.SelectedItems[0].Index; // 记录上一次选择的索引位置
+
+            try
+            {
+                if (paraRelection[Convert.ToByte(lVParam.SelectedItems[0].SubItems[1].Text, 16)].Competence != "R/W")
                 {
-                    if (paraRelection[Convert.ToByte(lVParam.SelectedItems[0].SubItems[1].Text, 16)].Competence != "R/W")
-                    {
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                     return;
                 }
-
-                Rectangle tt = lVParam.SelectedItems[0].SubItems[4].Bounds;
-                tb = new TextBox();
-                tb.Font = new Font("宋体", 13, FontStyle.Bold);
-                tb.TextAlign = HorizontalAlignment.Center;
-                tb.Size = new Size(tt.Width, 18);
-                tb.Location = tt.Location;
-                tb.BackColor = Color.White;
-                tb.Text = lVParam.SelectedItems[0].SubItems[4].Text;
-                tb.Focus();
-                lVParam.Controls.Add(tb);
-
-                tb.KeyDown += new System.Windows.Forms.KeyEventHandler(tb_KeyDown);
-                tb.MouseLeave += new System.EventHandler(tb_MouseLeave);
-
-                tb.Select(0, tb.Text.Length);
-                tb.Focus();
             }
+            catch (Exception ex)
+            {
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                return;
+            }
+
+            tb = new TextBox();
+            tb.Font = new Font("宋体", 13, FontStyle.Bold);
+            tb.TextAlign = HorizontalAlignment.Center;
+            tb.BackColor = Color.White;
+            Rectangle tt = lVParam.SelectedItems[0].SubItems[4].Bounds;//SubItems[4]是第5列：设定值
+            tb.Text = lVParam.SelectedItems[0].SubItems[4].Text;
+
+            tb.Size = new Size(tt.Width, 18);
+            tb.Location = tt.Location;
+            lVParam.Controls.Add(tb);
+
+            tb.KeyDown += new KeyEventHandler(tb_KeyDown);
+            tb.Leave += new EventHandler(tb_Leave);
+            tb.Select(0, tb.Text.Length);
+            tb.Focus();
         }
 
-        private void lVParam_SelectedIndexChanged(object sender, EventArgs e)
+        //有了Leave方法，SelectedIndexChanged不需要了，但该方法中的错误提示值得再参考
+        //private void lVParam_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (lVParam.SelectedItems.Count > 0)
+        //    {
+        //        if (tb != null)
+        //        {
+        //            //删除动态生成的TextBox
+        //            lVParam.Controls.Remove(tb);
+        //            tb = null;
+        //        }
+
+        //        selectedItemIndex = lVParam.SelectedItems[0].Index; // 记录上一次选择的索引位置
+
+        //        int nIndex = lVParam.SelectedItems[0].Index;
+        //        try
+        //        {
+        //            tBExplain.Text = paraRelection[Convert.ToByte(lVParam.SelectedItems[0].SubItems[1].Text, 16)].Description;
+        //        }
+        //        catch (System.Exception ex)
+        //        {
+        //            tBExplain.Text = "保留字段";
+        //            MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        tBExplain.Text = "";
+        //    }
+        //}
+
+        private void tb_InputDone()
         {
-            if (lVParam.SelectedItems.Count > 0)
+            Int16 value = 0;
+            try
             {
-                if (tb != null)
+                if (cBHexDisplay.Checked)
                 {
-                    //删除动态生成的TextBox
-                    lVParam.Controls.Remove(tb);
-                    tb = null;
+                    value = Convert.ToInt16(tb.Text, 16);
                 }
-
-                selectedItemIndex = lVParam.SelectedItems[0].Index; // 记录上一次选择的索引位置
-
-                int nIndex = lVParam.SelectedItems[0].Index;
-                try
+                else
                 {
-                    tBExplain.Text = paraRelection[Convert.ToByte(lVParam.SelectedItems[0].SubItems[1].Text, 16)].Description;
-                }
-                catch (System.Exception ex)
-                {
-                    tBExplain.Text = "保留字段";
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                    value = Convert.ToInt16(tb.Text);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                tBExplain.Text = "";
+                MessageBox.Show("请输入合法的字符串！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                lVParam.Controls.Remove(tb);
+                tb = null;
+
+                return;
             }
+
+            lVParam.SelectedItems[0].SubItems[4].Text = tb.Text;
+            //更改内存控制表
+            pc.WriteOneWord(Convert.ToByte(lVParam.Items[selectedItemIndex].SubItems[1].Text, 16), value, PCan.currentID);
+            //移除临时用的文本框tb
+            lVParam.Controls.Remove(tb);
+            tb = null;
+        }
+
+        private void tb_Leave(object sender, EventArgs e)
+        {
+            tb_InputDone();
         }
 
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (tb != null)
-                {
-                    Int16 value = 0;
-                    try
-                    {
-                        if (cBHexDisplay.Checked)
-                        {
-                            value = Convert.ToInt16(tb.Text, 16);
-                        }
-                        else
-                        {
-                            value = Convert.ToInt16(tb.Text);
-                        }
-                    }
-                    catch (System.Exception ex)
-                    {
-                        MessageBox.Show("请输入合法的字符串！");
-                        lVParam.Controls.Remove(tb);
-                        tb = null;
-                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                        return;
-                    }
-
-                    lVParam.SelectedItems[0].SubItems[4].Text = tb.Text;
-                    //更改内存控制表
-                    pc.WriteOneWord(Convert.ToByte(lVParam.Items[selectedItemIndex].SubItems[1].Text, 16), value, PCan.currentID);
-                    lVParam.Controls.Remove(tb);
-                    tb = null;
-                }
+                tb_InputDone();
             }
         }
 
-        private void tb_MouseLeave(object sender, EventArgs e)
-        {
-            if (tb != null && !tb.Focused)
-            {
-                lVParam.Controls.Remove(tb);
-                tb = null;
-            }
-        }
+        #endregion
 
+        //16进制显示方式更改
         private void cBHexDisplay_CheckedChanged(object sender, EventArgs e)
         {
             RefreshlVParam(tVParam.SelectedNode.Index);
         }
 
-        private void pLExplain2_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (tb != null)
-            {
-                lVParam.Controls.Remove(tb);
-                tb = null;
-            }
-        }
-
+        //定时刷新参数表
         private void timerUpdate_Tick(object sender, EventArgs e)
         {
             //以1000ms的间隔更新变量
             lVParam.BeginUpdate();
             byte index = Convert.ToByte(Convert.ToByte(tVParam.Nodes[tVIndex].Text.Substring(2, 1)) << 4);
             pc.ReadWords(index, 16, PCan.currentID);
-            Thread.Sleep(15);
+            Thread.Sleep(16);
             //只刷新数据部分
             for (int i = 0; i < 16; i++)
             {
@@ -366,6 +377,7 @@ namespace ICDIBasic
             //RefreshlVParam(tVIndex);
         }
 
+        //单击烧写flash
         private void btnFlash_Click(object sender, EventArgs e)
         {
             //lVParam.Visible = false;
@@ -377,12 +389,13 @@ namespace ICDIBasic
             wp.Show();            
         }
 
+        //关闭参数设置页面
         private void pBExit_Click(object sender, EventArgs e)
         {
-            //关闭参数设置页面
             Close();
         }
 
+        //单击计算器图标
         private void btnCalculator_Click(object sender, EventArgs e)
         {
             System.Diagnostics.ProcessStartInfo Info = new System.Diagnostics.ProcessStartInfo();
@@ -390,6 +403,7 @@ namespace ICDIBasic
             System.Diagnostics.Process Proc = System.Diagnostics.Process.Start(Info);
         }
 
+        //单击保存图标
         private void btnSave_Click(object sender, EventArgs e)
         {
             saveFileDialogParaPath.InitialDirectory = Application.StartupPath;
@@ -467,9 +481,10 @@ namespace ICDIBasic
                 mousePoint = MousePosition;
             }
         }
-        
+
         #endregion
 
+        //单击设置零位按钮
         private void btnSetZeroPosition_Click(object sender, EventArgs e)
         {
             //如果当前是位置控制模式，则向内存控制表SYS_SET_ZERO_POS写入1
@@ -492,6 +507,7 @@ namespace ICDIBasic
             }
         }
 
+        //单击清除错误按钮
         private void btnClearError_Click(object sender, EventArgs e)
         {
             pc.WriteOneWord(Configuration.SYS_CLEAR_ERROR, 0x01, PCan.currentID);

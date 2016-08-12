@@ -217,7 +217,6 @@
             this.pLDescribe.Name = "pLDescribe";
             this.pLDescribe.Size = new System.Drawing.Size(675, 55);
             this.pLDescribe.TabIndex = 4;
-            this.pLDescribe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
             // 
             // btnSetZeroPosition
             // 
@@ -430,7 +429,6 @@
             this.pLExplain2.Name = "pLExplain2";
             this.pLExplain2.Size = new System.Drawing.Size(672, 150);
             this.pLExplain2.TabIndex = 6;
-            this.pLExplain2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pLExplain2_MouseClick);
             // 
             // timerUpdate
             // 
@@ -477,7 +475,6 @@
             this.lVParam.TabIndex = 3;
             this.lVParam.UseCompatibleStateImageBehavior = false;
             this.lVParam.View = System.Windows.Forms.View.Details;
-            this.lVParam.SelectedIndexChanged += new System.EventHandler(this.lVParam_SelectedIndexChanged);
             this.lVParam.DoubleClick += new System.EventHandler(this.lVParam_DoubleClick);
             // 
             // columnHeader1
