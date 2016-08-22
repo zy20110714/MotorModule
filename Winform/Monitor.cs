@@ -171,9 +171,9 @@ namespace ICDIBasic
             while (IsMonitorError1)
             {
                 pc.WriteOneWord(0x08, registerNumber, PCan.currentID);
-                Thread.Sleep(10);
+                //Thread.Sleep(10);
                 pc.ReadOneWord(0x08, PCan.currentID);
-                Thread.Sleep(10);
+                //Thread.Sleep(10);
                 MonitorError();
 
                 Thread.Sleep(interval);

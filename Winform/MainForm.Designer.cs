@@ -55,6 +55,8 @@
             this.statusBarPanel2 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel3 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel4 = new System.Windows.Forms.StatusBarPanel();
+            this.statusBarPanel5 = new System.Windows.Forms.StatusBarPanel();
+            this.statusBarPanel6 = new System.Windows.Forms.StatusBarPanel();
             this.pLContent = new System.Windows.Forms.Panel();
             this.tBMultiTurn = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -74,6 +76,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel6)).BeginInit();
             this.pLContent.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -399,9 +403,11 @@
             this.statusBarPanel1,
             this.statusBarPanel2,
             this.statusBarPanel3,
-            this.statusBarPanel4});
+            this.statusBarPanel4,
+            this.statusBarPanel5,
+            this.statusBarPanel6});
             this.sBFeedback.ShowPanels = true;
-            this.sBFeedback.Size = new System.Drawing.Size(994, 22);
+            this.sBFeedback.Size = new System.Drawing.Size(1169, 22);
             this.sBFeedback.TabIndex = 53;
             // 
             // statusBarPanel1
@@ -410,7 +416,6 @@
             this.statusBarPanel1.Icon = ((System.Drawing.Icon)(resources.GetObject("statusBarPanel1.Icon")));
             this.statusBarPanel1.Name = "statusBarPanel1";
             this.statusBarPanel1.Text = "tt1";
-            this.statusBarPanel1.Width = 150;
             // 
             // statusBarPanel2
             // 
@@ -424,7 +429,7 @@
             this.statusBarPanel3.Icon = ((System.Drawing.Icon)(resources.GetObject("statusBarPanel3.Icon")));
             this.statusBarPanel3.Name = "statusBarPanel3";
             this.statusBarPanel3.Text = "遨博（北京）智能科技有限公司";
-            this.statusBarPanel3.Width = 300;
+            this.statusBarPanel3.Width = 230;
             // 
             // statusBarPanel4
             // 
@@ -433,6 +438,18 @@
             this.statusBarPanel4.Name = "statusBarPanel4";
             this.statusBarPanel4.Text = "tt4";
             this.statusBarPanel4.Width = 160;
+            // 
+            // statusBarPanel5
+            // 
+            this.statusBarPanel5.Name = "statusBarPanel5";
+            this.statusBarPanel5.Text = "驱动器型号：";
+            this.statusBarPanel5.Width = 130;
+            // 
+            // statusBarPanel6
+            // 
+            this.statusBarPanel6.Name = "statusBarPanel6";
+            this.statusBarPanel6.Text = "模块减速比：";
+            this.statusBarPanel6.Width = 150;
             // 
             // pLContent
             // 
@@ -450,7 +467,7 @@
             this.pLContent.Controls.Add(this.btnParameters);
             this.pLContent.Location = new System.Drawing.Point(0, 0);
             this.pLContent.Name = "pLContent";
-            this.pLContent.Size = new System.Drawing.Size(997, 35);
+            this.pLContent.Size = new System.Drawing.Size(1169, 35);
             this.pLContent.TabIndex = 54;
             // 
             // tBMultiTurn
@@ -561,14 +578,14 @@
             this.pLMain.BackColor = System.Drawing.Color.Silver;
             this.pLMain.Location = new System.Drawing.Point(0, 35);
             this.pLMain.Name = "pLMain";
-            this.pLMain.Size = new System.Drawing.Size(994, 612);
+            this.pLMain.Size = new System.Drawing.Size(1169, 612);
             this.pLMain.TabIndex = 55;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 671);
+            this.ClientSize = new System.Drawing.Size(1169, 671);
             this.Controls.Add(this.pLMain);
             this.Controls.Add(this.pLContent);
             this.Controls.Add(this.sBFeedback);
@@ -591,6 +608,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBarPanel6)).EndInit();
             this.pLContent.ResumeLayout(false);
             this.pLContent.PerformLayout();
             this.ResumeLayout(false);
@@ -635,6 +654,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox tBMultiTurn;
         private System.Windows.Forms.TextBox txtBitrate;
+        private System.Windows.Forms.StatusBarPanel statusBarPanel5;
+        private System.Windows.Forms.StatusBarPanel statusBarPanel6;
     }
 }
 

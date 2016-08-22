@@ -51,7 +51,7 @@ namespace ICDIBasic
             paraRelection.Clear();
 
             paraRelection.Add(0x01, new ParameterStruct("SYS_ID",               "1-254",  "-",      "R/W",  "驱动器ID"));
-            paraRelection.Add(0x02, new ParameterStruct("SYS_MODEL_TYPE",       "-",      "-",      "R",    "驱动器型号: 10, 11, 20, 21, 30, 40"));
+            paraRelection.Add(0x02, new ParameterStruct("SYS_MODEL_TYPE",       "-",      "-",      "R",    "驱动器型号: 16-M14, 17-M14E, 32-M17, 33-M17E, 48-M20, 64-LIFT"));
             paraRelection.Add(0x03, new ParameterStruct("SYS_FW_VERSION",       "-",      "-",      "R",    "固件版本"));
             paraRelection.Add(0x04, new ParameterStruct("SYS_ERROR",            "0-256",  "-",      "R",    "错误代码: 1-过流，2-过压，4-欠压，8-过温，32-码盘错误，128-电流检测错误"));
             paraRelection.Add(0x05, new ParameterStruct("SYS_VOLTAGE",          "≈2400",  "0.01V",  "R",    "系统电压"));
@@ -270,36 +270,36 @@ namespace ICDIBasic
             tb.Focus();
         }
 
-        //有了Leave方法，SelectedIndexChanged不需要了，但该方法中的错误提示值得再参考
-        //private void lVParam_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    if (lVParam.SelectedItems.Count > 0)
-        //    {
-        //        if (tb != null)
-        //        {
-        //            //删除动态生成的TextBox
-        //            lVParam.Controls.Remove(tb);
-        //            tb = null;
-        //        }
+        //有了Leave方法，SelectedIndexChanged也还需要，该方法中显示每个参数的说明信息
+        private void lVParam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lVParam.SelectedItems.Count > 0)
+            {
+                if (tb != null)
+                {
+                    //删除动态生成的TextBox
+                    lVParam.Controls.Remove(tb);
+                    tb = null;
+                }
 
-        //        selectedItemIndex = lVParam.SelectedItems[0].Index; // 记录上一次选择的索引位置
+                selectedItemIndex = lVParam.SelectedItems[0].Index; // 记录上一次选择的索引位置
 
-        //        int nIndex = lVParam.SelectedItems[0].Index;
-        //        try
-        //        {
-        //            tBExplain.Text = paraRelection[Convert.ToByte(lVParam.SelectedItems[0].SubItems[1].Text, 16)].Description;
-        //        }
-        //        catch (System.Exception ex)
-        //        {
-        //            tBExplain.Text = "保留字段";
-        //            MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        tBExplain.Text = "";
-        //    }
-        //}
+                int nIndex = lVParam.SelectedItems[0].Index;
+                try
+                {
+                    tBExplain.Text = paraRelection[Convert.ToByte(lVParam.SelectedItems[0].SubItems[1].Text, 16)].Description;
+                }
+                catch (System.Exception ex)
+                {
+                    tBExplain.Text = "保留字段";
+                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                }
+            }
+            else
+            {
+                tBExplain.Text = "";
+            }
+        }
 
         private void tb_InputDone()
         {
@@ -516,6 +516,7 @@ namespace ICDIBasic
             Thread.Sleep(10);
             MessageBox.Show("清错并使能成功。");
         }
+
     }
 
 

@@ -835,6 +835,21 @@ namespace ICDIBasic
                 {
                     pf.RefreshlVParam(ParametersForm.tVIndex);
                 }
+                //更新底部模块类型显示
+                string modelType = "";
+                switch (Configuration.MemoryControlTable[0x02])
+                {
+                    case 16: modelType = "M14"; break;
+                    case 2:
+                    case 17: modelType = "M14E"; break;
+                    case 32: modelType = "M17"; break;
+                    case 33: modelType = "M17E"; break;
+                    case 48: modelType = "M20"; break;
+                    case 64: modelType = "LIFT"; break;
+                }
+                GetInstance().sBFeedbackShow("驱动器型号：" + modelType, 4);
+                //更新底部模块减速比显示
+                GetInstance().sBFeedbackShow("模块减速比：" + Configuration.MemoryControlTable[0x07].ToString(), 5);
             }
             else
             {
@@ -842,6 +857,10 @@ namespace ICDIBasic
                 btnRun.Enabled = false;
                 btnWave.Enabled = false;
                 btnMonitor.Enabled = false;
+                //更新底部模块类型显示
+                GetInstance().sBFeedbackShow("驱动器型号：", 4);
+                //更新底部模块减速比显示
+                GetInstance().sBFeedbackShow("模块减速比：", 5);
             }
         }
     }

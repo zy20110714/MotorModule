@@ -475,6 +475,7 @@
             this.lVParam.TabIndex = 3;
             this.lVParam.UseCompatibleStateImageBehavior = false;
             this.lVParam.View = System.Windows.Forms.View.Details;
+            this.lVParam.SelectedIndexChanged += new System.EventHandler(this.lVParam_SelectedIndexChanged);
             this.lVParam.DoubleClick += new System.EventHandler(this.lVParam_DoubleClick);
             // 
             // columnHeader1
