@@ -19,7 +19,6 @@ namespace ICDIBasic
         public static List<ShowItem> showItems = new List<ShowItem>();
         public static byte Mask = 0;
 
-        public static int Interval = 0;
         ComboBox cb;
         Thread thread;
         PCan pc;
@@ -40,8 +39,10 @@ namespace ICDIBasic
 
         int tracePos1 = 0;
         int tracePos2 = 0;
-        public static bool EnableScope = false;
 
+        //另外的线程中需要引用
+        public static int Interval = 0;
+        public static bool EnableScope = false;
         public static bool EnableFrictionMeasure = false;
         public static bool EnableCurrentCompensation = false;
 
@@ -70,15 +71,14 @@ namespace ICDIBasic
         {
             InitializeComponent();
             pc = new PCan();
-
             InitialControls();
+            //开启绘图时钟，进行显示屏刷新，刷新周期80ms
+            timerPaint.Start();
 
             //未用
             thread = new Thread(new ThreadStart(ThreadProc));
             thread.Name = "HighAccuracyTimer";
             //thread.Start();
-
-            timerPaint.Start();
         }
 
         ~OscilloScope()
@@ -118,9 +118,12 @@ namespace ICDIBasic
 
         private void InitialControls()
         {
+            //指针1的初始位置，在显示屏最左侧
             tracePos1 = 0;
+            //指针2的初始位置，在显示屏最右侧
             tracePos2 = pLPaint.Width;
 
+            //测量项目的初始化
             itemRelection.Clear();
             itemRelection.Add(Configuration.SCP_TAGCUR_L, "指令电流");
             itemRelection.Add(Configuration.SCP_TAGSPD_L, "指令速度");
@@ -129,8 +132,10 @@ namespace ICDIBasic
             itemRelection.Add(Configuration.SCP_MEASPD_L, "实际速度");
             itemRelection.Add(Configuration.SCP_MEAPOS_L, "实际位置");
 
+            //记录对象标志MASK的初始化
             Mask = (byte)Configuration.MemoryControlTable[Configuration.SCP_MASK];
 
+            //由记录对象标志初始化要显示的测量曲线
             showItems.Clear();
             showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGCUR) != 0x00, Configuration.SCP_TAGCUR_L, "观测", Color.Yellow, DashStyle.Dot, pLPaint.Width, Configuration.MASK_TAGCUR));
             showItems.Add(new ShowItem((Mask & Configuration.MASK_TAGSPD) != 0x00, Configuration.SCP_TAGSPD_L, "观测", Color.Green, DashStyle.Solid, pLPaint.Width, Configuration.MASK_TAGSPD));
@@ -142,11 +147,12 @@ namespace ICDIBasic
             //Mask |= Configuration.MASK_TAGSPD | Configuration.MASK_MEASPD | Configuration.MASK_TAGPOS | Configuration.MASK_MEAPOS;
             //pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);    //应设置触发条件
 
-            //设置扫描频率
+            //参数表中的“记录时间间隔（对10kHZ的分频值）”显示到测量条件选项卡中的对应控件里
             tBScanFrequency.Text = Configuration.MemoryControlTable[Configuration.SCP_REC_TIM].ToString();
+            //同样，用参数表中的“记录时间间隔（对10kHZ的分频值）”设置扫描频率，初始化Interval
             setTimeInterval(Configuration.MemoryControlTable[Configuration.SCP_REC_TIM]);
 
-
+            //初始化数组pointA
             pointA = new float[pLPaint.Width];
             for (int i = 0; i < pLPaint.Width; i++)
             {
@@ -155,6 +161,7 @@ namespace ICDIBasic
 
             loadLVMeasureItems();
 
+            //从文件设置电流、速度、位置
             cBCurrentRatio.Text = IniFile.ContentValue("plRange", "Current", IniFile.StrProPath);
             cBSpeedRatio.Text = IniFile.ContentValue("plRange", "Speed", IniFile.StrProPath);
             cBPositionRatio.Text = IniFile.ContentValue("plRange", "Position", IniFile.StrProPath);
@@ -164,13 +171,16 @@ namespace ICDIBasic
             currentOffset = 0.0f;
             speedOffset = 0.0f; ;
             positionOffset = 0.0f;
+
+            //开启tMPointer定时器，用处？
             tMPointer.Start();
         }
 
         void setTimeInterval(short interval)
         {
+            //公共属性Interval设置成传入参数的10分之一，初始化时传入参数是参数表中的值
             Interval = interval / 10;
-            //short value = (short)(interval * 10);
+            //由传入参数设置参数表，实现从控件中修改扫描频率
             pc.WriteOneWord(Configuration.SCP_REC_TIM, interval, PCan.currentID);
         }
 
@@ -194,13 +204,20 @@ namespace ICDIBasic
 
         }
 
+        private void timerPaint_Tick(object sender, EventArgs e)
+        {
+            pLPaint.Refresh();
+        }
+
+        //在控件重新绘制时发生
         private void pLPaint_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            //图形的抗锯齿设置
             g.SmoothingMode = SmoothingMode.AntiAlias;
             Font font = new Font("微软雅黑", 16F);
             SolidBrush brush = new SolidBrush(Color.Red);
-           // g.Clear(Color.Black);
+            //g.Clear(Color.Black);
 
             Pen pen = new Pen(Color.DarkGray, 1);
             pen.DashStyle = DashStyle.Dash;
@@ -212,14 +229,14 @@ namespace ICDIBasic
             pen.Width = 1.8f;
             g.DrawLines(pen, new Point[] { new Point(0, 6 * 30), new Point(740, 6 * 30) });
 
+            //显示指针勾选框选中的情况，绘制两条指针
             if (cBPointer.Checked)
             {
                 pen.Color = Color.Cyan;
                 g.DrawLines(pen, new Point[] { new Point(tracePos1, 0), new Point(tracePos1, 360) });
                 pen.Color = Color.DarkCyan;
                 g.DrawLines(pen, new Point[] { new Point(tracePos2, 0), new Point(tracePos2, 360) });
-            }
-          
+            }          
 
             for (int i = 0; i < showItems.Count;i++ )
             {
@@ -296,12 +313,6 @@ namespace ICDIBasic
             return max;
         }
 
-        private void timerPaint_Tick(object sender, EventArgs e)
-        {
-            pLPaint.Refresh();
-
-        }
-
         //指针响应处理函数
         private void tBtrace_Scroll(object sender, EventArgs e)
         {
@@ -359,30 +370,36 @@ namespace ICDIBasic
            
         }
 
+        //listview中测量项目初始化，showItems
         void loadLVMeasureItems()
         {
             lVMeasureItems.Items.Clear();
             lVMeasureItems.Visible = true;
             for (int i = 0; i < showItems.Count;i++ )
             {
+                //添加一个集合
                 lVMeasureItems.Items.Add((i+1).ToString());
+                //添加字符串数组的子项到集合中，进一步描述集合
                 lVMeasureItems.Items[i].SubItems.AddRange(new string[] { itemRelection[showItems[i].Item], showItems[i].Monitor, "", GetDashStyle(showItems[i].Ds) });
+                //控制集合子项的显示样式
                 lVMeasureItems.Items[i].UseItemStyleForSubItems = false;
+                //设置集合子项的背景色
                 lVMeasureItems.Items[i].SubItems[3].BackColor = showItems[i].Cl;
-                //lVFormat.Items[i].Focused = true;
+                //确定集合是否勾选的状态
                 lVMeasureItems.Items[i].Checked = showItems[i].IsCheck;
             }
         }
 
+        //由DashStyle的值返回相应的中文字符串
         private string GetDashStyle(DashStyle ds)
         {
             string str = "";
             switch (ds)
             {
-                case DashStyle.Solid: str = "实线"; break;
-                case DashStyle.Dash: str ="虚线" ; break;
-                case DashStyle.Dot: str = "点线"; break;
-                case DashStyle.DashDot: str = "点划线"; break;
+                case DashStyle.Solid:       str = "实线"; break;
+                case DashStyle.Dash:        str = "虚线" ; break;
+                case DashStyle.Dot:         str = "点线"; break;
+                case DashStyle.DashDot:     str = "点划线"; break;
                 case DashStyle.DashDotDot : str = "双点划线"; break;
             }
             return str;
@@ -937,13 +954,14 @@ namespace ICDIBasic
 
     public class ShowItem
     {
+        public bool IsCheck;
+        public byte Item;
+        public string Monitor;
         public Color Cl;
         public DashStyle Ds;
-        public bool IsCheck;
-        public string Monitor;
-        public byte Item;
         public ShowQueue sq;
         public byte Mask;
+
         public ShowItem(bool isCheck, byte item, string monitor, Color cl, DashStyle ds, int queueSize, byte mask)
         {
             IsCheck = isCheck;
@@ -990,7 +1008,6 @@ namespace ICDIBasic
 
         //public bool flag1 = true;
         //public bool flag2 = true;
-
 
         public ShowQueue(int queueSize)  //构造函数
         {

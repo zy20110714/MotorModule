@@ -45,7 +45,7 @@ namespace ICDIBasic
         static int s_iCountforwave = 0;
         public static int tCount = 0;
 
-        static int gatherCount = 0;
+        private static int gatherCount = 0;
 
         public delegate void timerEvent();
         public event timerEvent tickEvent;
@@ -214,60 +214,67 @@ namespace ICDIBasic
                         break;
                 }
             }
+            
+            //示波器绘制曲线使能开启
             if (OscilloScope.EnableScope)
             {
+                //间隔计数会从1开始判断
                 gatherCount++;
+                //按照Interval限定的间隔去执行
                 if (gatherCount == OscilloScope.Interval)
                 {
-                    //AllocConsole();
+                    //间隔计数清零
                     gatherCount = 0;
-                    System.Console.WriteLine(DateTime.Now.Millisecond.ToString()); 
+                    //向控制台写入当前时间
+                    Console.WriteLine(DateTime.Now.Millisecond.ToString());
+                    //分别处理每个显示项
                     for (int i = 0; i < OscilloScope.showItems.Count; i++)
                     {
+                        //显示项的显示队列不为空才向队列追加一个新值，该32位有符号值由2个16位有符号数组合而成
                         if (OscilloScope.showItems[i].sq != null)
                         {
                             // pc.ReadWords(OscilloScope.showItems[i].Item, 2, PCan.currentID);
 
+                            //16位有符号转8位无符号，Item分别会是：SCP_TAGCUR_L, SCP_TAGSPD_L, SCP_TAGPOS_L, SCP_MEACUR_L, SCP_MEASPD_L, SCP_MEAPOS_L
                             byte[] value1 = BitConverter.GetBytes(Configuration.MemoryControlTable[OscilloScope.showItems[i].Item]);
                             byte[] value2 = BitConverter.GetBytes(Configuration.MemoryControlTable[OscilloScope.showItems[i].Item + 1]);
-                            int value = 0;
-                            if (OscilloScope.showItems[i].Item == Configuration.SCP_TAGPOS_L || OscilloScope.showItems[i].Item == Configuration.SCP_MEAPOS_L)
-                            {
-                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], 0x00, 0x00 }, 0);
-                            }
-                            else
-                            {
-                                value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
-                            }
 
+                            int value = 0;
+                            int oldValue = 0;
+
+                            ////位置的数据，没有高16位，这样会产生bug
+                            //if (OscilloScope.showItems[i].Item == Configuration.SCP_TAGPOS_L || OscilloScope.showItems[i].Item == Configuration.SCP_MEAPOS_L)
+                            //{
+                            //    value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], 0x00, 0x00 }, 0);
+                            //}
+                            //else
+                            //{
+                            //    value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+                            //}
+
+                            //统一的方法组成32位数
+                            value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
+
+                            //该32位数再处理后追加到队列尾部
+                            kfN[i] = kfP[i] + kfQ;//kfQ = 30.0;// measure noise
+                            kfK[i] = kfN[i] / (kfN[i] + kfR);
+                            kfP[i] = (1 - kfK[i] * kfN[i]);
                             try
                             {
-                                int oldValue = OscilloScope.showItems[i].sq.rear.Value;
-                                kfN[i] = kfP[i] + kfQ;
-                                kfK[i] = kfN[i] / (kfN[i] + kfR);
-                                value = Convert.ToInt32(oldValue + kfK[i] * (value - oldValue));
-                                kfP[i] = (1 - kfK[i] * kfN[i]);
+                                oldValue = OscilloScope.showItems[i].sq.rear.Value;
                             }
-                            catch (System.Exception ex)
+                            catch
                             {
-                                //MessageBox.Show("请输入合法的数据!");
-                                //MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+
                             }
-
-
+                            value = Convert.ToInt32(oldValue + kfK[i] * (value - oldValue));
+                            //向队尾追加值
                             OscilloScope.showItems[i].sq.EnQ(value);
-                            //if (OscilloScope.showItems[i].Item == Configuration.SYS_SPEED_L)
-                            //{
-                            //    System.Console.WriteLine(value.ToString());
-                            //}
                         }
-                        //if (OscilloScope.showItems[i].Item == Configuration.SYS_POSITION_L)
-                        //{
-                        //}
                     }
-                }
-                
+                }                
             }
+
             if (OscilloScope.EnableFrictionMeasure)
             {
                 float err = 0;

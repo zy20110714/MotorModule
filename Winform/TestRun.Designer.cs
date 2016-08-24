@@ -75,6 +75,7 @@
             this.pLName = new System.Windows.Forms.Panel();
             this.pBMinimized = new System.Windows.Forms.PictureBox();
             this.pBExit = new System.Windows.Forms.PictureBox();
+            this.tMRefreshtBCurrent = new System.Windows.Forms.Timer(this.components);
             this.gBWaveFormProperty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -627,6 +628,11 @@
             this.pBExit.TabStop = false;
             this.pBExit.Click += new System.EventHandler(this.pBExit_Click);
             // 
+            // tMRefreshtBCurrent
+            // 
+            this.tMRefreshtBCurrent.Interval = 1000;
+            this.tMRefreshtBCurrent.Tick += new System.EventHandler(this.tMRefreshtBCurrent_Tick);
+            // 
             // TestRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -642,6 +648,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "试运行";
             this.TopMost = true;
+            this.Enter += new System.EventHandler(this.TestRun_Enter);
+            this.Leave += new System.EventHandler(this.TestRun_Leave);
             this.gBWaveFormProperty.ResumeLayout(false);
             this.gBWaveFormProperty.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBWaveForm)).EndInit();
@@ -713,5 +721,6 @@
         private System.Windows.Forms.Panel pLName;
         private System.Windows.Forms.PictureBox pBExit;
         private System.Windows.Forms.PictureBox pBMinimized;
+        private System.Windows.Forms.Timer tMRefreshtBCurrent;
     }
 }

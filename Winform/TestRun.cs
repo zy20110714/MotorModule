@@ -193,17 +193,7 @@ namespace ICDIBasic
             gBManually.BackColor = Color.LightSteelBlue;
             gBWaveFormProperty.BackColor = Color.White;//关闭自动开手动
 
-            pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
-            Thread.Sleep(10);
-            byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
-            byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
-            byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
-            currentPosition = BitConverter.ToInt32(tempResult, 0);
-            //MessageBox.Show(Convert.ToString(currentPosition));//测试用
-            mCurrent = Convert.ToSingle(currentPosition) * 360 / 65536;
-            tBCurrent.Text = mCurrent.ToString("F2");
-            tBCurrentChangetBManual();
-
+            RefreshtBCurrent();//由当前位置刷新“当前位置显示”以及滑块
 
             pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);//向下位机请求数据
         }
@@ -960,5 +950,44 @@ namespace ICDIBasic
             }
         }
         #endregion
+
+        private void tMRefreshtBCurrent_Tick(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(pBMode.Tag) == 2)
+            {
+                RefreshtBCurrent();//由当前位置刷新“当前位置显示”以及滑块
+            }
+        }
+
+        //由当前位置刷新“当前位置显示”以及滑块
+        private void RefreshtBCurrent()
+        {
+            pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
+            Thread.Sleep(10);
+            byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
+            byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
+            byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
+            currentPosition = BitConverter.ToInt32(tempResult, 0);
+            //MessageBox.Show(Convert.ToString(currentPosition));//测试用
+            mCurrent = Convert.ToSingle(currentPosition) * 360 / 65536;
+            tBCurrent.Text = mCurrent.ToString("F2");
+            tBCurrentChangetBManual();
+        }
+
+        //控件成为该窗体的活动控件时，关闭定时器自动刷新
+        private void TestRun_Enter(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(pBMode.Tag) == 2)
+            {
+                RefreshtBCurrent();//由当前位置刷新“当前位置显示”以及滑块
+            }
+            tMRefreshtBCurrent.Stop();
+        }
+
+        //“当前位置”在外部变化后，能相应显示
+        private void TestRun_Leave(object sender, EventArgs e)
+        {
+            tMRefreshtBCurrent.Start();//开启定时器自动刷新
+        }
     }
 }

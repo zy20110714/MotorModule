@@ -840,8 +840,8 @@ namespace ICDIBasic
                 switch (Configuration.MemoryControlTable[0x02])
                 {
                     case 16: modelType = "M14"; break;
-                    case 2:
                     case 17: modelType = "M14E"; break;
+                    case 2:
                     case 32: modelType = "M17"; break;
                     case 33: modelType = "M17E"; break;
                     case 48: modelType = "M20"; break;
