@@ -47,15 +47,21 @@ namespace ICDIBasic
             //将运动控制变量恢复初始值
             EnableRun = false;
             ChangeOK = false;
-            m_fFrequency = 0.0f;
-            m_fAmplitude = 0.0f;
-            m_fBias = 0.0f;
+            //m_fFrequency = 0.0f;
+            //m_fAmplitude = 0.0f;
+            //m_fBias = 0.0f;
 
             //切换到速度控制模式，让当前运动停止
             pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID);
             pc.WriteTwoWords(Configuration.TAG_SPEED_L, 0, PCan.currentID);
             Thread.Sleep(10);
             //恢复原先选择的控制模式
+            cBControlModeTextRefresh();
+        }
+
+        //由选择的控制模式确定控件上的显示
+        private void cBControlModeTextRefresh()
+        {
             switch (cBControlMode.Text)
             {
                 case "开环占空比":
@@ -79,6 +85,7 @@ namespace ICDIBasic
                     lLUnit.Text = "Unit: °";
                     break;
             }
+            Thread.Sleep(1);
         }
 
         private void pBExit_Click(object sender, EventArgs e)
@@ -107,14 +114,9 @@ namespace ICDIBasic
         {
             pLEnable.Enabled = true;
             EnableRun = true;
+
             //根据控制表当前数据初始化控制模式
-            switch (Configuration.MemoryControlTable[Configuration.TAG_WORK_MODE])
-            {
-                case 0: cBControlMode.SelectedIndex = 0; break;
-                case 1: cBControlMode.SelectedIndex = 1; break;
-                case 2: cBControlMode.SelectedIndex = 2; break;
-                case 3: cBControlMode.SelectedIndex = 3; break;
-            }
+            RefreshcBControlMode();
 
             AutomaticControl();//默认使用自动控制
             //MamuallyControl();//默认使用手动控制
@@ -201,30 +203,8 @@ namespace ICDIBasic
         private void cBControlMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             ChangeOK = false;
-            switch (cBControlMode.Text)
-            {
-                case "开环占空比":
-                    m_iWaveChannel = MotionControl.WAVE_CONNECT_PWM;
-                    pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_OPEN, PCan.currentID);
-                    lLUnit.Text = "Unit: %";
-                    break;
-                case "电流控制":
-                    m_iWaveChannel = MotionControl.WAVE_CONNECT_CUR;
-                    pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_CURRENT, PCan.currentID);
-                    lLUnit.Text = "Unit: mA";
-                    break;
-                case "速度控制":
-                    m_iWaveChannel = MotionControl.WAVE_CONNECT_SPD;
-                    pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID);
-                    lLUnit.Text = "Unit: rpm";
-                    break;
-                case "位置控制":
-                    m_iWaveChannel = MotionControl.WAVE_CONNECT_POS;
-                    pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_POSITION, PCan.currentID);
-                    lLUnit.Text = "Unit: °";
-                    break;
-            }
-            Thread.Sleep(10);
+            //由选择的控制模式确定控件上的显示
+            cBControlModeTextRefresh();
             ////取消cBControlMode的输入焦点
             //pBMode.Focus();
             //不是自动控制的情况下改变控制模式则停止运动
@@ -287,7 +267,7 @@ namespace ICDIBasic
             else
             {
                 tMManualControl.Stop();
-                AutomaticControl();                
+                AutomaticControl();
             }
         }
 
@@ -387,7 +367,7 @@ namespace ICDIBasic
         #endregion
 
         #region 手动控制零位偏转
-        
+
         //手动控制使用，设置为变量使得在输入错误时能返回上一结果，设置为全局使得在定时器中可以调用
         private float manualMin = 30.0f;
         private float manualMax = 30.0f;
@@ -788,7 +768,7 @@ namespace ICDIBasic
             {
                 tBControlInterval_InputDone();
             }
-        }        
+        }
         #endregion
 
         Thread threadDirectMove = null;
@@ -957,6 +937,9 @@ namespace ICDIBasic
             {
                 RefreshtBCurrent();//由当前位置刷新“当前位置显示”以及滑块
             }
+
+            //由当前控制模式刷新控制模式的显示
+            RefreshcBControlMode();
         }
 
         //由当前位置刷新“当前位置显示”以及滑块
@@ -974,6 +957,18 @@ namespace ICDIBasic
             tBCurrentChangetBManual();
         }
 
+        //由当前控制模式刷新控制模式的显示
+        private void RefreshcBControlMode()
+        {
+            switch (Configuration.MemoryControlTable[Configuration.TAG_WORK_MODE])
+            {
+                case 0: cBControlMode.SelectedIndex = 0; break;
+                case 1: cBControlMode.SelectedIndex = 1; break;
+                case 2: cBControlMode.SelectedIndex = 2; break;
+                case 3: cBControlMode.SelectedIndex = 3; break;
+            }
+        }
+
         //控件成为该窗体的活动控件时，关闭定时器自动刷新
         private void TestRun_Enter(object sender, EventArgs e)
         {
@@ -981,6 +976,10 @@ namespace ICDIBasic
             {
                 RefreshtBCurrent();//由当前位置刷新“当前位置显示”以及滑块
             }
+
+            //由当前控制模式刷新控制模式的显示
+            RefreshcBControlMode();
+
             tMRefreshtBCurrent.Stop();
         }
 

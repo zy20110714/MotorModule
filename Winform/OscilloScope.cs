@@ -22,7 +22,6 @@ namespace ICDIBasic
         ComboBox cb;
         Thread thread;
         PCan pc;
-        bool running = true;
         int spanTime = 20;
         double speedRatio = 60.0 / 65536;
         double positionRatio = 360.0 / 65535;
@@ -83,7 +82,6 @@ namespace ICDIBasic
 
         ~OscilloScope()
         {
-            running = false;
             thread.Abort();
             thread.Join();
             thread = null;
@@ -106,7 +104,6 @@ namespace ICDIBasic
 
         private void OscilloScope_FormClosing(object sender, FormClosingEventArgs e)
         {
-            running = false;
             Thread.Sleep(spanTime + 5);   //等待线程thread结束后再abort
             if (thread != null)
             {
@@ -176,7 +173,7 @@ namespace ICDIBasic
             tMPointer.Start();
         }
 
-        void setTimeInterval(short interval)
+        private void setTimeInterval(short interval)
         {
             //公共属性Interval设置成传入参数的10分之一，初始化时传入参数是参数表中的值
             Interval = interval / 10;
