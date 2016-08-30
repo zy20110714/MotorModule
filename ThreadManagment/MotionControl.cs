@@ -100,7 +100,8 @@ namespace ICDIBasic
                 throw new Win32Exception("QueryPerformanceFrequency() function is not supported");
             }
 
-            Interval = 1.0f;                      //定时精度 1ms
+            //定时精度 1ms（CPU时钟频率乘1.0除1000）
+            Interval = 1.0f;
 
             thread = new Thread(new ThreadStart(ThreadProc));
             thread.Name = "HighAccuracyTimer";
@@ -120,7 +121,7 @@ namespace ICDIBasic
                     GetTick(out currTime);
                 }
                 nextTriggerTime = currTime + intevalTicks;
-                tick();            
+                tick();
             }
         }
 
@@ -157,7 +158,7 @@ namespace ICDIBasic
                             s_iCount = 0;
                             s_bHigh = !s_bHigh;
                             SetValue((short)(TestRun.m_fAmplitude * (s_bHigh ? 1 : -1) + TestRun.m_fBias));
-                        }                   
+                        }
                         break;
                     case WAVE_MODE_TRIANGLE:
                         if (s_iCount == 0)
@@ -256,8 +257,8 @@ namespace ICDIBasic
                             value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
 
                             //该32位数再处理后追加到队列尾部
-                            kfN[i] = kfP[i] + kfQ;//kfQ = 30.0;// measure noise
-                            kfK[i] = kfN[i] / (kfN[i] + kfR);
+                            kfN[i] = kfP[i] + kfQ;//kfQ measure noise 可选变
+                            kfK[i] = kfN[i] / (kfN[i] + kfR);//kfR system noise 可选变
                             kfP[i] = (1 - kfK[i] * kfN[i]);
                             try
                             {

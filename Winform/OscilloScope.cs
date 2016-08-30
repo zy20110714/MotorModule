@@ -15,9 +15,9 @@ namespace ICDIBasic
     public partial class OscilloScope : Form
     {
         public static OscilloScope pCurrentWin = null;//句柄
-        Dictionary<byte, string> itemRelection = new Dictionary<byte, string>();
+        private Dictionary<byte, string> itemRelection = new Dictionary<byte, string>();
         public static List<ShowItem> showItems = new List<ShowItem>();
-        public static byte Mask = 0;
+        private static byte Mask = 0;
 
         ComboBox cb;
         Thread thread;
@@ -117,8 +117,8 @@ namespace ICDIBasic
         {
             //指针1的初始位置，在显示屏最左侧
             tracePos1 = 0;
-            //指针2的初始位置，在显示屏最右侧
-            tracePos2 = pLPaint.Width;
+            //指针2的初始位置，在显示屏最右侧，pLPaint.Width = 740
+            tracePos2 = pLPaint.Width - 1;
 
             //测量项目的初始化
             itemRelection.Clear();
@@ -149,13 +149,14 @@ namespace ICDIBasic
             //同样，用参数表中的“记录时间间隔（对10kHZ的分频值）”设置扫描频率，初始化Interval
             setTimeInterval(Configuration.MemoryControlTable[Configuration.SCP_REC_TIM]);
 
-            //初始化数组pointA
+            //初始化数组pointA，当做要绘制曲线的X坐标，X坐标的值从0到pLPaint.Width - 1
             pointA = new float[pLPaint.Width];
             for (int i = 0; i < pLPaint.Width; i++)
             {
                 pointA[i] = i;
             }
 
+            //listview中测量项目初始化，showItems
             loadLVMeasureItems();
 
             //从文件设置电流、速度、位置
@@ -169,8 +170,11 @@ namespace ICDIBasic
             speedOffset = 0.0f; ;
             positionOffset = 0.0f;
 
-            //开启tMPointer定时器，用处？
+            //开启tMPointer定时器，刷新指针列表数据
             tMPointer.Start();
+
+            //默认启动示波器
+            EnableScope = true;
         }
 
         private void setTimeInterval(short interval)
@@ -201,6 +205,7 @@ namespace ICDIBasic
 
         }
 
+        //定时器中强制重绘图形
         private void timerPaint_Tick(object sender, EventArgs e)
         {
             pLPaint.Refresh();
@@ -209,67 +214,93 @@ namespace ICDIBasic
         //在控件重新绘制时发生
         private void pLPaint_Paint(object sender, PaintEventArgs e)
         {
+            //获取用于绘制的图形
             Graphics g = e.Graphics;
             //图形的抗锯齿设置
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            Font font = new Font("微软雅黑", 16F);
-            SolidBrush brush = new SolidBrush(Color.Red);
+            g.SmoothingMode = SmoothingMode.AntiAlias;//AntiAlias - 消除锯齿
+            
+            ////图形的字体设置
+            //Font font = new Font("微软雅黑", 16F);
+            ////图形的颜色设置
+            //SolidBrush brush = new SolidBrush(Color.Red);
+            ////清除整个图形背景面，并以指定背景色填充
             //g.Clear(Color.Black);
 
-            Pen pen = new Pen(Color.DarkGray, 1);
+            //画11条横向虚线，给画笔指定颜色、线宽及线型
+            Pen pen = new Pen(Color.DarkGray, 1);//DarkGray - 深灰色
             pen.DashStyle = DashStyle.Dash;
             for (int i = 1; i < 12;i++)
             {
-                g.DrawLines(pen, new Point[] { new Point(0, i * 30), new Point(740, i * 30) });
+                if (i != 6)//中间要画一条粗实线
+                    g.DrawLines(pen, new Point[] { new Point(0, i * 30), new Point(740, i * 30) });
             }
-            pen.DashStyle = DashStyle.Custom;
+
+            //在中间画1条横向实线
+            pen.DashStyle = DashStyle.Solid;
             pen.Width = 1.8f;
             g.DrawLines(pen, new Point[] { new Point(0, 6 * 30), new Point(740, 6 * 30) });
 
-            //显示指针勾选框选中的情况，绘制两条指针
+            //隔10个数据点画1条纵向虚线，给画笔指定颜色、线宽及线型
+            pen.Color = Color.DarkGray;//DarkGray - 深灰色
+            pen.DashStyle = DashStyle.Dash;
+            for (int i = 1; i * 10 < pLPaint.Width; i ++)
+            {
+                g.DrawLines(pen, new Point[] { new Point(i * 10, 0), new Point(i * 10, 360) });
+            }
+
+            //根据显示指针勾选框选中的情况，绘制两条纵向的指针
             if (cBPointer.Checked)
             {
-                pen.Color = Color.Cyan;
+                pen.Color = Color.Cyan;//Cyan - 青色
                 g.DrawLines(pen, new Point[] { new Point(tracePos1, 0), new Point(tracePos1, 360) });
-                pen.Color = Color.DarkCyan;
+                pen.Color = Color.DarkCyan;//DarkCyan - 暗青色
                 g.DrawLines(pen, new Point[] { new Point(tracePos2, 0), new Point(tracePos2, 360) });
-            }          
+            }
+            label17.Text = "指针1位置：" + tracePos1.ToString();
+            label18.Text = "指针2位置：" + tracePos2.ToString();
+            label19.Text = "两指针的间隔时间：" + ((tracePos2 - tracePos1) * Interval).ToString() + " ms";
+            label20.Text = "单位间隔时间：" + (Interval * 10).ToString() + " ms";
 
+            //分别处理每条要测量的曲线
             for (int i = 0; i < showItems.Count;i++ )
             {
+                //若队列非空并且勾选显示
                 if (showItems[i].sq != null && showItems[i].IsCheck)
                 {
+                    //由队列元素个数创建数组
                     int[] pointY = new int[showItems[i].sq.Count()];
+                    //将队列元素的值赋给数组的每个元素
                     showItems[i].sq.Print(ref pointY);
+
                     //MovingAverage(ref pointY, 0);
                     //int maxY = GetMax(pointY);
+
                     int m = pointY.Length;
                     if (m > 1)
                     {
+                        //由队列元素个数创建坐标对
                         PointF[] points = new PointF[m];
-                      
-                        if (showItems[i].Item ==   Configuration.SCP_TAGCUR_L || showItems[i].Item == Configuration.SCP_MEACUR_L)
+
+                        for (int j = 0; j < m; j++)//分别处理每一坐标对
                         {
-                            for (int j = 0; j < m; j++)
+                            switch (showItems[i].Item)
                             {
-                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * currentRatio / cr * 30 - currentOffset));
+                                case Configuration.SCP_TAGCUR_L:
+                                case Configuration.SCP_MEACUR_L://若曲线是电流
+                                    points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * currentRatio / cr * 30 - currentOffset));
+                                    break;
+                                case Configuration.SCP_TAGSPD_L:
+                                case Configuration.SCP_MEASPD_L://若曲线是速度
+                                    points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * speedRatio / sr * 30 - speedOffset));
+                                    break;
+                                case Configuration.SCP_TAGPOS_L:
+                                case Configuration.SCP_MEAPOS_L://若曲线是位置
+                                    points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * positionRatio / pr * 30 - positionOffset));
+                                    break;
                             }
                         }
-                        else if (showItems[i].Item ==   Configuration.SCP_TAGSPD_L || showItems[i].Item ==  Configuration.SCP_MEASPD_L)
-                        {
-                            for (int j = 0; j < m; j++)
-                            {
-                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * speedRatio / sr * 30 - speedOffset));
-                            }
-                        }
-                        else if (showItems[i].Item == Configuration.SCP_TAGPOS_L || showItems[i].Item == Configuration.SCP_MEAPOS_L)
-                        {
-                            for (int j = 0; j < m; j++)
-                            {
-                                points[j] = new PointF(1.0f * pointA[j], (float)(pLPaint.Height / 2 - pointY[j] * positionRatio / pr * 30 - positionOffset));
-                            }
-                        }
-                      
+
+                        //根据曲线定义的颜色和线型，绘制出曲线
                         pen.Color = showItems[i].Cl;
                         pen.DashStyle = showItems[i].Ds;
                         g.DrawLines(pen, points);
@@ -278,35 +309,36 @@ namespace ICDIBasic
             }
         }
 
+        //未使用
         void MovingAverage(ref int[] array, int n)
         {
-            try
-            {
-                for (int i = n / 2; i < array.Length - n / 2; i++)
-                {
-                    int sum = 0;
-                    for (int j = 0; j < n; j++)
-                    {
-                        sum += array[i - n / 2 + j];
-                    }
-                    array[i] = sum / n;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-            }
-           
+            //try
+            //{
+            //    for (int i = n / 2; i < array.Length - n / 2; i++)
+            //    {
+            //        int sum = 0;
+            //        for (int j = 0; j < n; j++)
+            //        {
+            //            sum += array[i - n / 2 + j];
+            //        }
+            //        array[i] = sum / n;
+            //    }
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            //}
         }
-
+        
+        //未使用
         private static int GetMax(int[] array)
         {
             int max = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                max = max > Math.Abs(array[i]) ? max : Math.Abs(array[i]);
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    max = max > Math.Abs(array[i]) ? max : Math.Abs(array[i]);
 
-            }
+            //}
             return max;
         }
 
@@ -316,30 +348,41 @@ namespace ICDIBasic
             if (rBPointer1.Checked)
             {
                 tracePos1 = (ushort)tBtrace.Value;
-                if (tracePos1 >= tracePos2)
+                if (tracePos1 >= tracePos2)//避免指针1越到指针2右边
                 {
                     tracePos1 = tracePos2;
-                    tBtrace.Value = tracePos1;
+                    tBtrace.Value = tracePos2;
                 }
             }
             if (rBPointer2.Checked)
             {
-                tracePos2 = (ushort)tBtrace.Value - 1;
-                if (tracePos1 >= tracePos2)
+                tracePos2 = (ushort)tBtrace.Value - 1;//滑块最大值740，而指针所确定的index，最大739
+                if (tracePos1 >= tracePos2)//避免指针2越到指针1左边
                 {
                     tracePos2 = tracePos1;
-                    tBtrace.Value = tracePos2;
+                    tBtrace.Value = tracePos1;
                 }
             }
         }
 
+        //选项卡切换事件
         private void tCMonitor_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tCMonitor.SelectedIndex)
             {
-                case 0: loadLVMeasureItems(); break;
-                case 3: cBAdjustGroup.Text = Configuration.MemoryControlTable[Configuration.SEV_PARAME_LOCKED].ToString(); loadPID(); break; 
-                case 2: if (cBPointer.Checked) loadlVPointer(); break;
+                case 0:
+                    //listview中测量项目初始化，showItems
+                    loadLVMeasureItems();
+                    break;
+                case 2:
+                    //若勾选显示指针
+                    if (cBPointer.Checked)
+                        refreshlVPointer();
+                    break;
+                case 3:
+                    cBAdjustGroup.Text = Configuration.MemoryControlTable[Configuration.SEV_PARAME_LOCKED].ToString();
+                    loadPID();
+                    break;
             }
         }
 
@@ -547,8 +590,8 @@ namespace ICDIBasic
                 {
                     tBtrace.Value = tracePos2;
                 }
-            
-                loadlVPointer();
+
+                refreshlVPointer();
             }
             else
             {
@@ -558,78 +601,85 @@ namespace ICDIBasic
             }
         }
 
+        //刷新指针显示列表
         private void refreshlVPointer()
         {
-            int j = 0;
-            for (int i = 0; i < showItems.Count; i++)
+            //ListView中各项清空
+            lVPointer.Items.Clear();
+            //分别处理每条要测量的曲线
+            for (int i = 0, j = 0; i < showItems.Count; i++)
             {
+                //若队列非空并且勾选显示
                 if (showItems[i].IsCheck && showItems[i].sq != null)
                 {
-                    double ratio = 1.0;
+                    lVPointer.Items.Add(itemRelection[showItems[i].Item]);//ListView中的项目名称
+                    double ratio = 1.0;//默认比率是1.0
                     if(showItems[i].Item == Configuration.SCP_TAGSPD_L || showItems[i].Item == Configuration.SCP_MEASPD_L)
                     {
-                        ratio = 60.0 / 65536.0;
+                        ratio = 60.0 / 65536.0;//实际速度和目标速度的比率
                     }
-                    try
-                    {
-                        int pV1 = Convert.ToInt32(GetPointerValue(showItems[i].sq, tracePos1) * ratio);
-                        int pV2 = Convert.ToInt32(GetPointerValue(showItems[i].sq, tracePos2) * ratio);
-                        float pAverage = Convert.ToSingle(showItems[i].sq.GetAverageValue(tracePos1, tracePos2) * ratio);
-                        float maxValue = Convert.ToSingle(showItems[i].sq.GetMaxValue(tracePos1, tracePos2) * ratio);
-                        float minValue = Convert.ToSingle(showItems[i].sq.GetMinValue(tracePos1, tracePos2) * ratio);
-                        lVPointer.Items[j].SubItems[1].Text = "";
-                        lVPointer.Items[j].SubItems[2].Text = pV1.ToString();
-                        lVPointer.Items[j].SubItems[3].Text = pV2.ToString();
-                        lVPointer.Items[j].SubItems[4].Text = (pV2 - pV1).ToString();
-                        lVPointer.Items[j].SubItems[5].Text = pAverage.ToString();
-                        lVPointer.Items[j].SubItems[6].Text = maxValue.ToString();
-                        lVPointer.Items[j].SubItems[7].Text = minValue.ToString();
-                        j++;
-
-                        //取出实际电流、实际速度值，用于计算摩擦参数
-                        if(showItems[i].Item == Configuration.SCP_MEASPD_L)
-                        {
-                            measureSpeed = pAverage;
-                        }
-                        else if(showItems[i].Item == Configuration.SCP_MEACUR_L)
-                        {
-                            measureCurrent = pAverage;
-                        }
-                    }
-                    catch (System.Exception ex)
-                    {
-                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                    }
-
-                }
-            }
-        }
-
-        private void loadlVPointer()
-        {
-            lVPointer.Items.Clear();
-            int j = 0;
-            for (int i = 0; i < showItems.Count; i++)
-            {
-                if (showItems[i].IsCheck && showItems[i].sq != null)
-                {
-
-                    lVPointer.Items.Add(itemRelection[showItems[i].Item]);
-                    int pV1 = GetPointerValue(showItems[i].sq, tracePos1);
-                    int pV2 = GetPointerValue(showItems[i].sq, tracePos2);
-                    float pAverage = showItems[i].sq.GetAverageValue(tracePos1, tracePos2);
-                    float maxValue = showItems[i].sq.GetMaxValue(tracePos1, tracePos2);
-                    float minValue = showItems[i].sq.GetMinValue(tracePos1, tracePos2);
-                    lVPointer.Items[j].SubItems.AddRange(new string[] { "", pV1.ToString(), pV2.ToString(), (pV2 - pV1).ToString(), pAverage.ToString(), maxValue.ToString(), minValue.ToString() });
+                    int pV1 = Convert.ToInt32(GetPointerValue(showItems[i].sq, tracePos1) * ratio);
+                    int pV2 = Convert.ToInt32(GetPointerValue(showItems[i].sq, tracePos2) * ratio);
+                    float pAverage = Convert.ToSingle(showItems[i].sq.GetAverageValue(tracePos1, tracePos2) * ratio);
+                    float maxValue = Convert.ToSingle(showItems[i].sq.GetMaxValue(tracePos1, tracePos2) * ratio);
+                    float minValue = Convert.ToSingle(showItems[i].sq.GetMinValue(tracePos1, tracePos2) * ratio);
+                    //更新列表中的显示
+                    lVPointer.Items[j].SubItems.AddRange(new string[] {
+                        "",//准备着要显示“单位”
+                        pV1.ToString(),//指针1所在的值
+                        pV2.ToString(),//指针2所在的值
+                        (pV2 - pV1).ToString(),//两者的差值
+                        pAverage.ToString(),//均值
+                        maxValue.ToString(),//区间内极大值
+                        minValue.ToString() });//区间内极小值
                     j++;
+                    
+                    //取出实际电流、实际速度值，用于计算摩擦参数
+                    if (showItems[i].Item == Configuration.SCP_MEASPD_L)
+                    {
+                        measureSpeed = pAverage;
+                    }
+                    else if (showItems[i].Item == Configuration.SCP_MEACUR_L)
+                    {
+                        measureCurrent = pAverage;
+                    }
                 }
-
             }
         }
 
+        //private void loadlVPointer()
+        //{
+        //    //ListView中各项清空
+        //    lVPointer.Items.Clear();
+        //    //用i来控制待绘制的各曲线
+        //    for (int i = 0, j = 0; i < showItems.Count; i++)
+        //    {
+        //        //若确认绘制该曲线，并且曲线的队列非空
+        //        if (showItems[i].IsCheck && showItems[i].sq != null)
+        //        {
+        //            lVPointer.Items.Add(itemRelection[showItems[i].Item]);//ListView中的项目名称
+        //            int pV1 = GetPointerValue(showItems[i].sq, tracePos1);//获得链表中指定元素的值
+        //            int pV2 = GetPointerValue(showItems[i].sq, tracePos2);
+        //            float pAverage = showItems[i].sq.GetAverageValue(tracePos1, tracePos2);//获得链表中一段元素之间的平均值
+        //            float maxValue = showItems[i].sq.GetMaxValue(tracePos1, tracePos2);//获得链表中一段元素之间的最大值
+        //            float minValue = showItems[i].sq.GetMinValue(tracePos1, tracePos2);//获得链表中一段元素之间的平均值
+        //            lVPointer.Items[j].SubItems.AddRange(new string[] {
+        //                "",//准备着要显示“单位”
+        //                pV1.ToString(),//指针1所在的值
+        //                pV2.ToString(),//指针2所在的值
+        //                (pV2 - pV1).ToString(),//两者的差值
+        //                pAverage.ToString(),//均值
+        //                maxValue.ToString(),//区间内极大值
+        //                minValue.ToString() });//区间内极小值
+        //            j++;//指针测量的项目增加1项，j相应加1
+        //        }
+        //    }
+        //}
+
+        //获得链表中指针指定的元素的值
         private int GetPointerValue(ShowQueue sq, int index)
         {
-            if (index >= sq.Count())
+            if (index > sq.Count() - 1)//index从0开始，而Count()在有1个元素时返回1
             {
                 return 0;
             }
@@ -639,6 +689,7 @@ namespace ICDIBasic
             }
         }
 
+        //切换选中指针1或指针2
         private void rBPointer1_CheckedChanged(object sender, EventArgs e)
         {
             if (rBPointer1.Checked)
@@ -651,6 +702,7 @@ namespace ICDIBasic
             }
         }
 
+        //测量启停按钮
         private void btnMeasure_Click(object sender, EventArgs e)
         {
             if (btnMeasure.Text == "测定")
@@ -658,22 +710,25 @@ namespace ICDIBasic
                 btnMeasure.Text = "停止";
                 btnMeasure.BackColor = Color.Red;
                 EnableScope = true;
-                pBRecordImage.Enabled = true;
+                //pBRecordImage.Enabled = true;
             }
             else
             {
                 btnMeasure.Text = "测定";
                 btnMeasure.BackColor = Color.Green;
                 EnableScope = false;
-                pBRecordImage.Enabled = false;
+                //pBRecordImage.Enabled = false;
             }
         }
 
+        //鼠标右击表格线型（颜色）区域能选择线型（颜色）
         private void lVFormat_MouseClick(object sender, MouseEventArgs e)
         {
+            //若是鼠标右击
             if (e.Button == MouseButtons.Right)
             {
-                if (e.X > 420 && e.X < 570)//右击颜色
+                //右击颜色
+                if (e.X > 420 && e.X < 570)
                 {
                     int index = lVMeasureItems.FocusedItem.Index;
                     if (cDcolor.ShowDialog() == DialogResult.OK)
@@ -682,7 +737,8 @@ namespace ICDIBasic
                         loadLVMeasureItems();
                     }
                 }
-                else if (e.X > 570 && e.X < 740)//右击线型
+                //右击线型
+                else if (e.X > 570 && e.X < 740)
                 {
                     int index = lVMeasureItems.FocusedItem.Index;
                     Rectangle tt = lVMeasureItems.Items[index].SubItems[4].Bounds;
@@ -705,32 +761,32 @@ namespace ICDIBasic
                     cb.Items.Add("点线");
                     cb.Items.Add("点划线");
                     cb.Items.Add("双点划线");
-                   
-                   // cb.Focus();
+
+                    //cb.Focus();
                     lVMeasureItems.Controls.Add(cb);
                 }
-
             }
-            else if (e.Button == MouseButtons.Left)
-            {
-                try
-                {
-                    int index = lVMeasureItems.SelectedItems[0].Index;
-                    if (cb != null && ((object)index != cb.Tag || e.X < 570 || e.X > 740))  //注意判定条件
-                    {
-                        showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
-                        loadLVMeasureItems();
-                        lVMeasureItems.Controls.Remove(cb);
-                        cb = null;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                }
-            }
-           
-           
+            ////若是鼠标左击，不懂用处何在？
+            //else if (e.Button == MouseButtons.Left)
+            //{
+                //int index = lVMeasureItems.SelectedItems[0].Index;
+                //try
+                //{
+                //    //若组合框控件cb不为空，并且
+                //    if (cb != null && ((object)index != cb.Tag || e.X < 570 || e.X > 740))  //注意判定条件
+                //    {
+                //        showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
+                //        loadLVMeasureItems();
+                //        lVMeasureItems.Controls.Remove(cb);
+                //        cb = null;
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("lVFormat_MouseClick()异常！");
+                //    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                //}
+            //}
         }
 
         private DashStyle GetDashStyle(string strStyle)
@@ -747,15 +803,16 @@ namespace ICDIBasic
             return ds;
         }
 
+        //tMpointer定时器周期执行
         private void tMPointer_Tick(object sender, EventArgs e)
         {
-            if (cBPointer.Checked)
+            if (cBPointer.Checked)//若“显示指针”勾选框选中
             {
                 refreshlVPointer();
             }
-            if (!cBCurrentRatio.Focused)
+            if (!cBCurrentRatio.Focused)//若比例组合框未处于选中状态
             {
-                cBCurrentRatio.Text = cr.ToString() + "mA";
+                cBCurrentRatio.Text = cr.ToString() + "mA";//则显示出相应数值
             }
             if (!cBSpeedRatio.Focused)
             {
@@ -1029,41 +1086,53 @@ namespace ICDIBasic
             return (front == rear && num == 0);
         }
 
-        public void EnQ(int data)   //   追加   
+        //追加
+        public void EnQ(int data)
         {
             lock (ob)
             {
                 Node q = new Node(data);
-                if (rear == null)               //第一个元素入列时
+                //第一个元素入列时
+                if (rear == null)
                 {
                     front = rear = q;
                 }
                 else
                 {
+                    //若队列已经满了
                     if (Count() == QCount)
                     {
-                        //DeQ();
-                        Node p = front;
                         //链头指向后移一位
                         front = front.Next;
-
-                        //如果此时链表为空，则同步修正rear
+                        //如果此时链表为空，则同步修正rear，说明链表长度仅为1
                         if (front == null)
                         {
-                            rear = null;
+                            front = rear = q;
                         }
-                        num--;//个数-1
+                        else
+                        {
+                            //把新元素挂到链尾
+                            rear.Next = q;
+                            //修正rear指向为最后一个元素
+                            rear = q;
+                        }
+                        //元素总数-1
+                        num--;
                     }
-                    //把新元素挂到链尾
-                    rear.Next = q;
-                    //修正rear指向为最后一个元素
-                    rear = q;
+                    else
+                    {
+                        //把新元素挂到链尾
+                        rear.Next = q;
+                        //修正rear指向为最后一个元素
+                        rear = q;
+                    }
                 }
                 //元素总数+1
                 num++;
             }
         }
 
+        //未用
         public int DeQ()
         {
             lock (ob)
@@ -1133,45 +1202,59 @@ namespace ICDIBasic
             }
         }
 
+        //得到区间内所有数据的平均值
         public float GetAverageValue(int m, int n)
         {
-            if (m > Count())
+            //允许选定的区间超过数据范围，但选定区间起始位置在数据范围内才返回有效值。m和n都从0开始，而Count()在只有1个元素的时候返回的是1
+            if (m > Count() - 1)
             {
                 return 0.0f;
             }
-            float sum = 0;
+            //进入临界区对链表进行读取
             lock (ob)
             {
+                //访问链表元素的指针
                 Node current = front;
+                //用来配合计数
                 int j = 0;
+                //移动到链表指定区间起始处
                 while (j != m)
                 {
                     current = current.Next;
                     j++;
                 }
+                //取所要的值中的第1个
+                float sum = current.Value;
+                current = current.Next;
+                j++;
+                //第n个值还没加上，则继续循环
                 while (j != n + 1)
                 {
                     try
                     {
+                        //全部累加后float有可能溢出
                         sum += current.Value;
+                        //移动指针
                         current = current.Next;
                         j++;
                     }
-                    catch (System.Exception ex)
+                    //队列方面的异常，或者溢出异常
+                    catch// (Exception ex)
                     {
-                        n = j + 1;
-                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                        //MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                         break;
                     }
-                   
                 }
-                return sum / (n - m);
+                //总和sum除以已累加的元素个数，得到均值
+                return sum / (j - m);
             }
         }
 
+        //得到区间内数据的最大值
         public float GetMaxValue(int m, int n)
         {
-            if (m > Count())
+            //允许选定的区间超过数据范围，但选定区间起始位置在数据范围内才返回有效值
+            if (m > Count() - 1)
             {
                 return 0.0f;
             }
@@ -1184,17 +1267,9 @@ namespace ICDIBasic
                     current = current.Next;
                     j++;
                 }
-                float max = 0;
-                try
-                {
-                     max = current.Value;
-                }
-                catch (System.Exception ex)
-                {
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                    return max;
-                }
-              
+                float max = current.Value;
+                current = current.Next;
+                j++;
                 while (j != n + 1)
                 {
                     try
@@ -1206,21 +1281,20 @@ namespace ICDIBasic
                         current = current.Next;
                         j++;
                     }
-                    catch (System.Exception ex)
+                    catch// (Exception ex)
                     {
-                        n = j;
-                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                        //MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                         break;
                     }
-
                 }
                 return max;
             }
         }
 
+        //得到区间内数据的最小值
         public float GetMinValue(int m, int n)
         {
-            if (m > Count())
+            if (m > Count() - 1)
             {
                 return 0.0f;
             }
@@ -1233,16 +1307,9 @@ namespace ICDIBasic
                     current = current.Next;
                     j++;
                 }
-                float min = 0;
-                try
-                {
-                     min = current.Value;
-                }
-                catch (System.Exception ex)
-                {
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                    return 0;
-                }
+                float min = current.Value;
+                current = current.Next;
+                j++;
                 while (j != n + 1)
                 {
                     try
@@ -1254,13 +1321,11 @@ namespace ICDIBasic
                         current = current.Next;
                         j++;
                     }
-                    catch (System.Exception ex)
+                    catch// (Exception ex)
                     {
-                        n = j;
-                        MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+                        //MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
                         break;
                     }
-
                 }
                 return min;
             }

@@ -32,10 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OscilloScope));
             this.pLBoard = new System.Windows.Forms.Panel();
             this.pLRange = new System.Windows.Forms.Panel();
-            this.cBPositionRatio = new System.Windows.Forms.ComboBox();
             this.tBPositionOffset = new System.Windows.Forms.TextBox();
             this.tBSpeedOffset = new System.Windows.Forms.TextBox();
             this.tBCurrentOffset = new System.Windows.Forms.TextBox();
+            this.cBPositionRatio = new System.Windows.Forms.ComboBox();
             this.cBCurrentRatio = new System.Windows.Forms.ComboBox();
             this.cBSpeedRatio = new System.Windows.Forms.ComboBox();
             this.pBRecordImage = new System.Windows.Forms.PictureBox();
@@ -114,6 +114,10 @@
             this.label16 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
@@ -143,45 +147,21 @@
             this.pLBoard.Controls.Add(this.tBtrace);
             this.pLBoard.Location = new System.Drawing.Point(0, 54);
             this.pLBoard.Name = "pLBoard";
-            this.pLBoard.Size = new System.Drawing.Size(832, 397);
+            this.pLBoard.Size = new System.Drawing.Size(849, 397);
             this.pLBoard.TabIndex = 0;
             // 
             // pLRange
             // 
-            this.pLRange.Controls.Add(this.cBPositionRatio);
             this.pLRange.Controls.Add(this.tBPositionOffset);
             this.pLRange.Controls.Add(this.tBSpeedOffset);
             this.pLRange.Controls.Add(this.tBCurrentOffset);
+            this.pLRange.Controls.Add(this.cBPositionRatio);
             this.pLRange.Controls.Add(this.cBCurrentRatio);
             this.pLRange.Controls.Add(this.cBSpeedRatio);
-            this.pLRange.Location = new System.Drawing.Point(750, 0);
+            this.pLRange.Location = new System.Drawing.Point(769, 0);
             this.pLRange.Name = "pLRange";
             this.pLRange.Size = new System.Drawing.Size(80, 234);
             this.pLRange.TabIndex = 4;
-            // 
-            // cBPositionRatio
-            // 
-            this.cBPositionRatio.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cBPositionRatio.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cBPositionRatio.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cBPositionRatio.FormattingEnabled = true;
-            this.cBPositionRatio.Items.AddRange(new object[] {
-            "0.1°",
-            "0.5°",
-            "2°",
-            "5°",
-            "10°",
-            "50°",
-            "100°",
-            "500°"});
-            this.cBPositionRatio.Location = new System.Drawing.Point(3, 163);
-            this.cBPositionRatio.Name = "cBPositionRatio";
-            this.cBPositionRatio.Size = new System.Drawing.Size(73, 27);
-            this.cBPositionRatio.TabIndex = 1;
-            this.cBPositionRatio.Text = "10°";
-            this.cBPositionRatio.SelectedIndexChanged += new System.EventHandler(this.cBCurrentRatio_SelectedIndexChanged);
-            this.cBPositionRatio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cBCurrentRatio_KeyDown);
-            this.cBPositionRatio.MouseEnter += new System.EventHandler(this.cBCurrentRatio_MouseEnter);
             // 
             // tBPositionOffset
             // 
@@ -209,6 +189,30 @@
             this.tBCurrentOffset.Size = new System.Drawing.Size(75, 26);
             this.tBCurrentOffset.TabIndex = 2;
             this.tBCurrentOffset.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentOffset_KeyDown);
+            // 
+            // cBPositionRatio
+            // 
+            this.cBPositionRatio.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cBPositionRatio.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cBPositionRatio.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBPositionRatio.FormattingEnabled = true;
+            this.cBPositionRatio.Items.AddRange(new object[] {
+            "0.1°",
+            "0.5°",
+            "2°",
+            "5°",
+            "10°",
+            "50°",
+            "100°",
+            "500°"});
+            this.cBPositionRatio.Location = new System.Drawing.Point(3, 163);
+            this.cBPositionRatio.Name = "cBPositionRatio";
+            this.cBPositionRatio.Size = new System.Drawing.Size(73, 27);
+            this.cBPositionRatio.TabIndex = 1;
+            this.cBPositionRatio.Text = "10°";
+            this.cBPositionRatio.SelectedIndexChanged += new System.EventHandler(this.cBCurrentRatio_SelectedIndexChanged);
+            this.cBPositionRatio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cBCurrentRatio_KeyDown);
+            this.cBPositionRatio.MouseEnter += new System.EventHandler(this.cBCurrentRatio_MouseEnter);
             // 
             // cBCurrentRatio
             // 
@@ -257,8 +261,7 @@
             this.pBRecordImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBRecordImage.BackgroundImage")));
             this.pBRecordImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBRecordImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pBRecordImage.Enabled = false;
-            this.pBRecordImage.Location = new System.Drawing.Point(755, 308);
+            this.pBRecordImage.Location = new System.Drawing.Point(774, 308);
             this.pBRecordImage.Name = "pBRecordImage";
             this.pBRecordImage.Size = new System.Drawing.Size(71, 62);
             this.pBRecordImage.TabIndex = 3;
@@ -267,14 +270,14 @@
             // 
             // btnMeasure
             // 
-            this.btnMeasure.BackColor = System.Drawing.Color.Green;
+            this.btnMeasure.BackColor = System.Drawing.Color.Red;
             this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMeasure.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnMeasure.Location = new System.Drawing.Point(754, 240);
+            this.btnMeasure.Location = new System.Drawing.Point(773, 240);
             this.btnMeasure.Name = "btnMeasure";
             this.btnMeasure.Size = new System.Drawing.Size(71, 62);
             this.btnMeasure.TabIndex = 2;
-            this.btnMeasure.Text = "测定";
+            this.btnMeasure.Text = "停止";
             this.btnMeasure.UseVisualStyleBackColor = false;
             this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
             // 
@@ -292,20 +295,18 @@
             // 
             this.tBtrace.AutoSize = false;
             this.tBtrace.Cursor = System.Windows.Forms.Cursors.SizeWE;
-            this.tBtrace.Location = new System.Drawing.Point(-7, 361);
+            this.tBtrace.Location = new System.Drawing.Point(-1, 361);
             this.tBtrace.Margin = new System.Windows.Forms.Padding(0);
             this.tBtrace.Maximum = 740;
             this.tBtrace.Name = "tBtrace";
-            this.tBtrace.Size = new System.Drawing.Size(766, 25);
+            this.tBtrace.Size = new System.Drawing.Size(762, 25);
             this.tBtrace.TabIndex = 0;
-            this.tBtrace.TickFrequency = 2;
-            this.tBtrace.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.tBtrace.Value = 370;
+            this.tBtrace.TickFrequency = 10;
             this.tBtrace.Scroll += new System.EventHandler(this.tBtrace_Scroll);
             // 
             // timerPaint
             // 
-            this.timerPaint.Interval = 80;
+            this.timerPaint.Interval = 1;
             this.timerPaint.Tick += new System.EventHandler(this.timerPaint_Tick);
             // 
             // tCMonitor
@@ -316,7 +317,7 @@
             this.tCMonitor.Controls.Add(this.tabPage2);
             this.tCMonitor.Controls.Add(this.tabPage5);
             this.tCMonitor.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tCMonitor.Location = new System.Drawing.Point(0, 454);
+            this.tCMonitor.Location = new System.Drawing.Point(0, 479);
             this.tCMonitor.Name = "tCMonitor";
             this.tCMonitor.SelectedIndex = 0;
             this.tCMonitor.Size = new System.Drawing.Size(839, 220);
@@ -462,10 +463,11 @@
             this.columnHeader13,
             this.columnHeader14,
             this.columnHeader15});
+            this.lVPointer.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lVPointer.GridLines = true;
             this.lVPointer.Location = new System.Drawing.Point(137, 0);
             this.lVPointer.Name = "lVPointer";
-            this.lVPointer.Size = new System.Drawing.Size(694, 115);
+            this.lVPointer.Size = new System.Drawing.Size(694, 182);
             this.lVPointer.TabIndex = 5;
             this.lVPointer.UseCompatibleStateImageBehavior = false;
             this.lVPointer.View = System.Windows.Forms.View.Details;
@@ -1014,7 +1016,7 @@
             this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Location = new System.Drawing.Point(0, 0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(832, 52);
+            this.pLName.Size = new System.Drawing.Size(849, 52);
             this.pLName.TabIndex = 6;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
@@ -1036,7 +1038,7 @@
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(780, 0);
+            this.pBExit.Location = new System.Drawing.Point(797, 0);
             this.pBExit.Name = "pBExit";
             this.pBExit.Size = new System.Drawing.Size(52, 52);
             this.pBExit.TabIndex = 0;
@@ -1053,11 +1055,51 @@
             this.pBSetUp.TabIndex = 0;
             this.pBSetUp.TabStop = false;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 464);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(71, 12);
+            this.label17.TabIndex = 7;
+            this.label17.Text = "指针1位置：";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(141, 464);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(71, 12);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "指针2位置：";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(267, 463);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(113, 12);
+            this.label19.TabIndex = 9;
+            this.label19.Text = "两指针的间隔时间：";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(484, 463);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(89, 12);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "单位间隔时间：";
+            // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 703);
+            this.ClientSize = new System.Drawing.Size(849, 703);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
             this.Controls.Add(this.pLName);
             this.Controls.Add(this.tCMonitor);
             this.Controls.Add(this.pLBoard);
@@ -1096,6 +1138,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1185,5 +1228,9 @@
         private System.Windows.Forms.PictureBox pBExit;
         private System.Windows.Forms.PictureBox pBSetUp;
         private System.Windows.Forms.Button btnCurrentCompensation;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
     }
 }

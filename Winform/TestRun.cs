@@ -197,7 +197,7 @@ namespace ICDIBasic
 
             RefreshtBCurrent();//由当前位置刷新“当前位置显示”以及滑块
 
-            pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);//向下位机请求数据
+            //pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);//向模块请求示波器数据
         }
 
         private void cBControlMode_SelectedIndexChanged(object sender, EventArgs e)
