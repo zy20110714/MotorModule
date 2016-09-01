@@ -118,6 +118,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
@@ -396,6 +397,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label21);
             this.tabPage1.Controls.Add(this.tBScanFrequency);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -409,7 +411,7 @@
             // 
             // tBScanFrequency
             // 
-            this.tBScanFrequency.Location = new System.Drawing.Point(492, 57);
+            this.tBScanFrequency.Location = new System.Drawing.Point(598, 55);
             this.tBScanFrequency.Name = "tBScanFrequency";
             this.tBScanFrequency.Size = new System.Drawing.Size(57, 31);
             this.tBScanFrequency.TabIndex = 1;
@@ -1091,6 +1093,15 @@
             this.label20.TabIndex = 10;
             this.label20.Text = "单位间隔时间：";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(460, 31);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(338, 21);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "记录时间间隔（对10kHZ的分频值）";
+            // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1232,5 +1243,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
     }
 }

@@ -222,7 +222,7 @@ namespace ICDIBasic
                 //间隔计数会从1开始判断
                 gatherCount++;
                 //按照Interval限定的间隔去执行
-                if (gatherCount == OscilloScope.Interval)
+                if (gatherCount >= OscilloScope.Interval)
                 {
                     //间隔计数清零
                     gatherCount = 0;
