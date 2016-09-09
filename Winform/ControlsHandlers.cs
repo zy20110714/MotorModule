@@ -106,32 +106,6 @@ namespace ICDIBasic
 
         private void cbbHwType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Saves the current type for a no-Plug&Play hardware
-            //
-            switch (cbbHwType.SelectedIndex)
-            {
-                case 0:
-                    m_HwType = TPCANType.PCAN_TYPE_ISA;
-                    break;
-                case 1:
-                    m_HwType = TPCANType.PCAN_TYPE_ISA_SJA;
-                    break;
-                case 2:
-                    m_HwType = TPCANType.PCAN_TYPE_ISA_PHYTEC;
-                    break;
-                case 3:
-                    m_HwType = TPCANType.PCAN_TYPE_DNG;
-                    break;
-                case 4:
-                    m_HwType = TPCANType.PCAN_TYPE_DNG_EPP;
-                    break;
-                case 5:
-                    m_HwType = TPCANType.PCAN_TYPE_DNG_SJA;
-                    break;
-                case 6:
-                    m_HwType = TPCANType.PCAN_TYPE_DNG_SJA_EPP;
-                    break;
-            }
         }
 
         #endregion
@@ -785,7 +759,7 @@ namespace ICDIBasic
         {
             tr = TestRun.GetInstance();
             tr.StartPosition = FormStartPosition.Manual;
-            tr.Location = new Point(950, 35);
+            tr.Location = new Point(1100, 35);
             tr.MdiParent = this;
             //tr.Parent = pLMain;
             //tr.BringToFront();

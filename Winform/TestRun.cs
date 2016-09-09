@@ -486,7 +486,7 @@ namespace ICDIBasic
         //在定时器中控制模块
         private void tMManualControl_Tick(object sender, EventArgs e)
         {
-            int manualValue = Convert.ToInt32(mCurrent / 360.0 * 65535.0);
+            int manualValue = Convert.ToInt32(mCurrent * 65536.0 / 360.0);
             pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
         }
 
@@ -583,7 +583,7 @@ namespace ICDIBasic
                 mCurrent = manualMin + (manualMax - manualMin) * rad.Next(101) / 100;
                 tBCurrent.Text = mCurrent.ToString("F2");
                 tBCurrentChangetBManual();
-                int manualValue = Convert.ToInt32(mCurrent / 360.0 * 65535.0);
+                int manualValue = Convert.ToInt32(mCurrent / 360.0 * 65536.0);
                 pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
             }
         }
@@ -665,7 +665,7 @@ namespace ICDIBasic
         private void tMReturnToZero_Tick(object sender, EventArgs e)
         {
             ////预备用位置环控制使用
-            //////int manualValue = Convert.ToInt32(manualCur / 360.0 * 65535.0);
+            //////int manualValue = Convert.ToInt32(manualCur / 360.0 * 65536.0);
             //////pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
 
             ////根据当前位置确定速度值（正负？大小？）

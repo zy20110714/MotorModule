@@ -36,10 +36,6 @@ namespace ICDIBasic
         /// Saves the baudrate register for a conenction
         /// </summary>
         private TPCANBaudrate m_Baudrate;
-        /// <summary>
-        /// Saves the type of a non-plug-and-play hardware
-        /// </summary>
-        private TPCANType m_HwType;
        
         /// <summary>
         /// Read Delegate for calling the function "ReadMessages"

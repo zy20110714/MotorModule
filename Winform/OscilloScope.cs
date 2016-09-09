@@ -29,7 +29,7 @@ namespace ICDIBasic
 
         //电流、速度、位置值的单位转换比率
         double speedRatio = 60.0 / 65536;
-        double positionRatio = 360.0 / 65535;
+        double positionRatio = 360.0 / 65536;
         double currentRatio = 1.0;
 
         //电流、速度、位置值在Y轴上的缩放比例
@@ -364,19 +364,15 @@ namespace ICDIBasic
                         refreshlVPointer();
                     break;
                 case 3:
-                    cBAdjustGroup.Text = Configuration.MemoryControlTable[Configuration.SEV_PARAME_LOCKED].ToString();
-                    loadPID();
+                    loadPID();//切换到调PID时初始化各文本框中的文本
                     break;
             }
         }
 
+        //由参数表显示出控件上的文字，即由参数表刷新控件显示
         void loadPID()
         {
-            string pidGroup = IniFile.ContentValue("OscilloScope", "PIDGroup", IniFile.StrProPath);
-            cBAdjustGroup.Text = pidGroup;
-            
-            Thread.Sleep(5);
-
+            cBAdjustGroup.Text = Configuration.MemoryControlTable[Configuration.SEV_PARAME_LOCKED].ToString();//PID组号
             tBCurrentP.Text = Configuration.MemoryControlTable[CURRENT_P].ToString();
             tBCurrentI.Text = Configuration.MemoryControlTable[CURRENT_I].ToString();
             tBSpeedP.Text = Configuration.MemoryControlTable[SPEED_P].ToString();
@@ -390,8 +386,6 @@ namespace ICDIBasic
             tBMaxCurrent.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_CURRENT].ToString();
             tBMaxSpeed.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED].ToString();
             tBMaxAcc.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_ACC].ToString();
-
-           
         }
 
         //listview中测量项目初始化，showItems
@@ -429,13 +423,15 @@ namespace ICDIBasic
             return str;
         }
 
+        //listview中测量项目的勾选状态改变
         private void lVFormat_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             if (lVMeasureItems.FocusedItem != null)
             {
-                int index = e.Item.Index;
-                e.Item.Selected = e.Item.Checked;
-                showItems[index].IsCheck = e.Item.Checked;
+                int index = e.Item.Index;// 获取所选项目ID
+                e.Item.Selected = e.Item.Checked;//更改项目选中状态
+                showItems[index].IsCheck = e.Item.Checked;//更改显示项目的选中状态
+                //根据勾选与否，修改Mask
                 if (showItems[index].IsCheck)
                 {
                     Mask |= showItems[index].Mask;
@@ -444,53 +440,94 @@ namespace ICDIBasic
                 {
                     Mask &= (byte) ~(int)showItems[index].Mask;
                 }
-
-                pc.WriteOneWord(Configuration.SCP_MASK, OscilloScope.Mask, PCan.currentID);       //向下位机请求数据
+                //向下位机请求数据
+                pc.WriteOneWord(Configuration.SCP_MASK, Mask, PCan.currentID);
             }
         }
 
-        //按键确认输入值（enter）
-        private void tBCurrentP_KeyDown(object sender, KeyEventArgs e)
+        #region 文本框输入
+
+        //文本框输入确认调用方法
+        private void tBCurrentP_InputDone(object sender)
         {
             TextBox tb = sender as TextBox;
-            if (e.KeyCode == Keys.Enter)
+            short value = 0;
+            try
             {
-                short value = 0;
-                try
-                {
-                     value = Convert.ToInt16(tb.Text);
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show("请输入合法的字符串！");
-                    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                    return;
-                }
-                switch(tb.Name)
-                {
-                    case "tBCurrentP":pc.WriteOneWord(CURRENT_P,value,PCan.currentID); break;
-                    case "tBCurrentI":pc.WriteOneWord(CURRENT_I,value,PCan.currentID);  break;
-                    case "tBSpeedP":pc.WriteOneWord(SPEED_P,value,PCan.currentID);  break;
-                    case "tBSpeedI":pc.WriteOneWord(SPEED_I,value,PCan.currentID);  break;
-                    case "tBSpeedD":pc.WriteOneWord(SPEED_D,value,PCan.currentID);  break;
-                    case "tBSpeedDeadZone": pc.WriteOneWord(SPEED_DS,value,PCan.currentID); break;
-                    case "tBPosP":pc.WriteOneWord(POSITION_P,value,PCan.currentID);  break;
-                    case "tBPosI": pc.WriteOneWord(POSITION_I,value,PCan.currentID); break;
-                    case "tBPosD": pc.WriteOneWord(POSITION_D,value,PCan.currentID); break;
-                    case "tBPosDeadZone": pc.WriteOneWord(POSITION_DS,value,PCan.currentID); break; 
+                value = Convert.ToInt16(tb.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("请输入合法的字符串！");
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
 
-                    case "tBMaxCurrent": pc.WriteOneWord(Configuration.LIT_MAX_CURRENT,value,PCan.currentID); break; 
-                    case "tBMaxSpeed": pc.WriteOneWord(Configuration.LIT_MAX_SPEED,value,PCan.currentID); break; 
-                    case "tBMaxAcc": pc.WriteOneWord(Configuration.LIT_MAX_ACC,value,PCan.currentID); break;
+                //恢复原先的文本，都从参数表中读取
+                switch (tb.Name)
+                {
+                    case "tBCurrentP": tBCurrentP.Text = Configuration.MemoryControlTable[CURRENT_P].ToString(); break;
+                    case "tBCurrentI": tBCurrentI.Text = Configuration.MemoryControlTable[CURRENT_I].ToString(); break;
+                    case "tBSpeedP": tBSpeedP.Text = Configuration.MemoryControlTable[SPEED_P].ToString(); break;
+                    case "tBSpeedI": tBSpeedI.Text = Configuration.MemoryControlTable[SPEED_I].ToString(); break;
+                    case "tBSpeedD": tBSpeedD.Text = Configuration.MemoryControlTable[SPEED_D].ToString(); break;
+                    case "tBSpeedDeadZone": tBSpeedDeadZone.Text = Configuration.MemoryControlTable[SPEED_DS].ToString(); break;
+                    case "tBPosP": tBPosP.Text = Configuration.MemoryControlTable[POSITION_P].ToString(); break;
+                    case "tBPosI": tBPosI.Text = Configuration.MemoryControlTable[POSITION_I].ToString(); break;
+                    case "tBPosD": tBPosD.Text = Configuration.MemoryControlTable[POSITION_D].ToString(); break;
+                    case "tBPosDeadZone": tBPosDeadZone.Text = Configuration.MemoryControlTable[POSITION_DS].ToString(); break;
 
-                    case "tBScanFrequency": setTimeInterval(value);break;
+                    case "tBMaxCurrent": tBMaxCurrent.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_CURRENT].ToString(); break;
+                    case "tBMaxSpeed": tBMaxSpeed.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED].ToString(); break;
+                    case "tBMaxAcc": tBMaxAcc.Text = Configuration.MemoryControlTable[Configuration.LIT_MAX_ACC].ToString(); break;
+
+                    case "tBScanFrequency": tBScanFrequency.Text = Configuration.MemoryControlTable[Configuration.SCP_REC_TIM].ToString(); break;
                 }
+
+                return;
+            }
+            switch (tb.Name)
+            {
+                case "tBCurrentP": pc.WriteOneWord(CURRENT_P, value, PCan.currentID); break;
+                case "tBCurrentI": pc.WriteOneWord(CURRENT_I, value, PCan.currentID); break;
+                case "tBSpeedP": pc.WriteOneWord(SPEED_P, value, PCan.currentID); break;
+                case "tBSpeedI": pc.WriteOneWord(SPEED_I, value, PCan.currentID); break;
+                case "tBSpeedD": pc.WriteOneWord(SPEED_D, value, PCan.currentID); break;
+                case "tBSpeedDeadZone": pc.WriteOneWord(SPEED_DS, value, PCan.currentID); break;
+                case "tBPosP": pc.WriteOneWord(POSITION_P, value, PCan.currentID); break;
+                case "tBPosI": pc.WriteOneWord(POSITION_I, value, PCan.currentID); break;
+                case "tBPosD": pc.WriteOneWord(POSITION_D, value, PCan.currentID); break;
+                case "tBPosDeadZone": pc.WriteOneWord(POSITION_DS, value, PCan.currentID); break;
+
+                case "tBMaxCurrent": pc.WriteOneWord(Configuration.LIT_MAX_CURRENT, value, PCan.currentID); break;
+                case "tBMaxSpeed": pc.WriteOneWord(Configuration.LIT_MAX_SPEED, value, PCan.currentID); break;
+                case "tBMaxAcc": pc.WriteOneWord(Configuration.LIT_MAX_ACC, value, PCan.currentID); break;
+
+                case "tBScanFrequency": setTimeInterval(value); break;
             }
         }
 
+        //按键确认输入值（enter），所需的按键事件方法映射到改方法上
+        private void tBCurrentP_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                tBCurrentP_InputDone(sender);
+            }
+        }
+
+        //焦点离开也确认输入值，所需的按键事件方法映射到改方法上
+        private void tBCurrentP_Leave(object sender, EventArgs e)
+        {
+            tBCurrentP_InputDone(sender);
+        }
+
+        #endregion
+
+        //PID调整组组号更改
         private void cBAdjustGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //调整组组号另存到一个变量
             string type = cBAdjustGroup.Text;
+            //根据组号改变PID显示
             switch (type)
             {
                 case "1": CURRENT_P = Configuration.S_CURRENT_P;
@@ -530,6 +567,7 @@ namespace ICDIBasic
                     POSITION_DS = Configuration.L_POSITION_DS;
                     break;
             }
+            //若是0组，禁止输入更改
             if (type == "0")
             {
                 gBCurrent.Enabled = false;
@@ -542,26 +580,15 @@ namespace ICDIBasic
                 gBSpeed.Enabled = true;
                 gBPos.Enabled = true;
             }
-            pc.WriteOneWord(Configuration.SEV_PARAME_LOCKED, Convert.ToInt16(type), PCan.currentID);    //应设置触发条件
-            IniFile.WritePrivateProfileString("OscilloScope", "PIDGroup", type, IniFile.StrProPath);
+            //修改“三闭环参数锁定标志”
+            pc.WriteOneWord(Configuration.SEV_PARAME_LOCKED, Convert.ToInt16(type), PCan.currentID);
+            //由参数表刷新控件显示
             loadPID();
+            //保存修改到配置文件
+            IniFile.WritePrivateProfileString("OscilloScope", "PIDGroup", type, IniFile.StrProPath);
         }
 
-        private void tBCurrentP_TextChanged(object sender, EventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-            try
-            {
-                short value = Convert.ToInt16(tb.Text);
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show("请输入合法的字符串！");
-                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                return;
-            }
-        }
-
+        //显示指针勾选框修改事件
         private void cBPointer_CheckedChanged(object sender, EventArgs e)
         {
             if (cBPointer.Checked)
@@ -609,6 +636,7 @@ namespace ICDIBasic
                     float maxValue = Convert.ToSingle(showItems[i].sq.GetMaxValue(tracePos1, tracePos2) * ratio);
                     float minValue = Convert.ToSingle(showItems[i].sq.GetMinValue(tracePos1, tracePos2) * ratio);
                     float sDeviation = Convert.ToSingle(showItems[i].sq.GetSDeviation(tracePos1, tracePos2) * ratio);
+                    float slope = (pV2 - pV1) * 1000.0f / ((tracePos2 - tracePos1) * Interval);//两指针的间隔时间由ms转到s;
                     //更新列表中的显示
                     lVPointer.Items[j].SubItems.AddRange(new string[] {
                         "",                     //准备着要显示“单位”
@@ -618,7 +646,8 @@ namespace ICDIBasic
                         pAverage.ToString(),    //均值
                         maxValue.ToString(),    //区间内极大值
                         minValue.ToString(),    //区间内极小值
-                        sDeviation.ToString()   //标准差
+                        sDeviation.ToString(),  //标准差
+                        slope.ToString()        //斜率
                     });
                     j++;
                     
@@ -683,24 +712,35 @@ namespace ICDIBasic
         //鼠标右击表格线型（颜色）区域能选择线型（颜色）
         private void lVFormat_MouseClick(object sender, MouseEventArgs e)
         {
+            //得到颜色、线型列的左右边界，颜色是第4列，线型是第5列
+            int colorLeft = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width;
+            int colorRight = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width;
+            int styleLeft = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width;
+            int styleRight = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width + columnHeader5.Width;
+
             //若是鼠标右击
             if (e.Button == MouseButtons.Right)
             {
                 //右击颜色
-                if (e.X > 420 && e.X < 570)
+                if (e.X > colorLeft && e.X < colorRight)
                 {
+                    //获取测量项目的index编号
                     int index = lVMeasureItems.FocusedItem.Index;
+                    //显示颜色对话框，当OK确认时更改相应测量项目（先改showItems中）的颜色
                     if (cDcolor.ShowDialog() == DialogResult.OK)
                     {
                         showItems[index].Cl = cDcolor.Color;
+                        //listview中测量项目初始化（由showItems确定）
                         loadLVMeasureItems();
                     }
                 }
                 //右击线型
-                else if (e.X > 570 && e.X < 740)
+                else if (e.X > styleLeft && e.X < styleRight)
                 {
                     int index = lVMeasureItems.FocusedItem.Index;
+                    //新建矩形，覆盖列表中线型的部分
                     Rectangle tt = lVMeasureItems.Items[index].SubItems[4].Bounds;
+                    //公共的下拉框处于使用中，获取线型并修改相应测量项目
                     if (cb != null)
                     {
                         showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
@@ -714,38 +754,56 @@ namespace ICDIBasic
                     cb.Size = new Size(tt.Width, 18);
                     cb.Location = tt.Location;
                     cb.BackColor = Color.White;
-                    cb.Text = "实线";
+                    //根据原先的线型确定默认显示的线型
+                    switch (showItems[(int)cb.Tag].Ds)
+                    {
+                        case DashStyle.Solid: cb.Text = "实线"; break;
+                        case DashStyle.Dash: cb.Text = "虚线"; break;
+                        case DashStyle.Dot: cb.Text = "点线"; break;
+                        case DashStyle.DashDot: cb.Text = "点划线"; break;
+                        case DashStyle.DashDotDot: cb.Text = "双点划线"; break;
+                    }
                     cb.Items.Add("实线");
                     cb.Items.Add("虚线");
                     cb.Items.Add("点线");
                     cb.Items.Add("点划线");
                     cb.Items.Add("双点划线");
-
-                    //cb.Focus();
                     lVMeasureItems.Controls.Add(cb);
                 }
             }
-            ////若是鼠标左击，不懂用处何在？
-            //else if (e.Button == MouseButtons.Left)
-            //{
-                //int index = lVMeasureItems.SelectedItems[0].Index;
-                //try
-                //{
-                //    //若组合框控件cb不为空，并且
-                //    if (cb != null && ((object)index != cb.Tag || e.X < 570 || e.X > 740))  //注意判定条件
-                //    {
-                //        showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
-                //        loadLVMeasureItems();
-                //        lVMeasureItems.Controls.Remove(cb);
-                //        cb = null;
-                //    }
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("lVFormat_MouseClick()异常！");
-                //    MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
-                //}
-            //}
+            //若是鼠标左击了该控件
+            else if (e.Button == MouseButtons.Left)
+            {
+                //若组合框控件cb不为空（已经右击选中了线型）
+                if (cb != null)
+                {
+                    //得到左击的项目index，后面进行比较以确定是不是点击了和右击线型时一样的区域
+                    int index = lVMeasureItems.FocusedItem.Index;
+                    //若左击了不一样的区域
+                    if ((object)index != cb.Tag || e.X < styleLeft || e.X > styleRight)//注意判定条件
+                    {
+                        //将选好的线型应用到曲线上，并取消选中的状态
+                        showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
+                        loadLVMeasureItems();
+                        lVMeasureItems.Controls.Remove(cb);
+                        cb = null;
+                    }
+                }
+            }
+        }
+
+        //取消右击线型的选中状态
+        private void lVMeasureItems_Leave(object sender, EventArgs e)
+        {
+            //若组合框控件cb不为空（已经右击选中了线型）
+            if (cb != null)//注意判定条件
+            {
+                //将选好的线型应用到曲线上，并取消选中的状态
+                showItems[(int)cb.Tag].Ds = GetDashStyle(cb.Text);
+                loadLVMeasureItems();
+                lVMeasureItems.Controls.Remove(cb);
+                cb = null;
+            }
         }
 
         //根据中文返回线型
@@ -784,10 +842,31 @@ namespace ICDIBasic
             }
         }
 
+        //保存当前波形到图片
         private void pBRecordImage_Click(object sender, EventArgs e)
         {
-            //记录当前波形
+            //获取示波器屏幕数据
+            Bitmap bit = new Bitmap(pLPaint.Width, pLPaint.Height);
+            pLPaint.DrawToBitmap(bit, pLPaint.ClientRectangle);
+            //打开保存文件对话框
+            SaveFileDialog sfd = new SaveFileDialog();
+            //设置文件名筛选器字符串
+            sfd.Filter = "JPG文件(*.jpg)|*.jpg|PNG文件(*.png)|*.png|TIFF文件(*.tiff)|*.tiff|GIF文件(*.gif)|*.gif";
+            //默认文件名
+            sfd.FileName = "示波器截图" + DateTime.Now.ToString("yyyyMMddHHmmss");// HH - 24小时制的小时
 
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string fileNameExtension = sfd.FileName.Substring(sfd.FileName.LastIndexOf(".") + 1);
+                switch (fileNameExtension)
+                {
+                    case "jpg": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg); break;
+                    case "png": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png); break;
+                    case "tiff": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Tiff); break;
+                    case "gif": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Gif); break;
+                }
+            }
+            bit.Dispose();
         }
 
         private void cBCurrentRatio_SelectedIndexChanged(object sender, EventArgs e)
@@ -986,6 +1065,7 @@ namespace ICDIBasic
     {
         private int value;
         private Node next;
+
         public Node(int v)
         {
             value = v;
@@ -1011,13 +1091,10 @@ namespace ICDIBasic
         public Node front;//队列头
         public Node rear;//队列尾
         private int num;//队列元素个数
-
         private object ob = new object();
 
-        //public bool flag1 = true;
-        //public bool flag2 = true;
-
-        public ShowQueue(int queueSize)  //构造函数
+        //构造函数
+        public ShowQueue(int queueSize)
         {
             front = rear = null;
             num = 0;
@@ -1026,7 +1103,7 @@ namespace ICDIBasic
 
         public int Count()
         {
-            return this.num;
+            return num;
         }
 
         public void Clear()
@@ -1110,36 +1187,6 @@ namespace ICDIBasic
             }
            
         }
-
-        //public float[] QMean()
-        //{
-            //while (!flag2) { };
-            //flag1 = false;
-            //if (rear != null)
-            //{
-            //    float[] sum = new float[6];
-            //    Node mean = front;
-            //    while (mean != null)
-            //    {
-            //        for (int i = 0; i < 6; i++)
-            //        {
-            //            //sum[i] += mean.Data[i];
-            //        }
-            //        mean = mean.Next;
-            //    }
-            //    //for (int i = 0; i < 6; i++)
-            //    //{
-            //    //    sum[i] /= Count;
-            //    //}
-            //    flag1 = true;
-            //    return sum;
-            //}
-            //else
-            //{
-            //    flag1 = true;
-            //    return null;
-            //}
-        //}
 
         public int GetValue(int index)
         {

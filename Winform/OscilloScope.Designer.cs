@@ -54,6 +54,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
             this.tBScanFrequency = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -68,6 +69,7 @@
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label15 = new System.Windows.Forms.Label();
             this.nUSmoothData = new System.Windows.Forms.NumericUpDown();
             this.rBPointer2 = new System.Windows.Forms.RadioButton();
@@ -118,7 +120,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
@@ -148,7 +149,7 @@
             this.pLBoard.Controls.Add(this.tBtrace);
             this.pLBoard.Location = new System.Drawing.Point(0, 54);
             this.pLBoard.Name = "pLBoard";
-            this.pLBoard.Size = new System.Drawing.Size(849, 397);
+            this.pLBoard.Size = new System.Drawing.Size(868, 397);
             this.pLBoard.TabIndex = 0;
             // 
             // pLRange
@@ -231,6 +232,7 @@
             this.cBCurrentRatio.Name = "cBCurrentRatio";
             this.cBCurrentRatio.Size = new System.Drawing.Size(73, 24);
             this.cBCurrentRatio.TabIndex = 1;
+            this.cBCurrentRatio.Text = "100mA";
             this.cBCurrentRatio.SelectedIndexChanged += new System.EventHandler(this.cBCurrentRatio_SelectedIndexChanged);
             this.cBCurrentRatio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cBCurrentRatio_KeyDown);
             this.cBCurrentRatio.MouseEnter += new System.EventHandler(this.cBCurrentRatio_MouseEnter);
@@ -321,7 +323,7 @@
             this.tCMonitor.Location = new System.Drawing.Point(0, 479);
             this.tCMonitor.Name = "tCMonitor";
             this.tCMonitor.SelectedIndex = 0;
-            this.tCMonitor.Size = new System.Drawing.Size(839, 220);
+            this.tCMonitor.Size = new System.Drawing.Size(1046, 220);
             this.tCMonitor.TabIndex = 1;
             this.tCMonitor.SelectedIndexChanged += new System.EventHandler(this.tCMonitor_SelectedIndexChanged);
             // 
@@ -330,7 +332,7 @@
             this.tabPage4.Controls.Add(this.lVMeasureItems);
             this.tabPage4.Location = new System.Drawing.Point(4, 31);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(831, 185);
+            this.tabPage4.Size = new System.Drawing.Size(1038, 185);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "测量项目";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -358,6 +360,7 @@
             this.lVMeasureItems.UseCompatibleStateImageBehavior = false;
             this.lVMeasureItems.View = System.Windows.Forms.View.Details;
             this.lVMeasureItems.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
+            this.lVMeasureItems.Leave += new System.EventHandler(this.lVMeasureItems_Leave);
             this.lVMeasureItems.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
             // 
             // columnHeader1
@@ -404,10 +407,19 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 31);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(831, 185);
+            this.tabPage1.Size = new System.Drawing.Size(1038, 185);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "测量条件";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(460, 31);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(338, 21);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "记录时间间隔（对10kHZ的分频值）";
             // 
             // tBScanFrequency
             // 
@@ -418,6 +430,7 @@
             this.tBScanFrequency.Text = "100";
             this.tBScanFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tBScanFrequency.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBScanFrequency.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // groupBox2
             // 
@@ -448,7 +461,7 @@
             this.tabPage3.Controls.Add(this.cBPointer);
             this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(831, 185);
+            this.tabPage3.Size = new System.Drawing.Size(1038, 185);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "指针";
             // 
@@ -464,12 +477,13 @@
             this.columnHeader12,
             this.columnHeader13,
             this.columnHeader14,
-            this.columnHeader15});
+            this.columnHeader15,
+            this.columnHeader16});
             this.lVPointer.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lVPointer.GridLines = true;
-            this.lVPointer.Location = new System.Drawing.Point(137, 0);
+            this.lVPointer.Location = new System.Drawing.Point(139, 7);
             this.lVPointer.Name = "lVPointer";
-            this.lVPointer.Size = new System.Drawing.Size(694, 182);
+            this.lVPointer.Size = new System.Drawing.Size(895, 182);
             this.lVPointer.TabIndex = 5;
             this.lVPointer.UseCompatibleStateImageBehavior = false;
             this.lVPointer.View = System.Windows.Forms.View.Details;
@@ -483,49 +497,54 @@
             // 
             this.columnHeader8.Text = "单位";
             this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader8.Width = 65;
+            this.columnHeader8.Width = 56;
             // 
             // columnHeader9
             // 
             this.columnHeader9.Text = "指针1";
             this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader9.Width = 65;
+            this.columnHeader9.Width = 72;
             // 
             // columnHeader10
             // 
             this.columnHeader10.Text = "指针2";
             this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader10.Width = 65;
+            this.columnHeader10.Width = 74;
             // 
             // columnHeader11
             // 
             this.columnHeader11.Text = "差值";
             this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader11.Width = 70;
+            this.columnHeader11.Width = 84;
             // 
             // columnHeader12
             // 
             this.columnHeader12.Text = "均值";
             this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader12.Width = 70;
+            this.columnHeader12.Width = 85;
             // 
             // columnHeader13
             // 
             this.columnHeader13.Text = "最大值";
             this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader13.Width = 75;
+            this.columnHeader13.Width = 86;
             // 
             // columnHeader14
             // 
             this.columnHeader14.Text = "最小值";
             this.columnHeader14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader14.Width = 75;
+            this.columnHeader14.Width = 93;
             // 
             // columnHeader15
             // 
             this.columnHeader15.Text = "标准差";
             this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader15.Width = 80;
+            this.columnHeader15.Width = 82;
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "两点斜率(/s)";
+            this.columnHeader16.Width = 132;
             // 
             // label15
             // 
@@ -599,7 +618,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(831, 185);
+            this.tabPage2.Size = new System.Drawing.Size(1038, 185);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "PID手动调整";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -660,8 +679,8 @@
             this.tBPosDeadZone.Name = "tBPosDeadZone";
             this.tBPosDeadZone.Size = new System.Drawing.Size(54, 26);
             this.tBPosDeadZone.TabIndex = 1;
-            this.tBPosDeadZone.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBPosDeadZone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBPosDeadZone.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // label3
             // 
@@ -681,8 +700,8 @@
             this.tBPosD.Name = "tBPosD";
             this.tBPosD.Size = new System.Drawing.Size(54, 26);
             this.tBPosD.TabIndex = 1;
-            this.tBPosD.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBPosD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBPosD.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // tBPosI
             // 
@@ -692,8 +711,8 @@
             this.tBPosI.Name = "tBPosI";
             this.tBPosI.Size = new System.Drawing.Size(54, 26);
             this.tBPosI.TabIndex = 1;
-            this.tBPosI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBPosI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBPosI.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // tBPosP
             // 
@@ -703,8 +722,8 @@
             this.tBPosP.Name = "tBPosP";
             this.tBPosP.Size = new System.Drawing.Size(54, 26);
             this.tBPosP.TabIndex = 1;
-            this.tBPosP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBPosP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBPosP.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // groupBox3
             // 
@@ -789,8 +808,8 @@
             this.tBMaxCurrent.Name = "tBMaxCurrent";
             this.tBMaxCurrent.Size = new System.Drawing.Size(47, 26);
             this.tBMaxCurrent.TabIndex = 1;
-            this.tBMaxCurrent.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBMaxCurrent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBMaxCurrent.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // tBMaxAcc
             // 
@@ -800,8 +819,8 @@
             this.tBMaxAcc.Name = "tBMaxAcc";
             this.tBMaxAcc.Size = new System.Drawing.Size(47, 26);
             this.tBMaxAcc.TabIndex = 1;
-            this.tBMaxAcc.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBMaxAcc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBMaxAcc.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // tBMaxSpeed
             // 
@@ -811,8 +830,8 @@
             this.tBMaxSpeed.Name = "tBMaxSpeed";
             this.tBMaxSpeed.Size = new System.Drawing.Size(47, 26);
             this.tBMaxSpeed.TabIndex = 1;
-            this.tBMaxSpeed.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBMaxSpeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBMaxSpeed.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // gBSpeed
             // 
@@ -870,8 +889,8 @@
             this.tBSpeedD.Name = "tBSpeedD";
             this.tBSpeedD.Size = new System.Drawing.Size(54, 26);
             this.tBSpeedD.TabIndex = 1;
-            this.tBSpeedD.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBSpeedD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBSpeedD.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // label5
             // 
@@ -891,8 +910,8 @@
             this.tBSpeedDeadZone.Name = "tBSpeedDeadZone";
             this.tBSpeedDeadZone.Size = new System.Drawing.Size(54, 26);
             this.tBSpeedDeadZone.TabIndex = 1;
-            this.tBSpeedDeadZone.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBSpeedDeadZone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBSpeedDeadZone.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // tBSpeedP
             // 
@@ -902,8 +921,8 @@
             this.tBSpeedP.Name = "tBSpeedP";
             this.tBSpeedP.Size = new System.Drawing.Size(54, 26);
             this.tBSpeedP.TabIndex = 1;
-            this.tBSpeedP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBSpeedP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBSpeedP.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // tBSpeedI
             // 
@@ -913,8 +932,8 @@
             this.tBSpeedI.Name = "tBSpeedI";
             this.tBSpeedI.Size = new System.Drawing.Size(54, 26);
             this.tBSpeedI.TabIndex = 1;
-            this.tBSpeedI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBSpeedI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBSpeedI.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // gBCurrent
             // 
@@ -938,8 +957,8 @@
             this.tBCurrentI.Name = "tBCurrentI";
             this.tBCurrentI.Size = new System.Drawing.Size(54, 26);
             this.tBCurrentI.TabIndex = 1;
-            this.tBCurrentI.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBCurrentI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBCurrentI.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // tBCurrentP
             // 
@@ -949,8 +968,8 @@
             this.tBCurrentP.Name = "tBCurrentP";
             this.tBCurrentP.Size = new System.Drawing.Size(54, 26);
             this.tBCurrentP.TabIndex = 1;
-            this.tBCurrentP.TextChanged += new System.EventHandler(this.tBCurrentP_TextChanged);
             this.tBCurrentP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBCurrentP.Leave += new System.EventHandler(this.tBCurrentP_Leave);
             // 
             // label2
             // 
@@ -978,7 +997,7 @@
             this.tabPage5.Controls.Add(this.btnFriction);
             this.tabPage5.Location = new System.Drawing.Point(4, 31);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(831, 185);
+            this.tabPage5.Size = new System.Drawing.Size(1038, 185);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "自动增益调整";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1018,7 +1037,7 @@
             this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Location = new System.Drawing.Point(0, 0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(849, 52);
+            this.pLName.Size = new System.Drawing.Size(1059, 52);
             this.pLName.TabIndex = 6;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
@@ -1040,7 +1059,7 @@
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(797, 0);
+            this.pBExit.Location = new System.Drawing.Point(1007, 0);
             this.pBExit.Name = "pBExit";
             this.pBExit.Size = new System.Drawing.Size(52, 52);
             this.pBExit.TabIndex = 0;
@@ -1093,20 +1112,11 @@
             this.label20.TabIndex = 10;
             this.label20.Text = "单位间隔时间：";
             // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(460, 31);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(338, 21);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "记录时间间隔（对10kHZ的分频值）";
-            // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 703);
+            this.ClientSize = new System.Drawing.Size(1058, 703);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
@@ -1244,5 +1254,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
     }
 }

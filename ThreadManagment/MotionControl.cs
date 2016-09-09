@@ -19,12 +19,9 @@ namespace ICDIBasic
     public class MotionControl
     {
         [DllImport("Kernel32.dll")]
-        private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
+        private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);//得到高精度计时器的值（如果存在这样的定时器），二次调用的差去除以频率就得到精确的计时
         [DllImport("Kernel32.dll")]
-        private static extern bool QueryPerformanceFrequency(out  long lpFrequency);
-
-        [DllImport("kernel32.dll")]
-        public static extern bool AllocConsole();
+        private static extern bool QueryPerformanceFrequency(out long lpFrequency);//返回硬件支持的高精度定时器的频率（次每秒），返回0表示失败
 
         public const byte WAVE_MODE_DC = 0;
         public const byte WAVE_MODE_SQUARE = 1;
@@ -45,27 +42,27 @@ namespace ICDIBasic
         static int s_iCountforwave = 0;
         public static int tCount = 0;
 
+        //示波器显示曲线用的计数量
         private static int gatherCount = 0;
 
-        public delegate void timerEvent();
-        public event timerEvent tickEvent;
+        //public delegate void timerEvent();
+        //public event timerEvent tickEvent;
 
-        private object threadLock = new object();       // for thread safe
-        private long clockFrequency;                   // result of QueryPerformanceFrequency() 
-        bool running = true;                           //the flag to control the thread
+        //private object threadLock = new object();// for thread safe
+        private long clockFrequency;// result of QueryPerformanceFrequency() 
+        bool running = true;//高精度定时器进程处于执行状态的标志
         Thread thread;
 
-        private float intervalMs;                     // interval in mimliseccond;
+        private float intervalMs;//interval in mimliseccond;
         private long intevalTicks;
-        private long nextTriggerTime;               // the time when next task will be executed
+        private long nextTriggerTime;//任务被执行的下一个节拍数
 
-
-        public static double kfQ = 30.0;             // measure noise
-        public static double kfR = 0.2;              // system noise
-
-        private double[] kfP = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
-        private double[] kfN = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
-        private double[] kfK = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
+        //卡尔曼滤波中使用
+        public static double kfQ = 30.0;//measure noise
+        public static double kfR = 0.2;//system noise
+        private double[] kfP = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
+        private double[] kfN = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
+        private double[] kfK = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
 
         public delegate void MessageEventHandler(object sender, MessageEventArgs e);
         //定义事件
@@ -78,37 +75,39 @@ namespace ICDIBasic
         }
 
 
-        // Timer inteval in milisecond
+        //高精度定时器控制的方法执行的时间间隔
         public float Interval
         {
             get { return intervalMs; }
             set
             {
                 intervalMs = value;
-                intevalTicks = (long)((double)value * (double)clockFrequency / (double)1000);
+                intevalTicks = (long)((double)value * (double)clockFrequency / (double)1000);//毫秒值除以1000等于秒，再乘以频率得到“次数”
             }
         }
 
         public MotionControl()
         {
             pc = new PCan();
-            tickEvent = new timerEvent(tick);
+            //tickEvent = new timerEvent(tick);
 
+            //若不存在这样的定时器
             if (QueryPerformanceFrequency(out clockFrequency) == false)
             {
-                // Frequency not supported
                 throw new Win32Exception("QueryPerformanceFrequency() function is not supported");
             }
 
-            //定时精度 1ms（CPU时钟频率乘1.0除1000）
+            //高精度定时器控制的方法执行的时间间隔（单位：ms）
             Interval = 1.0f;
 
+            //开启一个新进程，用来做高精度定时器
             thread = new Thread(new ThreadStart(ThreadProc));
             thread.Name = "HighAccuracyTimer";
             thread.Priority = ThreadPriority.Highest;
             thread.Start();
         }
 
+        //高精度定时器进程的方法
         private void ThreadProc()
         {
             long currTime;
@@ -116,7 +115,7 @@ namespace ICDIBasic
             nextTriggerTime = currTime + intevalTicks;
             while (running)
             {
-                while (currTime < nextTriggerTime)
+                while (currTime < nextTriggerTime)//等待间隔结束，间隔是用的定时器计数值确定的
                 {
                     GetTick(out currTime);
                 }
@@ -125,6 +124,7 @@ namespace ICDIBasic
             }
         }
 
+        //高精度定时器控制的周期执行的方法
         void tick()
         {
             //AllocConsole();
@@ -135,83 +135,107 @@ namespace ICDIBasic
                 double time = 0;
                 double T = 0;
 
-                s_iCount++;
-              
-                if (TestRun.m_iWaveMode == WAVE_MODE_TRIANGLE || TestRun.m_iWaveMode == WAVE_MODE_SINE)
-                {
-                     if (s_iCount >= 10)		 //三角波或正弦波时10ms发送一次
-                        s_iCount = 0;
-                }
-
+                s_iCount ++;
+                
+                //根据所选波形进入相应控制步骤
                 switch (TestRun.m_iWaveMode)
                 {
                     case WAVE_MODE_DC:
-                        if (s_iCount >= 100)		 //衡值100ms发送一次
+                        if (s_iCount >= 100)//衡值100个Interval发送一次
                         {
                             s_iCount = 0;
-                            SetValue((short)TestRun.m_fBias);
+                            SetValue((int)TestRun.m_fBias);
                         }
                         break;
                     case WAVE_MODE_SQUARE:
-                        if (s_iCount >= 500.0 / TestRun.m_fFrequency)	//方波时根据选定频率发送
+                        if (s_iCount >= 500.0 / TestRun.m_fFrequency)//方波时根据选定频率发送，经过半个周期变换一次方向，所以是乘500
                         {
                             s_iCount = 0;
                             s_bHigh = !s_bHigh;
-                            SetValue((short)(TestRun.m_fAmplitude * (s_bHigh ? 1 : -1) + TestRun.m_fBias));
+                            SetValue((int)(TestRun.m_fAmplitude * (s_bHigh ? 1 : -1) + TestRun.m_fBias));
                         }
                         break;
-                    case WAVE_MODE_TRIANGLE:
-                        if (s_iCount == 0)
+                    case WAVE_MODE_TRIANGLE://三角波时 TriangleInterval 个 Interval 发送一次
+                        const byte TriangleInterval = 10;
+                        if (s_iCount >= TriangleInterval)
                         {
-                            s_iCountforwave++;
-                            time = s_iCountforwave * 10.0f;
-                            T = 1000.0f / TestRun.m_fFrequency / 4.0f;
-                            if (time <= T)
-                            {
-                                tempf = time * TestRun.m_fAmplitude / T;
-                            }
-                            else if (time > T && time <= T * 2)
-                            {
-                                time -= T;
-                                time = T - time;
-                                tempf = time * TestRun.m_fAmplitude / T;
-                            }
-                            else if (time > T * 2 && time <= T * 3)
-                            {
-                                time -= T * 2;
-                                tempf = -time * TestRun.m_fAmplitude / T;
-                            }
-                            else if (time > T * 3 && time < T * 4)
-                            {
-                                time -= T * 3;
-                                time = T - time;
-                                tempf = -time * TestRun.m_fAmplitude / T;
-                            }
-                            else
-                            {
-                                tempf = 0;
-                                s_iCountforwave = 0;
-                            }
-                            SetValue((short)(tempf + TestRun.m_fBias));
-                        }
-                       
-                        break;
-                    case WAVE_MODE_SINE:
-                        if (s_iCount == 0)
-                        {
-                            s_iCountforwave++;
-                            time = s_iCountforwave * 10.0f;
+                            s_iCount = 0;
+
+                            ////得到三角波的1/4周期
+                            //T = 1000.0f / TestRun.m_fFrequency / 4.0f;
+                            ////校准指令发送的间隔时间
+                            //s_iCountforwave++;
+                            ////获得发送指令时真正的时间
+                            //time = s_iCountforwave * TriangleInterval;
+                            ////若时间在三角波的1/4周期内
+                            //if (time <= T)
+                            //{
+                            //    tempf = time * TestRun.m_fAmplitude / T;
+                            //}
+                            //else if (time > T && time <= T * 2)
+                            //{
+                            //    time -= T;
+                            //    time = T - time;
+                            //    tempf = time * TestRun.m_fAmplitude / T;
+                            //}
+                            //else if (time > T * 2 && time <= T * 3)
+                            //{
+                            //    time -= T * 2;
+                            //    tempf = -time * TestRun.m_fAmplitude / T;
+                            //}
+                            //else if (time > T * 3 && time < T * 4)
+                            //{
+                            //    time -= T * 3;
+                            //    time = T - time;
+                            //    tempf = -time * TestRun.m_fAmplitude / T;
+                            //}
+                            //else
+                            //{
+                            //    tempf = 0;
+                            //    s_iCountforwave = 0;
+                            //}
+
+                            //得到三角波的周期
                             T = 1000.0f / TestRun.m_fFrequency;
-                            tempf = Math.Sin(time / T * 2 * Math.PI) * TestRun.m_fAmplitude;
+                            //校准指令发送的间隔时间
+                            s_iCountforwave++;
+                            //获得发送指令时真正的时间
+                            time = s_iCountforwave * TriangleInterval;
+                            //由当前时间得到当前控制值
+                            tempf = time * TestRun.m_fAmplitude / T;
+                            //若当前时间超过一个周期，校准时间使得时间回到周期开始
                             if (time >= T)
                             {
                                 tempf = 0;
                                 s_iCountforwave = 0;
                             }
+
+                            //发送控制值
                             SetValue((short)(tempf + TestRun.m_fBias));
                         }
                         break;
-                    default:
+                    case WAVE_MODE_SINE://正弦波时SineInterval 个Interval 发送一次
+                        const byte SineInterval = 10;
+                        if (s_iCount >= SineInterval)
+                        {
+                            s_iCount = 0;
+                            //得到正弦波的周期
+                            T = 1000.0f / TestRun.m_fFrequency;
+                            //校准指令发送的间隔时间
+                            s_iCountforwave++;
+                            //获得发送指令时真正的时间
+                            time = s_iCountforwave * SineInterval;
+                            //由当前时间得到当前控制值
+                            tempf = Math.Sin(time / T * 2 * Math.PI) * TestRun.m_fAmplitude;
+                            //若当前时间超过一个周期，校准时间使得时间回到周期开始
+                            if (time >= T)
+                            {
+                                tempf = 0;
+                                s_iCountforwave = 0;
+                            }
+                            //发送控制值
+                            SetValue((short)(tempf + TestRun.m_fBias));
+                        }
                         break;
                 }
             }
@@ -256,10 +280,10 @@ namespace ICDIBasic
                             //统一的方法组成32位数
                             value = BitConverter.ToInt32(new byte[] { value1[0], value1[1], value2[0], value2[1] }, 0);
 
-                            //该32位数再处理后追加到队列尾部
+                            //该32位数再进行卡尔曼滤波后追加到队列尾部
                             kfN[i] = kfP[i] + kfQ;//kfQ measure noise 可选变
                             kfK[i] = kfN[i] / (kfN[i] + kfR);//kfR system noise 可选变
-                            kfP[i] = (1 - kfK[i] * kfN[i]);
+                            kfP[i] = (1 - kfK[i]) * kfN[i];
                             try
                             {
                                 oldValue = OscilloScope.showItems[i].sq.rear.Value;
@@ -350,11 +374,12 @@ namespace ICDIBasic
             }
         }
 
+        //根据运动模式（占空比、电流、速度、位置）发控制量
         void SetValue(int value)
         {
             switch (TestRun.m_iWaveChannel)
             {
-                case WAVE_CONNECT_NON: 
+                case WAVE_CONNECT_NON:
                     break;
                 case WAVE_CONNECT_PWM:
                     pc.WriteOneWord(Configuration.TAG_OPEN_PWM, (short)value, PCan.currentID);
@@ -363,11 +388,11 @@ namespace ICDIBasic
                     pc.WriteTwoWords(Configuration.TAG_CURRENT_L, value, PCan.currentID);
                     break;
                 case WAVE_CONNECT_SPD:
-                    value = Convert.ToInt32(value / 60.0 * 65536.0);
+                    value = Convert.ToInt32(value * 65536.0 / 60.0);
                     pc.WriteTwoWords(Configuration.TAG_SPEED_L, value, PCan.currentID);
                     break;
                 case WAVE_CONNECT_POS:
-                    value = Convert.ToInt32(value / 360.0 * 65535.0);
+                    value = Convert.ToInt32(value * 65536.0 / 360.0);
                     pc.WriteTwoWords(Configuration.TAG_POSITION_L, value, PCan.currentID);
                     break;
                 default:
@@ -406,6 +431,7 @@ namespace ICDIBasic
             return 0;
         }
 
+        //返回“获取当前时钟计数值”成功与否的信息
         public bool GetTick(out long currentTickCount)
         {
             if (QueryPerformanceCounter(out currentTickCount) == false)
@@ -417,11 +443,14 @@ namespace ICDIBasic
                 return true;
             } 
         }
-
+        
+        //高精度定时器进程开始运行
         public void Start()
         {
             thread.Start();
         }
+
+        //高精度定时器进程中结束循环
         public void Stop()
         {
             running = false;
@@ -431,15 +460,8 @@ namespace ICDIBasic
         {
             running = false;
             thread.Abort();
-            thread.Join();
+            //thread.Join();
             thread = null;
         }
-
-
-
-
-
-
-
     }
 }
