@@ -945,13 +945,17 @@ namespace ICDIBasic
         //由当前位置刷新“当前位置显示”以及滑块
         private void RefreshtBCurrent()
         {
-            pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
+            //mCurrent就是代表TAG_POSITION，不然，当位置未到目标时，可能会停止
+            //pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
+            //Thread.Sleep(10);
+            //byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
+            //byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
+            pc.ReadWords(Configuration.TAG_POSITION_L, 2, PCan.currentID);
             Thread.Sleep(10);
-            byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
-            byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
+            byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.TAG_POSITION_L]);
+            byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.TAG_POSITION_H]);
             byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
             currentPosition = BitConverter.ToInt32(tempResult, 0);
-            //MessageBox.Show(Convert.ToString(currentPosition));//测试用
             mCurrent = Convert.ToSingle(currentPosition) * 360 / 65536;
             tBCurrent.Text = mCurrent.ToString("F2");
             tBCurrentChangetBManual();

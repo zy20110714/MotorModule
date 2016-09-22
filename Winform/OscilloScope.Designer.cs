@@ -120,6 +120,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
@@ -1112,11 +1113,21 @@
             this.label20.TabIndex = 10;
             this.label20.Text = "单位间隔时间：";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(660, 463);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(131, 12);
+            this.label22.TabIndex = 11;
+            this.label22.Text = "指令位置 - 实际位置：";
+            // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1058, 703);
+            this.Controls.Add(this.label22);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
@@ -1255,5 +1266,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.Label label22;
     }
 }

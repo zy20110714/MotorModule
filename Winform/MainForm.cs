@@ -36,16 +36,17 @@ namespace ICDIBasic
         /// Saves the baudrate register for a conenction
         /// </summary>
         private TPCANBaudrate m_Baudrate;
-       
+
         /// <summary>
         /// Read Delegate for calling the function "ReadMessages"
         /// </summary>
         //private ReadDelegateHandler m_ReadDelegate;
-       // private changeID m_changeIDDelegate;
+        //private changeID m_changeIDDelegate;
+
         /// <summary>
         /// Receive-Event
         /// </summary>
-        public static System.Threading.AutoResetEvent m_ReceiveEvent;
+        public static AutoResetEvent m_ReceiveEvent;//通知正在等待的线程已发生接收事件
 
         /// <summary>
         /// Handles of the current available PCAN-Hardware
@@ -115,20 +116,21 @@ namespace ICDIBasic
         /// </summary>
         private void InitializeBasicComponents()
         {
-          
-            // Creates the list for received messages
+
+
+            //Creates the list for received messages
+
             //m_LastMsgsList = new System.Collections.ArrayList();
-            // Creates the delegate used for message reading
-            //
+            //Creates the delegate used for message reading
+
+
             //m_ReadDelegate = new ReadDelegateHandler(ReadMessages);
 
-           // m_changeIDDelegate = new changeID(OnIDChange);
+            //m_changeIDDelegate = new changeID(OnIDChange);
 
-            // Creates the event used for signalize incomming messages 
-            //
-            m_ReceiveEvent = new System.Threading.AutoResetEvent(false);
+            //Creates the event used for signalize(发送信号指示) incomming messages
+            m_ReceiveEvent = new AutoResetEvent(false);
             // Creates an array with all possible PCAN-Channels
-            //
             m_HandlesArray = new TPCANHandle[] 
             { 
                 PCANBasic.PCAN_ISABUS1,
@@ -452,8 +454,8 @@ namespace ICDIBasic
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.mthread.MessageSend += new MessageProccessing.MessageEventHandler(this.mThread_MessageSend);
-            this.mthread.StartSend("MessageProcess"); //  
+            //mthread.MessageSend += new MessageProccessing.MessageEventHandler(this.mThread_MessageSend);
+            mthread.StartSend();
 
             //搜索CAN总线上的模块
             pc.SearchModuleID();
@@ -520,7 +522,7 @@ namespace ICDIBasic
             if (mthread != null)
             {
                 mthread.Abort();
-                mthread.Join();
+                mthread.Join();//Abort和Join配合使用，结束线程，参考http://www.cnblogs.com/colin2011/archive/2011/11/19/2255212.html
                 mthread = null;
             }
             //释放运动控制线程

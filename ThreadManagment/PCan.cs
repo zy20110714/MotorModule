@@ -9,27 +9,27 @@ namespace ICDIBasic
     public  class PCan
     {
         public const byte MAX_FRAME_NUM = 255;
-        public static TPCANMsg[] m_CANFrames_HP = new TPCANMsg[MAX_FRAME_NUM];           //high priority 具有高优先级发送的数据
-        public static  byte m_CANFrames_Tail_HP;					//数据发送队列尾指针
-        public static  byte m_CANFrames_Head_HP;					//数据发送队列头指针
+        public static TPCANMsg[] m_CANFrames_HP = new TPCANMsg[MAX_FRAME_NUM]; //high priority 具有高优先级发送的数据
+        public static  byte m_CANFrames_Tail_HP; //数据发送队列尾指针
+        public static  byte m_CANFrames_Head_HP; //数据发送队列头指针
 
-        public static  TPCANMsg[] m_CANFrames = new TPCANMsg[MAX_FRAME_NUM];           //优先级较低的数据
-        public static  byte m_CANFrames_Tail;					                        //数据发送队列尾指针
-        public static  byte m_CANFrames_Head;					                        //数据发送队列头指针
+        public static  TPCANMsg[] m_CANFrames = new TPCANMsg[MAX_FRAME_NUM]; //优先级较低的数据
+        public static  byte m_CANFrames_Tail; //数据发送队列尾指针
+        public static  byte m_CANFrames_Head; //数据发送队列头指针
 
         public static  int m_iFramesCount = 0;
-        public static bool m_Terminated = false;                 //通讯结束标志    
-        public static bool m_FlagListen;			       //是否监听标志
+        public static bool m_Terminated = false; //通讯结束标志    
+        public static bool m_FlagListen; //是否监听标志
 
-        private Object PushFrameLock = new Object();                         //互斥锁
-        private Object PushFrameLockHP = new Object();                         //互斥锁
+        private Object PushFrameLock = new Object(); //互斥锁
+        private Object PushFrameLockHP = new Object(); //互斥锁
 
        
-        public static byte currentID = 0;                                                         //当前选中的模块ID号
+        public static byte currentID = 0; //当前选中的模块ID号
 
         public void SearchModuleID()
         {
-            for (byte i = 1; i < byte.MaxValue; i++)          //ID number from 1 to 254
+            for (byte i = 1; i < byte.MaxValue; i++) //ID number from 1 to 254
             {
                 ReadWords(Configuration.SYS_ID, 1, i);
                 //Thread.Sleep(1);
@@ -37,25 +37,13 @@ namespace ICDIBasic
             return;
         }
 
-        //public void CheckConnection()
-        //{
-        //    for (byte i = 1; i < byte.MaxValue; i++)          //ID number from 1 to 254
-        //    {
-        //        ReadWords(Configuration.SYS_ID, 1, i);
-        //        //Thread.Sleep(1);
-        //    }
-        //    return;
-        //}
-
-
         public void PushFrame(byte Datelen, uint ID, byte Cmd, byte Index, byte[] pdata)
         {
-            //if (!IsCanInite()||Datelen>6) return;//	if (Datelen > 6) return;
             lock (PushFrameLock)
             {
                 m_CANFrames[m_CANFrames_Head].DATA = new byte[8];
 
-                m_CANFrames[m_CANFrames_Head].ID = ID;				//标准格式
+                m_CANFrames[m_CANFrames_Head].ID = ID; //标准格式
                 m_CANFrames[m_CANFrames_Head].LEN = (byte)(Datelen + 2);
                 m_CANFrames[m_CANFrames_Head].MSGTYPE = TPCANMessageType.PCAN_MESSAGE_STANDARD;//CAN_STANDARD_FORMAT;
                 m_CANFrames[m_CANFrames_Head].DATA[0] = Cmd;
@@ -108,9 +96,6 @@ namespace ICDIBasic
             Configuration.MemoryControlTable[Index] = (short)value;
             Configuration.MemoryControlTable[Index + 1] = (short)(value >> 16);
         }
-
-
-
 
         public void PushFrameHP(byte Datelen, uint ID, byte Cmd, byte Index, byte[] pdata)
         {
@@ -165,17 +150,10 @@ namespace ICDIBasic
             m_FlagListen = false;
         }
 
-        //void InitRXNodifyMessage(HWND hWnd, UINT Msg)
-        //{ 
-        //    m_message = Msg;
-        //    m_hParentWnd = hWnd;
-        //}
-
         public void SetID(byte ID)
         {
             currentID = ID;
         }
-
 
         public void add(int a, int b)
         {

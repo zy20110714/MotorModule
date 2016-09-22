@@ -280,6 +280,24 @@ namespace ICDIBasic
             label19.Text = "两指针的间隔时间：" + ((tracePos2 - tracePos1) * Interval).ToString() + " ms";
             label20.Text = "单位间隔时间：" + (Interval * XDotNum).ToString() + " ms";
 
+            //实际位置
+            pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
+            Thread.Sleep(1);
+            byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
+            byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
+            byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
+            int currentPosition = BitConverter.ToInt32(tempResult, 0);
+            float mCurrent = Convert.ToSingle(currentPosition) * 360 / 65536;
+
+            //指令位置
+            byte[] tempL2 = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.TAG_POSITION_L]);
+            byte[] tempH2 = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.TAG_POSITION_H]);
+            byte[] tempResult2 = new byte[] { tempL2[0], tempL2[1], tempH2[0], tempH2[1] };
+            int temptagetPosition = BitConverter.ToInt32(tempResult2, 0);
+            float tagetPosition = Convert.ToSingle(temptagetPosition) * 360 / 65536;
+
+            label22.Text = "指令位置 - 实际位置：" + (tagetPosition - mCurrent).ToString() + " °";
+
             //分别处理每条要测量的曲线
             for (int i = 0; i < showItems.Count;i++ )
             {
@@ -851,7 +869,7 @@ namespace ICDIBasic
             //打开保存文件对话框
             SaveFileDialog sfd = new SaveFileDialog();
             //设置文件名筛选器字符串
-            sfd.Filter = "JPG文件(*.jpg)|*.jpg|PNG文件(*.png)|*.png|TIFF文件(*.tiff)|*.tiff|GIF文件(*.gif)|*.gif";
+            sfd.Filter = "JPG文件(*.jpg)|*.jpg|PNG文件(*.png)|*.png|TIFF文件(*.tiff)|*.tiff|GIF文件(*.gif)|*.gif|BMP文件(*.bmp)|*.bmp";
             //默认文件名
             sfd.FileName = "示波器截图" + DateTime.Now.ToString("yyyyMMddHHmmss");// HH - 24小时制的小时
 
@@ -864,6 +882,7 @@ namespace ICDIBasic
                     case "png": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png); break;
                     case "tiff": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Tiff); break;
                     case "gif": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Gif); break;
+                    case "bmp": bit.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Bmp); break;
                 }
             }
             bit.Dispose();
