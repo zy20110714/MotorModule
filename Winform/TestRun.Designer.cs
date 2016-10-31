@@ -507,7 +507,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 19);
             this.label6.TabIndex = 0;
-            this.label6.Text = "当前位置";
+            this.label6.Text = "目标位置";
             // 
             // tBMax
             // 
