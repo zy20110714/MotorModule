@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// Inclusion of PEAK PCAN-Basic namespace
@@ -339,49 +340,6 @@ namespace ICDIBasic
             cbbParameter.SelectedIndex = 0;
         }
 
-        /// <summary>
-        /// Activates/deaactivates the different controls of the main-form according
-        /// with the current connection status
-        /// </summary>
-        /// <param name="bConnected">Current status. True if connected, false otherwise</param>
-        //private void SetConnectionStatus(bool bConnected)
-        //{
-        //    // Buttons
-        //    //
-        //    btnInit.Enabled = !bConnected;
-        //    //btnRead.Enabled = bConnected && rdbManual.Checked;
-        //    //btnWrite.Enabled = bConnected;
-        //    btnRelease.Enabled = bConnected;
-        //    btnFilterApply.Enabled = bConnected;
-        //    btnFilterQuery.Enabled = bConnected;
-        //    btnGetVersions.Enabled = bConnected;
-        //    btnHwRefresh.Enabled = !bConnected;
-        //    btnStatus.Enabled = bConnected;
-        //    btnReset.Enabled = bConnected;
-
-        //    // ComboBoxs
-        //    //
-        //    cbbChannel.Enabled = !bConnected;
-        //    cbbBaudrates.Enabled = !bConnected;
-        //    cbbHwType.Enabled = !bConnected;
-        //    cbbIO.Enabled = !bConnected;
-        //    cbbInterrupt.Enabled = !bConnected;
-
-        //    // Check-Buttons
-        //    //
-        //    chbCanFD.Enabled = !bConnected;
-
-        //    // Hardware configuration and read mode
-        //    //
-        //    if (!bConnected)
-        //        cbbChannel_SelectedIndexChanged(this, new EventArgs());
-        //    else
-        //        rdbTimer_CheckedChanged(this, new EventArgs());
-
-        //    // Display messages in grid
-        //    //
-           
-        //}
 
         /// <summary>
         /// Gets the formated text for a PCAN-Basic channel handle
@@ -470,10 +428,6 @@ namespace ICDIBasic
                         cBID.Items.Add(MessageProccessing.allID[i]);
                     }
                 }
-                if (MessageProccessing.allID.Count > 0)
-                {
-                     tMCheck.Enabled = true;
-                }
             }
             catch (System.Exception ex)
             {
@@ -551,11 +505,13 @@ namespace ICDIBasic
             {
                 MessageBox.Show("CAN总线初始化失败！");
             }
-            
-            //Int32 speed = 337892;
-            //byte[] tt = BitConverter.GetBytes(speed);
-            //short a = (short)speed;
-            //short b = (short)(speed >> 16);
+
+            ////调试用，临时允许出现5个窗口
+            //btnParameters.Enabled = true;
+            //btnRun.Enabled = true;
+            //btnWave.Enabled = true;
+            //btnMonitor.Enabled = true;
+            //btnFlash.Enabled = true;
         }
 
 
@@ -602,192 +558,11 @@ namespace ICDIBasic
         #endregion
 
 
-        //#region Message List-View event-handler
-        //private void lstMessages_DoubleClick(object sender, EventArgs e)
-        //{
-        //    // Clears the content of the Message List-View
-        //    //
-        //    btnMsgClear_Click(this, new EventArgs());
-        //}
-        //#endregion
-
-        //#region Information List-Box event-handler
-        //private void lbxInfo_DoubleClick(object sender, EventArgs e)
-        //{
-        //    // Clears the content of the Information List-Box
-        //    //
-        //    btnInfoClear_Click(this, new EventArgs());
-        //}
-        //#endregion
-
-        //#region Textbox event handlers
-        //private void txtID_Leave(object sender, EventArgs e)
-        //{
-        //    int iTextLength;
-        //    uint uiMaxValue;
-
-        //    // Calculates the text length and Maximum ID value according
-        //    // with the Message Type
-        //    //
-        //    iTextLength = (chbExtended.Checked) ? 8 : 3;
-        //    uiMaxValue = (chbExtended.Checked) ? (uint)0x1FFFFFFF : (uint)0x7FF;
-
-        //    // The Textbox for the ID is represented with 3 characters for 
-        //    // Standard and 8 characters for extended messages.
-        //    // Therefore if the Length of the text is smaller than TextLength,  
-        //    // we add "0"
-        //    //
-        //    while (txtID.Text.Length != iTextLength)
-        //        txtID.Text = ("0" + txtID.Text);
-
-        //    // We check that the ID is not bigger than current maximum value
-        //    //
-        //    if (Convert.ToUInt32(txtID.Text, 16) > uiMaxValue)
-        //        txtID.Text = string.Format("{0:X" + iTextLength.ToString() + "}", uiMaxValue);
-        //}
-
-        //private void txtID_KeyPress(object sender, KeyPressEventArgs e)
-        //{
-        //    char chCheck;
-
-        //    // We convert the Character to its Upper case equivalent
-        //    //
-        //    chCheck = char.ToUpper(e.KeyChar);
-
-        //    // The Key is the Delete (Backspace) Key
-        //    //
-        //    if (chCheck == 8)
-        //        return;
-        //    // The Key is a number between 0-9
-        //    //
-        //    if ((chCheck > 47) && (chCheck < 58))
-        //        return;
-        //    // The Key is a character between A-F
-        //    //
-        //    if ((chCheck > 64) && (chCheck < 71))
-        //        return;
-
-        //    // Is neither a number nor a character between A(a) and F(f)
-        //    //
-        //    e.Handled = true;
-        //}
-
-        //private void txtData0_Leave(object sender, EventArgs e)
-        //{
-        //    TextBox txtbCurrentTextbox;
-
-        //    // all the Textbox Data fields are represented with 2 characters.
-        //    // Therefore if the Length of the text is smaller than 2, we add
-        //    // a "0"
-        //    //
-        //    if (sender.GetType().Name == "TextBox")
-        //    {
-        //        txtbCurrentTextbox = (TextBox)sender;
-        //        while (txtbCurrentTextbox.Text.Length != 2)
-        //            txtbCurrentTextbox.Text = ("0" + txtbCurrentTextbox.Text);
-        //    }
-        //}
-        //#endregion
-
         #region Radio- and Check- Buttons event-handlers
         private void chbShowPeriod_CheckedChanged(object sender, EventArgs e)
         {
-            // According with the check-value of this checkbox,
-            // the recieved time of a messages will be interpreted as 
-            // period (time between the two last messages) or as time-stamp
-            // (the elapsed time since windows was started)
-            //
-            //lock (m_LastMsgsList.SyncRoot)
-            //{
-            //    foreach (MessageStatus msg in m_LastMsgsList)
-            //        msg.ShowingPeriod = chbShowPeriod.Checked;
-            //}
         }
 
-        //private void chbExtended_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    uint uiTemp;
-
-        //    txtID.MaxLength = (chbExtended.Checked) ? 8 : 3;
-
-        //    // the only way that the text length can be bigger als MaxLength
-        //    // is when the change is from Extended to Standard message Type.
-        //    // We have to handle this and set an ID not bigger than the Maximum
-        //    // ID value for a Standard Message (0x7FF)
-        //    //
-        //    if (txtID.Text.Length > txtID.MaxLength)
-        //    {
-        //        uiTemp = Convert.ToUInt32(txtID.Text, 16);
-        //        txtID.Text = (uiTemp < 0x7FF) ? string.Format("{0:X3}", uiTemp) : "7FF";
-        //    }
-
-        //}
-
-        //private void chbFilterExt_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    int iMaxValue;
-
-        //    iMaxValue = (chbFilterExt.Checked) ? 0x1FFFFFFF : 0x7FF;
-
-        //    // We check that the maximum value for a selected filter 
-        //    // mode is used
-        //    //
-        //    if (nudIdTo.Value > iMaxValue)
-        //        nudIdTo.Value = iMaxValue;
-        //    nudIdTo.Maximum = iMaxValue;
-
-        //    if (nudIdFrom.Value > iMaxValue)
-        //        nudIdFrom.Value = iMaxValue;
-        //    nudIdFrom.Maximum = iMaxValue;
-        //}
-
-        //private void rdbTimer_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (!btnRelease.Enabled)
-        //        return;
-
-        //    // According with the kind of reading, a timer, a thread or a button will be enabled
-        //    //
-        //    if (rdbTimer.Checked)
-        //    {
-        //        // Abort Read Thread if it exists
-        //        //
-        //        //if (m_ProcessThread != null)
-        //        //{
-        //        //    m_ProcessThread.Abort();
-        //        //    m_ProcessThread.Join();
-        //        //    m_ProcessThread = null;
-        //        //}
-
-        //        // Enable Timer
-        //        //
-        //        //tMMainFormRefresh.Enabled = btnRelease.Enabled;
-        //    }
-        //    if (rdbEvent.Checked)
-        //    {
-        //        // Disable Timer
-        //        //
-        //        //tMMainFormRefresh.Enabled = false;
-        //        // Create and start the tread to read CAN Message using SetRcvEvent()
-        //        //
-
-        //    }
-        //    if (rdbManual.Checked)
-        //    {
-        //        // Abort Read Thread if it exists
-        //        //
-        //        //if (m_ProcessThread != null)
-        //        //{
-        //        //    m_ProcessThread.Abort();
-        //        //    m_ProcessThread.Join();
-        //        //    m_ProcessThread = null;
-        //        //}
-        //        // Disable Timer
-        //        //
-        //        //tMMainFormRefresh.Enabled = false;
-        //    }
-        //    //btnRead.Enabled = btnRelease.Enabled && rdbManual.Checked;
-        //}
         private void chbCanFD_CheckedChanged(object sender, EventArgs e)
         {
             m_IsFD = chbCanFD.Checked;
@@ -796,36 +571,369 @@ namespace ICDIBasic
             cbbHwType.Visible = !m_IsFD;
             cbbInterrupt.Visible = !m_IsFD;
             cbbIO.Visible = !m_IsFD;
-            //laBaudrate.Visible = !m_IsFD;
-            //laHwType.Visible = !m_IsFD;
-            //laIOPort.Visible = !m_IsFD;
-            //laInterrupt.Visible = !m_IsFD;
 
             txtBitrate.Visible = m_IsFD;
-            //laBitrate.Visible = m_IsFD;
-            //chbFD.Visible = m_IsFD;
-            //chbBRS.Visible = m_IsFD;
+        }
 
-            //if ((nudLength.Maximum > 8) && !m_IsFD)
-            //    chbFD.Checked = false;
+        #endregion
+
+        #endregion
+
+        #endregion
+        [DllImport("user32")]
+        public static extern int SetParent(int hWndChild, int hWndNewParent);
+
+        public static bool IsDataRecieved = false;
+        public static short IDName = 0;
+
+        #region ComboBox event-handlers
+        private void cbbChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool bNonPnP;
+            string strTemp;
+
+            // Get the handle fromt he text being shown
+            //
+            strTemp = cbbChannel.Text;
+            strTemp = strTemp.Substring(strTemp.IndexOf('(') + 1, 3);
+
+            strTemp = strTemp.Replace('h', ' ').Trim(' ');
+
+            // Determines if the handle belong to a No Plug&Play hardware 
+            //
+            m_PcanHandle = Convert.ToUInt16(strTemp, 16);
+            bNonPnP = m_PcanHandle <= PCANBasic.PCAN_DNGBUS1;
+            // Activates/deactivates configuration controls according with the 
+            // kind of hardware
+            //
+            cbbHwType.Enabled = bNonPnP;
+            cbbIO.Enabled = bNonPnP;
+            cbbInterrupt.Enabled = bNonPnP;
+        }
+
+        private void cbbBaudrates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Saves the current selected baudrate register code
+            //
+            switch (cbbBaudrates.SelectedIndex)
+            {
+                case 0:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_1M;
+                    break;
+                case 1:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_800K;
+                    break;
+                case 2:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_500K;
+                    break;
+                case 3:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_250K;
+                    break;
+                case 4:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_125K;
+                    break;
+                case 5:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_100K;
+                    break;
+                case 6:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_95K;
+                    break;
+                case 7:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_83K;
+                    break;
+                case 8:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_50K;
+                    break;
+                case 9:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_47K;
+                    break;
+                case 10:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_33K;
+                    break;
+                case 11:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_20K;
+                    break;
+                case 12:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_10K;
+                    break;
+                case 13:
+                    m_Baudrate = TPCANBaudrate.PCAN_BAUD_5K;
+                    break;
+            }
+        }
+
+        private void cbbHwType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        #endregion
+
+        #region Button event-handlers
+        private void btnHwRefresh_Click(object sender, EventArgs e)
+        {
+            UInt32 iBuffer;
+            TPCANStatus stsResult;
+            bool isFD;
+
+            // Clears the Channel combioBox and fill it again with 
+            // the PCAN-Basic handles for no-Plug&Play hardware and
+            // the detected Plug&Play hardware
+            //
+            cbbChannel.Items.Clear();
+            try
+            {
+                for (int i = 0; i < m_HandlesArray.Length; i++)
+                {
+                    // Includes all no-Plug&Play Handles
+                    if (m_HandlesArray[i] <= PCANBasic.PCAN_DNGBUS1)
+                        cbbChannel.Items.Add(FormatChannelName(m_HandlesArray[i]));
+                    else
+                    {
+                        // Checks for a Plug&Play Handle and, according with the return value, includes it
+                        // into the list of available hardware channels.
+                        //
+                        stsResult = PCANBasic.GetValue(m_HandlesArray[i], TPCANParameter.PCAN_CHANNEL_CONDITION, out iBuffer, sizeof(UInt32));
+                        if ((stsResult == TPCANStatus.PCAN_ERROR_OK) && ((iBuffer & PCANBasic.PCAN_CHANNEL_AVAILABLE) == PCANBasic.PCAN_CHANNEL_AVAILABLE))
+                        {
+                            stsResult = PCANBasic.GetValue(m_HandlesArray[i], TPCANParameter.PCAN_CHANNEL_FEATURES, out iBuffer, sizeof(UInt32));
+                            isFD = (stsResult == TPCANStatus.PCAN_ERROR_OK) && ((iBuffer & PCANBasic.FEATURE_FD_CAPABLE) == PCANBasic.FEATURE_FD_CAPABLE);
+                            cbbChannel.Items.Add(FormatChannelName(m_HandlesArray[i], isFD));
+                        }
+                    }
+                }
+                cbbChannel.SelectedIndex = cbbChannel.Items.Count - 1;
+                btnInit.Enabled = cbbChannel.Items.Count > 0;
+            }
+            catch (DllNotFoundException)
+            {
+                MessageBox.Show("Unable to find the library: PCANBasic.dll !", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(-1);
+            }
+        }
+
+        private bool InitPcan()
+        {
+            TPCANStatus stsResult;
+
+            // Connects a selected PCAN-Basic channel
+            //
+            if (m_IsFD)
+                stsResult = PCANBasic.InitializeFD(
+                    m_PcanHandle,
+                    txtBitrate.Text);
+            else
+                m_Baudrate = TPCANBaudrate.PCAN_BAUD_1M;
+            stsResult = PCANBasic.Initialize(
+                m_PcanHandle,
+                m_Baudrate,
+                0,
+                0,
+                0);
+
+            if (stsResult != TPCANStatus.PCAN_ERROR_OK)
+                if (stsResult != TPCANStatus.PCAN_ERROR_CAUTION)
+                    MessageBox.Show(GetFormatedError(stsResult));
+                else
+                {
+                    IncludeTextMessage("******************************************************");
+                    IncludeTextMessage("The bitrate being used is different than the given one");
+                    IncludeTextMessage("******************************************************");
+                    stsResult = TPCANStatus.PCAN_ERROR_OK;
+                }
+            else
+                // Prepares the PCAN-Basic's PCAN-Trace file
+                //
+                ConfigureTraceFile();
+
+            // Sets the connection status of the main-form
+            //
+            //SetConnectionStatus(stsResult == TPCANStatus.PCAN_ERROR_OK);
+            if (stsResult == TPCANStatus.PCAN_ERROR_OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void btnRelease_Click(object sender, EventArgs e)
+        {
+            // Releases a current connected PCAN-Basic channel
+            PCANBasic.Uninitialize(m_PcanHandle);
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            TPCANStatus stsResult;
+
+            // Resets the receive and transmit queues of a PCAN Channel.
+            //
+            stsResult = PCANBasic.Reset(m_PcanHandle);
+
+            // If it fails, a error message is shown
+            //
+            if (stsResult != TPCANStatus.PCAN_ERROR_OK)
+                MessageBox.Show(GetFormatedError(stsResult));
+            else
+                IncludeTextMessage("Receive and transmit queues successfully reset");
+        }
+
+        private void btnStatus_Click(object sender, EventArgs e)
+        {
+            TPCANStatus stsResult;
+            String errorName;
+
+            // Gets the current BUS status of a PCAN Channel.
+            //
+            stsResult = PCANBasic.GetStatus(m_PcanHandle);
+
+            // Switch On Error Name
+            //
+            switch (stsResult)
+            {
+                case TPCANStatus.PCAN_ERROR_INITIALIZE:
+                    errorName = "PCAN_ERROR_INITIALIZE";
+                    break;
+
+                case TPCANStatus.PCAN_ERROR_BUSLIGHT:
+                    errorName = "PCAN_ERROR_BUSLIGHT";
+                    break;
+
+                case TPCANStatus.PCAN_ERROR_BUSHEAVY: // TPCANStatus.PCAN_ERROR_BUSWARNING
+                    errorName = m_IsFD ? "PCAN_ERROR_BUSWARNING" : "PCAN_ERROR_BUSHEAVY";
+                    break;
+
+                case TPCANStatus.PCAN_ERROR_BUSPASSIVE:
+                    errorName = "PCAN_ERROR_BUSPASSIVE";
+                    break;
+
+                case TPCANStatus.PCAN_ERROR_BUSOFF:
+                    errorName = "PCAN_ERROR_BUSOFF";
+                    break;
+
+                case TPCANStatus.PCAN_ERROR_OK:
+                    errorName = "PCAN_ERROR_OK";
+                    break;
+
+                default:
+                    errorName = "See Documentation";
+                    break;
+            }
+
+            // Display Message
+            //
+            IncludeTextMessage(String.Format("Status: {0} ({1:X}h)", errorName, stsResult));
+        }
+
+        #endregion
+
+        #region Timer event-handler
+
+        private void tMMainFormRefresh_Tick(object sender, EventArgs e)
+        {
+            //用定时器更新MainForm底部的时间显示。ID = 3，对应sBFeedback里的statusBarPanel4，即tt4
+            sBFeedbackShow(DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToLongTimeString(), 3);
+        }
+
+        #endregion
+
+        private void btnParameters_Click(object sender, EventArgs e)
+        {
+            pf = ParametersForm.GetInstance();
+            pf.StartPosition = FormStartPosition.Manual;
+            pf.Location = new Point(0, 60);
+            pf.MdiParent = this;
+            pf.BringToFront();
+            pf.Show();
+            //SetParent((int)pf.Handle, (int)this.Handle);
+        }
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            tr = TestRun.GetInstance();
+            tr.StartPosition = FormStartPosition.Manual;
+            tr.Location = new Point(1100, 60);
+            tr.MdiParent = this;
+            tr.BringToFront();
+            //SetParent((int)tr.Handle, (int)this.Handle);
+            tr.Show();
         }
 
 
+        private void btnWave_Click(object sender, EventArgs e)
+        {
+            os = OscilloScope.GetInstance();
+            os.StartPosition = FormStartPosition.Manual;
+            os.Location = new Point(0, 60);
+            os.MdiParent = this;
+            //os.Parent = pLMain;
+            os.BringToFront();
+            os.Show();
+            //SetParent((int)os.Handle, (int)this.Handle);
+        }
 
-        #endregion
+        private void btnMonitor_Click(object sender, EventArgs e)
+        {
+            mo = Monitor.GetInstance();
+            mo.StartPosition = FormStartPosition.Manual;
+            mo.Location = new Point(0, 60);
+            mo.MdiParent = this;
+            //mo.Parent = pLMain;
+            mo.BringToFront();
+            mo.Show();
+            //SetParent((int)mo.Handle, (int)this.Handle);
+        }
 
-        #endregion
+        //获取ID的菜单下拉事件
+        private void cBID_DropDown(object sender, EventArgs e)
+        {
+            cBID.Items.Clear();
+            MessageProccessing.allID.Clear();
+            pc.SearchModuleID();
+            //等待返回ID号
+            Thread.Sleep(150);
+            try
+            {
+                for (int i = 0; i < MessageProccessing.allID.Count; i++)
+                {
+                    if (!cBID.Items.Contains(MessageProccessing.allID[i]))//allID[]中添加元素的方案已经确定了不会有重复项，没必要再判断
+                    {
+                        cBID.Items.Add(MessageProccessing.allID[i]);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
+            }
+        }
 
-        #endregion
+        public void sBFeedbackShow(string message, int index)
+        {
+            sBFeedback.Panels[index].Text = message;
+        }
 
         private void cBID_TextChanged(object sender, EventArgs e)
         {
+            //关闭试运行的运动控制，相当于按了“红叉”和“停止”“停止随机”
+            if (tr != null)
+            {
+                tr.StopManCtrl();//若手动控制运行中，则会产生停止效果
+                tr.StopRandomMotion();//若随机运动控制运行中，则会产生停止效果
+                tr.clearValue();//若波形发生器运行中，则会产生停止效果
+            }
+
+
+
             if (cBID.Text != "")
             {
-                btnParameters.Enabled = true;
+                //btnParameters.Enabled = true;//暂时不提供参数表功能
                 btnRun.Enabled = true;
                 btnWave.Enabled = true;
                 btnMonitor.Enabled = true;
+                btnFlash.Enabled = true;
                 PCan.currentID = Convert.ToByte(cBID.Text);
                 pc.WriteOneWord(Configuration.SYS_ID, PCan.currentID, PCan.currentID);
                 InitialMemoryControlTable();
@@ -855,11 +963,24 @@ namespace ICDIBasic
                 btnRun.Enabled = false;
                 btnWave.Enabled = false;
                 btnMonitor.Enabled = false;
+                btnFlash.Enabled = false;
                 //更新底部模块类型显示
                 GetInstance().sBFeedbackShow("驱动器型号：", 4);
                 //更新底部模块减速比显示
                 GetInstance().sBFeedbackShow("模块减速比：", 5);
             }
+        }
+
+        //单击烧写flash
+        private void btnFlash_Click(object sender, EventArgs e)
+        {
+            WriteParameters wp;
+            wp = WriteParameters.GetInstance();
+            wp.StartPosition = FormStartPosition.Manual;
+            wp.Location = new Point(205, 125);
+            wp.MdiParent = this;
+            wp.BringToFront();
+            wp.Show();
         }
     }
 }

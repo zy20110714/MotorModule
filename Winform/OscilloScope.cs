@@ -164,6 +164,9 @@ namespace ICDIBasic
             //listview中测量项目初始化，showItems
             loadLVMeasureItems();
 
+            //cklMeasureItems中项目初始化
+            initialcklMeasureItems();
+
             //从文件设置电流、速度、位置（Y轴）缩放比例，并显示到界面
             cr = Convert.ToDouble(IniFile.ContentValue("plRange", "Current", IniFile.StrProPath));
             sr = Convert.ToDouble(IniFile.ContentValue("plRange", "Speed", IniFile.StrProPath));
@@ -444,7 +447,7 @@ namespace ICDIBasic
         //listview中测量项目的勾选状态改变
         private void lVFormat_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (lVMeasureItems.FocusedItem != null)
+            if (lVMeasureItems.FocusedItem != null)//如果是单击listview发生的更改，就切换选中状态
             {
                 int index = e.Item.Index;// 获取所选项目ID
                 e.Item.Selected = e.Item.Checked;//更改项目选中状态
@@ -460,6 +463,9 @@ namespace ICDIBasic
                 }
                 //向下位机请求数据
                 pc.WriteOneWord(Configuration.SCP_MASK, Mask, PCan.currentID);
+
+                //cklMeasureItems中项目初始化
+                initialcklMeasureItems();
             }
         }
 
@@ -730,11 +736,17 @@ namespace ICDIBasic
         //鼠标右击表格线型（颜色）区域能选择线型（颜色）
         private void lVFormat_MouseClick(object sender, MouseEventArgs e)
         {
+            ////得到颜色、线型列的左右边界，颜色是第4列，线型是第5列
+            //int colorLeft = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width;
+            //int colorRight = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width;
+            //int styleLeft = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width;
+            //int styleRight = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width + columnHeader5.Width;
+
             //得到颜色、线型列的左右边界，颜色是第4列，线型是第5列
-            int colorLeft = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width;
-            int colorRight = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width;
-            int styleLeft = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width;
-            int styleRight = columnHeader1.Width + columnHeader2.Width + columnHeader3.Width + columnHeader4.Width + columnHeader5.Width;
+            int colorLeft = columnHeader1.Width + columnHeader2.Width;
+            int colorRight = columnHeader1.Width + columnHeader2.Width + columnHeader4.Width;
+            int styleLeft = columnHeader1.Width + columnHeader2.Width + columnHeader4.Width;
+            int styleRight = columnHeader1.Width + columnHeader2.Width + columnHeader4.Width + columnHeader5.Width;
 
             //若是鼠标右击
             if (e.Button == MouseButtons.Right)
@@ -1056,6 +1068,90 @@ namespace ICDIBasic
         }
 
         #endregion
+
+        //当checkedlistbox的选中状态发生改变
+        private void cklMeasureItems_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (cklMeasureItems.Focused)//如果是单击listview发生的更改，就切换选中状态
+            {
+                int index = e.Index;// 获取所选项目ID
+                switch (e.NewValue)//更改显示项目的选中状态
+                {
+                    case CheckState.Unchecked: showItems[index].IsCheck = false; break;
+                    case CheckState.Checked: showItems[index].IsCheck = true; break;
+                }
+                //根据勾选与否，修改Mask
+                if (showItems[index].IsCheck)
+                {
+                    Mask |= showItems[index].Mask;
+                }
+                else
+                {
+                    Mask &= (byte)~(int)showItems[index].Mask;
+                }
+                //向下位机请求数据
+                pc.WriteOneWord(Configuration.SCP_MASK, Mask, PCan.currentID);
+
+                //listview中测量项目初始化，showItems
+                loadLVMeasureItems();
+            }
+        }
+
+        //cklMeasureItems中项目初始化
+        private void initialcklMeasureItems()
+        {
+            for (int i = 0; i < cklMeasureItems.Items.Count; i++)
+            {
+                //确定集合是否勾选的状态
+                if (showItems[i].IsCheck)
+                {
+                    cklMeasureItems.SetItemCheckState(i, CheckState.Checked);
+                }
+                else
+                {
+                    cklMeasureItems.SetItemCheckState(i, CheckState.Unchecked);
+                }
+            }
+        }
+
+        private void btnSelectAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < cklMeasureItems.Items.Count; i++)
+            {
+                showItems[i].IsCheck = true;
+                //修改Mask
+                Mask |= showItems[i].Mask;
+            }
+            //向下位机请求数据
+            pc.WriteOneWord(Configuration.SCP_MASK, Mask, PCan.currentID);
+
+            //listview中测量项目初始化，showItems
+            loadLVMeasureItems();
+            //cklMeasureItems中项目初始化
+            initialcklMeasureItems();
+        }
+
+        private void btnUnselectAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < cklMeasureItems.Items.Count; i++)
+            {
+                showItems[i].IsCheck = false;
+                //修改Mask
+                Mask &= (byte)~(int)showItems[i].Mask;
+            }
+            //向下位机请求数据
+            pc.WriteOneWord(Configuration.SCP_MASK, Mask, PCan.currentID);
+
+            //listview中测量项目初始化，showItems
+            loadLVMeasureItems();
+            //cklMeasureItems中项目初始化
+            initialcklMeasureItems();
+        }
+
+        private void picMinimized_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
     }
 
     public class ShowItem

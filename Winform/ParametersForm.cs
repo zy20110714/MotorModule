@@ -484,39 +484,10 @@ namespace ICDIBasic
 
         #endregion
 
-        //单击设置零位按钮
-        private void btnSetZeroPosition_Click(object sender, EventArgs e)
+        private void picMinimized_Click(object sender, EventArgs e)
         {
-            //如果当前是位置控制模式，则向内存控制表SYS_SET_ZERO_POS写入1
-            if ("3" == Configuration.MemoryControlTable[Convert.ToByte("30", 16)].ToString())
-            {
-                pc.WriteOneWord(Configuration.SYS_SET_ZERO_POS, 0x01, PCan.currentID);
-                Thread.Sleep(10);
-                //更新分类1
-                pc.ReadWords(16, 16, PCan.currentID);
-                Thread.Sleep(10);
-                //更新分类3，不更新出现了问题
-                pc.ReadWords(48, 16, PCan.currentID);
-                Thread.Sleep(10);
-                //给出下一步提示，可以直接点击烧写
-                MessageBox.Show("设置成功，请烧写Flash！");
-            }
-            else
-            {
-                MessageBox.Show("当前非位置控制模式！");
-            }
+            WindowState = FormWindowState.Minimized;
         }
-
-        //单击清除错误按钮
-        private void btnClearError_Click(object sender, EventArgs e)
-        {
-            pc.WriteOneWord(Configuration.SYS_CLEAR_ERROR, 0x01, PCan.currentID);
-            Thread.Sleep(10);
-            pc.WriteOneWord(Configuration.SYS_ENABLE_DRIVER, 0x01, PCan.currentID);
-            Thread.Sleep(10);
-            MessageBox.Show("清错并使能成功。");
-        }
-
     }
 
 

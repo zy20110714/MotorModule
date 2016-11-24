@@ -48,7 +48,6 @@
             this.btnStatus = new System.Windows.Forms.Button();
             this.lbxInfo = new System.Windows.Forms.ListBox();
             this.tMMainFormRefresh = new System.Windows.Forms.Timer(this.components);
-            this.tMCheck = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.sBFeedback = new System.Windows.Forms.StatusBar();
             this.statusBarPanel1 = new System.Windows.Forms.StatusBarPanel();
@@ -58,16 +57,13 @@
             this.statusBarPanel5 = new System.Windows.Forms.StatusBarPanel();
             this.statusBarPanel6 = new System.Windows.Forms.StatusBarPanel();
             this.pLContent = new System.Windows.Forms.Panel();
-            this.tBMultiTurn = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnFlash = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cBID = new System.Windows.Forms.ComboBox();
-            this.btnOther = new System.Windows.Forms.Button();
             this.btnRun = new System.Windows.Forms.Button();
             this.btnWave = new System.Windows.Forms.Button();
             this.btnMonitor = new System.Windows.Forms.Button();
             this.btnParameters = new System.Windows.Forms.Button();
-            this.pLMain = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -378,12 +374,6 @@
             this.tMMainFormRefresh.Interval = 1000;
             this.tMMainFormRefresh.Tick += new System.EventHandler(this.tMMainFormRefresh_Tick);
             // 
-            // tMCheck
-            // 
-            this.tMCheck.Enabled = true;
-            this.tMCheck.Interval = 2000;
-            this.tMCheck.Tick += new System.EventHandler(this.tMCheck_Tick);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
@@ -453,44 +443,42 @@
             // 
             // pLContent
             // 
+            this.pLContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pLContent.BackColor = System.Drawing.Color.Tan;
-            this.pLContent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pLContent.Controls.Add(this.tBMultiTurn);
             this.pLContent.Controls.Add(this.panel1);
-            this.pLContent.Controls.Add(this.panel2);
+            this.pLContent.Controls.Add(this.btnFlash);
             this.pLContent.Controls.Add(this.label2);
             this.pLContent.Controls.Add(this.cBID);
-            this.pLContent.Controls.Add(this.btnOther);
             this.pLContent.Controls.Add(this.btnRun);
             this.pLContent.Controls.Add(this.btnWave);
             this.pLContent.Controls.Add(this.btnMonitor);
             this.pLContent.Controls.Add(this.btnParameters);
             this.pLContent.Location = new System.Drawing.Point(0, 0);
+            this.pLContent.Margin = new System.Windows.Forms.Padding(0);
             this.pLContent.Name = "pLContent";
-            this.pLContent.Size = new System.Drawing.Size(1169, 35);
+            this.pLContent.Size = new System.Drawing.Size(1169, 41);
             this.pLContent.TabIndex = 54;
             // 
-            // tBMultiTurn
+            // btnFlash
             // 
-            this.tBMultiTurn.Location = new System.Drawing.Point(644, 5);
-            this.tBMultiTurn.Name = "tBMultiTurn";
-            this.tBMultiTurn.Size = new System.Drawing.Size(81, 21);
-            this.tBMultiTurn.TabIndex = 53;
-            // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel2.Location = new System.Drawing.Point(845, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(26, 28);
-            this.panel2.TabIndex = 0;
+            this.btnFlash.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFlash.BackgroundImage")));
+            this.btnFlash.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFlash.Enabled = false;
+            this.btnFlash.FlatAppearance.BorderSize = 0;
+            this.btnFlash.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFlash.Location = new System.Drawing.Point(559, 3);
+            this.btnFlash.Name = "btnFlash";
+            this.btnFlash.Size = new System.Drawing.Size(95, 35);
+            this.btnFlash.TabIndex = 48;
+            this.btnFlash.UseVisualStyleBackColor = true;
+            this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(3, 9);
+            this.label2.Location = new System.Drawing.Point(3, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 14);
             this.label2.TabIndex = 3;
@@ -499,37 +487,25 @@
             // cBID
             // 
             this.cBID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cBID.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBID.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cBID.FormattingEnabled = true;
-            this.cBID.Location = new System.Drawing.Point(71, -2);
+            this.cBID.Location = new System.Drawing.Point(69, 6);
             this.cBID.Name = "cBID";
             this.cBID.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cBID.Size = new System.Drawing.Size(79, 37);
+            this.cBID.Size = new System.Drawing.Size(80, 32);
             this.cBID.TabIndex = 2;
             this.cBID.DropDown += new System.EventHandler(this.cBID_DropDown);
             this.cBID.TextChanged += new System.EventHandler(this.cBID_TextChanged);
             // 
-            // btnOther
-            // 
-            this.btnOther.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnOther.BackgroundImage")));
-            this.btnOther.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnOther.Enabled = false;
-            this.btnOther.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnOther.Location = new System.Drawing.Point(535, -2);
-            this.btnOther.Name = "btnOther";
-            this.btnOther.Size = new System.Drawing.Size(75, 35);
-            this.btnOther.TabIndex = 1;
-            this.btnOther.UseVisualStyleBackColor = true;
-            // 
             // btnRun
             // 
             this.btnRun.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRun.BackgroundImage")));
-            this.btnRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRun.Enabled = false;
             this.btnRun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRun.Location = new System.Drawing.Point(444, -2);
+            this.btnRun.Location = new System.Drawing.Point(458, 3);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(85, 35);
+            this.btnRun.Size = new System.Drawing.Size(95, 35);
             this.btnRun.TabIndex = 1;
             this.btnRun.UseVisualStyleBackColor = true;
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
@@ -537,12 +513,12 @@
             // btnWave
             // 
             this.btnWave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnWave.BackgroundImage")));
-            this.btnWave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnWave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnWave.Enabled = false;
             this.btnWave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnWave.Location = new System.Drawing.Point(348, -2);
+            this.btnWave.Location = new System.Drawing.Point(357, 3);
             this.btnWave.Name = "btnWave";
-            this.btnWave.Size = new System.Drawing.Size(92, 35);
+            this.btnWave.Size = new System.Drawing.Size(95, 35);
             this.btnWave.TabIndex = 1;
             this.btnWave.UseVisualStyleBackColor = true;
             this.btnWave.Click += new System.EventHandler(this.btnWave_Click);
@@ -550,12 +526,12 @@
             // btnMonitor
             // 
             this.btnMonitor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMonitor.BackgroundImage")));
-            this.btnMonitor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnMonitor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnMonitor.Enabled = false;
             this.btnMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMonitor.Location = new System.Drawing.Point(254, -2);
+            this.btnMonitor.Location = new System.Drawing.Point(256, 3);
             this.btnMonitor.Name = "btnMonitor";
-            this.btnMonitor.Size = new System.Drawing.Size(90, 35);
+            this.btnMonitor.Size = new System.Drawing.Size(95, 35);
             this.btnMonitor.TabIndex = 1;
             this.btnMonitor.UseVisualStyleBackColor = true;
             this.btnMonitor.Click += new System.EventHandler(this.btnMonitor_Click);
@@ -563,30 +539,22 @@
             // btnParameters
             // 
             this.btnParameters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnParameters.BackgroundImage")));
-            this.btnParameters.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnParameters.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnParameters.Enabled = false;
             this.btnParameters.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnParameters.Location = new System.Drawing.Point(156, -1);
+            this.btnParameters.Location = new System.Drawing.Point(155, 3);
             this.btnParameters.Name = "btnParameters";
-            this.btnParameters.Size = new System.Drawing.Size(94, 35);
+            this.btnParameters.Size = new System.Drawing.Size(95, 35);
             this.btnParameters.TabIndex = 0;
             this.btnParameters.UseVisualStyleBackColor = true;
             this.btnParameters.Click += new System.EventHandler(this.btnParameters_Click);
-            // 
-            // pLMain
-            // 
-            this.pLMain.BackColor = System.Drawing.Color.Silver;
-            this.pLMain.Location = new System.Drawing.Point(0, 35);
-            this.pLMain.Name = "pLMain";
-            this.pLMain.Size = new System.Drawing.Size(1169, 612);
-            this.pLMain.TabIndex = 55;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1169, 671);
-            this.Controls.Add(this.pLMain);
             this.Controls.Add(this.pLContent);
             this.Controls.Add(this.sBFeedback);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -598,7 +566,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -630,7 +597,6 @@
         private System.Windows.Forms.Button btnHwRefresh;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnStatus;
-        private System.Windows.Forms.Timer tMCheck;
         private System.Windows.Forms.ComboBox cbbHwType;
         private System.Windows.Forms.ComboBox cbbInterrupt;
         private System.Windows.Forms.ComboBox cbbIO;
@@ -647,15 +613,12 @@
         private System.Windows.Forms.Button btnParameters;
         private System.Windows.Forms.ComboBox cBID;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnOther;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.Button btnWave;
-        private System.Windows.Forms.Panel pLMain;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox tBMultiTurn;
         private System.Windows.Forms.TextBox txtBitrate;
         private System.Windows.Forms.StatusBarPanel statusBarPanel5;
         private System.Windows.Forms.StatusBarPanel statusBarPanel6;
+        private System.Windows.Forms.Button btnFlash;
     }
 }
 

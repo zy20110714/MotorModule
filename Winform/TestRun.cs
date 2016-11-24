@@ -105,14 +105,14 @@ namespace ICDIBasic
             this.Close();
         }
 
-        private void pBMinimized_Click(object sender, EventArgs e)
+        private void picMinimized_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
         private void InitialControls()
         {
-            pLEnable.Enabled = true;
+            //pLEnable.Enabled = true;
             EnableRun = true;
 
             //根据控制表当前数据初始化控制模式
@@ -127,36 +127,36 @@ namespace ICDIBasic
             IscBSymmetryChecked();//根据cBSymmetry的值确定tBMin
         }
 
-        private void pLEnable_MouseDown(object sender, MouseEventArgs e)
-        {
-            BringToFront();
-        }
-
         #region 用鼠标拖拽移动窗体
-        private Point mousePoint = Point.Empty;
+
+        private Point oldMousePoint = Point.Empty;
+        Point oldLocation = Point.Empty;
+
         private void pLName_MouseDown(object sender, MouseEventArgs e)
         {
             BringToFront();
+
             if (e.Button == MouseButtons.Left)
             {
-                mousePoint = MousePosition;
+                oldMousePoint = MousePosition;
+                oldLocation = Location;
             }
         }
 
         private void pLName_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && mousePoint != Point.Empty)
+            if (e.Button == MouseButtons.Left && oldMousePoint != Point.Empty)//为什么拖动的时候窗口会往下瞬移1小段距离？（父窗体是这样设置的SetParent((int)tr.Handle, (int)this.Handle);）
             {
-                Top += MousePosition.Y - mousePoint.Y;
-                Left += MousePosition.X - mousePoint.X;
-                mousePoint = MousePosition;
+                Location = new Point(oldLocation.X + MousePosition.X - oldMousePoint.X, oldLocation.Y + MousePosition.Y - oldMousePoint.Y);
+                //Location.Offset(MousePosition.X - oldMousePoint.X, MousePosition.Y - oldMousePoint.Y);//为什么不能用offset？
             }
         }
 
         private void pLName_MouseUp(object sender, MouseEventArgs e)
         {
-            mousePoint = Point.Empty;
+            oldMousePoint = Point.Empty;
         }
+
         #endregion
 
         private void AutomaticControl()
@@ -386,6 +386,7 @@ namespace ICDIBasic
                 MessageBox.Show("请输入合法的数值！");
                 MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
+            tBCurrentChangetBManual();//修改滑块位置
         }
 
         //按enter输入偏移零位的最小度数，同时进行输入检查
@@ -419,6 +420,7 @@ namespace ICDIBasic
                 MainForm.GetInstance().sBFeedbackShow(ex.Message, 1);
             }
             IscBSymmetryChecked();//根据cBSymmetry的值确定tBMin
+            tBCurrentChangetBManual();//修改滑块位置
         }
 
         //按enter输入偏移零位的最大度数，同时进行输入检查
@@ -490,6 +492,25 @@ namespace ICDIBasic
             pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
         }
 
+        public void StopManCtrl()
+        {
+            if (tMManualControl.Enabled)//若手动控制运行中
+            {
+                manCtrlStop();
+            }
+        }
+
+        //关闭手动控制
+        private void manCtrlStop()
+        {
+            tMManualControl.Stop();
+            btnEnManCtrl.Text = "开始";
+            btnRandomMotion.Enabled = true;//允许随机运动
+            cBControlMode.Enabled = true;//允许模式切换
+            pBMode.Enabled = true;//允许模式切换
+            btnReturnToZero.Enabled = true;//允许回零操作
+        }
+
         //手动控制启停按钮，控制定时器启停
         private void btnEnManCtrl_Click(object sender, EventArgs e)
         {
@@ -501,11 +522,7 @@ namespace ICDIBasic
             {
                 if (tMManualControl.Enabled)
                 {
-                    tMManualControl.Stop();
-                    btnEnManCtrl.Text = "开始";
-                    btnRandomMotion.Enabled = true;//允许随机运动
-                    cBControlMode.Enabled = true;//允许模式切换
-                    pBMode.Enabled = true;//允许模式切换
+                    manCtrlStop();//关闭手动控制
                 }
                 else
                 {
@@ -514,6 +531,7 @@ namespace ICDIBasic
                     btnRandomMotion.Enabled = false;//禁止随机运动
                     cBControlMode.Enabled = false;//禁止模式切换
                     pBMode.Enabled = false;//禁止模式切换
+                    btnReturnToZero.Enabled = false;//禁止回零操作
                 }
             }
         }
@@ -607,105 +625,46 @@ namespace ICDIBasic
                     btnEnManCtrl.Enabled = false;//禁止手动控制
                     cBControlMode.Enabled = false;//禁止模式切换
                     pBMode.Enabled = false;//禁止模式切换
+                    btnReturnToZero.Enabled = false;//禁止回零操作
                 }
                 else
                 {
-                    try
-                    {
-                        thread.Abort();
-                    }
-                    catch (Exception)
-                    {
-                        ;
-                    }
-                    thread = null;
-                    btnRandomMotion.Text = "开始随机";
-                    btnEnManCtrl.Enabled = true;//允许手动控制
-                    cBControlMode.Enabled = true;//允许模式切换
-                    pBMode.Enabled = true;//允许模式切换
+                    randomMotionStop();//关闭随机运动
                 }
             }
         }
 
+        //若随机运动开始，则关闭随机运动
+        public void StopRandomMotion()
+        {
+            if (thread != null)
+            {
+                randomMotionStop();
+            }
+        }
+
+        //关闭随机运动
+        private void randomMotionStop()
+        {
+            try
+            {
+                thread.Abort();
+            }
+            catch (Exception)
+            {
+                ;
+            }
+            thread = null;
+            btnRandomMotion.Text = "开始随机";
+            btnEnManCtrl.Enabled = true;//允许手动控制
+            cBControlMode.Enabled = true;//允许模式切换
+            pBMode.Enabled = true;//允许模式切换
+            btnReturnToZero.Enabled = true;//允许回零操作
+        }
+
         #endregion
 
         #endregion
-
-        //手动控制中回零功能使用
-        public short CurrentWorkMode = 0;
-        public int speedOfReturnZero = 0;
-        public int currentPosition = 0;
-        const short deadZone = 20;
-
-        //按住按钮加速回零
-        private void btnReturnToZero_MouseDown(object sender, MouseEventArgs e)
-        {
-            //读当前工作模式CurrentWorkMode，切换工作模式为速度控制
-            CurrentWorkMode = Configuration.MemoryControlTable[Convert.ToByte("30", 16)];
-            pc.WriteOneWord(Configuration.TAG_WORK_MODE, Configuration.MODE_SPEED, PCan.currentID);
-            //初始化控制速度，开启定时器（定时器中读当前位置，控制模块运动）
-            speedOfReturnZero = 0;
-            tMReturnToZero.Enabled = true;
-        }
-
-        //释放按钮回零控制结束
-        private void btnReturnToZero_MouseUp(object sender, MouseEventArgs e)
-        {
-            //关闭定时器
-            tMReturnToZero.Enabled = false;
-            //速度回0，切换回之前的工作模式
-            speedOfReturnZero = 0;
-            pc.WriteOneWord(Configuration.TAG_SPEED_H, Convert.ToSByte(speedOfReturnZero), PCan.currentID);
-            pc.WriteOneWord(Configuration.TAG_WORK_MODE, CurrentWorkMode, PCan.currentID);
-
-            //MessageBox.Show(speedOfReturnZero.ToString()+"以及"+ currentPosition);//测试用
-        }
-
-        //回零定时器
-        private void tMReturnToZero_Tick(object sender, EventArgs e)
-        {
-            ////预备用位置环控制使用
-            //////int manualValue = Convert.ToInt32(manualCur / 360.0 * 65536.0);
-            //////pc.WriteTwoWords(Configuration.TAG_POSITION_L, manualValue, PCan.currentID);
-
-            ////根据当前位置确定速度值（正负？大小？）
-            //byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_L]);
-            //byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.SYS_POSITION_H]);
-            //byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
-            //currentPosition = BitConverter.ToInt32(tempResult, 0);
-            ////currentPosition = 2000;
-            //MessageBox.Show(currentPosition.ToString()+"以及"+ speedOfReturnZero.ToString());//测试用
-            //if ((currentPosition + deadZone) < 0)
-            //{
-            //    //如果当前位置为负，则需要正转
-            //    speedOfReturnZero += 1;
-            //}
-            //else if ((currentPosition - deadZone) > 0)
-            //{
-            //    //否则当前位置为正，需要反转
-            //    speedOfReturnZero -= 1;
-            //}
-            //else
-            //{
-            //    speedOfReturnZero = 0;
-            //}
-            ////校对控制速度，读到的速度限制为rpm，转换成rps，要求不大于速度限制的一半
-            //if (Math.Abs(speedOfReturnZero) > Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED]/60/2)
-            //{
-            //    if (speedOfReturnZero > 0)
-            //    {
-            //        speedOfReturnZero = Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED] / 60 / 2;
-            //    }
-            //    else
-            //    {
-            //        speedOfReturnZero = -Configuration.MemoryControlTable[Configuration.LIT_MAX_SPEED] / 60 / 2;
-            //    }
-            //}
-            ////发控制速度的指令
-            //pc.WriteOneWord(Configuration.TAG_SPEED_H, Convert.ToSByte(speedOfReturnZero), PCan.currentID);
-            ////发读当前位置的指令
-            //pc.ReadWords(Configuration.SYS_POSITION_L, 2, PCan.currentID);
-        }
 
         #region 在当前位置运动
 
@@ -933,9 +892,10 @@ namespace ICDIBasic
 
         private void tMRefreshtBCurrent_Tick(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(pBMode.Tag) == 2)
+            if (Convert.ToInt32(pBMode.Tag) == 2)//若是处于“手动控制”中
             {
-                RefreshtBCurrent();//由当前位置刷新“当前位置显示”以及滑块
+                //由当前位置刷新“当前位置显示”以及滑块
+                RefreshtBCurrent();
             }
 
             //由当前控制模式刷新控制模式的显示
@@ -955,7 +915,7 @@ namespace ICDIBasic
             byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.TAG_POSITION_L]);
             byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[Configuration.TAG_POSITION_H]);
             byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
-            currentPosition = BitConverter.ToInt32(tempResult, 0);
+            int currentPosition = BitConverter.ToInt32(tempResult, 0);
             mCurrent = Convert.ToSingle(currentPosition) * 360 / 65536;
             tBCurrent.Text = mCurrent.ToString("F2");
             tBCurrentChangetBManual();
@@ -991,6 +951,54 @@ namespace ICDIBasic
         private void TestRun_Leave(object sender, EventArgs e)
         {
             tMRefreshtBCurrent.Start();//开启定时器自动刷新
+        }
+
+        //手动控制中回零功能使用
+        private void btnReturnToZero_Click(object sender, EventArgs e)
+        {
+            if (Configuration.MemoryControlTable[Convert.ToByte("30", 16)] != Configuration.MODE_POSITION)
+            {
+                MessageBox.Show("请在位置控制模式下使用！");
+            }
+            else
+            {
+                const int ZeroPosition = 0;
+                pc.WriteTwoWords(Configuration.TAG_POSITION_L, ZeroPosition, PCan.currentID);
+                mCurrent = Convert.ToSingle(ZeroPosition);
+                tBCurrent.Text = mCurrent.ToString("F2");
+                tBCurrentChangetBManual();
+            }
+        }
+
+        private void btnSetZeroPosition_Click(object sender, EventArgs e)
+        {
+            //如果当前是位置控制模式，则向内存控制表SYS_SET_ZERO_POS写入1
+            if ("3" == Configuration.MemoryControlTable[Convert.ToByte("30", 16)].ToString())
+            {
+                pc.WriteOneWord(Configuration.SYS_SET_ZERO_POS, 0x01, PCan.currentID);
+                Thread.Sleep(10);
+                //更新分类1
+                pc.ReadWords(16, 16, PCan.currentID);
+                Thread.Sleep(10);
+                //更新分类3，不更新出现了问题
+                pc.ReadWords(48, 16, PCan.currentID);
+                Thread.Sleep(10);
+                //给出下一步提示，可以直接点击烧写
+                MessageBox.Show("设置成功，请烧写Flash！");
+            }
+            else
+            {
+                MessageBox.Show("当前非位置控制模式！");
+            }
+        }
+
+        private void btnClearError_Click(object sender, EventArgs e)
+        {
+            pc.WriteOneWord(Configuration.SYS_CLEAR_ERROR, 0x01, PCan.currentID);
+            Thread.Sleep(10);
+            pc.WriteOneWord(Configuration.SYS_ENABLE_DRIVER, 0x01, PCan.currentID);
+            Thread.Sleep(10);
+            MessageBox.Show("清错并使能成功。");
         }
     }
 }

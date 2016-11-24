@@ -41,14 +41,13 @@
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("节点8（刹车相关）");
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("节点9（示波器相关）");
             this.pLName = new System.Windows.Forms.Panel();
+            this.picMinimized = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
             this.tVParam = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
             this.pLDescribe = new System.Windows.Forms.Panel();
-            this.btnSetZeroPosition = new System.Windows.Forms.Button();
-            this.btnClearError = new System.Windows.Forms.Button();
             this.btnFlash = new System.Windows.Forms.Button();
             this.btnCalculator = new System.Windows.Forms.Button();
             this.btnCompare = new System.Windows.Forms.Button();
@@ -77,6 +76,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pLName.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picMinimized)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
             this.pLDescribe.SuspendLayout();
@@ -86,18 +86,33 @@
             // 
             // pLName
             // 
-            this.pLName.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pLName.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pLName.Controls.Add(this.picMinimized);
             this.pLName.Controls.Add(this.label2);
             this.pLName.Controls.Add(this.pBExit);
             this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Location = new System.Drawing.Point(0, 0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(926, 52);
+            this.pLName.Size = new System.Drawing.Size(926, 50);
             this.pLName.TabIndex = 0;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
             this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
             this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
+            // 
+            // picMinimized
+            // 
+            this.picMinimized.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picMinimized.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picMinimized.BackgroundImage")));
+            this.picMinimized.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picMinimized.InitialImage = null;
+            this.picMinimized.Location = new System.Drawing.Point(825, 0);
+            this.picMinimized.Margin = new System.Windows.Forms.Padding(0);
+            this.picMinimized.Name = "picMinimized";
+            this.picMinimized.Size = new System.Drawing.Size(50, 50);
+            this.picMinimized.TabIndex = 3;
+            this.picMinimized.TabStop = false;
+            this.picMinimized.Click += new System.EventHandler(this.picMinimized_Click);
             // 
             // label2
             // 
@@ -113,10 +128,11 @@
             // 
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(874, 0);
+            this.pBExit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pBExit.Location = new System.Drawing.Point(876, 0);
+            this.pBExit.Margin = new System.Windows.Forms.Padding(0);
             this.pBExit.Name = "pBExit";
-            this.pBExit.Size = new System.Drawing.Size(52, 52);
+            this.pBExit.Size = new System.Drawing.Size(50, 50);
             this.pBExit.TabIndex = 0;
             this.pBExit.TabStop = false;
             this.pBExit.Click += new System.EventHandler(this.pBExit_Click);
@@ -206,8 +222,6 @@
             // 
             // pLDescribe
             // 
-            this.pLDescribe.Controls.Add(this.btnSetZeroPosition);
-            this.pLDescribe.Controls.Add(this.btnClearError);
             this.pLDescribe.Controls.Add(this.btnFlash);
             this.pLDescribe.Controls.Add(this.btnCalculator);
             this.pLDescribe.Controls.Add(this.btnCompare);
@@ -217,28 +231,6 @@
             this.pLDescribe.Name = "pLDescribe";
             this.pLDescribe.Size = new System.Drawing.Size(675, 55);
             this.pLDescribe.TabIndex = 4;
-            // 
-            // btnSetZeroPosition
-            // 
-            this.btnSetZeroPosition.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSetZeroPosition.Location = new System.Drawing.Point(484, 3);
-            this.btnSetZeroPosition.Name = "btnSetZeroPosition";
-            this.btnSetZeroPosition.Size = new System.Drawing.Size(101, 51);
-            this.btnSetZeroPosition.TabIndex = 8;
-            this.btnSetZeroPosition.Text = "当前位置\r\n设为零点";
-            this.btnSetZeroPosition.UseVisualStyleBackColor = true;
-            this.btnSetZeroPosition.Click += new System.EventHandler(this.btnSetZeroPosition_Click);
-            // 
-            // btnClearError
-            // 
-            this.btnClearError.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnClearError.Location = new System.Drawing.Point(375, 13);
-            this.btnClearError.Name = "btnClearError";
-            this.btnClearError.Size = new System.Drawing.Size(87, 29);
-            this.btnClearError.TabIndex = 9;
-            this.btnClearError.Text = "清错使能";
-            this.btnClearError.UseVisualStyleBackColor = true;
-            this.btnClearError.Click += new System.EventHandler(this.btnClearError_Click);
             // 
             // btnFlash
             // 
@@ -259,7 +251,7 @@
             this.btnCalculator.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCalculator.FlatAppearance.BorderSize = 0;
             this.btnCalculator.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalculator.Location = new System.Drawing.Point(221, 4);
+            this.btnCalculator.Location = new System.Drawing.Point(456, 3);
             this.btnCalculator.Name = "btnCalculator";
             this.btnCalculator.Size = new System.Drawing.Size(67, 50);
             this.btnCalculator.TabIndex = 0;
@@ -272,7 +264,7 @@
             this.btnCompare.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCompare.FlatAppearance.BorderSize = 0;
             this.btnCompare.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCompare.Location = new System.Drawing.Point(150, 4);
+            this.btnCompare.Location = new System.Drawing.Point(385, 3);
             this.btnCompare.Name = "btnCompare";
             this.btnCompare.Size = new System.Drawing.Size(65, 50);
             this.btnCompare.TabIndex = 0;
@@ -285,7 +277,7 @@
             this.btnInitialize.Enabled = false;
             this.btnInitialize.FlatAppearance.BorderSize = 0;
             this.btnInitialize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInitialize.Location = new System.Drawing.Point(79, 3);
+            this.btnInitialize.Location = new System.Drawing.Point(314, 2);
             this.btnInitialize.Name = "btnInitialize";
             this.btnInitialize.Size = new System.Drawing.Size(65, 50);
             this.btnInitialize.TabIndex = 0;
@@ -298,7 +290,7 @@
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Location = new System.Drawing.Point(294, 4);
+            this.btnSave.Location = new System.Drawing.Point(529, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(65, 50);
             this.btnSave.TabIndex = 0;
@@ -531,12 +523,12 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ParametersForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "            ";
+            this.Text = "参数设置";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParametersForm_FormClosed);
             this.pLName.ResumeLayout(false);
             this.pLName.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picMinimized)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
             this.pLDescribe.ResumeLayout(false);
@@ -585,7 +577,6 @@
         private System.Windows.Forms.Button btnInitialize;
         private System.Windows.Forms.OpenFileDialog oFParaPath;
         private System.Windows.Forms.SaveFileDialog saveFileDialogParaPath;
-        private System.Windows.Forms.Button btnSetZeroPosition;
-        private System.Windows.Forms.Button btnClearError;
+        private System.Windows.Forms.PictureBox picMinimized;
     }
 }

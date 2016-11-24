@@ -45,36 +45,6 @@
             this.timerPaint = new System.Windows.Forms.Timer(this.components);
             this.cDcolor = new System.Windows.Forms.ColorDialog();
             this.tCMonitor = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.lVMeasureItems = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label21 = new System.Windows.Forms.Label();
-            this.tBScanFrequency = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.lVPointer = new System.Windows.Forms.ListView();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label15 = new System.Windows.Forms.Label();
-            this.nUSmoothData = new System.Windows.Forms.NumericUpDown();
-            this.rBPointer2 = new System.Windows.Forms.RadioButton();
-            this.rBPointer1 = new System.Windows.Forms.RadioButton();
-            this.cBPointer = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gBPos = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -108,11 +78,41 @@
             this.tBCurrentP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.lVMeasureItems = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tBScanFrequency = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lVPointer = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label15 = new System.Windows.Forms.Label();
+            this.nUSmoothData = new System.Windows.Forms.NumericUpDown();
+            this.rBPointer2 = new System.Windows.Forms.RadioButton();
+            this.rBPointer1 = new System.Windows.Forms.RadioButton();
+            this.cBPointer = new System.Windows.Forms.CheckBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.btnCurrentCompensation = new System.Windows.Forms.Button();
             this.btnFriction = new System.Windows.Forms.Button();
             this.tMPointer = new System.Windows.Forms.Timer(this.components);
             this.pLName = new System.Windows.Forms.Panel();
+            this.picMinimized = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
             this.pBExit = new System.Windows.Forms.PictureBox();
             this.pBSetUp = new System.Windows.Forms.PictureBox();
@@ -121,24 +121,30 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.cklMeasureItems = new System.Windows.Forms.CheckedListBox();
+            this.btnSelectAll = new System.Windows.Forms.Button();
+            this.btnUnselectAll = new System.Windows.Forms.Button();
+            this.pnlMeasureItems = new System.Windows.Forms.Panel();
             this.pLBoard.SuspendLayout();
             this.pLRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).BeginInit();
             this.tCMonitor.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.gBPos.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.gBSpeed.SuspendLayout();
             this.gBCurrent.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.pLName.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picMinimized)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).BeginInit();
+            this.pnlMeasureItems.SuspendLayout();
             this.SuspendLayout();
             // 
             // pLBoard
@@ -315,10 +321,10 @@
             // 
             // tCMonitor
             // 
+            this.tCMonitor.Controls.Add(this.tabPage2);
             this.tCMonitor.Controls.Add(this.tabPage4);
             this.tCMonitor.Controls.Add(this.tabPage1);
             this.tCMonitor.Controls.Add(this.tabPage3);
-            this.tCMonitor.Controls.Add(this.tabPage2);
             this.tCMonitor.Controls.Add(this.tabPage5);
             this.tCMonitor.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tCMonitor.Location = new System.Drawing.Point(0, 479);
@@ -327,288 +333,6 @@
             this.tCMonitor.Size = new System.Drawing.Size(1046, 220);
             this.tCMonitor.TabIndex = 1;
             this.tCMonitor.SelectedIndexChanged += new System.EventHandler(this.tCMonitor_SelectedIndexChanged);
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.lVMeasureItems);
-            this.tabPage4.Location = new System.Drawing.Point(4, 31);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1038, 185);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "测量项目";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // lVMeasureItems
-            // 
-            this.lVMeasureItems.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lVMeasureItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lVMeasureItems.CheckBoxes = true;
-            this.lVMeasureItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lVMeasureItems.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lVMeasureItems.FullRowSelect = true;
-            this.lVMeasureItems.GridLines = true;
-            this.lVMeasureItems.Location = new System.Drawing.Point(0, 0);
-            this.lVMeasureItems.MultiSelect = false;
-            this.lVMeasureItems.Name = "lVMeasureItems";
-            this.lVMeasureItems.Size = new System.Drawing.Size(828, 200);
-            this.lVMeasureItems.TabIndex = 0;
-            this.lVMeasureItems.UseCompatibleStateImageBehavior = false;
-            this.lVMeasureItems.View = System.Windows.Forms.View.Details;
-            this.lVMeasureItems.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
-            this.lVMeasureItems.Leave += new System.EventHandler(this.lVMeasureItems_Leave);
-            this.lVMeasureItems.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = " 显示";
-            this.columnHeader1.Width = 80;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "测定项目";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 200;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "观测/参考";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 140;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "颜色";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 150;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "线型";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 140;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "线宽";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader6.Width = 115;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.label21);
-            this.tabPage1.Controls.Add(this.tBScanFrequency);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 31);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1038, 185);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "测量条件";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(460, 31);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(338, 21);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "记录时间间隔（对10kHZ的分频值）";
-            // 
-            // tBScanFrequency
-            // 
-            this.tBScanFrequency.Location = new System.Drawing.Point(598, 55);
-            this.tBScanFrequency.Name = "tBScanFrequency";
-            this.tBScanFrequency.Size = new System.Drawing.Size(57, 31);
-            this.tBScanFrequency.TabIndex = 1;
-            this.tBScanFrequency.Text = "100";
-            this.tBScanFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tBScanFrequency.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
-            this.tBScanFrequency.Leave += new System.EventHandler(this.tBCurrentP_Leave);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Location = new System.Drawing.Point(219, 9);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "触发条件";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(3, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 100);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "采样时间";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.DarkGray;
-            this.tabPage3.Controls.Add(this.lVPointer);
-            this.tabPage3.Controls.Add(this.label15);
-            this.tabPage3.Controls.Add(this.nUSmoothData);
-            this.tabPage3.Controls.Add(this.rBPointer2);
-            this.tabPage3.Controls.Add(this.rBPointer1);
-            this.tabPage3.Controls.Add(this.cBPointer);
-            this.tabPage3.Location = new System.Drawing.Point(4, 31);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1038, 185);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "指针";
-            // 
-            // lVPointer
-            // 
-            this.lVPointer.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lVPointer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10,
-            this.columnHeader11,
-            this.columnHeader12,
-            this.columnHeader13,
-            this.columnHeader14,
-            this.columnHeader15,
-            this.columnHeader16});
-            this.lVPointer.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lVPointer.GridLines = true;
-            this.lVPointer.Location = new System.Drawing.Point(139, 7);
-            this.lVPointer.Name = "lVPointer";
-            this.lVPointer.Size = new System.Drawing.Size(895, 182);
-            this.lVPointer.TabIndex = 5;
-            this.lVPointer.UseCompatibleStateImageBehavior = false;
-            this.lVPointer.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "   项目";
-            this.columnHeader7.Width = 125;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "单位";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader8.Width = 56;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "指针1";
-            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader9.Width = 72;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "指针2";
-            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader10.Width = 74;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "差值";
-            this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader11.Width = 84;
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "均值";
-            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader12.Width = 85;
-            // 
-            // columnHeader13
-            // 
-            this.columnHeader13.Text = "最大值";
-            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader13.Width = 86;
-            // 
-            // columnHeader14
-            // 
-            this.columnHeader14.Text = "最小值";
-            this.columnHeader14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader14.Width = 93;
-            // 
-            // columnHeader15
-            // 
-            this.columnHeader15.Text = "标准差";
-            this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader15.Width = 82;
-            // 
-            // columnHeader16
-            // 
-            this.columnHeader16.Text = "两点斜率(/s)";
-            this.columnHeader16.Width = 132;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label15.Location = new System.Drawing.Point(57, 92);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(85, 19);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "数据平滑";
-            // 
-            // nUSmoothData
-            // 
-            this.nUSmoothData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.nUSmoothData.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nUSmoothData.Location = new System.Drawing.Point(3, 83);
-            this.nUSmoothData.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nUSmoothData.Name = "nUSmoothData";
-            this.nUSmoothData.Size = new System.Drawing.Size(48, 29);
-            this.nUSmoothData.TabIndex = 3;
-            this.nUSmoothData.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nUSmoothData.ValueChanged += new System.EventHandler(this.nUSmoothData_ValueChanged);
-            // 
-            // rBPointer2
-            // 
-            this.rBPointer2.AutoSize = true;
-            this.rBPointer2.Checked = true;
-            this.rBPointer2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rBPointer2.Location = new System.Drawing.Point(26, 57);
-            this.rBPointer2.Name = "rBPointer2";
-            this.rBPointer2.Size = new System.Drawing.Size(66, 20);
-            this.rBPointer2.TabIndex = 2;
-            this.rBPointer2.TabStop = true;
-            this.rBPointer2.Text = "指针2";
-            this.rBPointer2.UseVisualStyleBackColor = true;
-            // 
-            // rBPointer1
-            // 
-            this.rBPointer1.AutoSize = true;
-            this.rBPointer1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rBPointer1.Location = new System.Drawing.Point(26, 25);
-            this.rBPointer1.Name = "rBPointer1";
-            this.rBPointer1.Size = new System.Drawing.Size(66, 20);
-            this.rBPointer1.TabIndex = 1;
-            this.rBPointer1.Text = "指针1";
-            this.rBPointer1.UseVisualStyleBackColor = true;
-            this.rBPointer1.CheckedChanged += new System.EventHandler(this.rBPointer1_CheckedChanged);
-            // 
-            // cBPointer
-            // 
-            this.cBPointer.AutoSize = true;
-            this.cBPointer.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cBPointer.Location = new System.Drawing.Point(3, 3);
-            this.cBPointer.Name = "cBPointer";
-            this.cBPointer.Size = new System.Drawing.Size(104, 23);
-            this.cBPointer.TabIndex = 0;
-            this.cBPointer.Text = "显示指针";
-            this.cBPointer.UseVisualStyleBackColor = true;
-            this.cBPointer.CheckedChanged += new System.EventHandler(this.cBPointer_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -992,6 +716,281 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "P参数";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.lVMeasureItems);
+            this.tabPage4.Location = new System.Drawing.Point(4, 31);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1038, 185);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "测量项目";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // lVMeasureItems
+            // 
+            this.lVMeasureItems.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lVMeasureItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lVMeasureItems.CheckBoxes = true;
+            this.lVMeasureItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lVMeasureItems.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lVMeasureItems.FullRowSelect = true;
+            this.lVMeasureItems.GridLines = true;
+            this.lVMeasureItems.Location = new System.Drawing.Point(0, 0);
+            this.lVMeasureItems.MultiSelect = false;
+            this.lVMeasureItems.Name = "lVMeasureItems";
+            this.lVMeasureItems.Size = new System.Drawing.Size(1038, 200);
+            this.lVMeasureItems.TabIndex = 0;
+            this.lVMeasureItems.UseCompatibleStateImageBehavior = false;
+            this.lVMeasureItems.View = System.Windows.Forms.View.Details;
+            this.lVMeasureItems.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVFormat_ItemChecked);
+            this.lVMeasureItems.Leave += new System.EventHandler(this.lVMeasureItems_Leave);
+            this.lVMeasureItems.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVFormat_MouseClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = " 显示";
+            this.columnHeader1.Width = 80;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "测定项目";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 200;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "颜色";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader4.Width = 150;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "线型";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader5.Width = 140;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "线宽";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader6.Width = 115;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label21);
+            this.tabPage1.Controls.Add(this.tBScanFrequency);
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 31);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1038, 185);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "测量条件";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(460, 31);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(338, 21);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "记录时间间隔（对10kHZ的分频值）";
+            // 
+            // tBScanFrequency
+            // 
+            this.tBScanFrequency.Location = new System.Drawing.Point(598, 55);
+            this.tBScanFrequency.Name = "tBScanFrequency";
+            this.tBScanFrequency.Size = new System.Drawing.Size(57, 31);
+            this.tBScanFrequency.TabIndex = 1;
+            this.tBScanFrequency.Text = "100";
+            this.tBScanFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tBScanFrequency.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBCurrentP_KeyDown);
+            this.tBScanFrequency.Leave += new System.EventHandler(this.tBCurrentP_Leave);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(219, 9);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "触发条件";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(3, 8);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "采样时间";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage3.Controls.Add(this.lVPointer);
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.nUSmoothData);
+            this.tabPage3.Controls.Add(this.rBPointer2);
+            this.tabPage3.Controls.Add(this.rBPointer1);
+            this.tabPage3.Controls.Add(this.cBPointer);
+            this.tabPage3.Location = new System.Drawing.Point(4, 31);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1038, 185);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "指针";
+            // 
+            // lVPointer
+            // 
+            this.lVPointer.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lVPointer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13,
+            this.columnHeader14,
+            this.columnHeader15,
+            this.columnHeader16});
+            this.lVPointer.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lVPointer.GridLines = true;
+            this.lVPointer.Location = new System.Drawing.Point(139, 7);
+            this.lVPointer.Name = "lVPointer";
+            this.lVPointer.Size = new System.Drawing.Size(895, 182);
+            this.lVPointer.TabIndex = 5;
+            this.lVPointer.UseCompatibleStateImageBehavior = false;
+            this.lVPointer.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "   项目";
+            this.columnHeader7.Width = 125;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "单位";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader8.Width = 56;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "指针1";
+            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader9.Width = 72;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "指针2";
+            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader10.Width = 74;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "差值";
+            this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader11.Width = 84;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "均值";
+            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader12.Width = 85;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "最大值";
+            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader13.Width = 86;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "最小值";
+            this.columnHeader14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader14.Width = 93;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "标准差";
+            this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader15.Width = 82;
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "两点斜率(/s)";
+            this.columnHeader16.Width = 132;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Location = new System.Drawing.Point(57, 92);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(85, 19);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "数据平滑";
+            // 
+            // nUSmoothData
+            // 
+            this.nUSmoothData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nUSmoothData.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nUSmoothData.Location = new System.Drawing.Point(3, 83);
+            this.nUSmoothData.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nUSmoothData.Name = "nUSmoothData";
+            this.nUSmoothData.Size = new System.Drawing.Size(48, 29);
+            this.nUSmoothData.TabIndex = 3;
+            this.nUSmoothData.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nUSmoothData.ValueChanged += new System.EventHandler(this.nUSmoothData_ValueChanged);
+            // 
+            // rBPointer2
+            // 
+            this.rBPointer2.AutoSize = true;
+            this.rBPointer2.Checked = true;
+            this.rBPointer2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rBPointer2.Location = new System.Drawing.Point(26, 57);
+            this.rBPointer2.Name = "rBPointer2";
+            this.rBPointer2.Size = new System.Drawing.Size(66, 20);
+            this.rBPointer2.TabIndex = 2;
+            this.rBPointer2.TabStop = true;
+            this.rBPointer2.Text = "指针2";
+            this.rBPointer2.UseVisualStyleBackColor = true;
+            // 
+            // rBPointer1
+            // 
+            this.rBPointer1.AutoSize = true;
+            this.rBPointer1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rBPointer1.Location = new System.Drawing.Point(26, 25);
+            this.rBPointer1.Name = "rBPointer1";
+            this.rBPointer1.Size = new System.Drawing.Size(66, 20);
+            this.rBPointer1.TabIndex = 1;
+            this.rBPointer1.Text = "指针1";
+            this.rBPointer1.UseVisualStyleBackColor = true;
+            this.rBPointer1.CheckedChanged += new System.EventHandler(this.rBPointer1_CheckedChanged);
+            // 
+            // cBPointer
+            // 
+            this.cBPointer.AutoSize = true;
+            this.cBPointer.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cBPointer.Location = new System.Drawing.Point(3, 3);
+            this.cBPointer.Name = "cBPointer";
+            this.cBPointer.Size = new System.Drawing.Size(104, 23);
+            this.cBPointer.TabIndex = 0;
+            this.cBPointer.Text = "显示指针";
+            this.cBPointer.UseVisualStyleBackColor = true;
+            this.cBPointer.CheckedChanged += new System.EventHandler(this.cBPointer_CheckedChanged);
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.btnCurrentCompensation);
@@ -1033,17 +1032,32 @@
             // pLName
             // 
             this.pLName.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pLName.Controls.Add(this.picMinimized);
             this.pLName.Controls.Add(this.label16);
             this.pLName.Controls.Add(this.pBExit);
             this.pLName.Controls.Add(this.pBSetUp);
             this.pLName.Location = new System.Drawing.Point(0, 0);
             this.pLName.Name = "pLName";
-            this.pLName.Size = new System.Drawing.Size(1059, 52);
+            this.pLName.Size = new System.Drawing.Size(1059, 50);
             this.pLName.TabIndex = 6;
             this.pLName.Click += new System.EventHandler(this.pLName_Click);
             this.pLName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseDown);
             this.pLName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseMove);
             this.pLName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pLName_MouseUp);
+            // 
+            // picMinimized
+            // 
+            this.picMinimized.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picMinimized.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picMinimized.BackgroundImage")));
+            this.picMinimized.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picMinimized.InitialImage = null;
+            this.picMinimized.Location = new System.Drawing.Point(958, 0);
+            this.picMinimized.Margin = new System.Windows.Forms.Padding(0);
+            this.picMinimized.Name = "picMinimized";
+            this.picMinimized.Size = new System.Drawing.Size(50, 50);
+            this.picMinimized.TabIndex = 2;
+            this.picMinimized.TabStop = false;
+            this.picMinimized.Click += new System.EventHandler(this.picMinimized_Click);
             // 
             // label16
             // 
@@ -1059,10 +1073,11 @@
             // 
             this.pBExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBExit.BackgroundImage")));
             this.pBExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pBExit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pBExit.Location = new System.Drawing.Point(1007, 0);
+            this.pBExit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pBExit.Location = new System.Drawing.Point(1009, 0);
+            this.pBExit.Margin = new System.Windows.Forms.Padding(0);
             this.pBExit.Name = "pBExit";
-            this.pBExit.Size = new System.Drawing.Size(52, 52);
+            this.pBExit.Size = new System.Drawing.Size(50, 50);
             this.pBExit.TabIndex = 0;
             this.pBExit.TabStop = false;
             this.pBExit.Click += new System.EventHandler(this.pBExit_Click);
@@ -1122,11 +1137,61 @@
             this.label22.TabIndex = 11;
             this.label22.Text = "指令位置 - 实际位置：";
             // 
+            // cklMeasureItems
+            // 
+            this.cklMeasureItems.CheckOnClick = true;
+            this.cklMeasureItems.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cklMeasureItems.FormattingEnabled = true;
+            this.cklMeasureItems.Items.AddRange(new object[] {
+            "指令电流",
+            "指令速度",
+            "指令位置",
+            "实际电流",
+            "实际速度",
+            "实际位置"});
+            this.cklMeasureItems.Location = new System.Drawing.Point(28, 3);
+            this.cklMeasureItems.Name = "cklMeasureItems";
+            this.cklMeasureItems.Size = new System.Drawing.Size(115, 172);
+            this.cklMeasureItems.TabIndex = 0;
+            this.cklMeasureItems.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.cklMeasureItems_ItemCheck);
+            // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.Location = new System.Drawing.Point(28, 181);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(46, 23);
+            this.btnSelectAll.TabIndex = 12;
+            this.btnSelectAll.Text = "全选";
+            this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            // 
+            // btnUnselectAll
+            // 
+            this.btnUnselectAll.Location = new System.Drawing.Point(91, 180);
+            this.btnUnselectAll.Name = "btnUnselectAll";
+            this.btnUnselectAll.Size = new System.Drawing.Size(52, 23);
+            this.btnUnselectAll.TabIndex = 13;
+            this.btnUnselectAll.Text = "全不选";
+            this.btnUnselectAll.UseVisualStyleBackColor = true;
+            this.btnUnselectAll.Click += new System.EventHandler(this.btnUnselectAll_Click);
+            // 
+            // pnlMeasureItems
+            // 
+            this.pnlMeasureItems.Controls.Add(this.cklMeasureItems);
+            this.pnlMeasureItems.Controls.Add(this.btnSelectAll);
+            this.pnlMeasureItems.Controls.Add(this.btnUnselectAll);
+            this.pnlMeasureItems.Location = new System.Drawing.Point(874, 137);
+            this.pnlMeasureItems.Name = "pnlMeasureItems";
+            this.pnlMeasureItems.Size = new System.Drawing.Size(172, 219);
+            this.pnlMeasureItems.TabIndex = 14;
+            // 
             // OscilloScope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1058, 703);
+            this.Controls.Add(this.pnlMeasureItems);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
@@ -1140,7 +1205,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OscilloScope";
-            this.Text = "Oscilloscope";
+            this.Text = "示波器";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OscilloScope_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OscilloScope_FormClosed);
             this.pLBoard.ResumeLayout(false);
@@ -1149,12 +1215,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pBRecordImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tBtrace)).EndInit();
             this.tCMonitor.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.gBPos.ResumeLayout(false);
             this.gBPos.PerformLayout();
@@ -1164,11 +1224,19 @@
             this.gBSpeed.PerformLayout();
             this.gBCurrent.ResumeLayout(false);
             this.gBCurrent.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUSmoothData)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.pLName.ResumeLayout(false);
             this.pLName.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picMinimized)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBSetUp)).EndInit();
+            this.pnlMeasureItems.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1189,7 +1257,6 @@
         private System.Windows.Forms.ListView lVMeasureItems;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ComboBox cBSpeedRatio;
@@ -1267,5 +1334,10 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.CheckedListBox cklMeasureItems;
+        private System.Windows.Forms.Button btnSelectAll;
+        private System.Windows.Forms.Button btnUnselectAll;
+        private System.Windows.Forms.Panel pnlMeasureItems;
+        private System.Windows.Forms.PictureBox picMinimized;
     }
 }

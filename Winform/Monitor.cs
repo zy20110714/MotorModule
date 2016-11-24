@@ -31,6 +31,7 @@ namespace ICDIBasic
         {
             InitializeComponent();
             pc = new PCan();
+            refresh();
         }
 
         private void Monitor_FormClosed(object sender, FormClosedEventArgs e)
@@ -337,5 +338,264 @@ namespace ICDIBasic
         }
 
         #endregion
+
+        //由给定的在参数表中的低位，返回高位+低位的32位数值
+        private int know32bitValue(byte low16bit)
+        {
+            pc.ReadWords(low16bit, 2, PCan.currentID);
+            Thread.Sleep(10);
+            byte[] tempL = BitConverter.GetBytes(Configuration.MemoryControlTable[low16bit]);
+            byte[] tempH = BitConverter.GetBytes(Configuration.MemoryControlTable[low16bit + 1]);
+            byte[] tempResult = new byte[] { tempL[0], tempL[1], tempH[0], tempH[1] };
+            int the32bitValue = BitConverter.ToInt32(tempResult, 0);
+            return the32bitValue;
+        }
+
+        //刷新监视器页面内容
+        private void refresh()
+        {
+            if (MessageProccessing.allID.Count > 0)
+            {
+                //显示当前圈数，功能不完善的临时用法，精确到小数点后2位
+                int currentPosition = know32bitValue(Configuration.SYS_POSITION_L);
+                float currentTurn = currentPosition / 65536f;
+                tBMultiTurn.Text = currentTurn.ToString("F2");
+
+                //显示当前电流
+                int currentCurrent = know32bitValue(Configuration.SYS_CURRENT_L);
+                tBCur.Text = currentCurrent.ToString();
+
+                //显示当前电压
+                pc.ReadWords(Configuration.SYS_VOLTAGE, 1, PCan.currentID);
+                Thread.Sleep(10);
+                short currentVoltage = Configuration.MemoryControlTable[Configuration.SYS_VOLTAGE];
+                tBVol.Text = currentVoltage.ToString();
+
+                //显示编码器读数
+                pc.ReadWords(Configuration.SYS_POSITION_L, 1, PCan.currentID);
+                pc.ReadWords(Configuration.SYS_POSITION_H, 1, PCan.currentID);
+                Thread.Sleep(10);
+                short SingleTurn = Configuration.MemoryControlTable[Configuration.SYS_POSITION_L];
+                short Multi_Turn = Configuration.MemoryControlTable[Configuration.SYS_POSITION_H];
+                tBSingleTurn.Text = SingleTurn.ToString();
+                tBMulti_Turn.Text = Multi_Turn.ToString();
+
+                //显示错误类型
+                pc.ReadWords(Configuration.SYS_ERROR, 1, PCan.currentID);
+                Thread.Sleep(10);
+                switch (Configuration.MemoryControlTable[Configuration.SYS_ERROR])
+                {
+                    case 1: tBError.Text = "过流"; break;
+                    case 2: tBError.Text = "过压"; break;
+                    case 4: tBError.Text = "欠压"; break;
+                    case 8: tBError.Text = "过温"; break;
+                    case 32: tBError.Text = "码盘错误"; break;
+                    case 128: tBError.Text = "电流检测错误"; break;
+                    default: tBError.Text = "无错误"; break;
+                }
+                tBVol.Text = currentVoltage.ToString();
+
+                //显示ID
+                pc.ReadWords(Configuration.SYS_ID, 1, PCan.currentID);
+                Thread.Sleep(10);
+                txtID.Text = Configuration.MemoryControlTable[Configuration.SYS_ID].ToString();
+
+                //上电使能情况
+                pc.ReadWords(Configuration.SYS_ENABLE_ON_POWER, 1, PCan.currentID);
+                Thread.Sleep(10);
+                switch (Configuration.MemoryControlTable[Configuration.SYS_ENABLE_ON_POWER])
+                {
+                    case 0: rdoDisable.Checked = true; rdoEnable.Checked = false; break;
+                    case 1: rdoDisable.Checked = false; rdoEnable.Checked = true; break;
+                    default: rdoDisable.Checked = false; rdoEnable.Checked = false; break;
+                }
+            }
+        }
+
+        //单击清除错误按钮
+        private void btnClearError_Click(object sender, EventArgs e)
+        {
+            pc.WriteOneWord(Configuration.SYS_CLEAR_ERROR, 0x01, PCan.currentID);
+            Thread.Sleep(10);
+            pc.WriteOneWord(Configuration.SYS_ENABLE_DRIVER, 0x01, PCan.currentID);
+            Thread.Sleep(10);
+            MessageBox.Show("清错并使能成功。");
+        }
+
+        //单击设置零位按钮
+        private void btnSetZeroPosition_Click(object sender, EventArgs e)
+        {
+            //如果当前是位置控制模式，则向内存控制表SYS_SET_ZERO_POS写入1
+            if ("3" == Configuration.MemoryControlTable[Convert.ToByte("30", 16)].ToString())
+            {
+                pc.WriteOneWord(Configuration.SYS_SET_ZERO_POS, 0x01, PCan.currentID);
+                Thread.Sleep(10);
+                //更新分类1
+                pc.ReadWords(16, 16, PCan.currentID);
+                Thread.Sleep(10);
+                //更新分类3，不更新出现了问题
+                pc.ReadWords(48, 16, PCan.currentID);
+                Thread.Sleep(10);
+                //给出下一步提示，可以直接点击烧写
+                MessageBox.Show("设置成功，请烧写Flash！");
+            }
+            else
+            {
+                MessageBox.Show("当前非位置控制模式！");
+            }
+        }
+
+        #region 标题栏的事件
+
+        private void pBExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private Point mousePoint = Point.Empty;
+
+        private void Title_MouseDown(object sender, MouseEventArgs e)
+        {
+            BringToFront();
+            if (e.Button == MouseButtons.Left)
+            {
+                mousePoint = MousePosition;
+            }
+        }
+
+        private void Title_MouseUp(object sender, MouseEventArgs e)
+        {
+            mousePoint = Point.Empty;
+        }
+
+        private void Title_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && mousePoint != Point.Empty)
+            {
+                Top += MousePosition.Y - mousePoint.Y;
+                Left += MousePosition.X - mousePoint.X;
+                mousePoint = MousePosition;
+            }
+        }
+
+        #endregion
+
+        //单击刷新按钮
+        private void Reload_Click(object sender, EventArgs e)
+        {
+            refresh();
+        }
+
+        //主要功能：隔1s自动刷新
+        private void tmrCheck_Tick(object sender, EventArgs e)
+        {
+            refresh();
+        }
+
+        //控制自动刷新定时器的启停
+        private void chkFasterReload_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tmrCheck.Enabled == true)
+            {
+                tmrCheck.Enabled = false;
+            }
+            else
+            {
+                tmrCheck.Enabled = true;
+            }
+        }
+
+        #region 输入ID
+
+        //输入txtID完毕后调用
+        private void txtID_InputDone()
+        {
+            try
+            {
+                byte tempID = Convert.ToByte(txtID.Text);
+                //更改内存控制表
+                pc.WriteOneWord(Configuration.SYS_ID, tempID, PCan.currentID);
+            }
+            catch (Exception ex)
+            {
+                txtID.Text = PCan.currentID.ToString();
+                MessageBox.Show(ex.Message+"\n请输入合法的数值！");
+            }
+        }
+
+        private void txtID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtID_InputDone();
+            }
+        }
+
+        private void txtID_Leave(object sender, EventArgs e)
+        {
+            txtID_InputDone();
+        }
+
+        #endregion
+
+        private void rdoEnable_Click(object sender, EventArgs e)
+        {
+            pc.WriteOneWord(Configuration.SYS_ENABLE_ON_POWER, 1, PCan.currentID);
+        }
+
+        private void rdoDisable_Click(object sender, EventArgs e)
+        {
+            pc.WriteOneWord(Configuration.SYS_ENABLE_ON_POWER, 0, PCan.currentID);
+        }
+
+        private void picMinimized_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
     }
+    ////主要功能：检测已连接的模块是否仍连接着
+    ////其他说明：程序启动时即开始该定时检测（间隔时间为2000 ms），模块若断开，不关闭程序则程序重启
+    //private void tMCheck_Tick(object sender, EventArgs e)
+    //{
+    //    refresh();
+
+    //    //根据cBID.Text来判断当前连接与否，连接了哪个
+    //    //if (cBID.Text != "")
+    //    //{
+    //    //    //如果选中了连接的模块，监测ID是否仍在线，掉线则弹出警告
+    //    //    MessageProccessing.allID2.Clear();//从List中移除所有元素，初始化allID2
+    //    //    pc.SearchModuleID();//返回ID号时，在MessageProccessing里会添加ID2
+    //    //    Thread.Sleep(150);//必须的，不然总显示断开连接——该功能不成熟
+    //    //    if (MessageProccessing.allID2.Contains(Convert.ToInt16(cBID.Text)))
+    //    //    {
+    //    //        //如果选中的ID仍在线，更新编码器多圈数据
+    //    //        pc.ReadOneWord(Configuration.SYS_POSITION_H, PCan.currentID);
+    //    //        tBMultiTurn.Text = Configuration.MemoryControlTable[Configuration.SYS_POSITION_H].ToString();
+    //    //    }
+    //    //    else
+    //    //    {
+    //    //        //该检测功能还不成熟
+    //    //        ////如果选中的模块掉线，则弹出警告
+    //    //        //string message = "您确定要关闭吗？";
+    //    //        //string caption = string.Format("模块{0}已断开连接！", cBID.Text);
+    //    //        //MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
+    //    //        //DialogResult result = MessageBox.Show(this, message, caption, buttons);
+    //    //        //switch (result)
+    //    //        //{
+    //    //        //    case DialogResult.Yes:
+    //    //        //        this.Close();
+    //    //        //        break;
+    //    //        //    case DialogResult.No:
+    //    //        //        Application.Restart();
+    //    //        //        break;
+    //    //        //    default: return;
+    //    //        //}
+    //    //    }
+    //    //}
+    //    //else
+    //    //{
+    //    //    //如果没有选中模块
+    //    //    ;
+    //    //}
+    //}
 }
