@@ -635,8 +635,6 @@
             this.Controls.Add(this.pLName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "TestRun";
             this.Text = "试运行";
             this.TopMost = true;

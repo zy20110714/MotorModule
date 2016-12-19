@@ -168,9 +168,9 @@ namespace ICDIBasic
             initialcklMeasureItems();
 
             //从文件设置电流、速度、位置（Y轴）缩放比例，并显示到界面
-            cr = Convert.ToDouble(IniFile.ContentValue("plRange", "Current", IniFile.StrProPath));
-            sr = Convert.ToDouble(IniFile.ContentValue("plRange", "Speed", IniFile.StrProPath));
-            pr = Convert.ToDouble(IniFile.ContentValue("plRange", "Position", IniFile.StrProPath));
+            //cr = Convert.ToDouble(IniFile.ContentValue("plRange", "Current", IniFile.StrProPath));
+            //sr = Convert.ToDouble(IniFile.ContentValue("plRange", "Speed", IniFile.StrProPath));
+            //pr = Convert.ToDouble(IniFile.ContentValue("plRange", "Position", IniFile.StrProPath));
             cBCurrentRatio.Text = cr.ToString();
             cBSpeedRatio.Text = sr.ToString();
             cBPositionRatio.Text = pr.ToString();

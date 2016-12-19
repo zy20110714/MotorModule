@@ -172,18 +172,18 @@ namespace ICDIBasic
 
         private void setAutomaticInitalValue()
         {
-            cBWaveForm.SelectedIndex = Convert.ToInt32(IniFile.ContentValue("TestRun", "WaveForm", IniFile.StrProPath));//从文件读入波形生成配置
-            string strWaveFrequency = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveFrequency", IniFile.StrProPath);
-            string strWaveAmplitude = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveAmplitude", IniFile.StrProPath);
-            string strWaveBias = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveBias", IniFile.StrProPath);
+            //cBWaveForm.SelectedIndex = Convert.ToInt32(IniFile.ContentValue("TestRun", "WaveForm", IniFile.StrProPath));//从文件读入波形生成配置
+            //string strWaveFrequency = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveFrequency", IniFile.StrProPath);
+            //string strWaveAmplitude = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveAmplitude", IniFile.StrProPath);
+            //string strWaveBias = IniFile.ContentValue("WaveForm" + cBWaveForm.SelectedIndex, "WaveBias", IniFile.StrProPath);
 
-            m_fFrequency = Convert.ToSingle(strWaveFrequency);
-            m_fAmplitude = Convert.ToSingle(strWaveAmplitude);
-            m_fBias = Convert.ToSingle(strWaveBias);
+            //m_fFrequency = Convert.ToSingle(strWaveFrequency);
+            //m_fAmplitude = Convert.ToSingle(strWaveAmplitude);
+            //m_fBias = Convert.ToSingle(strWaveBias);
 
-            tBFrequency.Text = strWaveFrequency;
-            tBAmplitude.Text = strWaveAmplitude;
-            tBBias.Text = strWaveBias;
+            //tBFrequency.Text = strWaveFrequency;
+            //tBAmplitude.Text = strWaveAmplitude;
+            //tBBias.Text = strWaveBias;
         }
 
         private void MamuallyControl()

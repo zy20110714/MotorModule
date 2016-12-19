@@ -118,17 +118,6 @@ namespace ICDIBasic
         private void InitializeBasicComponents()
         {
 
-
-            //Creates the list for received messages
-
-            //m_LastMsgsList = new System.Collections.ArrayList();
-            //Creates the delegate used for message reading
-
-
-            //m_ReadDelegate = new ReadDelegateHandler(ReadMessages);
-
-            //m_changeIDDelegate = new changeID(OnIDChange);
-
             //Creates the event used for signalize(发送信号指示) incomming messages
             m_ReceiveEvent = new AutoResetEvent(false);
             // Creates an array with all possible PCAN-Channels
@@ -506,12 +495,12 @@ namespace ICDIBasic
                 MessageBox.Show("CAN总线初始化失败！");
             }
 
-            ////调试用，临时允许出现5个窗口
-            //btnParameters.Enabled = true;
-            //btnRun.Enabled = true;
-            //btnWave.Enabled = true;
-            //btnMonitor.Enabled = true;
-            //btnFlash.Enabled = true;
+            //调试用，临时允许出现5个窗口
+            btnParameters.Enabled = true;
+            btnRun.Enabled = true;
+            btnWave.Enabled = true;
+            btnMonitor.Enabled = true;
+            btnFlash.Enabled = true;
         }
 
 
@@ -718,17 +707,10 @@ namespace ICDIBasic
             // Connects a selected PCAN-Basic channel
             //
             if (m_IsFD)
-                stsResult = PCANBasic.InitializeFD(
-                    m_PcanHandle,
-                    txtBitrate.Text);
+                stsResult = PCANBasic.InitializeFD( m_PcanHandle, txtBitrate.Text);
             else
                 m_Baudrate = TPCANBaudrate.PCAN_BAUD_1M;
-            stsResult = PCANBasic.Initialize(
-                m_PcanHandle,
-                m_Baudrate,
-                0,
-                0,
-                0);
+            stsResult = PCANBasic.Initialize(m_PcanHandle, m_Baudrate, 0, 0, 0);
 
             if (stsResult != TPCANStatus.PCAN_ERROR_OK)
                 if (stsResult != TPCANStatus.PCAN_ERROR_CAUTION)
@@ -861,7 +843,6 @@ namespace ICDIBasic
             tr.Show();
         }
 
-
         private void btnWave_Click(object sender, EventArgs e)
         {
             os = OscilloScope.GetInstance();
@@ -924,8 +905,6 @@ namespace ICDIBasic
                 tr.StopRandomMotion();//若随机运动控制运行中，则会产生停止效果
                 tr.clearValue();//若波形发生器运行中，则会产生停止效果
             }
-
-
 
             if (cBID.Text != "")
             {
